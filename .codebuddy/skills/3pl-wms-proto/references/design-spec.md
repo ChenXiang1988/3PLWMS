@@ -38,6 +38,7 @@
 | 信息软底 / 主色 | `--wx-info-soft` / `--wx-info-500` |
 | 圆角 / 阴影 / 边框 | `--wx-r-sm/md/pill`、`--wx-shadow`、`--wx-border` |
 | 布局尺寸 | `--wx-top-h` / `--wx-side-w` / `--wx-side-collapsed` / `--wx-head-h` |
+| 商城强调（价格、促销、主按钮） | `--wx-mall-50` / `--wx-mall-500` / `--wx-mall-600` |
 
 判据：`var(--wx-*)` 出现在页面模块里是合法的；`#rrggbb` 出现即违规。零依赖图表用内联 SVG 或纯 CSS，用令牌上色，不引图表库。
 
@@ -62,11 +63,11 @@
 - 页头钉住靠布局层级：`.wx-app` 固定高度、`.wx-page-body` 是唯一滚动容器，不用 `position:sticky`。
 - `.page` 默认 `display:none`，靠 `.page:not([hidden])` 显示。**任何写了 `display` 的组件都要补 `[hidden]{display:none}`**，否则 `display:flex` 会压过浏览器默认隐藏规则。
 - 登录层与会话面板挂 `.wx-app` 之后：登录层全屏覆盖，会话面板是弹层；两者不属于任何 `.page`，由共享外壳统一生成，不占页面注册表。
-- 三个端共用同一份登录状态机与错误提示表，端差异只体现在品牌副标题与登录后的身份名称。
+- 四个端共用同一份登录状态机与错误提示表，端差异只体现在品牌副标题与登录后的身份名称；商城端的用户块是采购账号。
 
-## 4. 四类页面骨架
+## 4. 五类页面骨架
 
-页面类型由 `modules.json` 的 `pages[].type` 声明，决定用哪套组件，不允许混搭。
+页面类型由 `modules.json` 的 `pages[].type` 声明，决定用哪套组件，不允许混搭。`shop` 只给 `shell = "mall"` 的商城端用，后台三端不得使用。
 
 | 类型 | 组件 | 结构 | 硬约束 |
 | --- | --- | --- | --- |
@@ -74,6 +75,7 @@
 | `detail` | `DetailPage` | 抬头字段网格 → 明细表 → 操作轨迹 → 底部操作条 | 抬头字段只读；明细用 `BaseTable`；不套状态页签与分页 |
 | `report` | `ReportHero` + `StatRow` + `Block` | 页头 → 指标卡 → 分节卡片 | 唯一允许摆 KPI 的类型；指标值由数据算，不写死数字 |
 | `scan` | `ScanPage` | 六段：导航 → 任务上下文 → 当前输入 → 对象摘要 → 数量与进度 → 操作 | 一屏只露当前一个输入；动作快照不铺成步骤表 |
+| `shop` | `ShopPage` | 页头 → 楼层 / 卡片 / 表单 / 摘要，由页面自己组合共享组件 | 只用于商城端；不套 `ListPage` / `DetailPage` / `ReportHero` / `ScanPage`；不用侧栏与页头页签；不写页面级脚本 |
 
 判据是「这页属于哪一类」，不是「组件能不能用」。报表页用了 `ReportHero` 或 `Block` 即豁免列表页禁令；列表页用了 `ListPage` 就不得出现 `StatRow` / `PageHeader`。
 
@@ -102,6 +104,9 @@
 | `ProgressCell(done, plan)` | 只展示进度，不自定义颜色 |
 | `EmptyState` | 一页一处，标题 + 一句说明 |
 | 抽屉 / 弹层 | 页面返回 `{ html, overlay }`，由构建挂 `<body>`；不写在 `.page` 内 |
+| `ShopPage` / `ShopHero` / `ShopCategory` / `ShopFloor` / `ProductCard` | 仅 `shop` 页；结构由组件出，页面模块只给数据 |
+| `CartTable` / `ShopSummary` / `OrderCard` / `ShopTable` / `ShopFields` / `ShopActions` | 仅 `shop` 页；金额一律由 `money()` 从单价与数量派生 |
+| `renderShopShell` | 仅 `shell = "mall"` 的端外壳，构建时调用一次 |
 
 状态中文名与色型的映射登记在 [glossary.md](glossary.md) 第 3 节，页面模块照抄，不自造词、不自造色型。
 
@@ -139,12 +144,15 @@
 | `data-login-submit` / `data-login-retry` | 登录按钮 / 重试按钮 | 统一提交与重试 |
 | `data-login-error` | 登录错误条 | 统一错误提示 |
 | `data-session-toggle` / `data-session-*` | 顶栏用户块 / 会话面板 | 登录态、令牌刷新与退出 |
+| `data-shop-target` 系列 | 商城外壳与卡片 | 切页统一用 `data-target`；`data-shop-cat` 类目筛选、`data-shop-search` 商品搜索、`data-shop-add` 加入进货单、`data-shop-qty` 数量增减、`data-shop-remove` 移除、`data-shop-submit` 提交订单、`data-shop-cart-count` 进货单角标、`data-shop-total` 合计 |
 
 ## 8. 非 SaaS 红线
 
 产物中禁止出现下列词与对应界面：租户、账号空间、按租户分库、订阅、套餐、充值、续费、试用到期、升级专业版、平台运营后台、主体切换器。
 
 3PL 的多货主是同一套部署内的业务数据维度，用「货主」字段、筛选与 `data-owner` 表达；不按租户做隔离话术，不画跨主体统计。报表与总览的口径是「本部署主体」，不是「全平台」。
+
+商城端的多店铺同理：一家店铺对应本部署内的一个货主，卖的是货主的在仓货，用「货主店铺」与店铺评分表达。店铺数量、评分与入驻入口不构成租户体系，不写订阅、套餐、充值、续费、试用到期、升级专业版，不画平台运营后台与主体切换器。本节红线词一个都不放宽。
 
 ## 9. 多人协作一致性
 

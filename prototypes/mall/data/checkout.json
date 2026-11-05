@@ -1,0 +1,13 @@
+{
+  "receiver": {
+    "receiverName": "华东采购中心",
+    "address": "上海市青浦区华新镇华志路 168 号",
+    "carrier": "华运干线",
+    "phone": "021-59880126"
+  },
+  "rows": [
+    { "skuCode": "SKU100231", "qty": 10 },
+    { "skuCode": "SKU100232", "qty": 4 },
+    { "skuCode": "SKU100198", "qty": 40 }
+  ]
+}

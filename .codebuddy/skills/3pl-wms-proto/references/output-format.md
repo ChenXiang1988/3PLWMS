@@ -14,7 +14,7 @@
 | 页面容器 | 每页一个 `<section class="page" data-page-id="<模块ID>/<页key>" hidden>`，切页由内联脚本用 `.page[data-page-id]` 完成 |
 | 源指纹 | `<html data-build="<sha256>">`，由构建对全部源文件算出；`--check` 比对 |
 | 不入库 | `.gitignore` 忽略 `prototypes/00 dist/` 与 `prototypes/*/dist/` |
-| 交付物 | `00 dist/<端名>.html` × 3 + 各模块 `pages/`、`data/`、`module.json` 源 |
+| 交付物 | `00 dist/<端名>.html` × 4 + 各模块 `pages/`、`data/`、`module.json` 源 |
 
 HTML 骨架（构建生成，不手写）：
 
@@ -54,9 +54,11 @@ HTML 骨架（构建生成，不手写）：
 - 切页写 `location.hash`，可刷新、可后退；初始无 hash 时落到本端第一页。
 - `.wx-scope{display:flex}` 这类规则必须同时存在全局 `[hidden]{display:none}`。
 
+商城端外壳（`apps[].shell = "mall"`）：根容器 `wx-shop-app`，顶栏是品牌、商品搜索框、进货单、我的订单与采购账号，下方是类目导航条、页面容器与页脚。没有侧栏、页头页签和货主下拉，也不摆装配元信息。类目、搜索、加购、数量增减、去结算、提交订单全由 `MALL_SCRIPT` 的 `data-shop-*` 驱动，产物里仍只有一份内联脚本（外加统一登录脚本）。商城端同样带登录层与会话面板。
+
 登录演示约定：
 
-- 每个端产物都带同一份登录层与会话面板，挂 `.wx-app` 之后、`<script>` 之前，由 `ui.mjs` 的 `renderLogin` / `LOGIN_CSS` / `LOGIN_SCRIPT` 生成，三个端的流程、错误码与提示逐字一致。
+- 每个端产物都带同一份登录层与会话面板，挂 `.wx-app` 之后、`<script>` 之前，由 `ui.mjs` 的 `renderLogin` / `LOGIN_CSS` / `LOGIN_SCRIPT` 生成，四个端的流程、错误码与提示逐字一致。
 - 登录前登录层覆盖全屏；登录成功后隐藏并写入会话态，刷新页面仍保持登录；令牌到期或退出登录时清除并回到登录层。
 - 账号密码、验证码、第三方登录共用一套提交状态机：加载 → 成功或失败 → 重试；连续失败 5 次锁定 60 秒；错误提示只从统一错误表取，不在各端另写一份。
 - 密码输入框只把摘要交给状态机，明文不留在 DOM 数据流里；会话面板展示令牌剩余时间，可刷新令牌、模拟令牌过期与退出登录。
@@ -96,7 +98,7 @@ export const PAGE_CSS = ``;
 唯一构建入口：`prototypes/build-app.mjs`（模板 `templates/build-app.mjs`）。
 
 ```bash
-node prototypes/build-app.mjs            # 构建三个端产物
+node prototypes/build-app.mjs            # 构建四个端产物
 node prototypes/build-app.mjs --check   # 只做源与产物的漂移检查，不写盘
 ```
 
@@ -110,6 +112,7 @@ node prototypes/build-app.mjs --check   # 只做源与产物的漂移检查，�
 | `[取值越界]` / `[色型]` / `[骨架]` / `[命名]` | 与 [design-spec.md](design-spec.md) 一致 |
 | `[页签]` | 非「全部」页签缺 `field` / `value` |
 | `[自包含]` / `[非SaaS]` / `[文案]` | 产物外链、红线词、过程文字、残留占位符 |
+| `[商城]` | 商城端缺前台外壳 / 进货单入口，或后台端混用商城外壳 |
 | `[基线]` | `--check` 发现源指纹与产物不一致 |
 
 判据：**构建通过是必要条件，不是充分条件**。[acceptance.md](acceptance.md) 的 B 组人工项仍要逐条过。
@@ -126,7 +129,7 @@ node prototypes/build-app.mjs --check   # 只做源与产物的漂移检查，�
 | 项 | 判据 |
 | --- | --- |
 | 源文件 | 各模块 `module.json`、全部 `pages/*.mjs` 与 `data/*.json`，加上 `build-app.mjs` 与 `01 shared/` |
-| 产物 | `prototypes/00 dist/` 下三个端 HTML 齐全，`--check` 报 `check ok` |
+| 产物 | `prototypes/00 dist/` 下四个端 HTML 齐全，`--check` 报 `check ok` |
 | 验收 | `verify-delivery.mjs`（不带 `--fast`）退出码 0 |
 | 人工核对 | [acceptance.md](acceptance.md) B 组逐条打勾 |
 | 清单字段 | `module.json` 的 `version` 已递增、`owner` 已填、`status` 置 `delivered`、`deliverables` 指向 `pages/`、`data/` |

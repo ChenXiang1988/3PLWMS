@@ -1,0 +1,12 @@
+{
+  "skuCode": "SKU100231",
+  "tiers": [
+    { "minQty": 5, "price": 62 },
+    { "minQty": 30, "price": 59 },
+    { "minQty": 100, "price": 56 }
+  ],
+  "batches": [
+    { "batchNo": "B20261012-01", "productionDate": "2026-10-12", "expiryDate": "2027-04-10", "qty": 180, "warehouse": "华东中心仓" },
+    { "batchNo": "B20261018-02", "productionDate": "2026-10-18", "expiryDate": "2027-04-16", "qty": 140, "warehouse": "华东中心仓" }
+  ]
+}

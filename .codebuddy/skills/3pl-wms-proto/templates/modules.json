@@ -4,9 +4,10 @@
   "edition": "独立部署版",
   "owners": ["全部", "海纳食品", "辰星日化", "云途电商"],
   "apps": [
-    { "id": "owner", "name": "货主端" },
-    { "id": "network", "name": "仓网管理端" },
-    { "id": "warehouse", "name": "单仓端" }
+    { "id": "owner", "name": "货主端", "shell": "admin" },
+    { "id": "network", "name": "仓网管理端", "shell": "admin" },
+    { "id": "warehouse", "name": "单仓端", "shell": "admin" },
+    { "id": "mall", "name": "商城端", "shell": "mall" }
   ],
   "modules": [
     {
@@ -15,10 +16,11 @@
       "prefix": "base-",
       "tier": "core",
       "deployed": true,
-      "owner": "",
-      "scope": "货主、商品、承运商主档与效期批次策略",
+      "owner": "产品组",
+      "scope": "货主、仓库、商品、承运商主档与效期批次策略",
       "pages": [
-        { "key": "owner-list", "name": "货主档案", "type": "list", "file": "pages/owner-list.mjs", "ownerScoped": false },
+        { "key": "owner-list", "name": "货主档案", "type": "list", "file": "pages/owner-list.mjs", "ownerScoped": false, "app": "network" },
+        { "key": "warehouse-list", "name": "仓库档案", "type": "list", "file": "pages/warehouse-list.mjs", "ownerScoped": false, "app": "network" },
         { "key": "sku-list", "name": "商品档案", "type": "list", "file": "pages/sku-list.mjs", "ownerScoped": true, "app": "network" },
         { "key": "carrier-list", "name": "承运商档案", "type": "list", "file": "pages/carrier-list.mjs", "ownerScoped": false },
         { "key": "sku-apply-list", "name": "商品资料变更申请", "type": "list", "file": "pages/sku-apply-list.mjs", "ownerScoped": true, "app": "owner" },
@@ -78,7 +80,7 @@
       "prefix": "iv-",
       "tier": "core",
       "deployed": true,
-      "owner": "",
+      "owner": "产品组",
       "scope": "实物账、流水、批次效期、总览与三端批次效期视图",
       "pages": [
         { "key": "stock-list", "name": "库存查询", "type": "list", "file": "pages/stock-list.mjs", "ownerScoped": true },
@@ -126,6 +128,23 @@
       "pages": [
         { "key": "user-list", "name": "账号管理", "type": "list", "file": "pages/user-list.mjs", "ownerScoped": false },
         { "key": "role-list", "name": "角色权限", "type": "list", "file": "pages/role-list.mjs", "ownerScoped": false }
+      ]
+    },
+    {
+      "id": "mall",
+      "name": "商城",
+      "prefix": "ml-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "商城首页、商品搜索、商品详情、进货单、确认订单、我的订单",
+      "pages": [
+        { "key": "home", "name": "商城首页", "type": "shop", "file": "pages/home.mjs", "ownerScoped": false, "app": "mall" },
+        { "key": "search", "name": "商品搜索", "type": "shop", "file": "pages/search.mjs", "ownerScoped": false, "app": "mall" },
+        { "key": "product-detail", "name": "商品详情", "type": "shop", "file": "pages/product-detail.mjs", "ownerScoped": false, "app": "mall" },
+        { "key": "cart", "name": "进货单", "type": "shop", "file": "pages/cart.mjs", "ownerScoped": false, "app": "mall" },
+        { "key": "checkout", "name": "确认订单", "type": "shop", "file": "pages/checkout.mjs", "ownerScoped": false, "app": "mall" },
+        { "key": "orders", "name": "我的订单", "type": "shop", "file": "pages/orders.mjs", "ownerScoped": false, "app": "mall" }
       ]
     }
   ]

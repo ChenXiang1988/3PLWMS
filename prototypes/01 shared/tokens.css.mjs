@@ -35,6 +35,9 @@ export const TOKENS_CSS = `
   --wx-error-500:#e5484d;
   --wx-info-soft:#eef2ff;
   --wx-info-500:#4f46e5;
+  --wx-mall-50:#fff7ed;
+  --wx-mall-500:#ea580c;
+  --wx-mall-600:#c2410c;
   --wx-fs-xs:12px;
   --wx-fs-sm:13px;
   --wx-fs-md:14px;

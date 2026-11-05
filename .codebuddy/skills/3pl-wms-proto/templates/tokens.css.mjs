@@ -35,6 +35,9 @@ export const TOKENS_CSS = `
   --wx-error-500:#e5484d;
   --wx-info-soft:#eef2ff;
   --wx-info-500:#4f46e5;
+  --wx-mall-50:#fff7ed;
+  --wx-mall-500:#ea580c;
+  --wx-mall-600:#c2410c;
   --wx-fs-xs:12px;
   --wx-fs-sm:13px;
   --wx-fs-md:14px;
@@ -52,8 +55,10 @@ export const TOKENS_CSS = `
   --wx-r-pill:999px;
   --wx-border:1px solid var(--wx-gray-200);
   --wx-shadow:0 1px 3px rgba(15,23,42,.08);
-  --wx-side-w:220px;
-  --wx-top-h:56px;
+  --wx-side-w:188px;
+  --wx-side-collapsed:64px;
+  --wx-top-h:54px;
+  --wx-head-h:54px;
   --wx-touch:44px;
 }
 *{box-sizing:border-box}

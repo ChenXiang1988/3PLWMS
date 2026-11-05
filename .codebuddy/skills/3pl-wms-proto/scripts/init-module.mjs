@@ -33,7 +33,7 @@ for (let i = 0; i < ARGS.length; i++) {
 const PROTO = path.join(ROOT, 'prototypes');
 const SHARED = path.join(PROTO, '01 shared');
 
-const TEMPLATE_BY_TYPE = { list: 'page-list.mjs', detail: 'page-detail.mjs', report: 'page-report.mjs', scan: 'page-scan.mjs' };
+const TEMPLATE_BY_TYPE = { list: 'page-list.mjs', detail: 'page-detail.mjs', report: 'page-report.mjs', scan: 'page-scan.mjs', shop: 'page-shop.mjs' };
 
 const read = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : null);
 const rel = (p) => path.relative(ROOT, p).replace(/\\/g, '/');

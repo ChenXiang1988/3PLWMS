@@ -1,0 +1,20 @@
+{
+  "categories": ["全部商品", "食品饮料", "日化清洁", "家居百货", "数码配件"],
+  "products": [
+    { "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "spec": "250ml×24", "unit": "箱", "category": "食品饮料", "owner": "海纳食品", "price": 62, "minQty": 5, "stock": 320, "sold": 1280, "score": "4.8", "tone": "food", "badge": "热销货源", "warehouse": "华东中心仓", "batchNo": "B20261012-01", "productionDate": "2026-10-12", "expiryDate": "2027-04-10", "shelfLifeDays": 180 },
+    { "skuCode": "SKU100175", "skuName": "海纳酸奶 100g×12", "spec": "100g×12", "unit": "箱", "category": "食品饮料", "owner": "海纳食品", "price": 28.5, "minQty": 5, "stock": 180, "sold": 860, "score": "4.8", "tone": "food", "badge": "临期特惠", "warehouse": "华东中心仓", "batchNo": "B20261028-03", "productionDate": "2026-10-28", "expiryDate": "2026-11-18", "shelfLifeDays": 21 },
+    { "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "spec": "2kg×6", "unit": "箱", "category": "日化清洁", "owner": "辰星日化", "price": 96, "minQty": 2, "stock": 180, "sold": 540, "score": "4.7", "tone": "daily", "badge": "热销货源", "warehouse": "华南中心仓", "batchNo": "B20260920-02", "productionDate": "2026-09-20", "expiryDate": "—", "shelfLifeDays": 0 },
+    { "skuCode": "SKU100142", "skuName": "辰星洗洁精 500ml×20", "spec": "500ml×20", "unit": "箱", "category": "日化清洁", "owner": "辰星日化", "price": 74, "minQty": 2, "stock": 96, "sold": 210, "score": "4.7", "tone": "daily", "badge": "新品上架", "warehouse": "华南中心仓", "batchNo": "B20261008-01", "productionDate": "2026-10-08", "expiryDate": "—", "shelfLifeDays": 0 },
+    { "skuCode": "SKU100198", "skuName": "云途收纳箱 45L", "spec": "45L", "unit": "件", "category": "家居百货", "owner": "云途电商", "price": 39, "minQty": 20, "stock": 860, "sold": 3200, "score": "4.9", "tone": "home", "badge": "热销货源", "warehouse": "华东中心仓", "batchNo": "B20260915-04", "productionDate": "2026-09-15", "expiryDate": "—", "shelfLifeDays": 0 },
+    { "skuCode": "SKU100206", "skuName": "云途蓝牙耳机 二代", "spec": "单只装", "unit": "件", "category": "数码配件", "owner": "云途电商", "price": 129, "minQty": 10, "stock": 240, "sold": 980, "score": "4.9", "tone": "digital", "badge": "新品上架", "warehouse": "华北中心仓", "batchNo": "B20261022-02", "productionDate": "2026-10-22", "expiryDate": "—", "shelfLifeDays": 0 },
+    { "skuCode": "SKU100311", "skuName": "云途全脂牛奶 250ml×24", "spec": "250ml×24", "unit": "箱", "category": "食品饮料", "owner": "云途电商", "price": 58, "minQty": 5, "stock": 150, "sold": 320, "score": "4.6", "tone": "food", "badge": "临期特惠", "warehouse": "华北中心仓", "batchNo": "B20261005-01", "productionDate": "2026-10-05", "expiryDate": "2026-12-02", "shelfLifeDays": 180 },
+    { "skuCode": "SKU100402", "skuName": "海纳常温酸奶礼盒 200g×12", "spec": "200g×12", "unit": "箱", "category": "食品饮料", "owner": "海纳食品", "price": 45, "minQty": 5, "stock": 210, "sold": 410, "score": "4.8", "tone": "food", "badge": "新品上架", "warehouse": "华东中心仓", "batchNo": "B20261030-01", "productionDate": "2026-10-30", "expiryDate": "2026-11-20", "shelfLifeDays": 21 },
+    { "skuCode": "SKU100355", "skuName": "辰星柔顺剂 1kg×12", "spec": "1kg×12", "unit": "箱", "category": "日化清洁", "owner": "辰星日化", "price": 88, "minQty": 2, "stock": 130, "sold": 260, "score": "4.7", "tone": "daily", "badge": "新品上架", "warehouse": "华南中心仓", "batchNo": "B20261019-03", "productionDate": "2026-10-19", "expiryDate": "—", "shelfLifeDays": 0 },
+    { "skuCode": "SKU100268", "skuName": "云途折叠收纳凳", "spec": "标准款", "unit": "件", "category": "家居百货", "owner": "云途电商", "price": 26, "minQty": 30, "stock": 520, "sold": 1400, "score": "4.9", "tone": "home", "badge": "热销货源", "warehouse": "华北中心仓", "batchNo": "B20260928-05", "productionDate": "2026-09-28", "expiryDate": "—", "shelfLifeDays": 0 }
+  ],
+  "floors": [
+    { "title": "热销货源", "note": "按已售数量排序", "skuCodes": ["SKU100231", "SKU100232", "SKU100198", "SKU100268"] },
+    { "title": "新品上架", "note": "近期上架的货主商品", "skuCodes": ["SKU100142", "SKU100206", "SKU100402", "SKU100355"] },
+    { "title": "临期特惠", "note": "按剩余效期排序", "skuCodes": ["SKU100175", "SKU100311"] }
+  ]
+}

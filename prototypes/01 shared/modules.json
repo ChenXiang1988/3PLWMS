@@ -4,9 +4,10 @@
   "edition": "独立部署版",
   "owners": ["全部", "海纳食品", "辰星日化", "云途电商"],
   "apps": [
-    { "id": "owner", "name": "货主端" },
-    { "id": "network", "name": "仓网管理端" },
-    { "id": "warehouse", "name": "单仓端" }
+    { "id": "owner", "name": "货主端", "shell": "admin" },
+    { "id": "network", "name": "仓网管理端", "shell": "admin" },
+    { "id": "warehouse", "name": "单仓端", "shell": "admin" },
+    { "id": "mall", "name": "商城端", "shell": "mall" }
   ],
   "modules": [
     {
@@ -127,6 +128,23 @@
       "pages": [
         { "key": "user-list", "name": "账号管理", "type": "list", "file": "pages/user-list.mjs", "ownerScoped": false },
         { "key": "role-list", "name": "角色权限", "type": "list", "file": "pages/role-list.mjs", "ownerScoped": false }
+      ]
+    },
+    {
+      "id": "mall",
+      "name": "商城",
+      "prefix": "ml-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "商城首页、商品搜索、商品详情、进货单、确认订单、我的订单",
+      "pages": [
+        { "key": "home", "name": "商城首页", "type": "shop", "file": "pages/home.mjs", "ownerScoped": false, "app": "mall" },
+        { "key": "search", "name": "商品搜索", "type": "shop", "file": "pages/search.mjs", "ownerScoped": false, "app": "mall" },
+        { "key": "product-detail", "name": "商品详情", "type": "shop", "file": "pages/product-detail.mjs", "ownerScoped": false, "app": "mall" },
+        { "key": "cart", "name": "进货单", "type": "shop", "file": "pages/cart.mjs", "ownerScoped": false, "app": "mall" },
+        { "key": "checkout", "name": "确认订单", "type": "shop", "file": "pages/checkout.mjs", "ownerScoped": false, "app": "mall" },
+        { "key": "orders", "name": "我的订单", "type": "shop", "file": "pages/orders.mjs", "ownerScoped": false, "app": "mall" }
       ]
     }
   ]

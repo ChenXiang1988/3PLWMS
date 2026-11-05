@@ -886,3 +886,422 @@ export const LOGIN_SCRIPT = `
   }
 })();
 `;
+
+/* ---------------- 商城前台组件（只给 shell = "mall" 的端用） ---------------- */
+
+export const SHOP_CATEGORIES = ['全部商品', '食品饮料', '日化清洁', '家居百货', '数码配件'];
+
+export function money(v) {
+  return '￥' + Number(v || 0).toFixed(2);
+}
+
+export function ShopPage({ title = '', note = '', body = '' } = {}) {
+  return `<div class="wx-shop-page"><div class="wx-shop-page-head"><h1>${esc(title)}</h1>`
+    + (note ? `<span>${esc(note)}</span>` : '') + `</div>`
+    + `<div class="wx-shop-page-body">${body}</div></div>`;
+}
+
+export function ShopHero({ title = '', note = '', marks = [], action = '继续选货' } = {}) {
+  const cards = marks.map((m) => `<div class="wx-shop-hero-mark"><span>${esc(m.label)}</span><b>${esc(m.value)}</b></div>`).join('');
+  return `<div class="wx-shop-hero"><div><h2>${esc(title)}</h2><p>${esc(note)}</p>`
+    + `<button type="button" class="wx-shop-btn" data-target="mall/search">${esc(action)}</button></div>`
+    + `<div class="wx-shop-hero-marks">${cards}</div></div>`;
+}
+
+export function ShopCategory({ items = [], count = 0 } = {}) {
+  const links = items.map((c) => `<button type="button" data-shop-cat="${esc(c)}">${esc(c)}</button>`).join('');
+  return `<div class="wx-shop-cats"><div class="wx-shop-cats-title">商品类目</div>${links}`
+    + `<div class="wx-shop-cats-note">共 ${esc(count)} 件商品</div></div>`;
+}
+
+export function ProductCard(p = {}) {
+  const tone = p.tone || 'food';
+  const short = String(p.skuName || '货').slice(0, 1);
+  const badge = p.badge ? `<em class="wx-shop-badge">${esc(p.badge)}</em>` : '';
+  return `<article class="wx-shop-card" data-shop-card data-cat="${esc(p.category || '')}" `
+    + `data-shop-name="${esc(p.skuName || '')}" data-shop-owner="${esc(p.owner || '')}">`
+    + `<div class="wx-shop-thumb wx-shop-thumb--${esc(tone)}">${esc(short)}${badge}</div>`
+    + `<div class="wx-shop-card-body">`
+    + `<button type="button" class="wx-shop-card-title" data-target="mall/product-detail">${esc(p.skuName)}</button>`
+    + `<span class="wx-shop-card-spec">${esc(p.spec)} · ${esc(p.unit)}</span>`
+    + `<div class="wx-shop-card-price"><b>${money(p.price)}</b><span>/ ${esc(p.unit)}</span></div>`
+    + `<div class="wx-shop-card-meta"><span>起批 ${esc(p.minQty)} ${esc(p.unit)}</span><span>可售 ${esc(p.stock)}</span></div>`
+    + `<div class="wx-shop-card-shop"><span>${esc(p.owner)}</span><em>店铺评分 ${esc(p.score)}</em></div>`
+    + `<div class="wx-shop-card-actions">`
+    + `<button type="button" class="wx-shop-btn" data-shop-add data-shop-sku="${esc(p.skuCode || '')}">加入进货单</button>`
+    + `<button type="button" class="wx-shop-btn wx-shop-btn--ghost" data-target="mall/product-detail">查看商品</button>`
+    + `</div></div></article>`;
+}
+
+export function ShopFloor({ title = '', note = '', more = '继续选货', cards = [] } = {}) {
+  return `<section class="wx-shop-floor"><div class="wx-shop-floor-head"><h2>${esc(title)}</h2>`
+    + `<span>${esc(note)}</span>${more ? `<button type="button" data-target="mall/search">${esc(more)}</button>` : ''}</div>`
+    + `<div class="wx-shop-grid">${cards.join('')}</div></section>`;
+}
+
+export function CartTable({ rows = [], readonly = false } = {}) {
+  const head = `<div class="wx-shop-table-head"><span>商品名称</span><span>单价</span><span>起批量</span>`
+    + `<span>数量</span><span>小计</span><span>操作</span></div>`;
+  const body = rows.map((r) => {
+    const qty = Number(r.qty || 1);
+    const qtyCell = readonly
+      ? `<input type="hidden" data-shop-qty-input value="${qty}">${esc(qty)} ${esc(r.unit || '')}`
+      : `<div class="wx-shop-qty"><button type="button" data-shop-qty="-1">−</button>`
+        + `<input type="text" data-shop-qty-input value="${qty}" readonly>`
+        + `<button type="button" data-shop-qty="1">+</button></div>`;
+    const action = readonly
+      ? `<span>—</span>`
+      : `<button type="button" class="wx-shop-link" data-shop-remove>移除</button>`;
+    return `<div class="wx-shop-cart-row" data-shop-cart-row data-shop-price="${Number(r.price || 0)}">`
+      + `<div class="wx-shop-cart-goods"><span class="wx-shop-thumb wx-shop-thumb--${esc(r.tone || 'food')} wx-shop-thumb--sm">${esc(String(r.skuName || '货').slice(0, 1))}</span>`
+      + `<div><b>${esc(r.skuName)}</b><span>${esc(r.spec)} · ${esc(r.owner)}</span></div></div>`
+      + `<span>${money(r.price)}</span><span>起批 ${esc(r.minQty)} ${esc(r.unit)}</span>`
+      + `<div>${qtyCell}</div>`
+      + `<b class="wx-shop-line-total" data-shop-line-total>${money(Number(r.price || 0) * qty)}</b>`
+      + `<div>${action}</div></div>`;
+  }).join('');
+  const total = rows.reduce((a, r) => a + Number(r.price || 0) * Number(r.qty || 1), 0);
+  return `<div class="wx-shop-table">${head}${body}`
+    + `<div class="wx-shop-cart-foot"><span>共 <b data-shop-item-count>${rows.length}</b> 件商品</span>`
+    + `<span>合计 <b data-shop-total>${money(total)}</b></span></div></div>`;
+}
+
+export function ShopFields({ items = [] } = {}) {
+  return `<div class="wx-shop-fields">${items.map((i) => `<div><span>${esc(i.label)}</span><b>${dash(i.value)}</b></div>`).join('')}</div>`;
+}
+
+export function ShopPanel({ title = '', body = '' } = {}) {
+  return `<div class="wx-shop-panel"><h2>${esc(title)}</h2>${body}</div>`;
+}
+
+export function ShopSummary({ freight = 0 } = {}) {
+  return `<div class="wx-shop-summary">`
+    + `<div><span>商品金额</span><b data-shop-goods-total>—</b></div>`
+    + `<div><span>运费</span><b>${money(freight)}</b></div>`
+    + `<div class="wx-shop-summary-total"><span>应付合计</span><b data-shop-total>—</b></div></div>`;
+}
+
+export function OrderCard(o = {}) {
+  return `<article class="wx-shop-order"><div class="wx-shop-order-head">`
+    + `<span>订单编号 ${esc(o.orderNo)}</span><span>下单时间 ${esc(o.createdAt)}</span>${o.statusHtml || ''}</div>`
+    + `<div class="wx-shop-order-body"><span class="wx-shop-thumb wx-shop-thumb--${esc(o.tone || 'food')} wx-shop-thumb--sm">${esc(String(o.skuName || '货').slice(0, 1))}</span>`
+    + `<div><b>${esc(o.skuName)}</b><small>${esc(o.owner)} · ${esc(o.qty)} ${esc(o.unit)} · ${money(o.price)} / ${esc(o.unit)}</small></div>`
+    + `<b class="wx-shop-order-amount">${money(Number(o.price || 0) * Number(o.qty || 1))}</b></div>`
+    + `<div class="wx-shop-order-foot"><span>履约单号 ${esc(o.soNo)}</span><span>承运商 ${esc(o.carrier)}</span>`
+    + `<button type="button" class="wx-shop-btn wx-shop-btn--ghost" data-toast="查看订单（原型示意）">查看订单</button></div></article>`;
+}
+
+export function ShopFilter({ categories = [], owners = [] } = {}) {
+  const cats = categories.map((c) => `<button type="button" class="wx-shop-chip" data-shop-cat="${esc(c)}">${esc(c)}</button>`).join('');
+  const shops = owners.map((o) => `<button type="button" class="wx-shop-chip" data-toast="${esc(o)}（原型示意）">${esc(o)}</button>`).join('');
+  return `<div class="wx-shop-filter"><span class="wx-shop-filter-label">商品类目</span>${cats}`
+    + `<span class="wx-shop-filter-label">货主店铺</span>${shops}</div>`;
+}
+
+export function renderShopShell({ product = '', appName = '', userLabel = '', nav = [], categories = [], cartCount = 0, content = '' } = {}) {
+  const navHtml = nav.map((n) => `<button type="button" class="wx-shop-nav-item${n.id === 'mall/home' ? ' is-active' : ''}" data-target="${esc(n.id)}">${esc(n.name)}</button>`).join('');
+  const catHtml = categories.map((c) => `<button type="button" class="wx-shop-cat-item${c === '全部商品' ? ' is-active' : ''}" data-shop-cat="${esc(c)}">${esc(c)}</button>`).join('');
+  return `<div class="wx-shop-app">\n`
+    + `<header class="wx-shop-top"><div class="wx-shop-top-inner">`
+    + `<button type="button" class="wx-shop-brand" data-target="mall/home"><span class="wx-shop-brand-mark">仓</span>`
+    + `<span class="wx-shop-brand-copy"><b>${esc(product)}</b><small>${esc(appName)}</small></span></button>`
+    + `<div class="wx-shop-search"><input type="text" data-shop-search placeholder="搜索商品" aria-label="搜索商品">`
+    + `<button type="button" data-shop-search-go>搜索商品</button></div>`
+    + `<div class="wx-shop-top-tools">`
+    + `<button type="button" class="wx-shop-tool" data-target="mall/cart">进货单 <span class="wx-shop-cart-count" data-shop-cart-count>${esc(cartCount)}</span></button>`
+    + `<button type="button" class="wx-shop-tool" data-target="mall/orders">我的订单</button>`
+    + `<button type="button" class="wx-shop-user" data-session-toggle>${esc(userLabel)}</button>`
+    + `</div></div></header>\n`
+    + `<nav class="wx-shop-nav"><div class="wx-shop-nav-inner">${navHtml}`
+    + `<span class="wx-shop-nav-sep"></span>${catHtml}</div></nav>\n`
+    + `<main class="wx-shop-main">${content}</main>\n`
+    + `<footer class="wx-shop-foot">${esc(product)} · ${esc(appName)}｜货源由本部署货主提供，下单后由出库订单履约</footer>\n`
+    + `<div class="wx-toast" hidden></div></div>\n`;
+}
+
+/* ---------------- 商城前台样式（结构层，色值只在 tokens.css.mjs） ---------------- */
+
+export const MALL_CSS = `
+.wx-shop-app{min-height:100vh;background:var(--wx-gray-50)}
+.wx-shop-top{position:sticky;top:0;z-index:100;background:var(--wx-white);border-bottom:var(--wx-border)}
+.wx-shop-top-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:var(--wx-sp-6);padding:var(--wx-sp-3) var(--wx-sp-6)}
+.wx-shop-brand{display:flex;align-items:center;gap:var(--wx-sp-2);cursor:pointer;border:0;background:transparent;padding:0}
+.wx-shop-brand-mark{width:36px;height:36px;display:grid;place-items:center;border-radius:var(--wx-r-md);background:var(--wx-mall-500);color:var(--wx-white);font-size:var(--wx-fs-lg);font-weight:700}
+.wx-shop-brand-copy{display:flex;flex-direction:column;line-height:1.2;text-align:left}
+.wx-shop-brand-copy b{font-size:var(--wx-fs-lg)}
+.wx-shop-brand-copy small{font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-shop-search{flex:1;display:flex;height:38px;border:2px solid var(--wx-mall-500);border-radius:var(--wx-r-sm);overflow:hidden}
+.wx-shop-search input{flex:1;min-width:0;border:0;outline:none;padding:0 var(--wx-sp-3);font-size:var(--wx-fs-md);background:var(--wx-white)}
+.wx-shop-search button{border:0;background:var(--wx-mall-500);color:var(--wx-white);padding:0 var(--wx-sp-6);font-size:var(--wx-fs-md);font-weight:600}
+.wx-shop-top-tools{display:flex;align-items:center;gap:var(--wx-sp-2)}
+.wx-shop-tool{border:var(--wx-border);border-radius:var(--wx-r-sm);background:var(--wx-white);padding:var(--wx-sp-2) var(--wx-sp-3);font-size:var(--wx-fs-sm);color:var(--wx-gray-700)}
+.wx-shop-tool:hover{border-color:var(--wx-mall-500);color:var(--wx-mall-600)}
+.wx-shop-cart-count{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 var(--wx-sp-1);border-radius:var(--wx-r-pill);background:var(--wx-mall-500);color:var(--wx-white);font-size:var(--wx-fs-xs);margin-left:var(--wx-sp-1)}
+.wx-shop-user{border:0;background:transparent;font-size:var(--wx-fs-sm);color:var(--wx-gray-700);padding:var(--wx-sp-2)}
+.wx-shop-nav{background:var(--wx-white);border-bottom:var(--wx-border)}
+.wx-shop-nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:var(--wx-sp-4);padding:0 var(--wx-sp-6);flex-wrap:wrap}
+.wx-shop-nav-item,.wx-shop-cat-item{border:0;background:transparent;padding:var(--wx-sp-3) 0;font-size:var(--wx-fs-md);color:var(--wx-gray-700)}
+.wx-shop-nav-item.is-active,.wx-shop-cat-item.is-active{color:var(--wx-mall-600);font-weight:700}
+.wx-shop-cat-item{color:var(--wx-gray-500);font-size:var(--wx-fs-sm)}
+.wx-shop-nav-sep{width:1px;height:16px;background:var(--wx-gray-200)}
+.wx-shop-main{max-width:1200px;margin:0 auto;padding:var(--wx-sp-6)}
+.wx-shop-foot{border-top:var(--wx-border);background:var(--wx-white);padding:var(--wx-sp-6);text-align:center;font-size:var(--wx-fs-xs);color:var(--wx-gray-400)}
+.wx-shop-page-head{display:flex;align-items:baseline;gap:var(--wx-sp-4);margin-bottom:var(--wx-sp-4)}
+.wx-shop-page-head h1{margin:0;font-size:var(--wx-fs-xl);color:var(--wx-gray-900)}
+.wx-shop-page-head span{font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
+.wx-shop-hero{display:grid;grid-template-columns:1fr 260px;gap:var(--wx-sp-6);align-items:center;padding:var(--wx-sp-8);border-radius:var(--wx-r-md);background:var(--wx-mall-50);border:var(--wx-border);margin-bottom:var(--wx-sp-6)}
+.wx-shop-hero h2{margin:0 0 var(--wx-sp-2);font-size:var(--wx-fs-2xl);color:var(--wx-mall-600)}
+.wx-shop-hero p{margin:0 0 var(--wx-sp-4);font-size:var(--wx-fs-md);color:var(--wx-gray-700)}
+.wx-shop-btn{border:0;border-radius:var(--wx-r-sm);background:var(--wx-mall-500);color:var(--wx-white);padding:var(--wx-sp-2) var(--wx-sp-4);min-height:36px;font-size:var(--wx-fs-sm);font-weight:600}
+.wx-shop-btn--ghost{background:var(--wx-white);color:var(--wx-gray-700);border:var(--wx-border);font-weight:400}
+.wx-shop-hero-marks{display:flex;flex-direction:column;gap:var(--wx-sp-2)}
+.wx-shop-hero-mark{display:flex;align-items:center;justify-content:space-between;padding:var(--wx-sp-3) var(--wx-sp-4);background:var(--wx-white);border-radius:var(--wx-r-sm);font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
+.wx-shop-hero-mark b{font-size:var(--wx-fs-lg);color:var(--wx-mall-600);font-variant-numeric:tabular-nums}
+.wx-shop-home-grid{display:grid;grid-template-columns:200px 1fr;gap:var(--wx-sp-4);margin-bottom:var(--wx-sp-6)}
+.wx-shop-cats{background:var(--wx-white);border:var(--wx-border);border-radius:var(--wx-r-md);padding:var(--wx-sp-3)}
+.wx-shop-cats-title{font-size:var(--wx-fs-md);font-weight:700;padding:var(--wx-sp-2) var(--wx-sp-3);color:var(--wx-gray-900)}
+.wx-shop-cats button{display:block;width:100%;text-align:left;border:0;background:transparent;padding:var(--wx-sp-2) var(--wx-sp-3);border-radius:var(--wx-r-sm);font-size:var(--wx-fs-sm);color:var(--wx-gray-700)}
+.wx-shop-cats button:hover,.wx-shop-cats button.is-active{background:var(--wx-mall-50);color:var(--wx-mall-600)}
+.wx-shop-cats-note{padding:var(--wx-sp-3);font-size:var(--wx-fs-xs);color:var(--wx-gray-400);border-top:var(--wx-border);margin-top:var(--wx-sp-2)}
+.wx-shop-floor{background:var(--wx-white);border:var(--wx-border);border-radius:var(--wx-r-md);padding:var(--wx-sp-4);margin-bottom:var(--wx-sp-4)}
+.wx-shop-floor-head{display:flex;align-items:baseline;gap:var(--wx-sp-3);margin-bottom:var(--wx-sp-4)}
+.wx-shop-floor-head h2{margin:0;font-size:var(--wx-fs-lg);color:var(--wx-gray-900)}
+.wx-shop-floor-head span{flex:1;font-size:var(--wx-fs-xs);color:var(--wx-gray-400)}
+.wx-shop-floor-head button{border:0;background:transparent;color:var(--wx-mall-600);font-size:var(--wx-fs-sm)}
+.wx-shop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--wx-sp-4)}
+.wx-shop-card{border:var(--wx-border);border-radius:var(--wx-r-md);background:var(--wx-white);overflow:hidden;display:flex;flex-direction:column}
+.wx-shop-thumb{position:relative;height:140px;display:grid;place-items:center;font-size:var(--wx-fs-2xl);font-weight:700;border-radius:var(--wx-r-sm)}
+.wx-shop-thumb--food{background:var(--wx-warn-soft);color:var(--wx-warn-500)}
+.wx-shop-thumb--daily{background:var(--wx-info-soft);color:var(--wx-info-500)}
+.wx-shop-thumb--home{background:var(--wx-success-soft);color:var(--wx-success-500)}
+.wx-shop-thumb--digital{background:var(--wx-primary-50);color:var(--wx-primary-600)}
+.wx-shop-thumb--sm{width:44px;height:44px;font-size:var(--wx-fs-md);flex:0 0 auto}
+.wx-shop-badge{position:absolute;left:var(--wx-sp-2);top:var(--wx-sp-2);font-style:normal;font-size:var(--wx-fs-xs);padding:2px var(--wx-sp-2);border-radius:var(--wx-r-sm);background:var(--wx-mall-500);color:var(--wx-white)}
+.wx-shop-card-body{padding:var(--wx-sp-3);display:flex;flex-direction:column;gap:var(--wx-sp-2)}
+.wx-shop-card-title{font-size:var(--wx-fs-md);font-weight:600;line-height:1.4;cursor:pointer;border:0;background:transparent;padding:0;text-align:left;color:var(--wx-gray-900)}
+.wx-shop-card-spec{font-size:var(--wx-fs-xs);color:var(--wx-gray-400)}
+.wx-shop-card-price{display:flex;align-items:baseline;gap:var(--wx-sp-1)}
+.wx-shop-card-price b{font-size:var(--wx-fs-xl);color:var(--wx-mall-600);font-variant-numeric:tabular-nums}
+.wx-shop-card-price span{font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-shop-card-meta{display:flex;justify-content:space-between;font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-shop-card-shop{display:flex;justify-content:space-between;align-items:center;padding-top:var(--wx-sp-2);border-top:var(--wx-border);font-size:var(--wx-fs-xs);color:var(--wx-gray-700)}
+.wx-shop-card-shop em{font-style:normal;color:var(--wx-mall-600)}
+.wx-shop-card-actions{display:flex;gap:var(--wx-sp-2);margin-top:var(--wx-sp-1)}
+.wx-shop-card-actions .wx-shop-btn{flex:1;padding:var(--wx-sp-2) var(--wx-sp-1)}
+.wx-shop-card-actions .wx-shop-btn--ghost{flex:0 0 auto}
+.wx-shop-table{background:var(--wx-white);border:var(--wx-border);border-radius:var(--wx-r-md);overflow:hidden}
+.wx-shop-table-head,.wx-shop-cart-row{display:grid;grid-template-columns:2.2fr 1fr 1fr 1.1fr 1fr .7fr;gap:var(--wx-sp-3);align-items:center;padding:var(--wx-sp-3) var(--wx-sp-4)}
+.wx-shop-table-head{background:var(--wx-gray-50);font-size:var(--wx-fs-xs);color:var(--wx-gray-500);border-bottom:var(--wx-border)}
+.wx-shop-cart-row{border-bottom:var(--wx-border);font-size:var(--wx-fs-sm)}
+.wx-shop-cart-goods{display:flex;align-items:center;gap:var(--wx-sp-3);min-width:0}
+.wx-shop-cart-goods div{display:flex;flex-direction:column;gap:var(--wx-sp-1);min-width:0}
+.wx-shop-cart-goods b{font-size:var(--wx-fs-sm);font-weight:600}
+.wx-shop-cart-goods span:not(.wx-shop-thumb){font-size:var(--wx-fs-xs);color:var(--wx-gray-400)}
+.wx-shop-qty{display:flex;align-items:center;border:var(--wx-border);border-radius:var(--wx-r-sm);overflow:hidden;width:fit-content}
+.wx-shop-qty button{width:28px;height:30px;border:0;background:var(--wx-gray-50);font-size:var(--wx-fs-md)}
+.wx-shop-qty input{width:44px;height:30px;border:0;text-align:center;font-size:var(--wx-fs-sm);background:var(--wx-white)}
+.wx-shop-line-total{color:var(--wx-mall-600);font-variant-numeric:tabular-nums}
+.wx-shop-link{border:0;background:transparent;color:var(--wx-gray-500);font-size:var(--wx-fs-sm)}
+.wx-shop-cart-foot{display:flex;justify-content:flex-end;align-items:center;gap:var(--wx-sp-4);padding:var(--wx-sp-4);font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
+.wx-shop-cart-foot b{color:var(--wx-mall-600);font-size:var(--wx-fs-lg);font-variant-numeric:tabular-nums}
+.wx-shop-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--wx-sp-4);padding:var(--wx-sp-4);background:var(--wx-white);border:var(--wx-border);border-radius:var(--wx-r-md);margin-bottom:var(--wx-sp-4)}
+.wx-shop-fields div{display:flex;flex-direction:column;gap:var(--wx-sp-1)}
+.wx-shop-fields span{font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-shop-fields b{font-size:var(--wx-fs-md);font-weight:600}
+.wx-shop-panel{background:var(--wx-white);border:var(--wx-border);border-radius:var(--wx-r-md);padding:var(--wx-sp-4);margin-bottom:var(--wx-sp-4);box-shadow:var(--wx-shadow)}
+.wx-shop-panel h2{margin:0 0 var(--wx-sp-4);font-size:var(--wx-fs-md)}
+.wx-shop-shop-row{display:flex;align-items:center;gap:var(--wx-sp-4);padding:var(--wx-sp-3) var(--wx-sp-4);border-bottom:var(--wx-border)}
+.wx-shop-shop-row:last-child{border-bottom:0}
+.wx-shop-shop-row b{font-size:var(--wx-fs-md)}
+.wx-shop-shop-row span{font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-shop-shop-row em{margin-left:auto;font-style:normal;color:var(--wx-mall-600);font-size:var(--wx-fs-sm)}
+.wx-shop-shop-row button{margin-left:var(--wx-sp-2)}
+.wx-shop-summary{margin-left:auto;width:320px;display:flex;flex-direction:column;gap:var(--wx-sp-2);padding:var(--wx-sp-4);background:var(--wx-gray-50);border-radius:var(--wx-r-sm)}
+.wx-shop-summary div{display:flex;justify-content:space-between;font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
+.wx-shop-summary b{font-variant-numeric:tabular-nums}
+.wx-shop-summary .wx-shop-summary-total{border-top:var(--wx-border);padding-top:var(--wx-sp-2);font-size:var(--wx-fs-md);color:var(--wx-gray-900)}
+.wx-shop-summary .wx-shop-summary-total b{color:var(--wx-mall-600);font-size:var(--wx-fs-xl)}
+.wx-shop-actions{display:flex;justify-content:flex-end;gap:var(--wx-sp-3);padding:var(--wx-sp-4) 0}
+.wx-shop-order{background:var(--wx-white);border:var(--wx-border);border-radius:var(--wx-r-md);margin-bottom:var(--wx-sp-4);overflow:hidden}
+.wx-shop-order-head{display:flex;align-items:center;gap:var(--wx-sp-4);padding:var(--wx-sp-3) var(--wx-sp-4);background:var(--wx-gray-50);font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
+.wx-shop-order-head span:first-child{color:var(--wx-gray-900);font-weight:600}
+.wx-shop-order-body{display:flex;align-items:center;gap:var(--wx-sp-3);padding:var(--wx-sp-4)}
+.wx-shop-order-body div{display:flex;flex-direction:column;gap:var(--wx-sp-1);flex:1}
+.wx-shop-order-body b{font-size:var(--wx-fs-md)}
+.wx-shop-order-body small{font-size:var(--wx-fs-xs);color:var(--wx-gray-400)}
+.wx-shop-order-body .wx-shop-order-amount{font-size:var(--wx-fs-lg);color:var(--wx-mall-600);font-variant-numeric:tabular-nums}
+.wx-shop-order-foot{display:flex;align-items:center;gap:var(--wx-sp-4);padding:var(--wx-sp-3) var(--wx-sp-4);border-top:var(--wx-border);font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-shop-order-foot button{margin-left:auto}
+.wx-shop-filter{display:flex;align-items:center;gap:var(--wx-sp-2);flex-wrap:wrap;margin-bottom:var(--wx-sp-4)}
+.wx-shop-filter-label{font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
+.wx-shop-chip{border:var(--wx-border);border-radius:var(--wx-r-pill);background:var(--wx-white);padding:var(--wx-sp-1) var(--wx-sp-3);font-size:var(--wx-fs-sm);color:var(--wx-gray-700)}
+.wx-shop-chip.is-active{background:var(--wx-mall-50);border-color:var(--wx-mall-500);color:var(--wx-mall-600)}
+.wx-shop-empty{margin-top:var(--wx-sp-4)}
+.wx-shop-detail{display:grid;grid-template-columns:260px 1fr;gap:var(--wx-sp-6);padding:var(--wx-sp-4);background:var(--wx-white);border:var(--wx-border);border-radius:var(--wx-r-md);margin-bottom:var(--wx-sp-4)}
+.wx-shop-thumb--lg{height:220px;font-size:var(--wx-fs-2xl)}
+.wx-shop-detail-copy{display:flex;flex-direction:column;gap:var(--wx-sp-3)}
+.wx-shop-detail-copy>b{font-size:var(--wx-fs-xl)}
+.wx-shop-detail-copy>span{font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
+.wx-shop-detail-copy .wx-shop-card-price b{font-size:var(--wx-fs-2xl)}
+.wx-shop-detail-copy .wx-shop-card-actions{max-width:320px}
+@media (max-width:1080px){.wx-shop-grid{grid-template-columns:repeat(3,1fr)}.wx-shop-home-grid{grid-template-columns:160px 1fr}}
+@media (max-width:800px){.wx-shop-grid{grid-template-columns:repeat(2,1fr)}.wx-shop-home-grid,.wx-shop-hero{grid-template-columns:1fr}.wx-shop-fields{grid-template-columns:repeat(2,1fr)}.wx-shop-table-head,.wx-shop-cart-row{grid-template-columns:2fr 1fr 1fr 1fr}}
+`;
+
+export function ShopHomeGrid({ side = '', main = '' } = {}) {
+  return `<div class="wx-shop-home-grid"><div>${side}</div><div>${main}</div></div>`;
+}
+
+export function ShopRow({ name = '', note = '', value = '', action = '' } = {}) {
+  const btn = action
+    ? `<button type="button" class="wx-shop-btn wx-shop-btn--ghost" data-toast="${esc(action)}（原型示意）">${esc(action)}</button>`
+    : '';
+  return `<div class="wx-shop-shop-row"><b>${esc(name)}</b><span>${esc(note)}</span><em>${esc(value)}</em>${btn}</div>`;
+}
+
+export function ShopResult({ count = 0 } = {}) {
+  return `<div class="wx-shop-filter"><span class="wx-shop-filter-label">共 <b data-shop-result-count>${esc(count)}</b> 件商品</span></div>`;
+}
+
+export function ShopEmpty() {
+  return `<div class="wx-empty wx-shop-empty" data-shop-empty hidden><b>暂无商品</b><span>当前筛选条件下没有任何记录。</span></div>`;
+}
+
+export function ShopTable({ columns = [], rows = [] } = {}) {
+  const head = columns.map((c) => `<th>${esc(c.label)}</th>`).join('');
+  const body = rows.map((r) => `<tr>${columns.map((c) => `<td>${dash(r[c.key])}</td>`).join('')}</tr>`).join('');
+  return `<div class="wx-shop-table"><table class="wx-table"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
+}
+
+export function ShopActions({ items = [] } = {}) {
+  const attrs = (i) => [
+    i.target ? `data-target="${esc(i.target)}"` : '',
+    i.submit ? 'data-shop-submit' : '',
+    i.toast ? `data-toast="${esc(i.toast)}"` : '',
+  ].filter(Boolean).join(' ');
+  return `<div class="wx-shop-actions">${items.map((i) => `<button type="button" class="wx-shop-btn${i.ghost ? ' wx-shop-btn--ghost' : ''}" ${attrs(i)}>${esc(i.label)}</button>`).join('')}</div>`;
+}
+
+export function ShopDetailHero(p = {}) {
+  return `<div class="wx-shop-detail"><div class="wx-shop-thumb wx-shop-thumb--${esc(p.tone || 'food')} wx-shop-thumb--lg">${esc(String(p.skuName || '货').slice(0, 1))}</div>`
+    + `<div class="wx-shop-detail-copy"><b>${esc(p.skuName)}</b>`
+    + `<span>${esc(p.spec)} · ${esc(p.unit)} · ${esc(p.owner)}</span>`
+    + `<div class="wx-shop-card-price"><b>${money(p.price)}</b><span>/ ${esc(p.unit)}</span></div>`
+    + `<span>起批 ${esc(p.minQty)} ${esc(p.unit)} · 可售 ${esc(p.stock)} · 店铺评分 ${esc(p.score)}</span>`
+    + `<div class="wx-shop-card-actions">`
+    + `<button type="button" class="wx-shop-btn" data-shop-add data-shop-sku="${esc(p.skuCode || '')}">加入进货单</button>`
+    + `<button type="button" class="wx-shop-btn wx-shop-btn--ghost" data-target="mall/checkout">立即下单</button>`
+    + `</div></div></div>`;
+}
+
+/* ---------------- 商城前台交互（构建内联一份） ---------------- */
+
+export const MALL_SCRIPT = `
+(function(){
+  function pages(){ return Array.prototype.slice.call(document.querySelectorAll('.page[data-page-id]')); }
+  function current(){ return document.querySelector('.page[data-page-id]:not([hidden])'); }
+  function toast(text){
+    var t = document.querySelector('.wx-toast');
+    if (!t) return;
+    t.textContent = text; t.hidden = false;
+    window.setTimeout(function(){ t.hidden = true; }, 2200);
+  }
+  function money(v){ return '￥' + Number(v || 0).toFixed(2); }
+  var cat = '全部商品', q = '', cartCount = 0;
+  function activate(id, push){
+    var hit = null;
+    pages().forEach(function(p){
+      var on = p.getAttribute('data-page-id') === id;
+      p.hidden = !on;
+      if (on) hit = p;
+    });
+    if (!hit) return;
+    Array.prototype.slice.call(document.querySelectorAll('.wx-shop-nav-item')).forEach(function(b){
+      b.classList.toggle('is-active', b.getAttribute('data-target') === id);
+    });
+    window.scrollTo(0, 0);
+    if (push !== false) { try { location.hash = id; } catch(e){} }
+  }
+  function setCat(value){
+    cat = value || '全部商品';
+    Array.prototype.slice.call(document.querySelectorAll('[data-shop-cat]')).forEach(function(b){
+      b.classList.toggle('is-active', b.getAttribute('data-shop-cat') === cat);
+    });
+  }
+  function applyFilter(){
+    var page = document.querySelector('.page[data-page-id="mall/search"]');
+    if (!page) return;
+    var shown = 0;
+    Array.prototype.slice.call(page.querySelectorAll('[data-shop-card]')).forEach(function(c){
+      var okCat = cat === '全部商品' || (c.getAttribute('data-cat') || '') === cat;
+      var okQ = !q || (c.getAttribute('data-shop-name') || '').indexOf(q) !== -1;
+      var ok = okCat && okQ;
+      c.hidden = !ok;
+      if (ok) shown++;
+    });
+    var empty = page.querySelector('[data-shop-empty]');
+    if (empty) empty.hidden = shown !== 0;
+    var count = page.querySelector('[data-shop-result-count]');
+    if (count) count.textContent = String(shown);
+  }
+  function recalc(){
+    var total = 0, kinds = 0;
+    Array.prototype.slice.call(document.querySelectorAll('.page[data-page-id="mall/cart"] [data-shop-cart-row]')).forEach(function(row){
+      if (row.hidden) return;
+      var price = Number(row.getAttribute('data-shop-price') || 0);
+      var input = row.querySelector('[data-shop-qty-input]');
+      var qty = Math.max(1, Number(input ? input.value : 1) || 1);
+      var cell = row.querySelector('[data-shop-line-total]');
+      if (cell) cell.textContent = money(price * qty);
+      total += price * qty; kinds++;
+    });
+    Array.prototype.slice.call(document.querySelectorAll('[data-shop-total]')).forEach(function(el){ el.textContent = money(total); });
+    Array.prototype.slice.call(document.querySelectorAll('[data-shop-goods-total]')).forEach(function(el){ el.textContent = money(total); });
+    Array.prototype.slice.call(document.querySelectorAll('[data-shop-item-count]')).forEach(function(el){ el.textContent = String(kinds); });
+  }
+  function bumpCart(by){
+    cartCount = Math.max(0, cartCount + by);
+    Array.prototype.slice.call(document.querySelectorAll('[data-shop-cart-count]')).forEach(function(el){ el.textContent = String(cartCount); });
+  }
+  document.addEventListener('click', function(e){
+    var el = e.target.closest ? e.target.closest('button, [data-toast]') : null;
+    if (!el || el.hasAttribute('data-session-toggle')) return;
+    if (el.hasAttribute('data-target')) { activate(el.getAttribute('data-target')); return; }
+    if (el.hasAttribute('data-shop-cat')) { setCat(el.getAttribute('data-shop-cat')); activate('mall/search'); applyFilter(); return; }
+    if (el.hasAttribute('data-shop-search-go')) { activate('mall/search'); applyFilter(); return; }
+    if (el.hasAttribute('data-shop-add')) { bumpCart(1); toast('已加入进货单（原型示意）'); return; }
+    if (el.hasAttribute('data-shop-qty')) {
+      var row = el.closest('[data-shop-cart-row]');
+      var input = row ? row.querySelector('[data-shop-qty-input]') : null;
+      if (!input) return;
+      input.value = String(Math.max(1, (Number(input.value) || 1) + Number(el.getAttribute('data-shop-qty'))));
+      recalc(); return;
+    }
+    if (el.hasAttribute('data-shop-remove')) {
+      var r = el.closest('[data-shop-cart-row]');
+      if (r) r.hidden = true;
+      bumpCart(-1); recalc(); toast('已移除（原型示意）'); return;
+    }
+    if (el.hasAttribute('data-shop-submit')) { toast('订单已提交（原型示意）'); activate('mall/orders'); return; }
+    if (el.hasAttribute('data-toast')) { toast(el.getAttribute('data-toast')); return; }
+  });
+  document.addEventListener('input', function(e){
+    if (!e.target.hasAttribute || !e.target.hasAttribute('data-shop-search')) return;
+    q = (e.target.value || '').trim();
+    var cur = current();
+    if (!cur || cur.getAttribute('data-page-id') !== 'mall/search') activate('mall/search', false);
+    applyFilter();
+  });
+  window.addEventListener('hashchange', function(){
+    var want = (location.hash || '').replace('#','');
+    if (want) activate(want, false);
+  });
+  Array.prototype.slice.call(document.querySelectorAll('[data-shop-cart-count]')).forEach(function(el){
+    cartCount = Number(el.textContent) || 0;
+  });
+  setCat('全部商品'); recalc();
+  var initial = (location.hash || '').replace('#','');
+  var valid = initial && pages().some(function(p){ return p.getAttribute('data-page-id') === initial; });
+  activate(valid ? initial : 'mall/home', false);
+})();
+`;

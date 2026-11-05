@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | `product` / `subject` / `edition` | 产品名与装配元数据 | `edition` 固定为「独立部署版」；`subject` 只作内部端顶栏用户块的只读名称，两者都不写 SaaS 字样 |
 | `owners` | 货主下拉选项 | 首项必须是「全部」；这是业务货主，不是租户 |
-| `apps[]` | 端清单 | 每项给 `id` / `name`；`id` 小写字母与连字符，`name` 逐字取 [glossary.md](glossary.md) 第 2 节 |
+| `apps[]` | 端清单 | 每项给 `id` / `name` / `shell`；`id` 小写字母与连字符，`name` 逐字取 [glossary.md](glossary.md) 第 2 节，`shell` 取 `admin`（后台外壳）或 `mall`（商城前台外壳） |
 | `modules[].id` | 模块 ID，同时是源目录名 | 小写字母、数字、连字符；全局唯一 |
 | `modules[].name` | 模块名 | 逐字取 [glossary.md](glossary.md) 第 2 节 |
 | `modules[].prefix` | 页面自定义 CSS 类前缀 | 形如 `ib-`，全局唯一 |
@@ -27,7 +27,7 @@
 
 ## 2. 模块清单
 
-核心 5 个模块默认 `deployed: true`，覆盖 3PL 云仓主干业务；扩展 3 个默认 `false`，可按客户交付范围整块启用。
+核心 6 个模块默认 `deployed: true`，覆盖 3PL 云仓主干业务与商城前台；扩展 3 个默认 `false`，可按客户交付范围整块启用。
 
 | ID | 名称 | 前缀 | 层级 | 页面（key · 名称 · 类型） | 交付范围 |
 | --- | --- | --- | --- | --- | --- |
@@ -39,18 +39,20 @@
 | `billing` | 计费结算 | `bl-` | ext | `rate-list` 费用规则 list<br>`bill-list` 费用账单 list | 3PL 仓租与作业费，按交付范围启用 |
 | `task` | 任务中心 | `tk-` | ext | `task-list` 作业任务 list<br>`task-report` 作业看板 report | 跨模块任务聚合视图，仅为视图不持有业务源 |
 | `system` | 系统设置 | `sy-` | ext | `user-list` 账号管理 list<br>`role-list` 角色权限 list | 本部署实例内的账号与权限 |
+| `mall` | 商城 | `ml-` | core | `home` 商城首页 shop<br>`search` 商品搜索 shop<br>`product-detail` 商品详情 shop<br>`cart` 进货单 shop<br>`checkout` 确认订单 shop<br>`orders` 我的订单 shop | 商城首页、商品搜索、商品详情、进货单、确认订单、我的订单 |
 
-分工边界：`base` 管主档、`warehouse` 管库位与库内作业、`inventory` 管账与流水，三者不重叠。`task` 只是聚合视图，不复制其它模块的任务源数据。
+分工边界：`base` 管主档、`warehouse` 管库位与库内作业、`inventory` 管账与流水，三者不重叠。`task` 只是聚合视图，不复制其它模块的任务源数据。`mall` 只做商城前台展示与下单演示，商品与库存取自货主主档，不另建一份商品真相；成交后的履约在 `outbound` 的出库订单里，不在商城模块重复建模。
 
 ### 端与产物
 
-`apps` 定义三个端，`pages[].app` 决定页面归哪个端。**一个端一个产物** `prototypes/00 dist/<端名>.html`：顶栏以端名作品牌副标题，侧栏按模块分组列本端页面，页头页签按模块成组，不生成跨端链接。产物集中在一个目录，不在各模块目录下散落。
+`apps` 定义四个端，`pages[].app` 决定页面归哪个端。**一个端一个产物** `prototypes/00 dist/<端名>.html`：后台三端顶栏以端名作品牌副标题，侧栏按模块分组列本端页面，页头页签按模块成组；商城端用前台外壳，顶栏是商城导航、搜索与进货单入口，没有侧栏和页头页签。都不生成跨端链接，产物集中在一个目录。
 
-| 端 id | 端名 | 本次归属页面 |
-| --- | --- | --- |
-| `owner` | 货主端 | `base/sku-apply-list`、`inventory/batch-owner-list` |
-| `network` | 仓网管理端 | `base/owner-list`、`base/warehouse-list`、`base/sku-list`、`base/sku-audit-list`、`base/sku-policy-detail`、`inventory/batch-network-report` |
-| `warehouse` | 单仓端 | `base/sku-warehouse-list`、`inventory/batch-list` |
+| 端 id | 端名 | 外壳 | 本次归属页面 |
+| --- | --- | --- | --- |
+| `owner` | 货主端 | `admin` | `base/sku-apply-list`、`inventory/batch-owner-list` |
+| `network` | 仓网管理端 | `admin` | `base/owner-list`、`base/warehouse-list`、`base/sku-list`、`base/sku-audit-list`、`base/sku-policy-detail`、`inventory/batch-network-report` |
+| `warehouse` | 单仓端 | `admin` | `base/sku-warehouse-list`、`inventory/batch-list` |
+| `mall` | 商城端 | `mall` | `mall/home`、`mall/search`、`mall/product-detail`、`mall/cart`、`mall/checkout`、`mall/orders` |
 
 源仍按模块目录存放（`prototypes/<模块ID>/pages/` 与 `data/`），端构建 `prototypes/build-app.mjs` 按注册表聚合页面。页面模块本身只读 `../../01 shared/ui.mjs`，不跨模块 import。未分配 `app` 的页面不进端产物，源保留供后续启用。
 
@@ -62,7 +64,8 @@ prototypes/
 ├── 00 dist/            构建时创建，产物不入库
 │   ├── 货主端.html
 │   ├── 仓网管理端.html
-│   └── 单仓端.html
+│   ├── 单仓端.html
+│   └── 商城端.html
 ├── 01 shared/          脚手架生成
 │   ├── modules.json    注册表（唯一装配权威源）
 │   ├── tokens.css.mjs  实现层取值
@@ -127,7 +130,7 @@ prototypes/
 ## 6. 新增端 / 模块 / 调整装配范围
 
 1. 在 [glossary.md](glossary.md) 登记端名、模块名、页面名、列名、按钮、状态文案（**先有文案，再画页面**）。
-2. 在 `prototypes/01 shared/modules.json` 追加条目，给出唯一 `id`、`app`、`prefix`、`tier`、`deployed` 与页面清单。
+2. 在 `prototypes/01 shared/modules.json` 追加条目，给出唯一 `id`、`app`、`prefix`、`tier`、`deployed` 与页面清单。新增端还要写 `apps[].shell`：`admin` 走后台外壳，`mall` 走商城前台外壳；`shop` 页只能归属 `shell = "mall"` 的端。
 3. 跑 `node .codebuddy/skills/3pl-wms-proto/scripts/init-module.mjs <新模块ID>` 生成目录与页面骨架。
 4. 按 [output-format.md](output-format.md) 第 3 节填页面模块与 `data/*.json`。
 5. 跑 `node prototypes/build-app.mjs`，再跑全量验收与第 6 步交付自查，最后把 `module.json` 的 `status` 置 `delivered`。

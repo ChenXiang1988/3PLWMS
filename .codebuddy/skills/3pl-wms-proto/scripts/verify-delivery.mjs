@@ -135,6 +135,11 @@ function checkSources() {
         if (!has('ReportHero') && !has('Block')) badShape.push(`${rel(e.file)} 声明 report 却没用 ReportHero / Block`);
       } else if (e.page.type === 'scan') {
         if (!has('ScanPage')) badShape.push(`${rel(e.file)} 声明 scan 却没用 ScanPage`);
+      } else if (e.page.type === 'shop') {
+        if (!has('ShopPage')) badShape.push(`${rel(e.file)} 声明 shop 却没用 ShopPage`);
+        if (has('ListPage') || has('DetailPage') || has('ReportHero') || has('ScanPage')) {
+          badShape.push(`${rel(e.file)} shop 页不得套后台四类骨架`);
+        }
       }
       const classes = new Set();
       for (const m of s.matchAll(/class="([^"]*)"/g)) {
@@ -158,6 +163,11 @@ function checkProduct() {
     const html = read(dist);
     if (html == null) { bad.push(`找不到产物：${rel(dist)}`); continue; }
     if (!/data-build="[a-f0-9]{64}"/.test(html)) bad.push(`${rel(dist)} 缺合法 data-build 源指纹`);
+    if (app.shell === 'mall') {
+      if (!html.includes('class="wx-shop-app"')) bad.push(`${rel(dist)} 缺商城前台外壳`);
+      if (!html.includes('data-shop-cart-count')) bad.push(`${rel(dist)} 缺进货单入口`);
+      if (!html.includes('class="wx-login-layer"')) bad.push(`${rel(dist)} 缺登录层`);
+    }
     if (/https?:\/\//i.test(html)) bad.push(`${rel(dist)} 出现 http(s) 外链`);
     if (/<script[^>]+src\s*=/i.test(html) || /<link[^>]+href\s*=/i.test(html) || /@import/i.test(html)) bad.push(`${rel(dist)} 出现外部脚本 / 样式引用`);
     for (const w of SAAS_WORDS) if (html.includes(w)) bad.push(`${rel(dist)} 出现 SaaS 红线词「${w}」`);

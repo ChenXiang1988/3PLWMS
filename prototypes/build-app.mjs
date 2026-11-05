@@ -14,7 +14,8 @@ const SHARED = path.join(PROTO, '01 shared');
 const DIST = path.join(PROTO, '00 dist');
 const ROOT = path.dirname(PROTO);
 const CHECK = process.argv.slice(2).includes('--check');
-const PAGE_TYPES = new Set(['list', 'detail', 'report', 'scan']);
+const PAGE_TYPES = new Set(['list', 'detail', 'report', 'scan', 'shop']);
+const SHELLS = new Set(['admin', 'mall']);
 const TONES = ['disabled', 'enabled', 'info', 'pending', 'rejected'];
 const TAG_TONES = ['default', 'info', 'danger'];
 const SAAS_WORDS = ['租户', '账号空间', '按租户分库', '订阅', '套餐', '充值', '续费', '试用到期', '升级专业版', '平台运营后台', '主体切换器'];
@@ -30,20 +31,26 @@ const reg = JSON.parse(read(path.join(SHARED, 'modules.json')));
 function validateRegistry() {
   const apps = reg.apps || [];
   const ids = new Set();
+  const mallIds = new Set();
   for (const a of apps) {
     if (!/^[a-z][a-z0-9-]*$/.test(a.id || '')) bad('装配清单', `端 id 非法：${a.id}`);
     if (!a.name) bad('装配清单', `端 ${a.id} 缺 name`);
+    if (a.shell && !SHELLS.has(a.shell)) bad('装配清单', `端 ${a.id} 的 shell=${a.shell} 不在外壳清单内`);
     if (ids.has(a.id)) bad('装配清单', `端 id 重复：${a.id}`);
     ids.add(a.id);
+    if (a.shell === 'mall') mallIds.add(a.id);
   }
   const keys = new Set();
   for (const m of reg.modules) {
     for (const p of m.pages || []) {
       if (keys.has(p.key)) bad('装配清单', `页面 key 跨模块重复：${p.key}`);
       keys.add(p.key);
-      if (!PAGE_TYPES.has(p.type)) bad('装配清单', `${p.key} 的 type=${p.type} 不在四类骨架内`);
+      if (!PAGE_TYPES.has(p.type)) bad('装配清单', `${p.key} 的 type=${p.type} 不在五类骨架内`);
       if (!String(p.file || '').startsWith('pages/')) bad('装配清单', `${p.key} 的 file 必须落在 pages/`);
       if (p.app && !ids.has(p.app)) bad('装配清单', `${p.key} 的 app=${p.app} 不在端清单内`);
+      if (p.type === 'shop' && (!p.app || !mallIds.has(p.app))) bad('装配清单', `${p.key} 是 shop 页，必须归属 shell=mall 的端`);
+      if (p.type !== 'shop' && p.app && mallIds.has(p.app)) bad('装配清单', `${p.key} 归属商城端却不是 shop 页`);
+      if (p.type === 'shop' && p.ownerScoped) bad('装配清单', `${p.key} shop 页不响应货主下拉`);
       if (p.ownerScoped && p.type !== 'list') bad('装配清单', `${p.key} 只有 list 页可设 ownerScoped`);
       if (p.app && !fs.existsSync(path.join(PROTO, m.id, p.file))) bad('装配清单', `${p.key} 找不到页面文件`);
     }
@@ -107,6 +114,11 @@ function checkPageSource(e) {
     if (has('ListPage')) bad('骨架', `${where} report 页不得套 ListPage`);
   } else if (e.page.type === 'scan') {
     if (!has('ScanPage')) bad('骨架', `${where} 声明为 scan 却没用 ScanPage`);
+  } else if (e.page.type === 'shop') {
+    if (!has('ShopPage')) bad('骨架', `${where} 声明为 shop 却没用 ShopPage`);
+    if (has('ListPage') || has('DetailPage') || has('ReportHero') || has('ScanPage')) {
+      bad('骨架', `${where} shop 页不得套后台四类骨架`);
+    }
   }
   const classes = new Set();
   for (const m of s.matchAll(/class="([^"]*)"/g)) {
@@ -153,7 +165,36 @@ async function renderApp(app, entries, sharedUi) {
   return { sections, overlays, styles };
 }
 
+function buildMallHtml(app, entries, built, sharedUi) {
+  const esc = sharedUi.esc;
+  const navNames = { home: '首页', search: '商品搜索', cart: '进货单', orders: '我的订单' };
+  const nav = entries.filter((e) => navNames[e.page.key])
+    .map((e) => ({ id: e.pageId, name: navNames[e.page.key] }));
+  let cartCount = 0;
+  try {
+    cartCount = (JSON.parse(read(path.join(PROTO, 'mall', 'data', 'cart.json')) || '{}').rows || []).length;
+  } catch (err) { cartCount = 0; }
+  const css = [sharedUi.TOKENS_CSS, sharedUi.BASE_CSS, sharedUi.LOGIN_CSS, sharedUi.MALL_CSS, ...built.styles].join('\n');
+  const overlay = built.overlays.length ? `<div class="wx-overlay" hidden>${built.overlays.join('')}</div>` : '';
+  const shell = sharedUi.renderShopShell({
+    product: reg.product,
+    appName: app.name,
+    userLabel: '采购账号',
+    nav,
+    categories: sharedUi.SHOP_CATEGORIES || [],
+    cartCount,
+    content: built.sections.join('\n'),
+  });
+  return `<!DOCTYPE html>\n<html lang="zh-CN" data-build="__FINGERPRINT__">\n<head>\n`
+    + `<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n`
+    + `<title>${esc(app.name)} · ${esc(reg.product)}</title>\n<style>\n${css}\n</style>\n</head>\n<body>\n`
+    + shell + overlay + '\n'
+    + sharedUi.renderLogin({ product: reg.product, appName: app.name, userLabel: '采购账号' })
+    + `\n<script>\n${sharedUi.MALL_SCRIPT}\n${sharedUi.LOGIN_SCRIPT}\n</script>\n</body>\n</html>\n`;
+}
+
 function buildHtml(app, entries, built, sharedUi) {
+  if (app.shell === 'mall') return buildMallHtml(app, entries, built, sharedUi);
   const esc = sharedUi.esc;
   const options = (reg.owners || ['全部']).map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('');
   const groups = [];
@@ -171,7 +212,7 @@ function buildHtml(app, entries, built, sharedUi) {
     + g.pages.map((p) => `<button type="button" class="wx-head-tab" data-target="${esc(p.id)}">${esc(p.name)}</button>`).join('')
     + `</div>`).join('');
   const userLabel = app.id === 'owner' ? ((reg.owners || [])[1] || '') : reg.subject;
-  const css = [sharedUi.TOKENS_CSS, sharedUi.BASE_CSS, ...built.styles].join('\n');
+  const css = [sharedUi.TOKENS_CSS, sharedUi.BASE_CSS, sharedUi.LOGIN_CSS, ...built.styles].join('\n');
   const overlay = built.overlays.length ? `<div class="wx-overlay" hidden>${built.overlays.join('')}</div>` : '';
   return `<!DOCTYPE html>\n<html lang="zh-CN" data-build="__FINGERPRINT__">\n<head>\n`
     + `<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n`
@@ -182,14 +223,15 @@ function buildHtml(app, entries, built, sharedUi) {
     + `<div class="wx-global-search"><input type="text" placeholder="搜索页面" aria-label="搜索页面" data-global-search></div>`
     + `<div class="wx-top-tools"><button type="button" class="wx-top-tool" title="帮助" data-toast="帮助（原型示意）">帮助</button>`
     + `<button type="button" class="wx-top-tool" title="通知" data-toast="通知（原型示意）">通知</button>`
-    + `<div class="wx-user"><span class="wx-user-avatar">${esc(userLabel ? userLabel.slice(0, 1) : '·')}</span><span>${esc(userLabel)}</span></div></div></header>\n`
+    + `<button type="button" class="wx-user" data-session-toggle title="账号与会话"><span class="wx-user-avatar">${esc(userLabel ? userLabel.slice(0, 1) : '·')}</span><span>${esc(userLabel)}</span></button></div></header>\n`
     + `<div class="wx-shell"><aside class="wx-side"><div class="wx-side-scroll">${side}</div>`
     + `<div class="wx-side-footer"><button type="button" class="wx-side-toggle" data-side-toggle title="收起侧栏" aria-label="收起侧栏">‹</button></div></aside>\n`
     + `<main class="wx-main"><div class="wx-page-header">${headTabs}`
     + `<label class="wx-scope" hidden><span>货主</span><select class="wx-owner-select">${options}</select></label></div>\n`
     + `<div class="wx-page-body">${built.sections.join('\n')}</div></main></div>\n`
     + `<div class="wx-toast" hidden></div></div>\n`
-    + overlay + `\n<script>\n${sharedUi.SHELL_SCRIPT}\n</script>\n</body>\n</html>\n`;
+    + overlay + `\n` + sharedUi.renderLogin({ product: reg.product, appName: app.name, userLabel })
+    + `\n<script>\n${sharedUi.SHELL_SCRIPT}\n${sharedUi.LOGIN_SCRIPT}\n</script>\n</body>\n</html>\n`;
 }
 
 function checkProduct(html, entries, app) {
@@ -198,6 +240,15 @@ function checkProduct(html, entries, app) {
   for (const w of SAAS_WORDS) if (html.includes(w)) bad('非SaaS', `${app.name} 产物出现红线词「${w}」`);
   for (const w of DOC_WORDS) if (html.includes(w)) bad('文案', `${app.name} 产物出现过程文字「${w}」`);
   if (/__[A-Z_]+__/.test(html)) bad('文案', `${app.name} 产物残留模板占位符`);
+  if (!html.includes('class="wx-login-layer"')) bad('登录', `${app.name} 产物缺登录层`);
+  if (!html.includes('var ERR = {')) bad('登录', `${app.name} 产物缺统一错误提示表`);
+  if (app.shell === 'mall') {
+    if (!html.includes('class="wx-shop-app"')) bad('商城', `${app.name} 产物缺前台外壳`);
+    if (!html.includes('data-shop-cart-count')) bad('商城', `${app.name} 产物缺进货单入口`);
+    if (html.includes('class="wx-app"')) bad('商城', `${app.name} 前台端混用了后台外壳`);
+  } else if (html.includes('class="wx-shop-app"')) {
+    bad('商城', `${app.name} 后台端混用了商城外壳`);
+  }
   for (const e of entries) if (!html.includes(`data-page-id="${e.pageId}"`)) bad('页面装配', `${app.name} 缺页面容器 ${e.pageId}`);
   for (const m of html.matchAll(/<button[^>]*class="wx-tab[^"]*"[^>]*>/g)) {
     if (m[0].includes('data-tab-all')) continue;
@@ -234,7 +285,11 @@ if (CHECK) {
 }
 
 const sharedUi = await import(pathToFileURL(path.join(SHARED, 'ui.mjs')).href);
-if (!sharedUi.TOKENS_CSS || !sharedUi.BASE_CSS || !sharedUi.SHELL_SCRIPT) bad('装配清单', '01 shared/ui.mjs 缺少必要导出');
+if (!sharedUi.TOKENS_CSS || !sharedUi.BASE_CSS || !sharedUi.SHELL_SCRIPT
+  || !sharedUi.LOGIN_CSS || !sharedUi.LOGIN_SCRIPT || typeof sharedUi.renderLogin !== 'function'
+  || !sharedUi.MALL_CSS || !sharedUi.MALL_SCRIPT || typeof sharedUi.renderShopShell !== 'function') {
+  bad('装配清单', '01 shared/ui.mjs 缺少必要导出、登录层或商城外壳组件');
+}
 fs.mkdirSync(DIST, { recursive: true });
 for (const app of reg.apps) {
   const entries = entriesOf(app.id);

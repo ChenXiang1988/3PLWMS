@@ -1,0 +1,17 @@
+{
+  "id": "mall",
+  "name": "商城",
+  "version": "0.1.0",
+  "owner": "产品组",
+  "tier": "core",
+  "deployed": true,
+  "dependsOn": [
+    "shared"
+  ],
+  "scope": "商城首页、商品搜索、商品详情、进货单、确认订单、我的订单",
+  "deliverables": [
+    "pages/", "data/"
+  ],
+  "status": "delivered",
+  "note": "商城端六页"
+}

@@ -1,0 +1,9 @@
+{
+  "rows": [
+    { "orderNo": "MO202611020018", "createdAt": "2026-11-02 09:12", "status": "shipped", "skuCode": "SKU100231", "qty": 20, "soNo": "SO202611020006", "carrier": "华运干线" },
+    { "orderNo": "MO202611010009", "createdAt": "2026-11-01 15:36", "status": "unshipped", "skuCode": "SKU100198", "qty": 60, "soNo": "SO202611010012", "carrier": "华运干线" },
+    { "orderNo": "MO202610310004", "createdAt": "2026-10-31 10:08", "status": "finished", "skuCode": "SKU100232", "qty": 8, "soNo": "SO202610310003", "carrier": "顺达物流" },
+    { "orderNo": "MO202610290021", "createdAt": "2026-10-29 16:44", "status": "unpaid", "skuCode": "SKU100206", "qty": 12, "soNo": "—", "carrier": "华运干线" },
+    { "orderNo": "MO202610270015", "createdAt": "2026-10-27 11:20", "status": "cancelled", "skuCode": "SKU100175", "qty": 10, "soNo": "—", "carrier": "华运干线" }
+  ]
+}

@@ -21,7 +21,7 @@ node prototypes/build-app.mjs --check
 | A2 | 文案一致：端名、模块名、页面名逐字存在于 `glossary.md` | 注册表 ↔ 文案表比对 | S2 |
 | A3 | 取值不越界：页面模块每个 hex 都在令牌源里，且无 `rpx` | 白名单现场收集 | S3、构建期 `[取值越界]` |
 | A4 | 骨架与命名：页面类型与组件匹配，`list` 页无 `StatRow` / `ReportHero`，类名带模块前缀 | 源码静态检查 | S4 |
-| A5 | 产物格式：三个端 HTML 单文件自包含、有 `data-build`、页容器齐全、无红线禁语 | 产物正文扫描 | S5 |
+| A5 | 产物格式：四个端 HTML 单文件自包含、有 `data-build`、页容器齐全、无红线禁语 | 产物正文扫描 | S5 |
 | A6 | 产物集中且不入库 | 只有 `prototypes/00 dist/` 有 HTML；`.gitignore` 忽略产物目录 | S5 |
 | A7 | 源与产物一致 | `node prototypes/build-app.mjs --check` 逐端报 `check ok` | X 组 |
 | A8 | 构建期全部断言通过 | 构建无抛错，标签见 [output-format.md](output-format.md) 第 4 节 | 构建时自动 |
@@ -45,7 +45,8 @@ node prototypes/build-app.mjs --check
 | B11 | 把 `prototypes/00 dist/<端名>.html` 单独拷到空目录双击，该端全部页面能浏览、无死链吗？ | `modules.md` 第 3.3 节 |
 | B12 | 界面上有没有租户、订阅、套餐等 SaaS 痕迹？货主是否被写成租户？ | `design-spec.md` 第 8 节 |
 | B13 | 顶栏有没有出现部署形态、「当前端：」、运营主体说明或主体切换器？页头页签是否钉住、侧栏能否收起？ | `design-spec.md` 第 3 节、`output-format.md` 第 2 节 |
-| B14 | 三个端的登录方式、加载 / 失败 / 重试状态与错误提示是否一致？锁定、令牌刷新、过期与退出登录是否都能走通？ | `output-format.md` 第 2 节、`glossary.md` 第 5 节 |
+| B14 | 四个端的登录方式、加载 / 失败 / 重试状态与错误提示是否一致？锁定、令牌刷新、过期与退出登录是否都能走通？ | `output-format.md` 第 2 节、`glossary.md` 第 5 节 |
+| B15 | 商城端是不是前台外壳（无侧栏、无页头页签）？类目、搜索、加购、数量增减、去结算、提交订单点下去有没有反应？ | `design-spec.md` 第 4 节、`output-format.md` 第 2 节 |
 
 ## 4. C 组：已知缺口
 
@@ -72,5 +73,5 @@ node prototypes/build-app.mjs --check
 3. A 组十项结论逐条看过。
 4. B 组十四项逐条打勾，B11 单独拷贝试开过。
 5. `module.json`：`version` 已递增、`owner` 已填、`status` 置 `delivered`、`deliverables` 指向 `pages/`、`data/`。
-6. 若改过 `prototypes/01 shared/`，确认三个端产物都已重建。
-7. 交付物打包：`prototypes/00 dist/` 下三个 HTML + 各模块 `pages/`、`data/` 源与 `module.json`。
+6. 若改过 `prototypes/01 shared/`，确认四个端产物都已重建。
+7. 交付物打包：`prototypes/00 dist/` 下四个 HTML + 各模块 `pages/`、`data/` 源与 `module.json`。
