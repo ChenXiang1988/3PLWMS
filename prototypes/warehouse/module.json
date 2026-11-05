@@ -1,0 +1,17 @@
+{
+  "id": "warehouse",
+  "name": "仓储管理",
+  "version": "0.2.0",
+  "owner": "",
+  "tier": "core",
+  "deployed": true,
+  "dependsOn": [
+    "shared"
+  ],
+  "scope": "库位、移库、盘点",
+  "deliverables": [
+    "pages/", "data/"
+  ],
+  "status": "draft",
+  "note": ""
+}

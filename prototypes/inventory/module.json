@@ -1,0 +1,17 @@
+{
+  "id": "inventory",
+  "name": "库存中心",
+  "version": "0.2.0",
+  "owner": "产品组",
+  "tier": "core",
+  "deployed": true,
+  "dependsOn": [
+    "shared"
+  ],
+  "scope": "实物账、流水、批次效期、总览与三端批次效期视图",
+  "deliverables": [
+    "pages/", "data/"
+  ],
+  "status": "delivered",
+  "note": ""
+}

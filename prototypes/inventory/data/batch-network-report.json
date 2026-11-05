@@ -1,0 +1,9 @@
+{
+  "rows": [
+    { "warehouse": "华东中心仓", "owner": "海纳食品", "batchCount": 12, "nearCount": 3, "holdCount": 1, "expiredCount": 0, "qty": 4860 },
+    { "warehouse": "华东中心仓", "owner": "云途电商", "batchCount": 8, "nearCount": 1, "holdCount": 1, "expiredCount": 0, "qty": 3210 },
+    { "warehouse": "华南前置仓", "owner": "辰星日化", "batchCount": 15, "nearCount": 2, "holdCount": 0, "expiredCount": 1, "qty": 5740 },
+    { "warehouse": "华南前置仓", "owner": "海纳食品", "batchCount": 6, "nearCount": 1, "holdCount": 0, "expiredCount": 0, "qty": 2180 },
+    { "warehouse": "华北分拨仓", "owner": "海纳食品", "batchCount": 9, "nearCount": 2, "holdCount": 1, "expiredCount": 0, "qty": 3960 }
+  ]
+}

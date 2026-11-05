@@ -1,0 +1,28 @@
+{
+  "task": {
+    "docNo": "SO20261105006",
+    "status": "busy",
+    "owner": "云途电商",
+    "operator": "王芳",
+    "device": "PDA-07",
+    "location": "拣货区 B",
+    "planQty": 60,
+    "doneQty": 24,
+    "thisTime": 6,
+    "qtyUnit": "件"
+  },
+  "line": {
+    "lineNo": 2,
+    "fromLocation": "B-03-12",
+    "skuName": "云途收纳箱 45L",
+    "skuCode": "SKU100198",
+    "batchNo": "B20261028003",
+    "planQty": 60,
+    "doneQty": 24,
+    "unit": "件"
+  },
+  "logs": [
+    { "time": "10:24", "text": "6901234500059 · 云途电商", "qty": "6 件" }
+  ],
+  "rows": []
+}

@@ -1,0 +1,28 @@
+{
+  "task": {
+    "docNo": "ASN20261105001",
+    "status": "busy",
+    "owner": "海纳食品",
+    "operator": "李强",
+    "device": "PDA-03",
+    "location": "收货月台 A",
+    "planQty": 120,
+    "doneQty": 48,
+    "thisTime": 12,
+    "qtyUnit": "箱"
+  },
+  "line": {
+    "lineNo": 1,
+    "fromLocation": "待上架区",
+    "skuName": "海纳全脂牛奶 250ml×24",
+    "skuCode": "SKU100231",
+    "batchNo": "B20261105001",
+    "planQty": 120,
+    "doneQty": 48,
+    "unit": "箱"
+  },
+  "logs": [
+    { "time": "09:12", "text": "6901234500011 · 海纳食品", "qty": "12 箱" }
+  ],
+  "rows": []
+}

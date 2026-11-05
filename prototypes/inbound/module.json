@@ -1,0 +1,17 @@
+{
+  "id": "inbound",
+  "name": "入库管理",
+  "version": "0.2.0",
+  "owner": "",
+  "tier": "core",
+  "deployed": true,
+  "dependsOn": [
+    "shared"
+  ],
+  "scope": "通知、收货验收、上架",
+  "deliverables": [
+    "pages/", "data/"
+  ],
+  "status": "draft",
+  "note": ""
+}

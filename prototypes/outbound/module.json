@@ -1,0 +1,17 @@
+{
+  "id": "outbound",
+  "name": "出库管理",
+  "version": "0.2.0",
+  "owner": "",
+  "tier": "core",
+  "deployed": true,
+  "dependsOn": [
+    "shared"
+  ],
+  "scope": "订单、波次、拣货、交接",
+  "deliverables": [
+    "pages/", "data/"
+  ],
+  "status": "draft",
+  "note": ""
+}

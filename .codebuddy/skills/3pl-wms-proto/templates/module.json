@@ -1,0 +1,13 @@
+{
+  "id": "__MODULE_ID__",
+  "name": "__MODULE_NAME__",
+  "version": "0.1.0",
+  "owner": "",
+  "tier": "core",
+  "deployed": true,
+  "dependsOn": ["shared"],
+  "scope": "",
+  "deliverables": ["pages/", "data/"],
+  "status": "draft",
+  "note": ""
+}

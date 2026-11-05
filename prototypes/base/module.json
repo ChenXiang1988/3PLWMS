@@ -1,0 +1,17 @@
+{
+  "id": "base",
+  "name": "基础资料",
+  "version": "0.4.0",
+  "owner": "产品组",
+  "tier": "core",
+  "deployed": true,
+  "dependsOn": [
+    "shared"
+  ],
+  "scope": "货主、仓库、商品、承运商主档与效期批次策略",
+  "deliverables": [
+    "pages/", "data/"
+  ],
+  "status": "delivered",
+  "note": "货主档案、仓库档案装配到仓网管理端"
+}

@@ -1,0 +1,10 @@
+{
+  "rows": [
+    { "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "spec": "250ml×24", "barcode": "6901234500011", "owner": "海纳食品", "unit": "箱", "shelfLifeManaged": "是", "batchManaged": "是", "skuStatus": "active" },
+    { "skuCode": "SKU100175", "skuName": "海纳酸奶 100g×12", "spec": "100g×12", "barcode": "6901234500028", "owner": "海纳食品", "unit": "箱", "shelfLifeManaged": "是", "batchManaged": "是", "skuStatus": "active" },
+    { "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "spec": "2kg×6", "barcode": "6901234500035", "owner": "辰星日化", "unit": "箱", "shelfLifeManaged": "否", "batchManaged": "是", "skuStatus": "active" },
+    { "skuCode": "SKU100142", "skuName": "辰星洗洁精 500ml×20", "spec": "500ml×20", "barcode": "6901234500042", "owner": "辰星日化", "unit": "箱", "shelfLifeManaged": "否", "batchManaged": "否", "skuStatus": "inactive" },
+    { "skuCode": "SKU100198", "skuName": "云途收纳箱 45L", "spec": "45L", "barcode": "6901234500059", "owner": "云途电商", "unit": "件", "shelfLifeManaged": "否", "batchManaged": "否", "skuStatus": "active" },
+    { "skuCode": "SKU100311", "skuName": "云途全脂牛奶 250ml×24", "spec": "250ml×24", "barcode": "6901234500011", "owner": "云途电商", "unit": "箱", "shelfLifeManaged": "是", "batchManaged": "是", "skuStatus": "active" }
+  ]
+}

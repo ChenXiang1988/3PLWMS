@@ -1,0 +1,3 @@
+# 3PL 云仓原型产物不入库（3pl-wms-proto）
+prototypes/00 dist/
+prototypes/*/dist/
