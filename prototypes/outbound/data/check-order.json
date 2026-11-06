@@ -1,0 +1,9 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "processNo": "CK20261106001", "processStatus": "busy", "sourcePlans": "OP20261106001", "packageCount": 24, "planQty": 1800, "doneQty": 1200 },
+    { "owner": "辰星日化", "processNo": "CK20261106002", "processStatus": "wait", "sourcePlans": "OP20261106004", "packageCount": 18, "planQty": 1200, "doneQty": 0 },
+    { "owner": "海纳食品", "processNo": "CK20261106003", "processStatus": "done", "sourcePlans": "OP20261105003", "packageCount": 12, "planQty": 900, "doneQty": 900 },
+    { "owner": "云途电商", "processNo": "CK20261106005", "processStatus": "blocked", "sourcePlans": "OP20261106007", "packageCount": 32, "planQty": 3200, "doneQty": 400 },
+    { "owner": "云途电商", "processNo": "CK20261106006", "processStatus": "wait", "sourcePlans": "OP20261105008", "packageCount": 20, "planQty": 1500, "doneQty": 0 }
+  ]
+}

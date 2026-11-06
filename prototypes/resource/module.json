@@ -1,13 +1,18 @@
 {
   "id": "resource",
   "name": "作业资源",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "owner": "产品组",
   "tier": "core",
   "deployed": true,
-  "dependsOn": ["shared"],
+  "dependsOn": [
+    "shared"
+  ],
   "scope": "设备、容器、执行单元、班组、人员、排班与作业配置",
-  "deliverables": ["pages/", "data/"],
+  "deliverables": [
+    "pages/",
+    "data/"
+  ],
   "status": "review",
-  "note": "作业资源台账页面"
+  "note": "12 页：容器管理、设备、执行单元、班组、人员、排班、策略管理、单据工序编排、任务中心策略，及设备档案、设备调拨、容器档案"
 }

@@ -1,0 +1,966 @@
+{
+  "product": "3PL 云仓系统",
+  "subject": "华运仓储运营中心",
+  "edition": "独立部署版",
+  "owners": [
+    "全部",
+    "海纳食品",
+    "辰星日化",
+    "云途电商"
+  ],
+  "apps": [
+    {
+      "id": "owner-app",
+      "name": "货主端",
+      "shell": "admin"
+    },
+    {
+      "id": "network-app",
+      "name": "仓网管理端",
+      "shell": "admin"
+    },
+    {
+      "id": "warehouse-app",
+      "name": "单仓端",
+      "shell": "admin"
+    },
+    {
+      "id": "mall-app",
+      "name": "商城端",
+      "shell": "mall"
+    },
+    {
+      "id": "pda-app",
+      "name": "PDA 作业端",
+      "shell": "pda"
+    }
+  ],
+  "modules": [
+    {
+      "id": "base",
+      "name": "基础资料",
+      "prefix": "base-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "货主、仓库、商品、承运商主档与效期批次策略",
+      "pages": [
+        {
+          "key": "owner-list",
+          "name": "货主档案",
+          "type": "list",
+          "file": "pages/owner-list.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "warehouse-list",
+          "name": "仓库档案",
+          "type": "list",
+          "file": "pages/warehouse-list.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "sku-list",
+          "name": "商品档案",
+          "type": "list",
+          "file": "pages/sku-list.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "carrier-list",
+          "name": "承运商档案",
+          "type": "list",
+          "file": "pages/carrier-list.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "sku-apply-list",
+          "name": "商品资料变更申请",
+          "type": "list",
+          "file": "pages/sku-apply-list.mjs",
+          "ownerScoped": true,
+          "app": "owner-app"
+        },
+        {
+          "key": "sku-audit-list",
+          "name": "商品主档审核",
+          "type": "list",
+          "file": "pages/sku-audit-list.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "sku-policy-detail",
+          "name": "效期批次策略",
+          "type": "detail",
+          "file": "pages/sku-policy-detail.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "sku-warehouse-list",
+          "name": "本仓商品查询",
+          "type": "list",
+          "file": "pages/sku-warehouse-list.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "owner-group-list",
+          "name": "货主组",
+          "type": "list",
+          "file": "pages/owner-group-list.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "sla-list",
+          "name": "时效协议",
+          "type": "list",
+          "file": "pages/sla-list.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        }
+      ]
+    },
+    {
+      "id": "inbound",
+      "name": "入库管理",
+      "prefix": "ib-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "",
+      "scope": "通知、收货验收、上架",
+      "pages": [
+        {
+          "key": "in-plan-list",
+          "name": "入库计划单",
+          "type": "list",
+          "file": "pages/in-plan-list.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "in-plan-detail",
+          "name": "入库计划单详情",
+          "type": "detail",
+          "file": "pages/in-plan-detail.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "receiving-order",
+          "name": "收货单",
+          "type": "list",
+          "file": "pages/receiving-order.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "process-detail",
+          "name": "工序单详情",
+          "type": "detail",
+          "file": "pages/process-detail.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "receiving-scan",
+          "name": "收货验收",
+          "type": "scan",
+          "file": "pages/receiving-scan.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
+          "key": "putaway-order",
+          "name": "上架单",
+          "type": "list",
+          "file": "pages/putaway-order.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "in-plan-owner-list",
+          "name": "入库计划单",
+          "type": "list",
+          "file": "pages/in-plan-owner-list.mjs",
+          "ownerScoped": false,
+          "app": "owner-app"
+        },
+        {
+          "key": "in-plan-confirm-list",
+          "name": "入库计划单确认",
+          "type": "list",
+          "file": "pages/in-plan-confirm-list.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        }
+      ]
+    },
+    {
+      "id": "outbound",
+      "name": "出库管理",
+      "prefix": "ob-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "",
+      "scope": "订单、波次、拣货、交接",
+      "pages": [
+        {
+          "key": "out-plan-list",
+          "name": "出库计划单",
+          "type": "list",
+          "file": "pages/out-plan-list.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "wave-list",
+          "name": "波次计划",
+          "type": "list",
+          "file": "pages/wave-list.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "picking-order",
+          "name": "拣货单",
+          "type": "list",
+          "file": "pages/picking-order.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "picking-scan",
+          "name": "拣货作业",
+          "type": "scan",
+          "file": "pages/picking-scan.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
+          "key": "check-order",
+          "name": "复核单",
+          "type": "list",
+          "file": "pages/check-order.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "handover-list",
+          "name": "交接单",
+          "type": "list",
+          "file": "pages/handover-list.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "out-plan-owner-list",
+          "name": "出库计划单",
+          "type": "list",
+          "file": "pages/out-plan-owner-list.mjs",
+          "ownerScoped": false,
+          "app": "owner-app"
+        },
+        {
+          "key": "out-plan-confirm-list",
+          "name": "出库计划单确认",
+          "type": "list",
+          "file": "pages/out-plan-confirm-list.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        }
+      ]
+    },
+    {
+      "id": "warehouse",
+      "name": "仓储管理",
+      "prefix": "wh-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "",
+      "scope": "库位、移库、盘点",
+      "pages": [
+        {
+          "key": "location-list",
+          "name": "库区库位",
+          "type": "list",
+          "file": "pages/location-list.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "move-task",
+          "name": "移库任务",
+          "type": "list",
+          "file": "pages/move-task.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "count-task",
+          "name": "盘点任务",
+          "type": "list",
+          "file": "pages/count-task.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "count-scan",
+          "name": "盘点作业",
+          "type": "scan",
+          "file": "pages/count-scan.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
+          "key": "replenish-task",
+          "name": "补货任务",
+          "type": "list",
+          "file": "pages/replenish-task.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        }
+      ]
+    },
+    {
+      "id": "inventory",
+      "name": "库存中心",
+      "prefix": "iv-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "实物账、流水、批次效期、总览与三端批次效期视图",
+      "pages": [
+        {
+          "key": "stock-list",
+          "name": "库存查询",
+          "type": "list",
+          "file": "pages/stock-list.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "ledger-list",
+          "name": "库存台账",
+          "type": "list",
+          "file": "pages/ledger-list.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "stock-report",
+          "name": "库存总览",
+          "type": "report",
+          "file": "pages/stock-report.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "batch-list",
+          "name": "批次效期",
+          "type": "list",
+          "file": "pages/batch-list.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "batch-owner-list",
+          "name": "批次效期查询",
+          "type": "list",
+          "file": "pages/batch-owner-list.mjs",
+          "ownerScoped": true,
+          "app": "owner-app"
+        },
+        {
+          "key": "batch-network-report",
+          "name": "批次效期总览",
+          "type": "report",
+          "file": "pages/batch-network-report.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "stock-by-location",
+          "name": "仓位库存",
+          "type": "list",
+          "file": "pages/stock-by-location.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "stock-by-warehouse",
+          "name": "分仓库存",
+          "type": "list",
+          "file": "pages/stock-by-warehouse.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "stock-distribution",
+          "name": "库存分布",
+          "type": "report",
+          "file": "pages/stock-distribution.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "lowstock-list",
+          "name": "低库存预警",
+          "type": "list",
+          "file": "pages/lowstock-list.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "daily-check",
+          "name": "日清检查",
+          "type": "list",
+          "file": "pages/daily-check.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "opening-stock",
+          "name": "初始库存",
+          "type": "list",
+          "file": "pages/opening-stock.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "adjust-task",
+          "name": "库存调整任务",
+          "type": "list",
+          "file": "pages/adjust-task.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "stock-snapshot",
+          "name": "库存快照",
+          "type": "list",
+          "file": "pages/stock-snapshot.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "stock-owner-list",
+          "name": "本货主库存查询",
+          "type": "list",
+          "file": "pages/stock-owner-list.mjs",
+          "ownerScoped": false,
+          "app": "owner-app"
+        },
+        {
+          "key": "ledger-owner-list",
+          "name": "本货主库存台账",
+          "type": "list",
+          "file": "pages/ledger-owner-list.mjs",
+          "ownerScoped": false,
+          "app": "owner-app"
+        },
+        {
+          "key": "stock-owner-report",
+          "name": "本货主库存总览",
+          "type": "report",
+          "file": "pages/stock-owner-report.mjs",
+          "ownerScoped": false,
+          "app": "owner-app"
+        }
+      ]
+    },
+    {
+      "id": "billing",
+      "name": "计费结算",
+      "prefix": "bl-",
+      "tier": "ext",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "3PL 仓租与作业费，按交付范围启用",
+      "pages": [
+        {
+          "key": "rate-list",
+          "name": "费用规则",
+          "type": "list",
+          "file": "pages/rate-list.mjs",
+          "ownerScoped": true
+        },
+        {
+          "key": "bill-list",
+          "name": "费用账单",
+          "type": "list",
+          "file": "pages/bill-list.mjs",
+          "ownerScoped": true
+        },
+        {
+          "key": "rate-owner-list",
+          "name": "费用规则查看",
+          "type": "list",
+          "file": "pages/rate-owner-list.mjs",
+          "ownerScoped": false,
+          "app": "owner-app"
+        },
+        {
+          "key": "bill-owner-list",
+          "name": "本货主费用账单",
+          "type": "list",
+          "file": "pages/bill-owner-list.mjs",
+          "ownerScoped": false,
+          "app": "owner-app"
+        }
+      ]
+    },
+    {
+      "id": "task",
+      "name": "任务中心",
+      "prefix": "tk-",
+      "tier": "ext",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "跨模块任务聚合视图，不持有业务源",
+      "pages": [
+        {
+          "key": "task-list",
+          "name": "作业任务",
+          "type": "list",
+          "file": "pages/task-list.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "task-report",
+          "name": "作业看板",
+          "type": "report",
+          "file": "pages/task-report.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "doc-overview",
+          "name": "单据总览",
+          "type": "report",
+          "file": "pages/doc-overview.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "pda-home",
+          "name": "作业首页",
+          "type": "list",
+          "file": "pages/pda-home.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
+          "key": "pda-putaway-list",
+          "name": "上架作业任务",
+          "type": "list",
+          "file": "pages/pda-putaway-list.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
+          "key": "pda-picking-list",
+          "name": "拣货任务",
+          "type": "list",
+          "file": "pages/pda-picking-list.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
+          "key": "pda-stocktaking-list",
+          "name": "盘点作业任务",
+          "type": "list",
+          "file": "pages/pda-stocktaking-list.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
+          "key": "pda-mine",
+          "name": "我的",
+          "type": "report",
+          "file": "pages/pda-mine.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        }
+      ]
+    },
+    {
+      "id": "system",
+      "name": "系统设置",
+      "prefix": "sy-",
+      "tier": "ext",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "本部署实例内的账号与权限",
+      "pages": [
+        {
+          "key": "user-list",
+          "name": "账号管理",
+          "type": "list",
+          "file": "pages/user-list.mjs",
+          "ownerScoped": false
+        },
+        {
+          "key": "role-list",
+          "name": "角色权限",
+          "type": "list",
+          "file": "pages/role-list.mjs",
+          "ownerScoped": false
+        },
+        {
+          "key": "dict-list",
+          "name": "字典管理",
+          "type": "list",
+          "file": "pages/dict-list.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        }
+      ]
+    },
+    {
+      "id": "mall",
+      "name": "商城",
+      "prefix": "ml-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "商城首页、商品搜索、商品详情、进货单、确认订单、我的订单",
+      "pages": [
+        {
+          "key": "home",
+          "name": "商城首页",
+          "type": "shop",
+          "file": "pages/home.mjs",
+          "ownerScoped": false,
+          "app": "mall-app"
+        },
+        {
+          "key": "search",
+          "name": "商品搜索",
+          "type": "shop",
+          "file": "pages/search.mjs",
+          "ownerScoped": false,
+          "app": "mall-app"
+        },
+        {
+          "key": "product-detail",
+          "name": "商品详情",
+          "type": "shop",
+          "file": "pages/product-detail.mjs",
+          "ownerScoped": false,
+          "app": "mall-app"
+        },
+        {
+          "key": "cart",
+          "name": "进货单",
+          "type": "shop",
+          "file": "pages/cart.mjs",
+          "ownerScoped": false,
+          "app": "mall-app"
+        },
+        {
+          "key": "checkout",
+          "name": "确认订单",
+          "type": "shop",
+          "file": "pages/checkout.mjs",
+          "ownerScoped": false,
+          "app": "mall-app"
+        },
+        {
+          "key": "orders",
+          "name": "我的订单",
+          "type": "shop",
+          "file": "pages/orders.mjs",
+          "ownerScoped": false,
+          "app": "mall-app"
+        }
+      ]
+    },
+    {
+      "id": "network",
+      "name": "仓网管理",
+      "prefix": "nw-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "仓网总览与跨仓调拨",
+      "pages": [
+        {
+          "key": "network-overview",
+          "name": "仓网总览",
+          "type": "report",
+          "file": "pages/network-overview.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "transfer-order",
+          "name": "跨仓调拨",
+          "type": "list",
+          "file": "pages/transfer-order.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        }
+      ]
+    },
+    {
+      "id": "resource",
+      "name": "作业资源",
+      "prefix": "rs-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "设备、容器、执行单元、班组、人员、排班与作业配置",
+      "pages": [
+        {
+          "key": "hardware-archive",
+          "name": "设备档案",
+          "type": "list",
+          "file": "pages/hardware-archive.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "hardware-transfer",
+          "name": "设备调拨",
+          "type": "list",
+          "file": "pages/hardware-transfer.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "container-archive",
+          "name": "容器档案",
+          "type": "list",
+          "file": "pages/container-archive.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "container-list",
+          "name": "容器管理",
+          "type": "list",
+          "file": "pages/container-list.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "hardware-list",
+          "name": "设备",
+          "type": "list",
+          "file": "pages/hardware-list.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "exec-unit-list",
+          "name": "执行单元",
+          "type": "list",
+          "file": "pages/exec-unit-list.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "team-list",
+          "name": "班组",
+          "type": "list",
+          "file": "pages/team-list.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "staff-list",
+          "name": "人员",
+          "type": "list",
+          "file": "pages/staff-list.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "shift-list",
+          "name": "排班",
+          "type": "list",
+          "file": "pages/shift-list.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "strategy-list",
+          "name": "策略管理",
+          "type": "list",
+          "file": "pages/strategy-list.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "workflow-list",
+          "name": "单据工序编排",
+          "type": "list",
+          "file": "pages/workflow-list.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "task-strategy-list",
+          "name": "任务中心策略",
+          "type": "list",
+          "file": "pages/task-strategy-list.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        }
+      ]
+    },
+    {
+      "id": "workbench",
+      "name": "货主工作台",
+      "prefix": "wb-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "货主端待办单据与状态汇总视图",
+      "pages": [
+        {
+          "key": "workbench",
+          "name": "货主工作台",
+          "type": "report",
+          "file": "pages/workbench.mjs",
+          "ownerScoped": false,
+          "app": "owner-app"
+        }
+      ]
+    },
+    {
+      "id": "mall-admin",
+      "name": "商城管理",
+      "prefix": "ma-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "店铺、商城商品、价格可见性、商城订单与货源楼层",
+      "pages": [
+        {
+          "key": "mall-overview",
+          "name": "商城运营总览",
+          "type": "report",
+          "file": "pages/mall-overview.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "shop-list",
+          "name": "店铺管理",
+          "type": "list",
+          "file": "pages/shop-list.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "shop-apply-list",
+          "name": "入驻申请",
+          "type": "list",
+          "file": "pages/shop-apply-list.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "mall-sku-list",
+          "name": "商城商品",
+          "type": "list",
+          "file": "pages/mall-sku-list.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "mall-price-list",
+          "name": "价格与可见性",
+          "type": "list",
+          "file": "pages/mall-price-list.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "mall-order-list",
+          "name": "商城订单",
+          "type": "list",
+          "file": "pages/mall-order-list.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "mall-floor-list",
+          "name": "货源楼层",
+          "type": "list",
+          "file": "pages/mall-floor-list.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        }
+      ]
+    },
+    {
+      "id": "pda",
+      "name": "PDA 终端",
+      "prefix": "pd-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "登录、人脸、设备接入与版本更新等终端壳层页",
+      "pages": [
+        {
+          "key": "pda-login",
+          "name": "登录",
+          "type": "list",
+          "file": "pages/pda-login.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
+          "key": "pda-face",
+          "name": "人脸识别",
+          "type": "list",
+          "file": "pages/pda-face.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
+          "key": "pda-invite",
+          "name": "接入自带手机",
+          "type": "list",
+          "file": "pages/pda-invite.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
+          "key": "pda-activate",
+          "name": "激活本机",
+          "type": "list",
+          "file": "pages/pda-activate.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
+          "key": "pda-my-device",
+          "name": "我的设备",
+          "type": "list",
+          "file": "pages/pda-my-device.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
+          "key": "pda-version",
+          "name": "版本与更新",
+          "type": "list",
+          "file": "pages/pda-version.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        }
+      ]
+    }
+  ]
+}

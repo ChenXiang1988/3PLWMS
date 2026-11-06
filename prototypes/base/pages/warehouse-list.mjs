@@ -1,4 +1,4 @@
-import { ListPage, StatusTag, dash, uniq } from '../../01 shared/ui.mjs';
+import { ListPage, StatusTag, dash, uniq } from '../../shared/ui.mjs';
 
 export const STATUS_META = {
   preparing: { label: '筹建中', type: 'pending' },
@@ -42,6 +42,8 @@ export function renderPage(data, ctx) {
       { key: 'warehouseName', label: '仓库名称', render: (r) => dash(r.warehouseName) },
       { key: 'warehouseType', label: '仓库类型', render: (r) => dash(r.warehouseType) },
       { key: 'tempZones', label: '温区配置', render: (r) => dash(r.tempZones) },
+      { key: 'valueAddedServices', label: '增值服务', render: (r) => dash(r.valueAddedServices) },
+      { key: 'qcMode', label: '质检方式', width: '108px', render: (r) => dash(r.qcMode) },
       { key: 'warehouseStatus', label: '仓库状态', width: '108px', render: (r) => StatusTag(statusLabel(r.warehouseStatus), (STATUS_META[r.warehouseStatus] || {}).type || 'info') },
       { key: 'legalEntity', label: '所属法人主体', render: (r) => dash(r.legalEntity) },
       { key: 'createTime', label: '创建时间', width: '157px', render: (r) => dash(r.createTime) },

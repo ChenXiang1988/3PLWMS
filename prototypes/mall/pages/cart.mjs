@@ -1,4 +1,4 @@
-import { ShopPage, CartTable, ShopPanel, ShopActions } from '../../01 shared/ui.mjs';
+import { ShopPage, CartTable, ShopPanel, ShopActions } from '../../shared/ui.mjs';
 
 export function renderPage(data, ctx) {
   const products = (data.home || {}).products || [];

@@ -1,3 +1,12 @@
 {
-  "rows": []
+  "rows": [
+    { "taskNo": "MOV20261106001", "taskStatus": "busy", "owner": "海纳食品", "skuCode": "SKU100231", "fromBin": "A-01-01", "toBin": "A-02-03", "planQty": 120, "finishTime": "" },
+    { "taskNo": "MOV20261106002", "taskStatus": "wait", "owner": "辰星日化", "skuCode": "SKU100232", "fromBin": "B-01-02", "toBin": "B-02-01", "planQty": 80, "finishTime": "" },
+    { "taskNo": "MOV20261106003", "taskStatus": "done", "owner": "云途电商", "skuCode": "SKU100198", "fromBin": "C-01-04", "toBin": "C-02-05", "planQty": 60, "finishTime": "2026-11-06 09:20" },
+    { "taskNo": "MOV20261106004", "taskStatus": "blocked", "owner": "海纳食品", "skuCode": "SKU100175", "fromBin": "A-02-03", "toBin": "A-03-01", "planQty": 96, "finishTime": "" },
+    { "taskNo": "MOV20261106005", "taskStatus": "wait", "owner": "云途电商", "skuCode": "SKU100206", "fromBin": "C-03-02", "toBin": "C-01-04", "planQty": 140, "finishTime": "" },
+    { "taskNo": "MOV20261106006", "taskStatus": "done", "owner": "辰星日化", "skuCode": "SKU100142", "fromBin": "B-02-01", "toBin": "B-01-02", "planQty": 200, "finishTime": "2026-11-06 08:40" },
+    { "taskNo": "MOV20261106007", "taskStatus": "wait", "owner": "海纳食品", "skuCode": "SKU100402", "fromBin": "A-03-01", "toBin": "A-01-02", "planQty": 150, "finishTime": "" },
+    { "taskNo": "MOV20261106008", "taskStatus": "closed", "owner": "云途电商", "skuCode": "SKU100268", "fromBin": "C-02-05", "toBin": "C-03-02", "planQty": 40, "finishTime": "" }
+  ]
 }

@@ -1,0 +1,8 @@
+{
+  "rows": [
+    { "taskNo": "PUT20261106001", "taskStatus": "busy", "owner": "海纳食品", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "targetBin": "A-01-01", "planQty": 600, "doneQty": 380 },
+    { "taskNo": "PUT20261106002", "taskStatus": "wait", "owner": "海纳食品", "skuCode": "SKU100175", "skuName": "海纳酸奶 100g×12", "targetBin": "A-02-03", "planQty": 600, "doneQty": 0 },
+    { "taskNo": "PUT20261106004", "taskStatus": "busy", "owner": "辰星日化", "skuCode": "SKU100142", "skuName": "辰星洗洁精 500ml×20", "targetBin": "B-02-01", "planQty": 360, "doneQty": 140 },
+    { "taskNo": "PUT20261106005", "taskStatus": "blocked", "owner": "云途电商", "skuCode": "SKU100198", "skuName": "云途收纳箱 45L", "targetBin": "C-01-04", "planQty": 240, "doneQty": 60 }
+  ]
+}

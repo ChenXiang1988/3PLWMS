@@ -1,0 +1,10 @@
+{
+  "rows": [
+    { "shopCode": "SH0001", "shopName": "海纳优品", "owner": "海纳食品", "mainCategory": "食品饮料", "onSaleCount": 10, "shopScore": 4.8, "shopStatus": "active", "createTime": "2025-06-12 10:00" },
+    { "shopCode": "SH0002", "shopName": "海纳乳品专营", "owner": "海纳食品", "mainCategory": "食品饮料", "onSaleCount": 6, "shopScore": 4.6, "shopStatus": "active", "createTime": "2025-08-20 14:30" },
+    { "shopCode": "SH0003", "shopName": "辰星洁净馆", "owner": "辰星日化", "mainCategory": "日化清洁", "onSaleCount": 8, "shopScore": 4.7, "shopStatus": "active", "createTime": "2025-07-05 09:20" },
+    { "shopCode": "SH0004", "shopName": "辰星家居", "owner": "辰星日化", "mainCategory": "家居百货", "onSaleCount": 5, "shopScore": 4.4, "shopStatus": "inactive", "createTime": "2025-09-18 16:10" },
+    { "shopCode": "SH0005", "shopName": "云途优选", "owner": "云途电商", "mainCategory": "家居百货", "onSaleCount": 12, "shopScore": 4.9, "shopStatus": "active", "createTime": "2025-05-28 11:40" },
+    { "shopCode": "SH0006", "shopName": "云途数码", "owner": "云途电商", "mainCategory": "数码配件", "onSaleCount": 7, "shopScore": 4.5, "shopStatus": "active", "createTime": "2025-10-08 15:05" }
+  ]
+}

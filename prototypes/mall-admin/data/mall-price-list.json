@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "owner": "海纳食品", "price": 32.0, "ladderPrice": "满 10 箱 ￥30.00", "guestVisible": "否", "memberVisible": "是" },
+    { "skuCode": "SKU100175", "skuName": "海纳酸奶 100g×12", "owner": "海纳食品", "price": 26.5, "ladderPrice": "满 20 箱 ￥25.00", "guestVisible": "否", "memberVisible": "是" },
+    { "skuCode": "SKU100402", "skuName": "海纳常温酸奶礼盒 200g×12", "owner": "海纳食品", "price": 58.0, "ladderPrice": "满 5 箱 ￥55.00", "guestVisible": "是", "memberVisible": "是" },
+    { "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "owner": "辰星日化", "price": 45.0, "ladderPrice": "满 10 箱 ￥42.00", "guestVisible": "否", "memberVisible": "是" },
+    { "skuCode": "SKU100142", "skuName": "辰星洗洁精 500ml×20", "owner": "辰星日化", "price": 38.0, "ladderPrice": "满 10 箱 ￥36.00", "guestVisible": "否", "memberVisible": "是" },
+    { "skuCode": "SKU100355", "skuName": "辰星柔顺剂 1kg×12", "owner": "辰星日化", "price": 42.0, "ladderPrice": "满 10 箱 ￥40.00", "guestVisible": "是", "memberVisible": "是" },
+    { "skuCode": "SKU100198", "skuName": "云途收纳箱 45L", "owner": "云途电商", "price": 19.9, "ladderPrice": "满 30 件 ￥18.00", "guestVisible": "是", "memberVisible": "是" },
+    { "skuCode": "SKU100206", "skuName": "云途蓝牙耳机 二代", "owner": "云途电商", "price": 129.0, "ladderPrice": "满 10 件 ￥120.00", "guestVisible": "否", "memberVisible": "是" }
+  ]
+}

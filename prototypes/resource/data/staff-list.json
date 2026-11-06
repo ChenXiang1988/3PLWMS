@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "staffCode": "ST0001", "staffName": "张伟", "position": "收货员", "warehouse": "华东中心仓", "teamName": "收货一组", "qualification": "叉车证", "staffStatus": "active", "entryDate": "2023-03-01", "createTime": "2025-02-10 09:00" },
+    { "staffCode": "ST0002", "staffName": "李静", "position": "上架员", "warehouse": "华东中心仓", "teamName": "上架一组", "qualification": "", "staffStatus": "active", "entryDate": "2023-05-12", "createTime": "2025-02-10 09:05" },
+    { "staffCode": "ST0003", "staffName": "王磊", "position": "拣货员", "warehouse": "华东中心仓", "teamName": "拣货一组", "qualification": "高位作业", "staffStatus": "active", "entryDate": "2023-08-20", "createTime": "2025-02-10 09:10" },
+    { "staffCode": "ST0004", "staffName": "赵敏", "position": "复核员", "warehouse": "华东中心仓", "teamName": "复核一组", "qualification": "", "staffStatus": "leave", "entryDate": "2024-01-08", "createTime": "2025-03-02 10:30" },
+    { "staffCode": "ST0005", "staffName": "陈刚", "position": "发货员", "warehouse": "华南前置仓", "teamName": "发货一组", "qualification": "叉车证", "staffStatus": "active", "entryDate": "2023-11-15", "createTime": "2025-03-02 10:35" },
+    { "staffCode": "ST0006", "staffName": "孙倩", "position": "仓管员", "warehouse": "华北分拨仓", "teamName": "盘点一组", "qualification": "", "staffStatus": "active", "entryDate": "2024-04-22", "createTime": "2025-04-15 14:20" },
+    { "staffCode": "ST0007", "staffName": "周涛", "position": "叉车司机", "warehouse": "华南前置仓", "teamName": "综合组", "qualification": "叉车证，冷链作业", "staffStatus": "active", "entryDate": "2023-06-30", "createTime": "2025-05-20 11:10" },
+    { "staffCode": "ST0008", "staffName": "刘洋", "position": "拣货员", "warehouse": "华北分拨仓", "teamName": "拣货二组", "qualification": "", "staffStatus": "resigned", "entryDate": "2022-09-05", "createTime": "2025-06-28 16:40" }
+  ]
+}

@@ -8,7 +8,7 @@
  *
  * 只做一件事：把「一屏只露当前那一个输入」的六段结构摆对：
  *   1 导航 → 2 任务上下文 → 3 当前输入 → 4 对象摘要 → 5 数量与进度 → 6 操作
- * 六段的职责边界与作业状态枚举见 references/design-spec.md 第 4.2 节与 glossary.md 第 3 节。
+ * 六段的职责边界与作业状态枚举见 references/shells/pda.md 第 4 节与 references/core/glossary.md 第 3 节。
  *
  * 最常犯的错：把系统校验序列铺成步骤表。那规定系统拦什么、留什么证，
  * 不是让人按十几下。写之前先答三句：人现在只该扫哪一个？扫到的东西显示在哪？
@@ -17,7 +17,7 @@
  * 硬约束：设计基准 375px；适配用 flex / grid / 百分比 / media query；
  * 最小触控目标 44px；样式只取 var(--wx-*)，不引外部字体与图表库。
  */
-import { ScanPage } from '../../01 shared/ui.mjs';
+import { ScanPage } from '../../shared/ui.mjs';
 
 /* 作业状态中文名与色型取 glossary.md 第 3 节，色型只用五种之一。 */
 export const TASK_STATE = {

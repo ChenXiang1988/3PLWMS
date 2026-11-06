@@ -1,4 +1,4 @@
-import { ListPage, StatusTag, dash, n, uniq } from '../../01 shared/ui.mjs';
+import { ListPage, StatusTag, dash, n, uniq } from '../../shared/ui.mjs';
 
 export const STATUS_META = {
   normal: { label: '正常', type: 'enabled' },

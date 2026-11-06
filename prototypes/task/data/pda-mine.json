@@ -1,0 +1,12 @@
+{
+  "doc": {
+    "staffName": "张伟",
+    "zone": "华东中心仓 / 存储区A",
+    "shift": "早班",
+    "device": "PDA-07",
+    "doneToday": 12,
+    "putawayCount": 5,
+    "pickingCount": 4,
+    "countCount": 3
+  }
+}

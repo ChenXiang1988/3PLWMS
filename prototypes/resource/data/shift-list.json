@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "shiftCode": "SF000001", "workDate": "2026-11-06", "shiftType": "早班", "teamName": "收货一组", "startTime": "08:00", "endTime": "16:00", "planCount": 6, "actualCount": 6, "shiftStatus": "confirmed", "createTime": "2026-11-01 09:00" },
+    { "shiftCode": "SF000002", "workDate": "2026-11-06", "shiftType": "早班", "teamName": "上架一组", "startTime": "08:00", "endTime": "16:00", "planCount": 5, "actualCount": 5, "shiftStatus": "confirmed", "createTime": "2026-11-01 09:05" },
+    { "shiftCode": "SF000003", "workDate": "2026-11-06", "shiftType": "中班", "teamName": "拣货一组", "startTime": "16:00", "endTime": "24:00", "planCount": 8, "actualCount": 7, "shiftStatus": "confirmed", "createTime": "2026-11-01 09:10" },
+    { "shiftCode": "SF000004", "workDate": "2026-11-06", "shiftType": "中班", "teamName": "复核一组", "startTime": "16:00", "endTime": "24:00", "planCount": 4, "actualCount": 4, "shiftStatus": "confirmed", "createTime": "2026-11-01 09:15" },
+    { "shiftCode": "SF000005", "workDate": "2026-11-06", "shiftType": "晚班", "teamName": "发货一组", "startTime": "00:00", "endTime": "08:00", "planCount": 5, "actualCount": 5, "shiftStatus": "confirmed", "createTime": "2026-11-01 09:20" },
+    { "shiftCode": "SF000006", "workDate": "2026-11-07", "shiftType": "常白班", "teamName": "盘点一组", "startTime": "09:00", "endTime": "18:00", "planCount": 4, "actualCount": 0, "shiftStatus": "pending", "createTime": "2026-11-05 16:40" },
+    { "shiftCode": "SF000007", "workDate": "2026-11-07", "shiftType": "常白班", "teamName": "综合组", "startTime": "09:00", "endTime": "18:00", "planCount": 6, "actualCount": 0, "shiftStatus": "pending", "createTime": "2026-11-05 16:45" },
+    { "shiftCode": "SF000008", "workDate": "2026-11-05", "shiftType": "晚班", "teamName": "拣货二组", "startTime": "00:00", "endTime": "08:00", "planCount": 7, "actualCount": 0, "shiftStatus": "cancelled", "createTime": "2026-11-03 10:30" }
+  ]
+}

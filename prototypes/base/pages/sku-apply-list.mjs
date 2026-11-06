@@ -1,4 +1,4 @@
-import { ListPage, StatusTag, Tag, dash, uniq } from '../../01 shared/ui.mjs';
+import { ListPage, StatusTag, Tag, dash, uniq } from '../../shared/ui.mjs';
 
 export const STATUS_META = {
   pendingReview: { label: '待审核', type: 'pending' },

@@ -1,0 +1,10 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "processNo": "RC20261106001", "processStatus": "busy", "sourcePlans": "IP20261106001、IP20261106002", "targetZone": "存储区A", "rowCount": 6, "planQty": 1800, "doneQty": 1100 },
+    { "owner": "辰星日化", "processNo": "RC20261106002", "processStatus": "wait", "sourcePlans": "IP20261106004", "targetZone": "存储区B", "rowCount": 3, "planQty": 960, "doneQty": 0 },
+    { "owner": "海纳食品", "processNo": "RC20261106003", "processStatus": "done", "sourcePlans": "IP20261105003", "targetZone": "拣货区A", "rowCount": 3, "planQty": 800, "doneQty": 800 },
+    { "owner": "云途电商", "processNo": "RC20261106005", "processStatus": "blocked", "sourcePlans": "IP20261106007", "targetZone": "存储区C", "rowCount": 5, "planQty": 3200, "doneQty": 900 },
+    { "owner": "辰星日化", "processNo": "RC20261106006", "processStatus": "wait", "sourcePlans": "IP20261106005", "targetZone": "存储区A", "rowCount": 2, "planQty": 420, "doneQty": 0 },
+    { "owner": "云途电商", "processNo": "RC20261105004", "processStatus": "done", "sourcePlans": "IP20261105008", "targetZone": "拣货区B", "rowCount": 3, "planQty": 1500, "doneQty": 1500 }
+  ]
+}

@@ -1,4 +1,4 @@
-import { DetailPage } from '../../01 shared/ui.mjs';
+import { DetailPage } from '../../shared/ui.mjs';
 
 export const STATUS_META = {
   active: { label: '启用', type: 'enabled' },

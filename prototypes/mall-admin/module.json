@@ -1,0 +1,18 @@
+{
+  "id": "mall-admin",
+  "name": "商城管理",
+  "version": "0.2.0",
+  "owner": "产品组",
+  "tier": "core",
+  "deployed": true,
+  "dependsOn": [
+    "shared"
+  ],
+  "scope": "店铺、商城商品、价格可见性、商城订单与货源楼层",
+  "deliverables": [
+    "pages/",
+    "data/"
+  ],
+  "status": "review",
+  "note": "商城管理七页"
+}

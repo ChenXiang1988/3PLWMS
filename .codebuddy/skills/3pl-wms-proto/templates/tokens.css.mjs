@@ -1,11 +1,11 @@
 /**
  * 实现层视觉令牌（模板）。
  *
- * 用法：由 scripts/init-module.mjs 复制到 prototypes/01 shared/tokens.css.mjs。
+ * 用法：由 scripts/init-module.mjs 复制到 prototypes/shared/tokens.css.mjs。
  *       本文件是「实现层唯一取值来源」——页面模块只许写 var(--wx-*)，
  *       出现任何 hex 都会被验收脚本 S3 与构建期 [取值越界] 判为自创取值。
  *
- * 新增取值的顺序（references/design-spec.md 第 1 节）：
+ * 新增取值的顺序（references/implementation.md 第 1 节）：
  *   先改规范层 → 再改本文件 → 最后重建所有 deployed: true 的模块。
  *   不要在页面模块里「顺手补一个颜色」，也不要把色表复制进文档。
  *

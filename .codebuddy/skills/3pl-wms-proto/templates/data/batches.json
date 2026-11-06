@@ -1,0 +1,87 @@
+{
+  "rows": [
+    {
+      "owner": "海纳食品",
+      "skuCode": "SKU100231",
+      "batchNo": "B20261028001",
+      "productionDate": "2026-10-28",
+      "expiryDate": "2027-04-26",
+      "nearExpiryDays": 30,
+      "saleBlockDays": 7,
+      "locationCode": "A-01-01",
+      "qty": 480,
+      "warehouse": "华东中心仓"
+    },
+    {
+      "owner": "海纳食品",
+      "skuCode": "SKU100175",
+      "batchNo": "B20261104002",
+      "productionDate": "2026-11-04",
+      "expiryDate": "2026-11-25",
+      "nearExpiryDays": 7,
+      "saleBlockDays": 3,
+      "locationCode": "A-02-03",
+      "qty": 120,
+      "warehouse": "华东中心仓"
+    },
+    {
+      "owner": "辰星日化",
+      "skuCode": "SKU100232",
+      "batchNo": "B20260901003",
+      "productionDate": "2026-09-01",
+      "expiryDate": "2027-08-31",
+      "nearExpiryDays": 60,
+      "saleBlockDays": 15,
+      "locationCode": "B-01-02",
+      "qty": 860,
+      "warehouse": "华南前置仓"
+    },
+    {
+      "owner": "云途电商",
+      "skuCode": "SKU100198",
+      "batchNo": "B20260310004",
+      "productionDate": "2026-03-10",
+      "expiryDate": "2026-11-09",
+      "nearExpiryDays": 30,
+      "saleBlockDays": 7,
+      "locationCode": "C-03-01",
+      "qty": 240,
+      "warehouse": "华东中心仓"
+    },
+    {
+      "owner": "海纳食品",
+      "skuCode": "SKU100231",
+      "batchNo": "B20260920005",
+      "productionDate": "2026-09-20",
+      "expiryDate": "2026-11-20",
+      "nearExpiryDays": 30,
+      "saleBlockDays": 7,
+      "locationCode": "A-01-02",
+      "qty": 360,
+      "warehouse": "华北分拨仓"
+    },
+    {
+      "owner": "辰星日化",
+      "skuCode": "SKU100142",
+      "batchNo": "B20260510006",
+      "productionDate": "2026-05-10",
+      "expiryDate": "2026-10-28",
+      "nearExpiryDays": 30,
+      "saleBlockDays": 7,
+      "locationCode": "B-02-01",
+      "qty": 75,
+      "warehouse": "华南前置仓"
+    },
+    {
+      "owner": "云途电商",
+      "skuCode": "SKU100198",
+      "batchNo": "B20260801007",
+      "productionDate": "2026-08-01",
+      "expiryDate": "2027-01-30",
+      "nearExpiryDays": 30,
+      "saleBlockDays": 7,
+      "locationCode": "C-01-04",
+      "qty": 510
+    }
+  ]
+}

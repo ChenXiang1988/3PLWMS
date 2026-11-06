@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "batchNo": "B20261028001", "warehouse": "华东中心仓", "onHandQty": 480, "availableQty": 440, "frozenQty": 40 },
+    { "owner": "海纳食品", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "batchNo": "B20260920005", "warehouse": "华北分拨仓", "onHandQty": 360, "availableQty": 340, "frozenQty": 20 },
+    { "owner": "海纳食品", "skuCode": "SKU100175", "skuName": "海纳酸奶 100g×12", "batchNo": "B20261104002", "warehouse": "华东中心仓", "onHandQty": 120, "availableQty": 120, "frozenQty": 0 },
+    { "owner": "海纳食品", "skuCode": "SKU100402", "skuName": "海纳常温酸奶礼盒 200g×12", "batchNo": "B20261030001", "warehouse": "华东中心仓", "onHandQty": 180, "availableQty": 160, "frozenQty": 20 },
+    { "owner": "辰星日化", "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "batchNo": "B20260901003", "warehouse": "华南前置仓", "onHandQty": 860, "availableQty": 800, "frozenQty": 60 },
+    { "owner": "辰星日化", "skuCode": "SKU100142", "skuName": "辰星洗洁精 500ml×20", "batchNo": "B20260510006", "warehouse": "华南前置仓", "onHandQty": 75, "availableQty": 75, "frozenQty": 0 },
+    { "owner": "辰星日化", "skuCode": "SKU100355", "skuName": "辰星柔顺剂 1kg×12", "batchNo": "B20261019003", "warehouse": "华南前置仓", "onHandQty": 240, "availableQty": 240, "frozenQty": 0 },
+    { "owner": "辰星日化", "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "batchNo": "B20260901003", "warehouse": "华东中心仓", "onHandQty": 420, "availableQty": 400, "frozenQty": 20 }
+  ]
+}

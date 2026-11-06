@@ -1,16 +1,3 @@
 {
-  "rows": [
-    { "ownerCode": "OW001", "ownerName": "海纳食品", "contact": "陈晓", "contactPhone": "021-61230021", "ownerStatus": "active", "createTime": "2024-05-18 09:30" },
-    { "ownerCode": "OW002", "ownerName": "辰星日化", "contact": "周敏", "contactPhone": "020-38910036", "ownerStatus": "active", "createTime": "2024-07-02 14:12" },
-    { "ownerCode": "OW003", "ownerName": "云途电商", "contact": "吴迪", "contactPhone": "0755-86201108", "ownerStatus": "active", "createTime": "2025-01-09 10:05" },
-    { "ownerCode": "OW004", "ownerName": "恒润粮油", "contact": "郑立", "contactPhone": "0512-66551120", "ownerStatus": "active", "createTime": "2025-04-23 16:40" },
-    { "ownerCode": "OW005", "ownerName": "森语家居", "contact": "苏晴", "contactPhone": "0571-88660214", "ownerStatus": "active", "createTime": "2025-06-11 11:22" },
-    { "ownerCode": "OW006", "ownerName": "麦田乳业", "contact": "何斌", "contactPhone": "025-84271109", "ownerStatus": "active", "createTime": "2025-08-19 08:15" },
-    { "ownerCode": "OW007", "ownerName": "青禾生鲜", "contact": "林珊", "contactPhone": "0532-88901345", "ownerStatus": "active", "createTime": "2025-10-08 15:36" },
-    { "ownerCode": "OW008", "ownerName": "柏科电子", "contact": "赵鹏", "contactPhone": "0769-22331108", "ownerStatus": "active", "createTime": "2026-01-14 09:48" },
-    { "ownerCode": "OW009", "ownerName": "远川服饰", "contact": "唐悦", "contactPhone": "0574-87330062", "ownerStatus": "inactive", "createTime": "2023-03-27 13:20" },
-    { "ownerCode": "OW010", "ownerName": "汇丰纸业", "contact": "马骏", "contactPhone": "0311-85261147", "ownerStatus": "inactive", "createTime": "2023-09-05 10:02" },
-    { "ownerCode": "OW011", "ownerName": "南岭茶业", "contact": "谢宁", "contactPhone": "0591-87653309", "ownerStatus": "inactive", "createTime": "2024-02-16 16:11" },
-    { "ownerCode": "OW012", "ownerName": "星野玩具", "contact": "罗倩", "contactPhone": "020-38661175", "ownerStatus": "inactive", "createTime": "2024-08-30 14:27" }
-  ]
+  "ref": "owners"
 }

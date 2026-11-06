@@ -1,0 +1,18 @@
+{
+  "id": "billing",
+  "name": "计费结算",
+  "version": "0.2.0",
+  "owner": "产品组",
+  "tier": "ext",
+  "deployed": true,
+  "dependsOn": [
+    "shared"
+  ],
+  "scope": "3PL 仓租与作业费，按交付范围启用",
+  "deliverables": [
+    "pages/",
+    "data/"
+  ],
+  "status": "review",
+  "note": "费用规则查看、本货主费用账单两页"
+}

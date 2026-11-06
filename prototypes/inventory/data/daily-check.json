@@ -1,0 +1,10 @@
+{
+  "rows": [
+    { "checkNo": "DC20261106001", "checkStatus": "doing", "checkDate": "2026-11-06", "owner": "海纳食品", "binCount": 96, "diffCount": 2, "handler": "张伟", "finishTime": "" },
+    { "checkNo": "DC20261106002", "checkStatus": "pending", "checkDate": "2026-11-06", "owner": "辰星日化", "binCount": 64, "diffCount": 0, "handler": "", "finishTime": "" },
+    { "checkNo": "DC20261106005", "checkStatus": "exception", "checkDate": "2026-11-06", "owner": "云途电商", "binCount": 40, "diffCount": 5, "handler": "刘洋", "finishTime": "" },
+    { "checkNo": "DC20261105003", "checkStatus": "completed", "checkDate": "2026-11-05", "owner": "云途电商", "binCount": 88, "diffCount": 1, "handler": "孙倩", "finishTime": "2026-11-05 18:20" },
+    { "checkNo": "DC20261105004", "checkStatus": "completed", "checkDate": "2026-11-05", "owner": "海纳食品", "binCount": 72, "diffCount": 0, "handler": "张伟", "finishTime": "2026-11-05 18:35" },
+    { "checkNo": "DC20261104006", "checkStatus": "cancelled", "checkDate": "2026-11-04", "owner": "辰星日化", "binCount": 60, "diffCount": 0, "handler": "", "finishTime": "" }
+  ]
+}

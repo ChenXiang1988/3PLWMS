@@ -1,0 +1,10 @@
+{
+  "rows": [
+    { "importNo": "IMP20261106001", "importStatus": "doing", "owner": "海纳食品", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "batchNo": "B20261028001", "binCode": "A-01-01", "initQty": 480, "createTime": "2026-11-06 08:10" },
+    { "importNo": "IMP20261106002", "importStatus": "pending", "owner": "辰星日化", "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "batchNo": "B20260901003", "binCode": "B-01-02", "initQty": 860, "createTime": "2026-11-06 09:20" },
+    { "importNo": "IMP20261106005", "importStatus": "exception", "owner": "云途电商", "skuCode": "SKU100206", "skuName": "云途蓝牙耳机 二代", "batchNo": "B20261022002", "binCode": "C-03-02", "initQty": 140, "createTime": "2026-11-06 10:05" },
+    { "importNo": "IMP20261105003", "importStatus": "completed", "owner": "云途电商", "skuCode": "SKU100198", "skuName": "云途收纳箱 45L", "batchNo": "B20260310004", "binCode": "C-03-01", "initQty": 240, "createTime": "2026-11-05 10:15" },
+    { "importNo": "IMP20261105004", "importStatus": "completed", "owner": "海纳食品", "skuCode": "SKU100175", "skuName": "海纳酸奶 100g×12", "batchNo": "B20261104002", "binCode": "A-02-03", "initQty": 120, "createTime": "2026-11-05 11:30" },
+    { "importNo": "IMP20261104006", "importStatus": "cancelled", "owner": "辰星日化", "skuCode": "SKU100142", "skuName": "辰星洗洁精 500ml×20", "batchNo": "B20260510006", "binCode": "B-02-01", "initQty": 75, "createTime": "2026-11-04 14:40" }
+  ]
+}

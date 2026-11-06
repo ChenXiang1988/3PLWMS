@@ -1,3 +1,7 @@
 {
-  "rows": []
+  "rows": [
+    { "carrierCode": "CR001", "carrierName": "顺达快递", "contact": "王强", "contactPhone": "021-66001999", "carrierStatus": "active" },
+    { "carrierCode": "CR002", "carrierName": "安冷冷链", "contact": "李梅", "contactPhone": "021-66002999", "carrierStatus": "active" },
+    { "carrierCode": "CR003", "carrierName": "通运快运", "contact": "周杰", "contactPhone": "0755-26660999", "carrierStatus": "active" }
+  ]
 }

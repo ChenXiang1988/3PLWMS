@@ -6,7 +6,7 @@
  *       本文件放在 skill 目录里时，import 的相对路径是相对
  *       prototypes/<模块ID>/pages/ 算的，原地 import 会报 ERR_MODULE_NOT_FOUND。
  *
- * 与列表页的分工（references/design-spec.md 第 4 节）——这一条最容易搞错：
+ * 与列表页的分工（references/shells/admin.md 第 4 节）——这一条最容易搞错：
  *   报表页是唯一允许摆 KPI 的类型，用 ReportHero + StatRow + Block；
  *   列表页一页一张表，不加指标卡。判据是「注册表里 type 是什么」，不是组件能不能用。
  *
@@ -18,7 +18,7 @@
  * 零外链、零依赖：图表用内联 SVG 或纯 CSS 横条，用令牌上色，不引图表库。
  * 指标值必须由行数据算出，不写死数字。口径写「本部署主体」，不写跨主体汇总。
  */
-import { ReportHero, StatRow, Block, BaseTable, StatusTag, esc, n } from '../../01 shared/ui.mjs';
+import { ReportHero, StatRow, Block, BaseTable, StatusTag, esc, n } from '../../shared/ui.mjs';
 
 /**
  * @param {Object} data 键为 data/*.json 的文件名，值已规范化成 { rows, alerts, ... }

@@ -1,4 +1,4 @@
-import { ReportHero, StatRow, Block, BaseTable, esc, n } from '../../01 shared/ui.mjs';
+import { ReportHero, StatRow, Block, BaseTable, esc, n } from '../../shared/ui.mjs';
 
 export function renderPage(data, ctx) {
   const { rows = [] } = data[ctx.pageKey] || {};

@@ -1,26 +1,23 @@
 {
   "task": {
-    "docNo": "PD20261105002",
-    "status": "busy",
-    "owner": "辰星日化",
-    "operator": "赵磊",
-    "device": "PDA-11",
-    "location": "A-02-05",
-    "planQty": 80,
-    "doneQty": 30,
-    "thisTime": 10,
-    "qtyUnit": "件"
+    "countNo": "PD20261106001",
+    "owner": "海纳食品",
+    "operator": "孙倩",
+    "device": "PDA-05",
+    "location": "A-01-01"
   },
   "line": {
-    "lineNo": 1,
-    "fromLocation": "A-02-05",
-    "skuName": "辰星洗衣液 2kg×6",
-    "skuCode": "SKU100232",
-    "batchNo": "B20260901003",
-    "planQty": 80,
-    "doneQty": 30,
-    "unit": "件"
+    "lineNo": 3,
+    "skuCode": "SKU100231",
+    "skuName": "海纳全脂牛奶 250ml×24",
+    "batchNo": "B20261028001",
+    "fromLocation": "A-01-01",
+    "planQty": 72,
+    "doneQty": 48,
+    "unit": "箱"
   },
-  "logs": [],
-  "rows": []
+  "logs": [
+    { "time": "09:12", "text": "扫描 SKU100231", "qty": "24 箱" },
+    { "time": "09:15", "text": "扫描 SKU100231", "qty": "24 箱" }
+  ]
 }

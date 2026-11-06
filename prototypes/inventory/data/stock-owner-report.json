@@ -1,0 +1,10 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "warehouse": "华东中心仓", "onHandQty": 960, "frozenQty": 60, "availableQty": 900, "binCount": 8 },
+    { "owner": "海纳食品", "warehouse": "华北分拨仓", "onHandQty": 360, "frozenQty": 20, "availableQty": 340, "binCount": 3 },
+    { "owner": "海纳食品", "warehouse": "华南前置仓", "onHandQty": 320, "frozenQty": 20, "availableQty": 300, "binCount": 4 },
+    { "owner": "辰星日化", "warehouse": "华南前置仓", "onHandQty": 935, "frozenQty": 60, "availableQty": 875, "binCount": 6 },
+    { "owner": "辰星日化", "warehouse": "华东中心仓", "onHandQty": 420, "frozenQty": 20, "availableQty": 400, "binCount": 3 },
+    { "owner": "辰星日化", "warehouse": "华北分拨仓", "onHandQty": 180, "frozenQty": 0, "availableQty": 180, "binCount": 2 }
+  ]
+}

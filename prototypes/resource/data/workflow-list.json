@@ -1,0 +1,10 @@
+{
+  "rows": [
+    { "flowCode": "FLOW001", "warehouse": "华东中心仓", "docType": "入库通知单", "stepCount": 5, "version": "V2", "status": "enabled", "updateTime": "2026-11-05 14:00", "updateBy": "陈晓" },
+    { "flowCode": "FLOW002", "warehouse": "华东中心仓", "docType": "出库订单", "stepCount": 6, "version": "V3", "status": "enabled", "updateTime": "2026-11-04 09:30", "updateBy": "陈晓" },
+    { "flowCode": "FLOW003", "warehouse": "华东中心仓", "docType": "移库单", "stepCount": 3, "version": "V1", "status": "enabled", "updateTime": "2026-10-28 16:20", "updateBy": "周敏" },
+    { "flowCode": "FLOW004", "warehouse": "华南前置仓", "docType": "出库订单", "stepCount": 5, "version": "V2", "status": "enabled", "updateTime": "2026-11-02 10:15", "updateBy": "周敏" },
+    { "flowCode": "FLOW005", "warehouse": "华北分拨仓", "docType": "盘点单", "stepCount": 3, "version": "V1", "status": "disabled", "updateTime": "2026-10-20 11:40", "updateBy": "吴迪" },
+    { "flowCode": "FLOW006", "warehouse": "华南前置仓", "docType": "补货单", "stepCount": 2, "version": "V1", "status": "enabled", "updateTime": "2026-11-03 08:55", "updateBy": "周敏" }
+  ]
+}

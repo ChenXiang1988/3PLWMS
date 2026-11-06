@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "docType": "入库通知单", "pending": 1, "doing": 1, "exception": 0, "completed": 1, "overdue": 0 },
+    { "owner": "海纳食品", "docType": "出库订单", "pending": 1, "doing": 1, "exception": 0, "completed": 1, "overdue": 0 },
+    { "owner": "海纳食品", "docType": "移库单", "pending": 0, "doing": 0, "exception": 0, "completed": 1, "overdue": 0 },
+    { "owner": "海纳食品", "docType": "盘点单", "pending": 0, "doing": 0, "exception": 0, "completed": 1, "overdue": 0 },
+    { "owner": "辰星日化", "docType": "入库通知单", "pending": 1, "doing": 0, "exception": 1, "completed": 1, "overdue": 1 },
+    { "owner": "辰星日化", "docType": "出库订单", "pending": 1, "doing": 0, "exception": 1, "completed": 1, "overdue": 0 },
+    { "owner": "辰星日化", "docType": "移库单", "pending": 0, "doing": 0, "exception": 0, "completed": 0, "overdue": 0 },
+    { "owner": "辰星日化", "docType": "盘点单", "pending": 0, "doing": 0, "exception": 0, "completed": 1, "overdue": 0 }
+  ]
+}

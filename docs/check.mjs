@@ -181,7 +181,8 @@ for (const logRel of logFiles) {
   let inDate = false;
   let records = 0;
   for (const line of text.split(/\r?\n/)) {
-    const dm = line.match(/^##\s+(\d{4}-\d{2}-\d{2})\s*$/);
+    // 允许「## 2026-11-06（续）」这类同日续写分节，口径与 docs/数据字典/check.mjs 对齐
+    const dm = line.match(/^##\s+(\d{4}-\d{2}-\d{2})(?:\s*[（(][^）)]*[）)])?\s*$/);
     if (dm) { inDate = true; months.add(dm[1].slice(0, 7)); continue; }
     if (line.startsWith('## ')) { inDate = false; continue; }
     if (!inDate || !/^[-*]\s/.test(line) || !line.includes('｜')) continue;

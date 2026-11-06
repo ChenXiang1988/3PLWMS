@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "deviceCode": "DV0001", "deviceName": "1 号电动叉车", "deviceType": "叉车", "hardwareModel": "FB20", "warehouse": "华东中心仓", "deviceStatus": "active", "purchaseDate": "2024-03-15", "createTime": "2024-03-20 10:00" },
+    { "deviceCode": "DV0002", "deviceName": "2 号手持终端", "deviceType": "手持终端", "hardwareModel": "i6310", "warehouse": "华东中心仓", "deviceStatus": "active", "purchaseDate": "2025-01-08", "createTime": "2025-01-10 09:20" },
+    { "deviceCode": "DV0003", "deviceName": "3 号称重台", "deviceType": "称重设备", "hardwareModel": "TCS-300", "warehouse": "华东中心仓", "deviceStatus": "maintaining", "purchaseDate": "2024-07-22", "createTime": "2024-07-25 14:30" },
+    { "deviceCode": "DV0004", "deviceName": "4 号输送线", "deviceType": "输送线", "hardwareModel": "SX-1200", "warehouse": "华南前置仓", "deviceStatus": "active", "purchaseDate": "2024-11-05", "createTime": "2024-11-08 10:15" },
+    { "deviceCode": "DV0005", "deviceName": "5 号 AGV", "deviceType": "AGV", "hardwareModel": "AGV-500", "warehouse": "华东中心仓", "deviceStatus": "active", "purchaseDate": "2025-04-18", "createTime": "2025-04-20 16:40" },
+    { "deviceCode": "DV0006", "deviceName": "6 号电子标签", "deviceType": "电子标签", "hardwareModel": "ESL-21", "warehouse": "华北分拨仓", "deviceStatus": "inactive", "purchaseDate": "2023-09-12", "createTime": "2023-09-15 11:50" },
+    { "deviceCode": "DV0007", "deviceName": "7 号手持终端", "deviceType": "手持终端", "hardwareModel": "i6310", "warehouse": "华北分拨仓", "deviceStatus": "active", "purchaseDate": "2025-06-30", "createTime": "2025-07-02 08:35" },
+    { "deviceCode": "DV0008", "deviceName": "8 号电动叉车", "deviceType": "叉车", "hardwareModel": "FB25", "warehouse": "华南前置仓", "deviceStatus": "scrapped", "purchaseDate": "2022-05-20", "createTime": "2022-05-25 13:20" }
+  ]
+}

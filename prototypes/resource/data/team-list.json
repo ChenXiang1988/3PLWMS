@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "teamCode": "TM001", "teamName": "收货一组", "teamType": "收货", "shiftType": "早班", "warehouse": "华东中心仓", "leaderName": "张伟", "memberCount": 6, "teamStatus": "active", "createTime": "2025-02-10 09:00" },
+    { "teamCode": "TM002", "teamName": "上架一组", "teamType": "上架", "shiftType": "早班", "warehouse": "华东中心仓", "leaderName": "李静", "memberCount": 5, "teamStatus": "active", "createTime": "2025-02-10 09:05" },
+    { "teamCode": "TM003", "teamName": "拣货一组", "teamType": "拣货", "shiftType": "中班", "warehouse": "华东中心仓", "leaderName": "王磊", "memberCount": 8, "teamStatus": "active", "createTime": "2025-02-10 09:10" },
+    { "teamCode": "TM004", "teamName": "复核一组", "teamType": "复核", "shiftType": "中班", "warehouse": "华东中心仓", "leaderName": "赵敏", "memberCount": 4, "teamStatus": "active", "createTime": "2025-03-02 10:30" },
+    { "teamCode": "TM005", "teamName": "发货一组", "teamType": "发货", "shiftType": "晚班", "warehouse": "华南前置仓", "leaderName": "陈刚", "memberCount": 5, "teamStatus": "active", "createTime": "2025-03-02 10:35" },
+    { "teamCode": "TM006", "teamName": "盘点一组", "teamType": "盘点", "shiftType": "常白班", "warehouse": "华北分拨仓", "leaderName": "孙倩", "memberCount": 4, "teamStatus": "active", "createTime": "2025-04-15 14:20" },
+    { "teamCode": "TM007", "teamName": "综合组", "teamType": "综合", "shiftType": "常白班", "warehouse": "华南前置仓", "leaderName": "周涛", "memberCount": 6, "teamStatus": "inactive", "createTime": "2025-05-20 11:10" },
+    { "teamCode": "TM008", "teamName": "拣货二组", "teamType": "拣货", "shiftType": "晚班", "warehouse": "华北分拨仓", "leaderName": "刘洋", "memberCount": 7, "teamStatus": "active", "createTime": "2025-06-28 16:40" }
+  ]
+}

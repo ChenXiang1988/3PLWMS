@@ -8,9 +8,9 @@
  *
  * 结构固定四段：抬头字段网格 → 明细表 → 操作轨迹 → 底部操作条。
  * 明细用 BaseTable；本类页面不套状态页签与分页，也不拼大段结构 HTML。
- * 字段标签与按钮文案逐字取 references/glossary.md，不得沿用示例文案。
+ * 字段标签与按钮文案逐字取 references/core/glossary.md，不得沿用示例文案。
  */
-import { DetailPage, StatusTag, dash, n } from '../../01 shared/ui.mjs';
+import { DetailPage, StatusTag, dash, n } from '../../shared/ui.mjs';
 
 /* 单据状态中文名与色型取 glossary.md 第 3 节，五种色型之外一律不许传。 */
 export const STATUS_META = {

@@ -1,6 +1,6 @@
 import {
-  ShopPage, ShopFields, ShopPanel, ShopTable, ShopDetailHero, ShopRow, money,
-} from '../../01 shared/ui.mjs';
+  ShopPage, ShopFields, ShopPanel, ShopTable, ShopDetailHero, ShopRow,
+} from '../../shared/ui.mjs';
 
 export function renderPage(data, ctx) {
   const products = (data.home || {}).products || [];
@@ -9,7 +9,7 @@ export function renderPage(data, ctx) {
 
   const tiers = (conf.tiers || []).map((t) => ({
     minQty: `起批 ${t.minQty} ${p.unit}`,
-    price: money(t.price),
+    price: t.price,
   }));
   const batches = conf.batches || [];
 
@@ -27,7 +27,7 @@ export function renderPage(data, ctx) {
     + ShopPanel({
       title: '阶梯价',
       body: ShopTable({
-        columns: [{ key: 'minQty', label: '起批量' }, { key: 'price', label: '单价' }],
+        columns: [{ key: 'minQty', label: '起批量' }, { key: 'price', label: '单价', price: true }],
         rows: tiers,
       }),
     })

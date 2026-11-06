@@ -1,28 +1,23 @@
 {
   "task": {
-    "docNo": "SO20261105006",
-    "status": "busy",
-    "owner": "云途电商",
-    "operator": "王芳",
-    "device": "PDA-07",
-    "location": "拣货区 B",
-    "planQty": 60,
-    "doneQty": 24,
-    "thisTime": 6,
-    "qtyUnit": "件"
+    "taskNo": "PT20261106001",
+    "processNo": "PK20261106001",
+    "owner": "海纳食品",
+    "operator": "李娜",
+    "device": "PDA-05",
+    "location": "拣货区 A-03"
   },
   "line": {
-    "lineNo": 2,
-    "fromLocation": "B-03-12",
-    "skuName": "云途收纳箱 45L",
-    "skuCode": "SKU100198",
-    "batchNo": "B20261028003",
-    "planQty": 60,
-    "doneQty": 24,
-    "unit": "件"
+    "lineNo": 1,
+    "skuCode": "SKU100255",
+    "skuName": "海纳低脂牛奶 250ml×24",
+    "batchNo": "B20261018",
+    "planQty": 480,
+    "doneQty": 300,
+    "unit": "箱"
   },
   "logs": [
-    { "time": "10:24", "text": "6901234500059 · 云途电商", "qty": "6 件" }
-  ],
-  "rows": []
+    { "time": "10:12", "text": "扫描 SKU100255", "qty": "120 箱" },
+    { "time": "10:15", "text": "扫描 SKU100255", "qty": "180 箱" }
+  ]
 }

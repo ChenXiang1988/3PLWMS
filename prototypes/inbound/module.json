@@ -1,17 +1,18 @@
 {
   "id": "inbound",
   "name": "入库管理",
-  "version": "0.2.0",
-  "owner": "",
+  "version": "0.3.0",
+  "owner": "产品组",
   "tier": "core",
   "deployed": true,
   "dependsOn": [
     "shared"
   ],
-  "scope": "通知、收货验收、上架",
+  "scope": "入库计划单、收货单、上架单与收货验收作业",
   "deliverables": [
-    "pages/", "data/"
+    "pages/",
+    "data/"
   ],
-  "status": "draft",
-  "note": ""
+  "status": "review",
+  "note": "入库计划单与详情、收货单、上架单，含货主端入库计划单两页；收货验收归 PDA 端"
 }

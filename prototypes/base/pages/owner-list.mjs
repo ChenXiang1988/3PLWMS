@@ -1,4 +1,4 @@
-import { ListPage, StatusTag, dash } from '../../01 shared/ui.mjs';
+import { ListPage, StatusTag, dash } from '../../shared/ui.mjs';
 
 export const STATUS_META = {
   active: { label: '启用', type: 'enabled' },

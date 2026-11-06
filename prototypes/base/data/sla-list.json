@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "slaCode": "SL0001", "warehouse": "华东中心仓", "owner": "海纳食品", "bizType": "入库", "slaHours": 4, "cutoffTime": "", "accuracyRate": null, "slaStatus": "active", "effectDate": "2026-01-01", "updateTime": "2026-01-01 09:00" },
+    { "slaCode": "SL0002", "warehouse": "华东中心仓", "owner": "海纳食品", "bizType": "出库", "slaHours": 3, "cutoffTime": "18:00", "accuracyRate": 99.50, "slaStatus": "active", "effectDate": "2026-01-01", "updateTime": "2026-01-01 09:00" },
+    { "slaCode": "SL0003", "warehouse": "华北分拨仓", "owner": "海纳食品", "bizType": "入库", "slaHours": 6, "cutoffTime": "", "accuracyRate": null, "slaStatus": "active", "effectDate": "2026-02-01", "updateTime": "2026-02-01 10:20" },
+    { "slaCode": "SL0004", "warehouse": "华北分拨仓", "owner": "海纳食品", "bizType": "出库", "slaHours": 5, "cutoffTime": "17:00", "accuracyRate": 99.00, "slaStatus": "active", "effectDate": "2026-02-01", "updateTime": "2026-02-01 10:20" },
+    { "slaCode": "SL0005", "warehouse": "华南前置仓", "owner": "辰星日化", "bizType": "入库", "slaHours": 5, "cutoffTime": "", "accuracyRate": null, "slaStatus": "active", "effectDate": "2026-01-15", "updateTime": "2026-01-15 14:00" },
+    { "slaCode": "SL0006", "warehouse": "华南前置仓", "owner": "辰星日化", "bizType": "出库", "slaHours": 4, "cutoffTime": "18:00", "accuracyRate": 99.20, "slaStatus": "active", "effectDate": "2026-01-15", "updateTime": "2026-01-15 14:00" },
+    { "slaCode": "SL0007", "warehouse": "华东中心仓", "owner": "辰星日化", "bizType": "入库", "slaHours": 4, "cutoffTime": "", "accuracyRate": null, "slaStatus": "inactive", "effectDate": "2026-03-01", "updateTime": "2026-04-10 11:30" },
+    { "slaCode": "SL0008", "warehouse": "华东中心仓", "owner": "辰星日化", "bizType": "出库", "slaHours": 3, "cutoffTime": "18:00", "accuracyRate": 99.00, "slaStatus": "active", "effectDate": "2026-03-01", "updateTime": "2026-03-01 09:40" }
+  ]
+}

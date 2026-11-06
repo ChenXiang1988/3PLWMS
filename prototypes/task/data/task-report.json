@@ -1,0 +1,11 @@
+{
+  "rows": [
+    { "taskType": "收货", "waitQty": 14, "busyQty": 8, "exceptionQty": 1, "doneQty": 46 },
+    { "taskType": "上架", "waitQty": 11, "busyQty": 6, "exceptionQty": 0, "doneQty": 39 },
+    { "taskType": "拣货", "waitQty": 9, "busyQty": 7, "exceptionQty": 2, "doneQty": 52 },
+    { "taskType": "复核", "waitQty": 6, "busyQty": 4, "exceptionQty": 1, "doneQty": 48 },
+    { "taskType": "发货", "waitQty": 5, "busyQty": 3, "exceptionQty": 0, "doneQty": 41 },
+    { "taskType": "移库", "waitQty": 4, "busyQty": 2, "exceptionQty": 1, "doneQty": 18 },
+    { "taskType": "盘点", "waitQty": 3, "busyQty": 1, "exceptionQty": 0, "doneQty": 12 }
+  ]
+}

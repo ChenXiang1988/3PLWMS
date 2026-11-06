@@ -6,10 +6,10 @@
  *       本文件放在 skill 目录里时，下面那行 import 的相对路径是相对
  *       prototypes/<模块ID>/pages/ 算的，原地 import 会报 ERR_MODULE_NOT_FOUND。
  *
- * 本模板只演示骨架。**列名、页签、按钮文案必须逐字取 references/glossary.md，
+ * 本模板只演示骨架。**列名、页签、按钮文案必须逐字取 references/core/glossary.md，
  * 不得沿用本文件里的示例列名**；字段名与显示文案分开，字段名用小写驼峰。
  *
- * 三条硬约束（references/design-spec.md 第 4 节）：
+ * 三条硬约束（references/shells/admin.md 第 4 节）：
  *   1. 结构只走 ListPage，页面模块只写 columns / rows / filters / toolbar / statusTabs。
  *   2. 不加统计卡片、不加页内大标题、不写自绘筛选栏；计数放页签的 count 或 scopeNote。
  *   3. 不在这里拼大段结构 HTML，也不写页面级脚本；交互由 data-* 属性驱动。
@@ -17,9 +17,9 @@
  * 四个占位符仅出现在注释与字符串里，复制后由脚本替换；替换不干净会被
  * 构建期 [文案] 拦下。
  */
-import { ListPage, StatusTag, Tag, ProgressCell, n, dash, uniq } from '../../01 shared/ui.mjs';
+import { ListPage, StatusTag, Tag, ProgressCell, n, dash, uniq } from '../../shared/ui.mjs';
 
-/* 状态 → 中文与胶囊色型。色型只能用 references/glossary.md 第 3 节登记的五种：
+/* 状态 → 中文与胶囊色型。色型只能用 references/core/glossary.md 第 3 节登记的五种：
    disabled / enabled / info / pending / rejected。传别的会落成构建期 [色型]。 */
 export const STATUS_META = {
   pending: { label: '待处理', type: 'pending' },

@@ -9,7 +9,7 @@
  *   node init-module.mjs inbound
  *   node init-module.mjs --root <工作区路径> inbound
  *
- * 保护：prototypes/01 shared/ 与端构建入口已存在时不覆盖；目标模块目录已存在时直接拒绝。
+ * 保护：prototypes/shared/ 与端构建入口已存在时不覆盖；目标模块目录已存在时直接拒绝。
  * 退出码：0 成功；1 参数或状态不满足；2 运行环境不满足。
  */
 import fs from 'node:fs';
@@ -31,7 +31,7 @@ for (let i = 0; i < ARGS.length; i++) {
   if (!ARGS[i].startsWith('--')) MODULE_ID = ARGS[i];
 }
 const PROTO = path.join(ROOT, 'prototypes');
-const SHARED = path.join(PROTO, '01 shared');
+const SHARED = path.join(PROTO, 'shared');
 
 const TEMPLATE_BY_TYPE = { list: 'page-list.mjs', detail: 'page-detail.mjs', report: 'page-report.mjs', scan: 'page-scan.mjs', shop: 'page-shop.mjs' };
 
@@ -69,6 +69,14 @@ function ensureShared() {
     }
     console.log(`✓ 已建立共享层：${rel(SHARED)}`);
   } else console.log(`· 共享层已存在，保持不变：${rel(SHARED)}`);
+  const dataDir = path.join(SHARED, 'data');
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+    for (const f of fs.readdirSync(path.join(TEMPLATES, 'data')).filter((x) => x.endsWith('.json'))) {
+      fs.copyFileSync(path.join(TEMPLATES, 'data', f), path.join(dataDir, f));
+    }
+    console.log(`✓ 已建立共享主档：${rel(dataDir)}`);
+  }
   const build = path.join(PROTO, 'build-app.mjs');
   if (!fs.existsSync(build)) {
     fs.copyFileSync(path.join(TEMPLATES, 'build-app.mjs'), build);
@@ -77,7 +85,7 @@ function ensureShared() {
 }
 
 function ensureGitignore() {
-  const rules = ['prototypes/00 dist/', 'prototypes/*/dist/'];
+  const rules = ['prototypes/dist/', 'prototypes/*/dist/'];
   const f = path.join(ROOT, '.gitignore');
   const s = read(f) || '';
   const lines = s.split(/\r?\n/).map((l) => l.trim());
@@ -124,7 +132,8 @@ function initModule(id, reg) {
   manifest.scope = entry.scope || '';
   fs.writeFileSync(path.join(dir, 'module.json'), JSON.stringify(manifest, null, 2) + '\n', 'utf8');
 
-  for (const p of entry.pages) {
+  const generated = entry.pages.filter((p) => p.app);
+  for (const p of generated) {
     const tplName = TEMPLATE_BY_TYPE[p.type];
     if (!tplName) { console.error(`${p.key} 的 type=${p.type} 没有对应模板`); process.exit(1); }
     const tpl = read(path.join(TEMPLATES, tplName));
@@ -137,7 +146,9 @@ function initModule(id, reg) {
 
   ensureGitignore();
   console.log(`✓ 模块 ${id}（${entry.name}）已生成：${rel(dir)}`);
-  console.log(`  页面 ${entry.pages.length} 个：${entry.pages.map((p) => `${p.name}[${p.type}]`).join('、')}`);
+  console.log(`  页面 ${generated.length} 个：${generated.map((p) => `${p.name}[${p.type}]`).join('、') || '（无已分配 app 的页面）'}`);
+  const reserved = entry.pages.length - generated.length;
+  if (reserved) console.log(`  预留 ${reserved} 页未落地源文件，待分配 app 后再补`);
   console.log(`  下一步：node prototypes/build-app.mjs`);
 }
 

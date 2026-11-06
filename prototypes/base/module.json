@@ -10,8 +10,9 @@
   ],
   "scope": "货主、仓库、商品、承运商主档与效期批次策略",
   "deliverables": [
-    "pages/", "data/"
+    "pages/",
+    "data/"
   ],
   "status": "delivered",
-  "note": "货主档案、仓库档案装配到仓网管理端"
+  "note": "货主档案、仓库档案装配到仓网管理端；承运商档案为注册表预留，未分配 app"
 }

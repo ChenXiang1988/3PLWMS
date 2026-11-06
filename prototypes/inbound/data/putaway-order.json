@@ -1,0 +1,8 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "putawayNo": "PA20261106001", "putawayStatus": "busy", "targetZone": "存储区A", "sourcePlans": "IP20261106001、IP20261106002", "rowCount": 6, "planQty": 1800, "doneQty": 1100, "execUnit": "EU-PH-101" },
+    { "owner": "辰星日化", "putawayNo": "PA20261106002", "putawayStatus": "wait", "targetZone": "存储区B", "sourcePlans": "IP20261106004", "rowCount": 3, "planQty": 960, "doneQty": 0, "execUnit": "EU-PH-102" },
+    { "owner": "海纳食品", "putawayNo": "PA20261106003", "putawayStatus": "done", "targetZone": "拣货区A", "sourcePlans": "IP20261105003", "rowCount": 3, "planQty": 800, "doneQty": 800, "execUnit": "EU-PH-103" },
+    { "owner": "云途电商", "putawayNo": "PA20261106005", "putawayStatus": "blocked", "targetZone": "存储区C", "sourcePlans": "IP20261106007", "rowCount": 5, "planQty": 3200, "doneQty": 900, "execUnit": "AGV-01" }
+  ]
+}

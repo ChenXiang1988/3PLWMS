@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "unitCode": "EU0001", "unitName": "1 号收货月台", "unitType": "收货区", "taskTypes": "收货", "warehouse": "华东中心仓", "capacity": 600, "teamName": "收货一组", "unitStatus": "active", "createTime": "2025-02-11 09:10" },
+    { "unitCode": "EU0002", "unitName": "2 号上架暂存区", "unitType": "上架暂存区", "taskTypes": "上架", "warehouse": "华东中心仓", "capacity": 800, "teamName": "上架一组", "unitStatus": "active", "createTime": "2025-02-11 09:12" },
+    { "unitCode": "EU0003", "unitName": "3 号拣货区", "unitType": "拣货区", "taskTypes": "拣货", "warehouse": "华东中心仓", "capacity": 1200, "teamName": "拣货一组", "unitStatus": "active", "createTime": "2025-02-11 09:15" },
+    { "unitCode": "EU0004", "unitName": "4 号复核区", "unitType": "复核区", "taskTypes": "复核", "warehouse": "华东中心仓", "capacity": 900, "teamName": "复核一组", "unitStatus": "active", "createTime": "2025-03-05 10:20" },
+    { "unitCode": "EU0005", "unitName": "5 号发货月台", "unitType": "发货区", "taskTypes": "发货", "warehouse": "华南前置仓", "capacity": 500, "teamName": "发货一组", "unitStatus": "active", "createTime": "2025-03-05 10:25" },
+    { "unitCode": "EU0006", "unitName": "6 号存储区", "unitType": "存储区", "taskTypes": "移库", "warehouse": "华南前置仓", "capacity": 1000, "teamName": "综合组", "unitStatus": "active", "createTime": "2025-04-18 14:40" },
+    { "unitCode": "EU0007", "unitName": "7 号盘点区", "unitType": "存储区", "taskTypes": "盘点", "warehouse": "华北分拨仓", "capacity": 700, "teamName": "盘点一组", "unitStatus": "maintaining", "createTime": "2025-05-22 11:30" },
+    { "unitCode": "EU0008", "unitName": "8 号复核区", "unitType": "复核区", "taskTypes": "复核", "warehouse": "华北分拨仓", "capacity": 400, "teamName": "复核一组", "unitStatus": "inactive", "createTime": "2025-06-30 16:05" }
+  ]
+}

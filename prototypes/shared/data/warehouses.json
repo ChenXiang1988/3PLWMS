@@ -1,0 +1,136 @@
+{
+  "rows": [
+    {
+      "warehouseCode": "WH0001",
+      "warehouseName": "华东中心仓",
+      "warehouseType": "中心仓",
+      "tempZones": "常温，恒温，冷藏，冷冻",
+      "valueAddedServices": "贴标，拆零",
+      "qcMode": "抽检",
+      "warehouseStatus": "active",
+      "legalEntity": "云链供应链管理有限公司",
+      "createTime": "2025-03-12 09:20:00"
+    },
+    {
+      "warehouseCode": "WH0002",
+      "warehouseName": "华南前置仓",
+      "warehouseType": "前置仓",
+      "tempZones": "常温",
+      "valueAddedServices": "贴标",
+      "qcMode": "全检",
+      "warehouseStatus": "active",
+      "legalEntity": "云链供应链管理有限公司",
+      "createTime": "2025-06-20 10:00:00"
+    },
+    {
+      "warehouseCode": "WH0003",
+      "warehouseName": "浦东保税仓",
+      "warehouseType": "保税仓",
+      "tempZones": "恒温",
+      "valueAddedServices": "",
+      "qcMode": "无",
+      "warehouseStatus": "preparing",
+      "legalEntity": "云链供应链管理有限公司",
+      "createTime": "2026-10-08 15:40:00"
+    },
+    {
+      "warehouseCode": "WH0004",
+      "warehouseName": "华北分拨仓",
+      "warehouseType": "分拨仓",
+      "tempZones": "常温",
+      "valueAddedServices": "打托",
+      "qcMode": "无",
+      "warehouseStatus": "active",
+      "legalEntity": "云链供应链管理有限公司",
+      "createTime": "2024-04-18 11:05:00"
+    },
+    {
+      "warehouseCode": "WH0005",
+      "warehouseName": "华中转运仓",
+      "warehouseType": "转运仓",
+      "tempZones": "常温，冷藏",
+      "valueAddedServices": "打托",
+      "qcMode": "无",
+      "warehouseStatus": "active",
+      "legalEntity": "云链供应链管理有限公司",
+      "createTime": "2024-08-26 09:35:00"
+    },
+    {
+      "warehouseCode": "WH0006",
+      "warehouseName": "西南中心仓",
+      "warehouseType": "中心仓",
+      "tempZones": "常温，恒温",
+      "valueAddedServices": "贴标，组装",
+      "qcMode": "抽检",
+      "warehouseStatus": "active",
+      "legalEntity": "云链供应链管理有限公司",
+      "createTime": "2025-01-14 14:20:00"
+    },
+    {
+      "warehouseCode": "WH0007",
+      "warehouseName": "浙北冷链仓",
+      "warehouseType": "中心仓",
+      "tempZones": "冷藏，冷冻",
+      "valueAddedServices": "贴标",
+      "qcMode": "无",
+      "warehouseStatus": "preparing",
+      "legalEntity": "云链供应链管理有限公司",
+      "createTime": "2026-09-02 10:15:00"
+    },
+    {
+      "warehouseCode": "WH0008",
+      "warehouseName": "苏南前置仓",
+      "warehouseType": "前置仓",
+      "tempZones": "常温",
+      "valueAddedServices": "贴标",
+      "qcMode": "无",
+      "warehouseStatus": "disabled",
+      "legalEntity": "云链供应链管理有限公司",
+      "createTime": "2022-05-09 16:40:00"
+    },
+    {
+      "warehouseCode": "WH0009",
+      "warehouseName": "皖北分拨仓",
+      "warehouseType": "分拨仓",
+      "tempZones": "常温",
+      "valueAddedServices": "",
+      "qcMode": "无",
+      "warehouseStatus": "disabled",
+      "legalEntity": "云链供应链管理有限公司",
+      "createTime": "2021-11-23 08:55:00"
+    },
+    {
+      "warehouseCode": "WH0010",
+      "warehouseName": "闽南保税仓",
+      "warehouseType": "保税仓",
+      "tempZones": "恒温",
+      "valueAddedServices": "",
+      "qcMode": "无",
+      "warehouseStatus": "disabled",
+      "legalEntity": "云链供应链管理有限公司",
+      "createTime": "2023-02-07 13:10:00"
+    },
+    {
+      "warehouseCode": "WH0011",
+      "warehouseName": "胶东旧库",
+      "warehouseType": "中心仓",
+      "tempZones": "常温",
+      "valueAddedServices": "",
+      "qcMode": "无",
+      "warehouseStatus": "closed",
+      "legalEntity": "云链供应链管理有限公司",
+      "createTime": "2020-03-16 10:30:00"
+    },
+    {
+      "warehouseCode": "WH0012",
+      "warehouseName": "陕北转运仓",
+      "warehouseType": "转运仓",
+      "tempZones": "常温",
+      "valueAddedServices": "",
+      "qcMode": "无",
+      "warehouseStatus": "closed",
+      "legalEntity": "云链供应链管理有限公司",
+      "createTime": "2020-09-28 15:45:00"
+    }
+  ]
+}

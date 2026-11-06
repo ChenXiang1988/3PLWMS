@@ -1,7 +1,7 @@
 {
   "id": "mall",
   "name": "商城",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "owner": "产品组",
   "tier": "core",
   "deployed": true,
@@ -13,5 +13,5 @@
     "pages/", "data/"
   ],
   "status": "delivered",
-  "note": "商城端六页"
+  "note": "商城端六页；首页默认访客态，登录入口唤起登录层，金额随登录态显隐"
 }

@@ -1,0 +1,10 @@
+{
+  "rows": [
+    { "snapshotNo": "SN20261106001", "snapshotTime": "2026-11-06 08:00", "owner": "海纳食品", "skuCode": "SKU100231", "batchNo": "B20261028001", "binCode": "A-01-01", "onHandQty": 480, "availableQty": 440, "frozenQty": 40 },
+    { "snapshotNo": "SN20261106001", "snapshotTime": "2026-11-06 08:00", "owner": "辰星日化", "skuCode": "SKU100232", "batchNo": "B20260901003", "binCode": "B-01-02", "onHandQty": 860, "availableQty": 800, "frozenQty": 60 },
+    { "snapshotNo": "SN20261106001", "snapshotTime": "2026-11-06 08:00", "owner": "云途电商", "skuCode": "SKU100198", "batchNo": "B20260310004", "binCode": "C-03-01", "onHandQty": 240, "availableQty": 240, "frozenQty": 0 },
+    { "snapshotNo": "SN20261105001", "snapshotTime": "2026-11-05 08:00", "owner": "海纳食品", "skuCode": "SKU100175", "batchNo": "B20261104002", "binCode": "A-02-03", "onHandQty": 120, "availableQty": 120, "frozenQty": 0 },
+    { "snapshotNo": "SN20261105001", "snapshotTime": "2026-11-05 08:00", "owner": "辰星日化", "skuCode": "SKU100142", "batchNo": "B20260510006", "binCode": "B-02-01", "onHandQty": 75, "availableQty": 75, "frozenQty": 0 },
+    { "snapshotNo": "SN20261104001", "snapshotTime": "2026-11-04 08:00", "owner": "云途电商", "skuCode": "SKU100206", "batchNo": "B20261022002", "binCode": "C-03-02", "onHandQty": 140, "availableQty": 140, "frozenQty": 0 }
+  ]
+}

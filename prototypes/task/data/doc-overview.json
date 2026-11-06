@@ -1,0 +1,11 @@
+{
+  "rows": [
+    { "docType": "入库通知单", "pending": 6, "doing": 4, "exception": 1, "completed": 32, "overdue": 1 },
+    { "docType": "出库订单", "pending": 8, "doing": 7, "exception": 2, "completed": 46, "overdue": 2 },
+    { "docType": "上架单", "pending": 3, "doing": 2, "exception": 0, "completed": 21, "overdue": 0 },
+    { "docType": "移库单", "pending": 2, "doing": 1, "exception": 1, "completed": 12, "overdue": 1 },
+    { "docType": "补货单", "pending": 2, "doing": 1, "exception": 0, "completed": 9, "overdue": 0 },
+    { "docType": "盘点单", "pending": 1, "doing": 1, "exception": 0, "completed": 6, "overdue": 0 },
+    { "docType": "发货单", "pending": 2, "doing": 2, "exception": 0, "completed": 18, "overdue": 1 }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "strategyCode": "STG001", "strategyName": "上架推荐库位", "strategyDomain": "上架", "warehouse": "华东中心仓", "docType": "入库通知单", "status": "enabled", "hitCount": 1280, "updateTime": "2026-11-05 14:20" },
+    { "strategyCode": "STG002", "strategyName": "补货触发阈值", "strategyDomain": "补货", "warehouse": "华东中心仓", "docType": "补货单", "status": "enabled", "hitCount": 640, "updateTime": "2026-11-04 10:10" },
+    { "strategyCode": "STG003", "strategyName": "波次合单规则", "strategyDomain": "波次", "warehouse": "华东中心仓", "docType": "出库订单", "status": "enabled", "hitCount": 920, "updateTime": "2026-11-06 09:15" },
+    { "strategyCode": "STG004", "strategyName": "移库整理规则", "strategyDomain": "移库", "warehouse": "华南前置仓", "docType": "移库单", "status": "enabled", "hitCount": 310, "updateTime": "2026-11-03 16:40" },
+    { "strategyCode": "STG005", "strategyName": "上架限高校验", "strategyDomain": "上架", "warehouse": "华南前置仓", "docType": "上架单", "status": "disabled", "hitCount": 120, "updateTime": "2026-10-28 11:30" },
+    { "strategyCode": "STG006", "strategyName": "补货批次优先", "strategyDomain": "补货", "warehouse": "华北分拨仓", "docType": "补货单", "status": "draft", "hitCount": 0, "updateTime": "2026-10-30 15:05" },
+    { "strategyCode": "STG007", "strategyName": "波次截单规则", "strategyDomain": "波次", "warehouse": "华北分拨仓", "docType": "出库订单", "status": "enabled", "hitCount": 480, "updateTime": "2026-11-02 08:50" },
+    { "strategyCode": "STG008", "strategyName": "移库温区约束", "strategyDomain": "移库", "warehouse": "华东中心仓", "docType": "移库单", "status": "enabled", "hitCount": 260, "updateTime": "2026-11-01 13:10" }
+  ]
+}

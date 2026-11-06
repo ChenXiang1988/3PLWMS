@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "billNo": "BILL202611001", "billStatus": "pending", "period": "2026-11", "totalFee": 4200.0, "createTime": "2026-11-06 09:00" },
+    { "owner": "海纳食品", "billNo": "BILL202610001", "billStatus": "confirmed", "period": "2026-10", "totalFee": 15600.0, "createTime": "2026-11-02 10:15" },
+    { "owner": "海纳食品", "billNo": "BILL202609001", "billStatus": "paid", "period": "2026-09", "totalFee": 12800.0, "createTime": "2026-10-03 09:30" },
+    { "owner": "海纳食品", "billNo": "BILL202608001", "billStatus": "invoiced", "period": "2026-08", "totalFee": 11200.0, "createTime": "2026-09-03 11:05" },
+    { "owner": "辰星日化", "billNo": "BILL202611002", "billStatus": "pending", "period": "2026-11", "totalFee": 3100.0, "createTime": "2026-11-06 09:10" },
+    { "owner": "辰星日化", "billNo": "BILL202610002", "billStatus": "confirmed", "period": "2026-10", "totalFee": 10400.0, "createTime": "2026-11-02 10:25" },
+    { "owner": "辰星日化", "billNo": "BILL202609002", "billStatus": "paid", "period": "2026-09", "totalFee": 9600.0, "createTime": "2026-10-03 09:40" },
+    { "owner": "辰星日化", "billNo": "BILL202607002", "billStatus": "cancelled", "period": "2026-07", "totalFee": 8800.0, "createTime": "2026-08-03 14:20" }
+  ]
+}

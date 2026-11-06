@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "rateCode": "RATE001", "feeItem": "仓租", "chargeMode": "按面积", "price": 28.0, "effectDate": "2026-01-01", "rateStatus": "active" },
+    { "owner": "海纳食品", "rateCode": "RATE002", "feeItem": "入库操作费", "chargeMode": "按托", "price": 12.5, "effectDate": "2026-01-01", "rateStatus": "active" },
+    { "owner": "海纳食品", "rateCode": "RATE003", "feeItem": "出库操作费", "chargeMode": "按件", "price": 0.8, "effectDate": "2026-01-01", "rateStatus": "active" },
+    { "owner": "海纳食品", "rateCode": "RATE004", "feeItem": "增值服务费", "chargeMode": "按票", "price": 35.0, "effectDate": "2026-03-01", "rateStatus": "inactive" },
+    { "owner": "辰星日化", "rateCode": "RATE005", "feeItem": "仓租", "chargeMode": "按面积", "price": 26.0, "effectDate": "2026-01-01", "rateStatus": "active" },
+    { "owner": "辰星日化", "rateCode": "RATE006", "feeItem": "入库操作费", "chargeMode": "按托", "price": 11.0, "effectDate": "2026-01-01", "rateStatus": "active" },
+    { "owner": "辰星日化", "rateCode": "RATE007", "feeItem": "出库操作费", "chargeMode": "按件", "price": 0.75, "effectDate": "2026-01-01", "rateStatus": "active" },
+    { "owner": "辰星日化", "rateCode": "RATE008", "feeItem": "增值服务费", "chargeMode": "按票", "price": 30.0, "effectDate": "2026-03-01", "rateStatus": "active" }
+  ]
+}

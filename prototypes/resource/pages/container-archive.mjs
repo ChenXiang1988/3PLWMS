@@ -1,4 +1,4 @@
-import { ListPage, StatusTag, dash, uniq } from '../../01 shared/ui.mjs';
+import { ListPage, StatusTag, dash, uniq } from '../../shared/ui.mjs';
 
 export const STATUS_META = {
   idle: { label: '空闲', type: 'info' },

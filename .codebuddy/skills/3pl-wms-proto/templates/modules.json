@@ -2,12 +2,33 @@
   "product": "3PL 云仓系统",
   "subject": "华运仓储运营中心",
   "edition": "独立部署版",
-  "owners": ["全部", "海纳食品", "辰星日化", "云途电商"],
+  "owners": [
+    "全部",
+    "海纳食品",
+    "辰星日化",
+    "云途电商"
+  ],
   "apps": [
-    { "id": "owner", "name": "货主端", "shell": "admin" },
-    { "id": "network", "name": "仓网管理端", "shell": "admin" },
-    { "id": "warehouse", "name": "单仓端", "shell": "admin" },
-    { "id": "mall", "name": "商城端", "shell": "mall" }
+    {
+      "id": "owner-app",
+      "name": "货主端",
+      "shell": "admin"
+    },
+    {
+      "id": "network-app",
+      "name": "仓网管理端",
+      "shell": "admin"
+    },
+    {
+      "id": "warehouse-app",
+      "name": "单仓端",
+      "shell": "admin"
+    },
+    {
+      "id": "mall-app",
+      "name": "商城端",
+      "shell": "mall"
+    }
   ],
   "modules": [
     {
@@ -19,14 +40,69 @@
       "owner": "产品组",
       "scope": "货主、仓库、商品、承运商主档与效期批次策略",
       "pages": [
-        { "key": "owner-list", "name": "货主档案", "type": "list", "file": "pages/owner-list.mjs", "ownerScoped": false, "app": "network" },
-        { "key": "warehouse-list", "name": "仓库档案", "type": "list", "file": "pages/warehouse-list.mjs", "ownerScoped": false, "app": "network" },
-        { "key": "sku-list", "name": "商品档案", "type": "list", "file": "pages/sku-list.mjs", "ownerScoped": true, "app": "network" },
-        { "key": "carrier-list", "name": "承运商档案", "type": "list", "file": "pages/carrier-list.mjs", "ownerScoped": false },
-        { "key": "sku-apply-list", "name": "商品资料变更申请", "type": "list", "file": "pages/sku-apply-list.mjs", "ownerScoped": true, "app": "owner" },
-        { "key": "sku-audit-list", "name": "商品主档审核", "type": "list", "file": "pages/sku-audit-list.mjs", "ownerScoped": true, "app": "network" },
-        { "key": "sku-policy-detail", "name": "效期批次策略", "type": "detail", "file": "pages/sku-policy-detail.mjs", "ownerScoped": false, "app": "network" },
-        { "key": "sku-warehouse-list", "name": "本仓商品查询", "type": "list", "file": "pages/sku-warehouse-list.mjs", "ownerScoped": true, "app": "warehouse" }
+        {
+          "key": "owner-list",
+          "name": "货主档案",
+          "type": "list",
+          "file": "pages/owner-list.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "warehouse-list",
+          "name": "仓库档案",
+          "type": "list",
+          "file": "pages/warehouse-list.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "sku-list",
+          "name": "商品档案",
+          "type": "list",
+          "file": "pages/sku-list.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "carrier-list",
+          "name": "承运商档案",
+          "type": "list",
+          "file": "pages/carrier-list.mjs",
+          "ownerScoped": false
+        },
+        {
+          "key": "sku-apply-list",
+          "name": "商品资料变更申请",
+          "type": "list",
+          "file": "pages/sku-apply-list.mjs",
+          "ownerScoped": true,
+          "app": "owner-app"
+        },
+        {
+          "key": "sku-audit-list",
+          "name": "商品主档审核",
+          "type": "list",
+          "file": "pages/sku-audit-list.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "sku-policy-detail",
+          "name": "效期批次策略",
+          "type": "detail",
+          "file": "pages/sku-policy-detail.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "sku-warehouse-list",
+          "name": "本仓商品查询",
+          "type": "list",
+          "file": "pages/sku-warehouse-list.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        }
       ]
     },
     {
@@ -38,10 +114,34 @@
       "owner": "",
       "scope": "通知、收货验收、上架",
       "pages": [
-        { "key": "asn-list", "name": "入库通知单", "type": "list", "file": "pages/asn-list.mjs", "ownerScoped": true },
-        { "key": "asn-detail", "name": "入库通知单详情", "type": "detail", "file": "pages/asn-detail.mjs", "ownerScoped": false },
-        { "key": "receiving-scan", "name": "收货验收", "type": "scan", "file": "pages/receiving-scan.mjs", "ownerScoped": false },
-        { "key": "putaway-task", "name": "上架任务", "type": "list", "file": "pages/putaway-task.mjs", "ownerScoped": true }
+        {
+          "key": "asn-list",
+          "name": "入库通知单",
+          "type": "list",
+          "file": "pages/asn-list.mjs",
+          "ownerScoped": true
+        },
+        {
+          "key": "asn-detail",
+          "name": "入库通知单详情",
+          "type": "detail",
+          "file": "pages/asn-detail.mjs",
+          "ownerScoped": false
+        },
+        {
+          "key": "receiving-scan",
+          "name": "收货验收",
+          "type": "scan",
+          "file": "pages/receiving-scan.mjs",
+          "ownerScoped": false
+        },
+        {
+          "key": "putaway-task",
+          "name": "上架任务",
+          "type": "list",
+          "file": "pages/putaway-task.mjs",
+          "ownerScoped": true
+        }
       ]
     },
     {
@@ -53,10 +153,34 @@
       "owner": "",
       "scope": "订单、波次、拣货、交接",
       "pages": [
-        { "key": "so-list", "name": "出库订单", "type": "list", "file": "pages/so-list.mjs", "ownerScoped": true },
-        { "key": "wave-list", "name": "波次计划", "type": "list", "file": "pages/wave-list.mjs", "ownerScoped": false },
-        { "key": "picking-scan", "name": "拣货作业", "type": "scan", "file": "pages/picking-scan.mjs", "ownerScoped": false },
-        { "key": "handover-list", "name": "发货交接", "type": "list", "file": "pages/handover-list.mjs", "ownerScoped": true }
+        {
+          "key": "so-list",
+          "name": "出库订单",
+          "type": "list",
+          "file": "pages/so-list.mjs",
+          "ownerScoped": true
+        },
+        {
+          "key": "wave-list",
+          "name": "波次计划",
+          "type": "list",
+          "file": "pages/wave-list.mjs",
+          "ownerScoped": false
+        },
+        {
+          "key": "picking-scan",
+          "name": "拣货作业",
+          "type": "scan",
+          "file": "pages/picking-scan.mjs",
+          "ownerScoped": false
+        },
+        {
+          "key": "handover-list",
+          "name": "发货交接",
+          "type": "list",
+          "file": "pages/handover-list.mjs",
+          "ownerScoped": true
+        }
       ]
     },
     {
@@ -68,10 +192,34 @@
       "owner": "",
       "scope": "库位、移库、盘点",
       "pages": [
-        { "key": "location-list", "name": "库区库位", "type": "list", "file": "pages/location-list.mjs", "ownerScoped": false },
-        { "key": "move-task", "name": "移库任务", "type": "list", "file": "pages/move-task.mjs", "ownerScoped": true },
-        { "key": "count-task", "name": "盘点任务", "type": "list", "file": "pages/count-task.mjs", "ownerScoped": false },
-        { "key": "count-scan", "name": "盘点作业", "type": "scan", "file": "pages/count-scan.mjs", "ownerScoped": false }
+        {
+          "key": "location-list",
+          "name": "库区库位",
+          "type": "list",
+          "file": "pages/location-list.mjs",
+          "ownerScoped": false
+        },
+        {
+          "key": "move-task",
+          "name": "移库任务",
+          "type": "list",
+          "file": "pages/move-task.mjs",
+          "ownerScoped": true
+        },
+        {
+          "key": "count-task",
+          "name": "盘点任务",
+          "type": "list",
+          "file": "pages/count-task.mjs",
+          "ownerScoped": false
+        },
+        {
+          "key": "count-scan",
+          "name": "盘点作业",
+          "type": "scan",
+          "file": "pages/count-scan.mjs",
+          "ownerScoped": false
+        }
       ]
     },
     {
@@ -83,12 +231,51 @@
       "owner": "产品组",
       "scope": "实物账、流水、批次效期、总览与三端批次效期视图",
       "pages": [
-        { "key": "stock-list", "name": "库存查询", "type": "list", "file": "pages/stock-list.mjs", "ownerScoped": true },
-        { "key": "ledger-list", "name": "库存台账", "type": "list", "file": "pages/ledger-list.mjs", "ownerScoped": true },
-        { "key": "stock-report", "name": "库存总览", "type": "report", "file": "pages/stock-report.mjs", "ownerScoped": false },
-        { "key": "batch-list", "name": "批次效期", "type": "list", "file": "pages/batch-list.mjs", "ownerScoped": true, "app": "warehouse" },
-        { "key": "batch-owner-list", "name": "批次效期查询", "type": "list", "file": "pages/batch-owner-list.mjs", "ownerScoped": true, "app": "owner" },
-        { "key": "batch-network-report", "name": "批次效期总览", "type": "report", "file": "pages/batch-network-report.mjs", "ownerScoped": false, "app": "network" }
+        {
+          "key": "stock-list",
+          "name": "库存查询",
+          "type": "list",
+          "file": "pages/stock-list.mjs",
+          "ownerScoped": true
+        },
+        {
+          "key": "ledger-list",
+          "name": "库存台账",
+          "type": "list",
+          "file": "pages/ledger-list.mjs",
+          "ownerScoped": true
+        },
+        {
+          "key": "stock-report",
+          "name": "库存总览",
+          "type": "report",
+          "file": "pages/stock-report.mjs",
+          "ownerScoped": false
+        },
+        {
+          "key": "batch-list",
+          "name": "批次效期",
+          "type": "list",
+          "file": "pages/batch-list.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "batch-owner-list",
+          "name": "批次效期查询",
+          "type": "list",
+          "file": "pages/batch-owner-list.mjs",
+          "ownerScoped": true,
+          "app": "owner-app"
+        },
+        {
+          "key": "batch-network-report",
+          "name": "批次效期总览",
+          "type": "report",
+          "file": "pages/batch-network-report.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        }
       ]
     },
     {
@@ -100,8 +287,20 @@
       "owner": "",
       "scope": "3PL 仓租与作业费，按交付范围启用",
       "pages": [
-        { "key": "rate-list", "name": "费用规则", "type": "list", "file": "pages/rate-list.mjs", "ownerScoped": true },
-        { "key": "bill-list", "name": "费用账单", "type": "list", "file": "pages/bill-list.mjs", "ownerScoped": true }
+        {
+          "key": "rate-list",
+          "name": "费用规则",
+          "type": "list",
+          "file": "pages/rate-list.mjs",
+          "ownerScoped": true
+        },
+        {
+          "key": "bill-list",
+          "name": "费用账单",
+          "type": "list",
+          "file": "pages/bill-list.mjs",
+          "ownerScoped": true
+        }
       ]
     },
     {
@@ -113,8 +312,20 @@
       "owner": "",
       "scope": "跨模块任务聚合视图，不持有业务源",
       "pages": [
-        { "key": "task-list", "name": "作业任务", "type": "list", "file": "pages/task-list.mjs", "ownerScoped": true },
-        { "key": "task-report", "name": "作业看板", "type": "report", "file": "pages/task-report.mjs", "ownerScoped": false }
+        {
+          "key": "task-list",
+          "name": "作业任务",
+          "type": "list",
+          "file": "pages/task-list.mjs",
+          "ownerScoped": true
+        },
+        {
+          "key": "task-report",
+          "name": "作业看板",
+          "type": "report",
+          "file": "pages/task-report.mjs",
+          "ownerScoped": false
+        }
       ]
     },
     {
@@ -126,8 +337,20 @@
       "owner": "",
       "scope": "本部署实例内的账号与权限",
       "pages": [
-        { "key": "user-list", "name": "账号管理", "type": "list", "file": "pages/user-list.mjs", "ownerScoped": false },
-        { "key": "role-list", "name": "角色权限", "type": "list", "file": "pages/role-list.mjs", "ownerScoped": false }
+        {
+          "key": "user-list",
+          "name": "账号管理",
+          "type": "list",
+          "file": "pages/user-list.mjs",
+          "ownerScoped": false
+        },
+        {
+          "key": "role-list",
+          "name": "角色权限",
+          "type": "list",
+          "file": "pages/role-list.mjs",
+          "ownerScoped": false
+        }
       ]
     },
     {
@@ -139,12 +362,54 @@
       "owner": "产品组",
       "scope": "商城首页、商品搜索、商品详情、进货单、确认订单、我的订单",
       "pages": [
-        { "key": "home", "name": "商城首页", "type": "shop", "file": "pages/home.mjs", "ownerScoped": false, "app": "mall" },
-        { "key": "search", "name": "商品搜索", "type": "shop", "file": "pages/search.mjs", "ownerScoped": false, "app": "mall" },
-        { "key": "product-detail", "name": "商品详情", "type": "shop", "file": "pages/product-detail.mjs", "ownerScoped": false, "app": "mall" },
-        { "key": "cart", "name": "进货单", "type": "shop", "file": "pages/cart.mjs", "ownerScoped": false, "app": "mall" },
-        { "key": "checkout", "name": "确认订单", "type": "shop", "file": "pages/checkout.mjs", "ownerScoped": false, "app": "mall" },
-        { "key": "orders", "name": "我的订单", "type": "shop", "file": "pages/orders.mjs", "ownerScoped": false, "app": "mall" }
+        {
+          "key": "home",
+          "name": "商城首页",
+          "type": "shop",
+          "file": "pages/home.mjs",
+          "ownerScoped": false,
+          "app": "mall-app"
+        },
+        {
+          "key": "search",
+          "name": "商品搜索",
+          "type": "shop",
+          "file": "pages/search.mjs",
+          "ownerScoped": false,
+          "app": "mall-app"
+        },
+        {
+          "key": "product-detail",
+          "name": "商品详情",
+          "type": "shop",
+          "file": "pages/product-detail.mjs",
+          "ownerScoped": false,
+          "app": "mall-app"
+        },
+        {
+          "key": "cart",
+          "name": "进货单",
+          "type": "shop",
+          "file": "pages/cart.mjs",
+          "ownerScoped": false,
+          "app": "mall-app"
+        },
+        {
+          "key": "checkout",
+          "name": "确认订单",
+          "type": "shop",
+          "file": "pages/checkout.mjs",
+          "ownerScoped": false,
+          "app": "mall-app"
+        },
+        {
+          "key": "orders",
+          "name": "我的订单",
+          "type": "shop",
+          "file": "pages/orders.mjs",
+          "ownerScoped": false,
+          "app": "mall-app"
+        }
       ]
     }
   ]

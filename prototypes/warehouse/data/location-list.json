@@ -1,3 +1,14 @@
 {
-  "rows": []
+  "rows": [
+    { "zoneCode": "Z-A01", "zoneName": "A 区-常温存储", "binCode": "A-01-01", "binType": "pallet", "capacity": 100, "usedCapacity": 72, "binStatus": "occupied" },
+    { "zoneCode": "Z-A01", "zoneName": "A 区-常温存储", "binCode": "A-01-02", "binType": "pallet", "capacity": 100, "usedCapacity": 45, "binStatus": "occupied" },
+    { "zoneCode": "Z-A01", "zoneName": "A 区-常温存储", "binCode": "A-02-03", "binType": "shelf", "capacity": 60, "usedCapacity": 0, "binStatus": "empty" },
+    { "zoneCode": "Z-A01", "zoneName": "A 区-常温存储", "binCode": "A-03-01", "binType": "pallet", "capacity": 100, "usedCapacity": 96, "binStatus": "occupied" },
+    { "zoneCode": "Z-B01", "zoneName": "B 区-拆零拣选", "binCode": "B-01-02", "binType": "flow", "capacity": 40, "usedCapacity": 28, "binStatus": "occupied" },
+    { "zoneCode": "Z-B01", "zoneName": "B 区-拆零拣选", "binCode": "B-02-01", "binType": "flow", "capacity": 40, "usedCapacity": 12, "binStatus": "occupied" },
+    { "zoneCode": "Z-C01", "zoneName": "C 区-暂存缓冲", "binCode": "C-01-04", "binType": "buffer", "capacity": 80, "usedCapacity": 20, "binStatus": "occupied" },
+    { "zoneCode": "Z-C01", "zoneName": "C 区-暂存缓冲", "binCode": "C-02-05", "binType": "buffer", "capacity": 80, "usedCapacity": 0, "binStatus": "empty" },
+    { "zoneCode": "Z-C01", "zoneName": "C 区-暂存缓冲", "binCode": "C-03-02", "binType": "buffer", "capacity": 80, "usedCapacity": 0, "binStatus": "frozen" },
+    { "zoneCode": "Z-D01", "zoneName": "D 区-不良品", "binCode": "D-01-01", "binType": "defect", "capacity": 20, "usedCapacity": 8, "binStatus": "occupied" }
+  ]
 }

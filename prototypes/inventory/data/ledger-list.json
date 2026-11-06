@@ -1,3 +1,12 @@
 {
-  "rows": []
+  "rows": [
+    { "ledgerNo": "LG20261106001", "bizType": "入库", "docNo": "ASN20261106001", "skuCode": "SKU100231", "changeQty": 420, "afterQty": 480, "happenTime": "2026-11-06 09:48", "owner": "海纳食品" },
+    { "ledgerNo": "LG20261106002", "bizType": "出库", "docNo": "SO20261106001", "skuCode": "SKU100231", "changeQty": -120, "afterQty": 360, "happenTime": "2026-11-06 10:15", "owner": "海纳食品" },
+    { "ledgerNo": "LG20261106003", "bizType": "移库", "docNo": "MOV20261106001", "skuCode": "SKU100231", "changeQty": -60, "afterQty": 300, "happenTime": "2026-11-06 10:30", "owner": "海纳食品" },
+    { "ledgerNo": "LG20261106004", "bizType": "入库", "docNo": "ASN20261106002", "skuCode": "SKU100232", "changeQty": 860, "afterQty": 860, "happenTime": "2026-11-06 08:20", "owner": "辰星日化" },
+    { "ledgerNo": "LG20261106005", "bizType": "出库", "docNo": "SO20261106002", "skuCode": "SKU100232", "changeQty": -240, "afterQty": 620, "happenTime": "2026-11-06 11:05", "owner": "辰星日化" },
+    { "ledgerNo": "LG20261106006", "bizType": "盘点", "docNo": "PD20261106001", "skuCode": "SKU100142", "changeQty": -5, "afterQty": 70, "happenTime": "2026-11-06 09:00", "owner": "辰星日化" },
+    { "ledgerNo": "LG20261106007", "bizType": "调整", "docNo": "ADJ20261106001", "skuCode": "SKU100198", "changeQty": 20, "afterQty": 260, "happenTime": "2026-11-06 09:40", "owner": "云途电商" },
+    { "ledgerNo": "LG20261106008", "bizType": "冲销", "docNo": "ADJ20261106001", "skuCode": "SKU100198", "changeQty": -20, "afterQty": 240, "happenTime": "2026-11-06 10:50", "owner": "云途电商" }
+  ]
 }

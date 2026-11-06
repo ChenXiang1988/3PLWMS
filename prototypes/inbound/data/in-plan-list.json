@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "planNo": "IP20261106001", "planStatus": "dispatched", "targetWarehouse": "华东中心仓", "expectedDate": "2026-11-08", "skuCount": 4, "planQty": 1200, "processCount": 2, "createTime": "2026-11-06 09:12" },
+    { "owner": "海纳食品", "planNo": "IP20261106002", "planStatus": "dispatched", "targetWarehouse": "华东中心仓", "expectedDate": "2026-11-07", "skuCount": 2, "planQty": 600, "processCount": 1, "createTime": "2026-11-05 15:30" },
+    { "owner": "海纳食品", "planNo": "IP20261105003", "planStatus": "confirmed", "targetWarehouse": "华东中心仓", "expectedDate": "2026-11-09", "skuCount": 3, "planQty": 800, "processCount": 0, "createTime": "2026-11-05 10:20" },
+    { "owner": "辰星日化", "planNo": "IP20261106004", "planStatus": "pending", "targetWarehouse": "华南前置仓", "expectedDate": "2026-11-08", "skuCount": 3, "planQty": 960, "processCount": 0, "createTime": "2026-11-06 08:40" },
+    { "owner": "辰星日化", "planNo": "IP20261106005", "planStatus": "dispatched", "targetWarehouse": "华南前置仓", "expectedDate": "2026-11-07", "skuCount": 2, "planQty": 420, "processCount": 2, "createTime": "2026-11-05 16:10" },
+    { "owner": "辰星日化", "planNo": "IP20261104006", "planStatus": "closed", "targetWarehouse": "华南前置仓", "expectedDate": "2026-11-06", "skuCount": 1, "planQty": 200, "processCount": 1, "createTime": "2026-11-04 11:05" },
+    { "owner": "云途电商", "planNo": "IP20261106007", "planStatus": "dispatched", "targetWarehouse": "华北分拨仓", "expectedDate": "2026-11-07", "skuCount": 5, "planQty": 3200, "processCount": 1, "createTime": "2026-11-06 08:15" },
+    { "owner": "云途电商", "planNo": "IP20261105008", "planStatus": "confirmed", "targetWarehouse": "华北分拨仓", "expectedDate": "2026-11-09", "skuCount": 3, "planQty": 1500, "processCount": 0, "createTime": "2026-11-05 14:00" }
+  ]
+}

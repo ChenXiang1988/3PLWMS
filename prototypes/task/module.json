@@ -1,0 +1,18 @@
+{
+  "id": "task",
+  "name": "任务中心",
+  "version": "0.2.0",
+  "owner": "产品组",
+  "tier": "ext",
+  "deployed": true,
+  "dependsOn": [
+    "shared"
+  ],
+  "scope": "跨模块任务聚合视图，不持有业务源",
+  "deliverables": [
+    "pages/",
+    "data/"
+  ],
+  "status": "review",
+  "note": "作业任务、作业看板、单据总览三页"
+}

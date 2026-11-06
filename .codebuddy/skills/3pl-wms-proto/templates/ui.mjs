@@ -1,14 +1,14 @@
 /**
  * 共享组件与基础样式（模板）。
  *
- * 用法：由 scripts/init-module.mjs 复制到 prototypes/01 shared/ui.mjs。
- *       页面模块从 ../../01 shared/ui.mjs 引入，只写 columns / rows / filters / toolbar，
+ * 用法：由 scripts/init-module.mjs 复制到 prototypes/shared/ui.mjs。
+ *       页面模块从 ../../shared/ui.mjs 引入，只写 columns / rows / filters / toolbar，
  *       结构一律交给这里；交互一律由 data-* 属性驱动，由 SHELL_SCRIPT 统一处理。
  *
  * 本文件与 tokens.css.mjs 组成「实现层」：这里只放结构，不放色值。
  * 样式里出现任何 hex 都是错误——取值只在 tokens.css.mjs。
  *
- * 组件白名单与骨架约束见 references/design-spec.md 第 4、5 节。
+ * 组件白名单见 references/implementation.md 第 3 节，骨架约束见 references/shells/ 对应外壳一卷。
  * 新增组件的顺序：先改规范层 → 再改本文件 → 最后重建所有 deployed: true 模块。
  */
 import { TOKENS_CSS } from './tokens.css.mjs';
@@ -131,6 +131,7 @@ function renderFilter(f) {
 export function ListPage({
   unit = '条', pageSize = 20, statusTabs = [], filters = [], toolbar = [],
   showCount = true, scopeNote = '', columns = [], rows = [], rowAttrs = null,
+  card = null, bare = false, before = '', body = '',
   emptyTitle = '暂无记录', emptyDesc = '当前筛选条件下没有任何记录。',
 } = {}) {
   const tabs = statusTabs.map((t) => {
@@ -140,6 +141,7 @@ export function ListPage({
     const count = t.count == null ? '' : `<span class="wx-tab-count">${n(t.count)}</span>`;
     return `<button type="button" class="wx-tab${t.active ? ' is-active' : ''}"${attrs}>${esc(t.label)}${count}</button>`;
   }).join('');
+  const tabBar = statusTabs.length > 1 ? `<div class="wx-tabs">${tabs}</div>` : '';
   const mainFilters = filters.filter((f) => !f.extra).map(renderFilter).join('');
   const extraFilters = filters.filter((f) => f.extra).map(renderFilter).join('');
   const filterBar = `<div class="wx-filters">${mainFilters}`
@@ -150,9 +152,13 @@ export function ListPage({
   const countNote = showCount
     ? `共 <b data-count>${n(rows.length)}</b> ${esc(unit)}${scopeNote ? `<span class="wx-note-extra">${esc(scopeNote)}</span>` : ''}`
     : esc(scopeNote);
-  const table = BaseTable({ columns, rows, rowAttrs, emptyTitle, emptyDesc });
+  const table = body || (card
+    ? `<div class="wx-list-cards">${rows.map((r, i) => card(r, i)).join('')}</div>`
+      + `<div class="wx-empty" hidden><b>${esc(emptyTitle)}</b><span>${esc(emptyDesc)}</span></div>`
+    : BaseTable({ columns, rows, rowAttrs, emptyTitle, emptyDesc }));
+  if (bare) return `<div class="wx-list" data-page-size="${Number(pageSize) || 20}">${before}${table}</div>`;
   return `<div class="wx-list" data-page-size="${Number(pageSize) || 20}">`
-    + `<div class="wx-tabs">${tabs}</div>`
+    + tabBar
     + filterBar
     + `<div class="wx-actionbar"><span class="wx-actionbar-note">${countNote}</span>`
     + `<span class="wx-btns">${toolbar.map(renderButton).join('')}</span></div>`
@@ -366,6 +372,7 @@ export const BASE_CSS = `
 .wx-block-head b{font-size:var(--wx-fs-md)}
 .wx-block-head span{font-size:var(--wx-fs-xs);color:var(--wx-gray-400)}
 .wx-block-body{padding:var(--wx-sp-4)}
+.wx-block .wx-table-wrap{border:0;border-radius:0;box-shadow:none}
 .wx-timeline{list-style:none;margin:0;padding:0}
 .wx-timeline li{display:flex;gap:var(--wx-sp-4);padding:var(--wx-sp-2) 0;font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
 .wx-timeline li b{color:var(--wx-gray-700);font-weight:500}
@@ -474,10 +481,29 @@ export const SHELL_SCRIPT = `
     var empty = page.querySelector('.wx-empty');
     if (empty) empty.hidden = matched !== 0;
   }
+  function activeView(){
+    return document.documentElement.getAttribute('data-owner-view') || '';
+  }
+  function applyOwnerView(ov, notify){
+    document.documentElement.setAttribute('data-owner-view', ov || '');
+    var sessionUser = document.querySelector('[data-session-user]');
+    if (sessionUser && ov) sessionUser.textContent = ov;
+    var topUser = document.querySelector('[data-top-user]');
+    if (topUser && ov) topUser.textContent = ov;
+    var topAvatar = document.querySelector('[data-top-avatar]');
+    if (topAvatar && ov) topAvatar.textContent = ov.slice(0, 1);
+    if (notify) {
+      var cur = currentPage();
+      var id = cur ? cur.getAttribute('data-page-id') : (location.hash || '').replace('#','');
+      if (id) activate(id, false);
+    }
+  }
   function activate(id, push){
     var hit = null;
+    var view = activeView();
     pages().forEach(function(p){
-      var on = p.getAttribute('data-page-id') === id;
+      var on = p.getAttribute('data-page-id') === id
+        && (p.getAttribute('data-owner-view') || '') === view;
       p.hidden = !on;
       if (on) hit = p;
     });
@@ -586,6 +612,11 @@ export const SHELL_SCRIPT = `
   });
   document.addEventListener('change', function(e){
     var el = e.target;
+    if (el.hasAttribute('data-login-owner')) {
+      applyOwnerView(el.value, true);
+      try { window.sessionStorage.setItem('wx-auth-owner', el.value); } catch(err){}
+      return;
+    }
     if (el.hasAttribute('data-filter-key') || el.hasAttribute('data-range-key') || el.classList.contains('wx-owner-select')) {
       var page = currentPage();
       if (page) { setNo(page, 1); applyFilters(page); }
@@ -605,20 +636,33 @@ export const SHELL_SCRIPT = `
   var first = document.querySelector('.wx-side-item');
   var initial = (location.hash || '').replace('#','');
   var valid = initial && pages().some(function(p){ return p.getAttribute('data-page-id') === initial; });
+  var ownerSelect = document.querySelector('[data-login-owner]');
+  if (ownerSelect) {
+    var savedOwner = null;
+    try { savedOwner = window.sessionStorage.getItem('wx-auth-owner'); } catch(err){}
+    var ownerOptions = Array.prototype.slice.call(ownerSelect.options);
+    if (savedOwner && ownerOptions.some(function(o){ return o.value === savedOwner; })) ownerSelect.value = savedOwner;
+    applyOwnerView(ownerSelect.value, false);
+  }
   activate(valid ? initial : (first ? first.getAttribute('data-target') : ''));
 })();
 `;
 
 /* ---------------- 登录演示：外壳层，不属于任何 .page ---------------- */
 
-export function renderLogin({ product = '', appName = '', userLabel = '' } = {}) {
+export function renderLogin({ product = '', appName = '', userLabel = '', demoOwners = [], gate = true } = {}) {
   const tab = (key, name, active) => `<button type="button" class="wx-login-tab${active ? ' is-active' : ''}" data-login-tab="${key}">${esc(name)}</button>`;
   const submit = (key) => `<button type="button" class="wx-login-submit" data-login-submit="${key}">登录</button>`;
-  return `<div class="wx-login-layer" id="loginLayer">
+  const ownerField = demoOwners.length
+    ? `<label class="wx-login-field"><span>演示身份</span><select data-login-owner>${demoOwners.map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select></label>`
+    : '';
+  return `<div class="wx-login-layer" id="loginLayer" data-login-gate="${gate ? '1' : '0'}"${gate ? '' : ' hidden'}>
   <div class="wx-login-card">
+    ${gate ? '' : `<button type="button" class="wx-login-close" data-login-close aria-label="关闭">×</button>`}
     <div class="wx-login-brand"><span class="wx-brand-mark">仓</span><span class="wx-brand-copy"><b>${esc(product)}</b><small>${esc(appName)}</small></span></div>
     <div class="wx-login-tabs">${tab('password', '账号密码', true)}${tab('captcha', '验证码', false)}${tab('third', '第三方登录', false)}</div>
     <div class="wx-login-panel" data-login-panel="password">
+      ${ownerField}
       <label class="wx-login-field"><span>账号</span><input type="text" data-login-account placeholder="请输入账号" autocomplete="off"></label>
       <label class="wx-login-field"><span>密码</span><input type="password" data-login-password placeholder="请输入密码" autocomplete="off"></label>
       <div class="wx-login-digest"><span>传输摘要</span><b data-login-digest>—</b></div>
@@ -663,7 +707,7 @@ export const LOGIN_CSS = `
 .wx-login-tab.is-active{color:var(--wx-primary-600);border-bottom-color:var(--wx-primary-500);font-weight:600}
 .wx-login-panel[hidden]{display:none !important}
 .wx-login-field{display:flex;flex-direction:column;gap:var(--wx-sp-1);margin-bottom:var(--wx-sp-3);font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
-.wx-login-field input{height:40px;padding:0 var(--wx-sp-3);border:var(--wx-border);border-radius:var(--wx-r-sm);background:var(--wx-white);font-size:var(--wx-fs-md)}
+.wx-login-field input,.wx-login-field select{height:40px;padding:0 var(--wx-sp-3);border:var(--wx-border);border-radius:var(--wx-r-sm);background:var(--wx-white);font-size:var(--wx-fs-md);color:var(--wx-gray-900)}
 .wx-login-digest{display:flex;justify-content:space-between;margin-bottom:var(--wx-sp-3);font-size:var(--wx-fs-xs);color:var(--wx-gray-400)}
 .wx-login-submit,.wx-login-third{width:100%;height:40px;border:0;border-radius:var(--wx-r-sm);background:var(--wx-primary-500);color:var(--wx-white);font-size:var(--wx-fs-md);font-weight:600}
 .wx-login-submit:disabled,.wx-login-third:disabled{background:var(--wx-gray-200);color:var(--wx-gray-500)}
@@ -685,6 +729,11 @@ export const LOGIN_CSS = `
 .wx-session-actions{display:flex;flex-direction:column;gap:var(--wx-sp-2);margin-top:var(--wx-sp-3)}
 .wx-session-actions button{height:36px;border:var(--wx-border);border-radius:var(--wx-r-sm);background:var(--wx-white);font-size:var(--wx-fs-sm)}
 .wx-session-actions button:last-child{background:var(--wx-error-soft);color:var(--wx-error-500)}
+.wx-login-card{position:relative}
+.wx-login-close{position:absolute;right:var(--wx-sp-3);top:var(--wx-sp-3);width:32px;height:32px;border:0;background:transparent;font-size:var(--wx-fs-lg);color:var(--wx-gray-500)}
+html[data-auth="guest"] [data-auth-member],html[data-auth="member"] [data-auth-guest]{display:none !important}
+html[data-auth="guest"] .wx-shop-price-value{display:none !important}
+html[data-auth="member"] .wx-shop-price-guest{display:none !important}
 @media (max-width:900px){.wx-login-card{padding:var(--wx-sp-6)}.wx-session{right:var(--wx-sp-2);left:var(--wx-sp-2);width:auto}}
 `;
 
@@ -699,8 +748,10 @@ export const LOGIN_SCRIPT = `
     CODE: '验证码错误',
     EXPIRED: '登录已过期，请重新登录'
   };
-  var LOCK_LIMIT = 5, LOCK_SECONDS = 60, TOKEN_SECONDS = 120, CODE_SECONDS = 60;
+  var LOCK_LIMIT = 5, LOCK_SECONDS = 60, TOKEN_SECONDS = 3600, CODE_SECONDS = 60;
   var layer = document.getElementById('loginLayer');
+  var GATE = !layer || layer.getAttribute('data-login-gate') !== '0';
+  function setAuth(on){ document.documentElement.setAttribute('data-auth', on ? 'member' : 'guest'); }
   var session = document.getElementById('sessionPanel');
   var errorBox = document.querySelector('.wx-login-error');
   var errorText = document.querySelector('[data-login-error]');
@@ -760,10 +811,12 @@ export const LOGIN_SCRIPT = `
   function expireNow(reason){
     clear();
     state.logged = false; state.expireAt = 0; state.fails = 0; state.lockUntil = 0;
-    showLayer(true);
+    setAuth(false);
     setLoading(false);
     setTab('password');
-    showError(reason || ERR.EXPIRED);
+    hideError();
+    if (GATE) { showLayer(true); showError(reason || ERR.EXPIRED); }
+    else { showLayer(false); toast(reason || ERR.EXPIRED); }
   }
   function loginSuccess(){
     state.logged = true;
@@ -774,6 +827,7 @@ export const LOGIN_SCRIPT = `
     hideError();
     showLayer(false);
     setLoading(false);
+    setAuth(true);
     renderExpire();
     toast('登录成功（原型示意）');
   }
@@ -838,7 +892,8 @@ export const LOGIN_SCRIPT = `
   function logout(){
     clear();
     state.logged = false; state.expireAt = 0; state.fails = 0; state.lockUntil = 0;
-    showLayer(true);
+    setAuth(false);
+    if (GATE) showLayer(true); else showLayer(false);
     setTab('password');
     hideError();
     toast('已退出登录（原型示意）');
@@ -846,6 +901,8 @@ export const LOGIN_SCRIPT = `
   document.addEventListener('click', function(e){
     var el = e.target.closest ? e.target.closest('button') : null;
     if (!el) return;
+    if (el.hasAttribute('data-login-open')) { showLayer(true); setTab('password'); hideError(); return; }
+    if (el.hasAttribute('data-login-close')) { showLayer(false); hideError(); return; }
     if (el.hasAttribute('data-login-tab')) { setTab(el.getAttribute('data-login-tab')); return; }
     if (el.hasAttribute('data-login-submit')) { submit(el.getAttribute('data-login-submit')); return; }
     if (el.hasAttribute('data-login-third')) { thirdLogin(); return; }
@@ -880,9 +937,10 @@ export const LOGIN_SCRIPT = `
   var savedExpire = Number(read('wx-auth-expire') || 0);
   if (saved === '1' && savedExpire > Date.now()) {
     state.logged = true; state.expireAt = savedExpire;
-    showLayer(false); renderExpire();
+    showLayer(false); renderExpire(); setAuth(true);
   } else {
-    clear(); showLayer(true);
+    clear(); setAuth(false);
+    if (GATE) showLayer(true); else showLayer(false);
   }
 })();
 `;
@@ -895,16 +953,26 @@ export function money(v) {
   return '￥' + Number(v || 0).toFixed(2);
 }
 
+export function ShopPrice(value, { tag = 'b', cls = '', attrs = '' } = {}) {
+  const text = typeof value === 'string' ? value : money(value);
+  const klass = ['wx-shop-price-value', cls].filter(Boolean).join(' ');
+  return `<span class="wx-shop-price"><${tag} class="${klass}"${attrs ? ` ${attrs}` : ''}>${esc(text)}</${tag}>`
+    + `<button type="button" class="wx-shop-price-guest" data-login-open>登录可见价格</button></span>`;
+}
+
 export function ShopPage({ title = '', note = '', body = '' } = {}) {
   return `<div class="wx-shop-page"><div class="wx-shop-page-head"><h1>${esc(title)}</h1>`
     + (note ? `<span>${esc(note)}</span>` : '') + `</div>`
     + `<div class="wx-shop-page-body">${body}</div></div>`;
 }
 
-export function ShopHero({ title = '', note = '', marks = [], action = '继续选货' } = {}) {
+export function ShopHero({ title = '', note = '', marks = [], action = '继续选货', guest = false } = {}) {
   const cards = marks.map((m) => `<div class="wx-shop-hero-mark"><span>${esc(m.label)}</span><b>${esc(m.value)}</b></div>`).join('');
+  const guestBar = guest
+    ? `<div class="wx-shop-hero-guest" data-auth-guest><span>登录后查看批发价</span><button type="button" class="wx-shop-btn" data-login-open>登录</button></div>`
+    : '';
   return `<div class="wx-shop-hero"><div><h2>${esc(title)}</h2><p>${esc(note)}</p>`
-    + `<button type="button" class="wx-shop-btn" data-target="mall/search">${esc(action)}</button></div>`
+    + `<div class="wx-shop-hero-actions"><button type="button" class="wx-shop-btn" data-target="mall/search">${esc(action)}</button>${guestBar}</div></div>`
     + `<div class="wx-shop-hero-marks">${cards}</div></div>`;
 }
 
@@ -924,7 +992,7 @@ export function ProductCard(p = {}) {
     + `<div class="wx-shop-card-body">`
     + `<button type="button" class="wx-shop-card-title" data-target="mall/product-detail">${esc(p.skuName)}</button>`
     + `<span class="wx-shop-card-spec">${esc(p.spec)} · ${esc(p.unit)}</span>`
-    + `<div class="wx-shop-card-price"><b>${money(p.price)}</b><span>/ ${esc(p.unit)}</span></div>`
+    + `<div class="wx-shop-card-price">${ShopPrice(p.price)}<span class="wx-shop-price-value">/ ${esc(p.unit)}</span></div>`
     + `<div class="wx-shop-card-meta"><span>起批 ${esc(p.minQty)} ${esc(p.unit)}</span><span>可售 ${esc(p.stock)}</span></div>`
     + `<div class="wx-shop-card-shop"><span>${esc(p.owner)}</span><em>店铺评分 ${esc(p.score)}</em></div>`
     + `<div class="wx-shop-card-actions">`
@@ -955,15 +1023,15 @@ export function CartTable({ rows = [], readonly = false } = {}) {
     return `<div class="wx-shop-cart-row" data-shop-cart-row data-shop-price="${Number(r.price || 0)}">`
       + `<div class="wx-shop-cart-goods"><span class="wx-shop-thumb wx-shop-thumb--${esc(r.tone || 'food')} wx-shop-thumb--sm">${esc(String(r.skuName || '货').slice(0, 1))}</span>`
       + `<div><b>${esc(r.skuName)}</b><span>${esc(r.spec)} · ${esc(r.owner)}</span></div></div>`
-      + `<span>${money(r.price)}</span><span>起批 ${esc(r.minQty)} ${esc(r.unit)}</span>`
+      + `<span>${ShopPrice(r.price)}</span><span>起批 ${esc(r.minQty)} ${esc(r.unit)}</span>`
       + `<div>${qtyCell}</div>`
-      + `<b class="wx-shop-line-total" data-shop-line-total>${money(Number(r.price || 0) * qty)}</b>`
+      + `${ShopPrice(Number(r.price || 0) * qty, { cls: 'wx-shop-line-total', attrs: 'data-shop-line-total' })}`
       + `<div>${action}</div></div>`;
   }).join('');
   const total = rows.reduce((a, r) => a + Number(r.price || 0) * Number(r.qty || 1), 0);
   return `<div class="wx-shop-table">${head}${body}`
     + `<div class="wx-shop-cart-foot"><span>共 <b data-shop-item-count>${rows.length}</b> 件商品</span>`
-    + `<span>合计 <b data-shop-total>${money(total)}</b></span></div></div>`;
+    + `<span>合计 ${ShopPrice(total, { attrs: 'data-shop-total' })}</span></div></div>`;
 }
 
 export function ShopFields({ items = [] } = {}) {
@@ -976,17 +1044,17 @@ export function ShopPanel({ title = '', body = '' } = {}) {
 
 export function ShopSummary({ freight = 0 } = {}) {
   return `<div class="wx-shop-summary">`
-    + `<div><span>商品金额</span><b data-shop-goods-total>—</b></div>`
-    + `<div><span>运费</span><b>${money(freight)}</b></div>`
-    + `<div class="wx-shop-summary-total"><span>应付合计</span><b data-shop-total>—</b></div></div>`;
+    + `<div><span>商品金额</span>${ShopPrice('—', { attrs: 'data-shop-goods-total' })}</div>`
+    + `<div><span>运费</span>${ShopPrice(freight)}</div>`
+    + `<div class="wx-shop-summary-total"><span>应付合计</span>${ShopPrice('—', { attrs: 'data-shop-total' })}</div></div>`;
 }
 
 export function OrderCard(o = {}) {
   return `<article class="wx-shop-order"><div class="wx-shop-order-head">`
     + `<span>订单编号 ${esc(o.orderNo)}</span><span>下单时间 ${esc(o.createdAt)}</span>${o.statusHtml || ''}</div>`
     + `<div class="wx-shop-order-body"><span class="wx-shop-thumb wx-shop-thumb--${esc(o.tone || 'food')} wx-shop-thumb--sm">${esc(String(o.skuName || '货').slice(0, 1))}</span>`
-    + `<div><b>${esc(o.skuName)}</b><small>${esc(o.owner)} · ${esc(o.qty)} ${esc(o.unit)} · ${money(o.price)} / ${esc(o.unit)}</small></div>`
-    + `<b class="wx-shop-order-amount">${money(Number(o.price || 0) * Number(o.qty || 1))}</b></div>`
+    + `<div><b>${esc(o.skuName)}</b><small>${esc(o.owner)} · ${esc(o.qty)} ${esc(o.unit)} · ${ShopPrice(o.price, { tag: 'span' })}<span class="wx-shop-price-value"> / ${esc(o.unit)}</span></small></div>`
+    + `${ShopPrice(Number(o.price || 0) * Number(o.qty || 1), { cls: 'wx-shop-order-amount' })}</div>`
     + `<div class="wx-shop-order-foot"><span>履约单号 ${esc(o.soNo)}</span><span>承运商 ${esc(o.carrier)}</span>`
     + `<button type="button" class="wx-shop-btn wx-shop-btn--ghost" data-toast="查看订单（原型示意）">查看订单</button></div></article>`;
 }
@@ -997,6 +1065,245 @@ export function ShopFilter({ categories = [], owners = [] } = {}) {
   return `<div class="wx-shop-filter"><span class="wx-shop-filter-label">商品类目</span>${cats}`
     + `<span class="wx-shop-filter-label">货主店铺</span>${shops}</div>`;
 }
+
+/**
+ * PDA 作业端外壳：仿工业 PDA 机身，状态栏 + 顶栏 + 内容区 + 六键键盘。
+ * 页面靠 data-pda-tab 切换，「主页 / 菜单」回作业首页，「返回」回上一屏。
+ * 窄屏（<=480px）铺满，不显示机身；不渲染侧栏与货主下拉。
+ */
+export function renderPdaShell({ product = '', appName = '', operator = '', device = '', tabs = [], sections = '', minePageId = '' } = {}) {
+  const first = tabs[0] || { id: '', name: '' };
+  const boot = tabs.length ? tabs[0].id : '';
+  return `<div class="wx-pda"${boot ? ` data-boot="${esc(boot)}"` : ''} data-operator="${esc(operator)}">\n`
+    + `<div class="wx-pda-device">`
+    + `<span class="wx-pda-cam" aria-hidden="true"></span><span class="wx-pda-led" aria-hidden="true"></span>`
+    + `<span class="wx-pda-key-side wx-pda-key-side--l" aria-hidden="true"></span>`
+    + `<span class="wx-pda-key-side wx-pda-key-side--r" aria-hidden="true"></span>`
+    + `<div class="wx-pda-screen">`
+    + `<div class="wx-pda-status"><span data-pda-status-left>${esc(operator || '未登录')}</span>`
+    + `<span data-pda-status-mid>${esc(device)}</span><span data-pda-status-right>${esc(appName)}</span></div>`
+    + `<header class="wx-pda-nav"><button type="button" class="wx-pda-back" data-pda-key="back" aria-label="返回">‹</button>`
+    + `<b data-pda-title>${esc(first.name)}</b>`
+    + (minePageId
+      ? `<button type="button" class="wx-pda-me" data-pda-tab="${esc(minePageId)}" aria-label="我的">${esc(String(operator || '·').slice(0, 1))}</button>`
+      : `<span class="wx-pda-me-slot" aria-hidden="true"></span>`)
+    + `</header>`
+    + `<main class="wx-pda-body">${sections}</main>`
+    + `<div class="wx-pda-toast" data-pda-toast hidden></div>`
+    + `</div>`
+    + `<div class="wx-pda-keypad">`
+    + `<button type="button" class="wx-pda-key" data-pda-key="back">返回</button>`
+    + `<button type="button" class="wx-pda-key" data-pda-key="home">主页</button>`
+    + `<button type="button" class="wx-pda-key" data-pda-key="menu">菜单</button>`
+    + `<button type="button" class="wx-pda-key" data-pda-key="clear">清空</button>`
+    + `<button type="button" class="wx-pda-key wx-pda-key--scan" data-pda-key="scan">扫描</button>`
+    + `<button type="button" class="wx-pda-key wx-pda-key--ok" data-pda-key="ok">确定</button>`
+    + `</div></div></div>`;
+}
+
+export const PDA_CSS = `
+.wx-pda{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:var(--wx-sp-8) var(--wx-sp-4);background:var(--wx-gray-100)}
+.wx-pda-device{position:relative;flex:0 0 auto;margin:0 auto;width:405px;padding:14px 15px 15px;border-radius:30px;background:var(--wx-gray-900);box-shadow:var(--wx-shadow),var(--wx-shadow)}
+.wx-pda-cam{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:44px;height:4px;border-radius:2px;background:var(--wx-gray-700)}
+.wx-pda-led{position:absolute;top:8px;right:18px;width:6px;height:6px;border-radius:50%;background:var(--wx-primary-500)}
+.wx-pda-key-side{position:absolute;right:-3px;width:3px;border-radius:2px;background:var(--wx-gray-700)}
+.wx-pda-key-side--l{left:-3px;right:auto;height:52px;top:150px}
+.wx-pda-key-side--r{height:74px;top:190px}
+.wx-pda-screen{position:relative;width:375px;height:720px;display:flex;flex-direction:column;overflow:hidden;border-radius:8px;background:var(--wx-gray-50)}
+.wx-pda-status{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:var(--wx-sp-2);height:28px;padding:0 var(--wx-sp-3);font-size:var(--wx-fs-xs);color:var(--wx-gray-500);background:var(--wx-white);border-bottom:var(--wx-border)}
+.wx-pda-status span:nth-child(2){text-align:center}
+.wx-pda-status span:last-child{text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wx-pda-nav{display:grid;grid-template-columns:32px 1fr 32px;align-items:center;gap:var(--wx-sp-2);min-height:44px;padding:0 var(--wx-sp-2);background:var(--wx-white);border-bottom:var(--wx-border)}
+.wx-pda-nav b{font-size:var(--wx-fs-md);font-weight:600;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wx-pda-back{width:32px;height:32px;border:0;background:transparent;font-size:var(--wx-fs-xl);color:var(--wx-gray-700)}
+.wx-pda-me{width:28px;height:28px;border:0;border-radius:50%;background:var(--wx-primary-50);color:var(--wx-primary-600);font-size:var(--wx-fs-xs)}
+.wx-pda-me-slot{width:28px;height:28px}
+.wx-pda-body{position:relative;flex:1;min-height:0;overflow:hidden}
+.wx-pda-body .page{position:absolute;inset:0;display:block;overflow-y:auto;padding:var(--wx-sp-3)}
+.wx-pda-body .page[hidden]{display:none}
+.wx-pda-body .wx-device{padding:0}
+.wx-pda-body .wx-device-screen{width:100%;min-height:0;border:0;border-radius:0;box-shadow:none;padding:0;gap:var(--wx-sp-2)}
+.wx-pda-toast{position:absolute;left:50%;bottom:var(--wx-sp-6);z-index:20;transform:translateX(-50%);padding:var(--wx-sp-2) var(--wx-sp-4);border-radius:var(--wx-r-pill);background:var(--wx-gray-900);color:var(--wx-white);font-size:var(--wx-fs-sm)}
+.wx-pda-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:10px 8px 6px}
+.wx-pda-key{min-height:44px;border:0;border-radius:6px;background:var(--wx-gray-100);color:var(--wx-gray-700);font-size:var(--wx-fs-sm)}
+.wx-pda-key--scan{background:var(--wx-primary-500);color:var(--wx-white)}
+.wx-pda-key--ok{background:var(--wx-primary-600);color:var(--wx-white)}
+.wx-pda-ctx{display:flex;flex-direction:column;gap:2px;padding:var(--wx-sp-3);background:var(--wx-white);border-radius:8px}
+.wx-pda-ctx-row{display:flex;justify-content:space-between;gap:var(--wx-sp-2);font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-pda-ctx-row b{font-weight:600;color:var(--wx-gray-900)}
+.wx-pda-entry{display:flex;align-items:center;gap:var(--wx-sp-3);min-height:64px;padding:0 var(--wx-sp-3);border:0;background:var(--wx-white);border-radius:8px;text-align:left;width:100%}
+.wx-pda-entry-icon{width:32px;height:32px;display:grid;place-items:center;border-radius:8px;background:var(--wx-primary-50);color:var(--wx-primary-600);font-size:var(--wx-fs-lg)}
+.wx-pda-entry-body{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.wx-pda-entry-body b{font-size:var(--wx-fs-sm);font-weight:600}
+.wx-pda-entry-body small{font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-pda-entry-arrow{color:var(--wx-gray-500);font-size:var(--wx-fs-lg)}
+.wx-pda-taskcard{display:flex;flex-direction:column;gap:var(--wx-sp-2);width:100%;padding:var(--wx-sp-3);border:0;background:var(--wx-white);border-radius:8px;text-align:left;box-shadow:var(--wx-shadow)}
+.wx-pda-task-head{display:flex;align-items:center;justify-content:space-between;gap:var(--wx-sp-2)}
+.wx-pda-task-id{font-size:var(--wx-fs-sm);font-weight:600;font-variant-numeric:tabular-nums}
+.wx-pda-task-meta{display:flex;flex-wrap:wrap;gap:var(--wx-sp-2);font-size:var(--wx-fs-xs);color:var(--wx-gray-700)}
+.wx-pda-task-foot{display:flex;justify-content:space-between;font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-pda-chip{display:inline-flex;align-items:center;gap:4px;padding:2px 6px;border-radius:4px;background:var(--wx-gray-50);font-size:var(--wx-fs-xs);color:var(--wx-gray-700)}
+.wx-pda-chip b{font-weight:600;color:var(--wx-gray-900)}
+.wx-pda-qty{display:flex;flex-direction:column;gap:var(--wx-sp-2);padding:var(--wx-sp-3);background:var(--wx-white);border-radius:8px}
+.wx-pda-qty-main{display:flex;align-items:baseline;gap:var(--wx-sp-2)}
+.wx-pda-qty-main span{font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-pda-qty-main b{font-size:var(--wx-fs-xl);font-variant-numeric:tabular-nums}
+.wx-pda-qty-main em{font-style:normal;font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-pda-qty-track{height:6px;border-radius:var(--wx-r-pill);background:var(--wx-gray-100)}
+.wx-pda-qty-track i{display:block;height:100%;border-radius:var(--wx-r-pill);background:var(--wx-primary-500)}
+.wx-pda-qty-foot{display:flex;justify-content:space-between;font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-pda-mine-head{display:flex;align-items:center;gap:var(--wx-sp-3);padding:var(--wx-sp-4) var(--wx-sp-3);background:var(--wx-white);border-radius:8px}
+.wx-pda-mine-avatar{width:48px;height:48px;display:grid;place-items:center;border-radius:50%;background:var(--wx-primary-50);color:var(--wx-primary-600);font-size:var(--wx-fs-lg)}
+.wx-pda-mine-info{display:flex;flex-direction:column;gap:2px;min-width:0}
+.wx-pda-mine-info b{font-size:var(--wx-fs-md)}
+.wx-pda-mine-info small{font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-pda-today{display:flex;flex-direction:column;gap:var(--wx-sp-2);padding:var(--wx-sp-3);background:var(--wx-white);border-radius:8px}
+.wx-pda-today-head{display:flex;justify-content:space-between;align-items:baseline;font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-pda-today-head b{font-size:var(--wx-fs-xl);color:var(--wx-gray-900);font-variant-numeric:tabular-nums}
+.wx-pda-today-head b small{font-size:var(--wx-fs-xs);font-weight:400;color:var(--wx-gray-500)}
+.wx-pda-today-bars{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--wx-sp-2)}
+.wx-pda-today-item{display:flex;flex-direction:column;gap:2px;padding:var(--wx-sp-2);text-align:center;background:var(--wx-gray-50);border-radius:6px}
+.wx-pda-today-item span{font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-pda-today-item b{font-size:var(--wx-fs-md);font-variant-numeric:tabular-nums}
+.wx-pda-empty{padding:var(--wx-sp-8) var(--wx-sp-4);text-align:center;color:var(--wx-gray-500)}
+.wx-pda-empty b{display:block;margin-bottom:4px;font-size:var(--wx-fs-sm);color:var(--wx-gray-700)}
+.wx-pda-empty p{margin:0;font-size:var(--wx-fs-xs)}
+.wx-pda-stack{display:flex;flex-direction:column;gap:var(--wx-sp-2)}
+.wx-pda .wx-list{display:flex;flex-direction:column;gap:var(--wx-sp-2)}
+.wx-pda .wx-list-cards{display:flex;flex-direction:column;gap:var(--wx-sp-2)}
+.wx-pda-brand{display:flex;flex-direction:column;align-items:center;gap:var(--wx-sp-1);padding:var(--wx-sp-6) 0 var(--wx-sp-4)}
+.wx-pda-brand-logo{width:56px;height:56px;display:grid;place-items:center;border-radius:14px;background:var(--wx-primary-50);color:var(--wx-primary-600);font-size:var(--wx-fs-xl)}
+.wx-pda-brand b{font-size:var(--wx-fs-lg)}
+.wx-pda-brand small{font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-pda-tabs2{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:var(--wx-sp-2);margin-bottom:var(--wx-sp-3)}
+.wx-pda-tabs2 button{min-height:36px;border:0;border-radius:6px;background:var(--wx-gray-100);color:var(--wx-gray-700);font-size:var(--wx-fs-sm)}
+.wx-pda-tabs2 button.is-active{background:var(--wx-primary-500);color:var(--wx-white)}
+.wx-pda-form{display:flex;flex-direction:column;gap:var(--wx-sp-3)}
+.wx-pda-field{display:flex;flex-direction:column;gap:var(--wx-sp-1)}
+.wx-pda-field span{font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-pda-field input{min-height:44px;border:var(--wx-border);border-radius:6px;padding:0 var(--wx-sp-3);font-size:var(--wx-fs-sm);background:var(--wx-white)}
+.wx-pda-row{display:flex;align-items:center;justify-content:space-between;gap:var(--wx-sp-2)}
+.wx-pda-check{display:flex;align-items:center;gap:var(--wx-sp-1);font-size:var(--wx-fs-xs);color:var(--wx-gray-700)}
+.wx-pda-link{border:0;background:transparent;color:var(--wx-primary-600);font-size:var(--wx-fs-xs)}
+.wx-pda-tip{padding:var(--wx-sp-3);border-radius:6px;background:var(--wx-gray-50);font-size:var(--wx-fs-xs);color:var(--wx-gray-700);line-height:1.6}
+.wx-pda-tip b{display:block;margin-bottom:2px;color:var(--wx-gray-900)}
+.wx-pda-face{display:flex;flex-direction:column;align-items:center;gap:var(--wx-sp-3);padding:var(--wx-sp-6) var(--wx-sp-4);background:var(--wx-white);border-radius:8px;text-align:center}
+.wx-pda-face-icon{width:96px;height:96px;display:grid;place-items:center;border-radius:50%;background:var(--wx-primary-50);color:var(--wx-primary-600);font-size:36px}
+.wx-pda-face b{font-size:var(--wx-fs-md)}
+.wx-pda-face p{margin:0;font-size:var(--wx-fs-xs);color:var(--wx-gray-500);line-height:1.6}
+.wx-pda-btns{display:grid;gap:var(--wx-sp-2);margin-top:var(--wx-sp-3)}
+.wx-pda-btns .wx-btn{min-height:44px}
+.wx-pda-kv{display:flex;flex-direction:column;gap:var(--wx-sp-2);padding:var(--wx-sp-3);background:var(--wx-white);border-radius:8px}
+.wx-pda-kv-row{display:flex;justify-content:space-between;gap:var(--wx-sp-2);font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-pda-kv-row b{font-weight:600;color:var(--wx-gray-900)}
+.wx-pda-progress{height:8px;border-radius:var(--wx-r-pill);background:var(--wx-gray-100);overflow:hidden}
+.wx-pda-progress i{display:block;height:100%;border-radius:var(--wx-r-pill);background:var(--wx-primary-500);transition:width .3s}
+.wx-pda .wx-btn{min-height:44px}
+@media (max-width:480px){
+  .wx-pda{padding:0;align-items:stretch}
+  .wx-pda-device{width:100%;padding:0;border-radius:0;background:var(--wx-gray-50)}
+  .wx-pda-cam,.wx-pda-led,.wx-pda-key-side{display:none}
+  .wx-pda-screen{width:100%;height:100vh;border-radius:0}
+}
+`;
+
+export const PDA_SCRIPT = `
+(function(){
+  var screens = Array.prototype.slice.call(document.querySelectorAll('.wx-pda-body .page'));
+  var title = document.querySelector('[data-pda-title]');
+  var toastEl = document.querySelector('[data-pda-toast]');
+  var stack = [];
+  var timer = null;
+  function current(){
+    for (var i = 0; i < screens.length; i++) if (!screens[i].hidden) return screens[i];
+    return null;
+  }
+  function show(id, name, push){
+    var cur = current();
+    if (cur && cur.dataset.pageId === id) return;
+    if (cur && push) stack.push(cur.dataset.pageId);
+    var box = null;
+    screens.forEach(function(s){
+      s.hidden = s.dataset.pageId !== id;
+      if (s.dataset.pageId === id) box = s;
+    });
+    if (title && name) title.textContent = name;
+    var shell = document.querySelector('.wx-pda');
+    var statusLeft = document.querySelector('[data-pda-status-left]');
+    if (shell && statusLeft){
+      var boot = shell.getAttribute('data-boot');
+      statusLeft.textContent = id === boot ? '未登录' : (shell.getAttribute('data-operator') || '未登录');
+    }
+    if (box) box.scrollTop = 0;
+  }
+  function toast(msg){
+    if (!toastEl || !msg) return;
+    toastEl.textContent = msg;
+    toastEl.hidden = false;
+    clearTimeout(timer);
+    timer = setTimeout(function(){ toastEl.hidden = true; }, 1400);
+  }
+  document.querySelectorAll('[data-pda-steps]').forEach(function(host){
+    var firstBtn = host.querySelector('[data-pda-step-to]');
+    if (firstBtn) firstBtn.classList.add('is-active');
+  });
+  document.addEventListener('click', function(e){
+    var stepBtn = e.target.closest('[data-pda-step-to]');
+    if (stepBtn){
+      var host = stepBtn.closest('[data-pda-steps]') || stepBtn.closest('.page');
+      if (host){
+        var to = stepBtn.dataset.pdaStepTo;
+        host.querySelectorAll('[data-pda-step-to]').forEach(function(b){ b.classList.toggle('is-active', b.dataset.pdaStepTo === to); });
+        host.querySelectorAll('[data-pda-step]').forEach(function(s){ s.hidden = s.dataset.pdaStep !== to; });
+      }
+      return;
+    }
+    var tab = e.target.closest('[data-pda-tab]');
+    if (tab){
+      var name = tab.dataset.pdaTabName || '';
+      if (!name){ var b = tab.querySelector('b'); name = b ? b.textContent : ''; }
+      show(tab.dataset.pdaTab, name, true);
+      return;
+    }
+    var key = e.target.closest('[data-pda-key]');
+    if (key){
+      var k = key.dataset.pdaKey;
+      if (k === 'back'){
+        var prev = stack.pop();
+        if (prev) show(prev, '', false); else toast('已在首页（原型示意）');
+        return;
+      }
+      if (k === 'home' || k === 'menu'){
+        stack.length = 0;
+        show(screens[0].dataset.pageId, '', false);
+        return;
+      }
+      if (k === 'clear'){
+        var c1 = current(); var i1 = c1 && c1.querySelector('input');
+        if (i1){ i1.value = ''; i1.focus(); }
+        return;
+      }
+      if (k === 'scan'){
+        var c2 = current(); var i2 = c2 && c2.querySelector('input');
+        if (i2) i2.focus();
+        toast('扫码录入（原型示意）');
+        return;
+      }
+      if (k === 'ok'){
+        var c3 = current();
+        var btn = (c3 && c3.querySelector('[data-pda-ok]')) || (c3 && c3.querySelector('.wx-btn--primary'));
+        if (btn) btn.click(); else toast('确认（原型示意）');
+        return;
+      }
+    }
+    var toastBtn = e.target.closest('[data-toast]');
+    if (toastBtn) toast(toastBtn.dataset.toast);
+  });
+  var shellEl = document.querySelector('.wx-pda');
+  var bootId = (shellEl && shellEl.getAttribute('data-boot')) || (screens[0] && screens[0].dataset.pageId) || '';
+  if (bootId) show(bootId, '', false);
+})();
+`;
 
 export function renderShopShell({ product = '', appName = '', userLabel = '', nav = [], categories = [], cartCount = 0, content = '' } = {}) {
   const navHtml = nav.map((n) => `<button type="button" class="wx-shop-nav-item${n.id === 'mall/home' ? ' is-active' : ''}" data-target="${esc(n.id)}">${esc(n.name)}</button>`).join('');
@@ -1010,7 +1317,8 @@ export function renderShopShell({ product = '', appName = '', userLabel = '', na
     + `<div class="wx-shop-top-tools">`
     + `<button type="button" class="wx-shop-tool" data-target="mall/cart">进货单 <span class="wx-shop-cart-count" data-shop-cart-count>${esc(cartCount)}</span></button>`
     + `<button type="button" class="wx-shop-tool" data-target="mall/orders">我的订单</button>`
-    + `<button type="button" class="wx-shop-user" data-session-toggle>${esc(userLabel)}</button>`
+    + `<button type="button" class="wx-shop-login" data-login-open data-auth-guest>登录</button>`
+    + `<button type="button" class="wx-shop-user" data-session-toggle data-auth-member>${esc(userLabel)}</button>`
     + `</div></div></header>\n`
     + `<nav class="wx-shop-nav"><div class="wx-shop-nav-inner">${navHtml}`
     + `<span class="wx-shop-nav-sep"></span>${catHtml}</div></nav>\n`
@@ -1144,6 +1452,14 @@ export const MALL_CSS = `
 .wx-shop-detail-copy>span{font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
 .wx-shop-detail-copy .wx-shop-card-price b{font-size:var(--wx-fs-2xl)}
 .wx-shop-detail-copy .wx-shop-card-actions{max-width:320px}
+.wx-shop-login{border:0;border-radius:var(--wx-r-sm);background:var(--wx-mall-500);color:var(--wx-white);padding:var(--wx-sp-2) var(--wx-sp-4);font-size:var(--wx-fs-sm);font-weight:600}
+.wx-shop-hero-actions{display:flex;align-items:center;gap:var(--wx-sp-4);flex-wrap:wrap}
+.wx-shop-hero-guest{display:flex;align-items:center;gap:var(--wx-sp-2);font-size:var(--wx-fs-sm);color:var(--wx-mall-600)}
+.wx-shop-hero-guest .wx-shop-btn{background:var(--wx-white);color:var(--wx-mall-600);border:var(--wx-border);font-weight:400}
+.wx-shop-price{display:inline-flex;align-items:baseline;gap:var(--wx-sp-1)}
+.wx-shop-price-guest{border:0;background:transparent;padding:0;font-size:inherit;font-weight:600;color:var(--wx-mall-600);white-space:nowrap;text-decoration:underline;text-underline-offset:3px}
+.wx-shop-card-price .wx-shop-price-guest{font-size:var(--wx-fs-md)}
+.wx-shop-summary .wx-shop-price-guest,.wx-shop-order-body .wx-shop-price-guest{font-size:var(--wx-fs-sm)}
 @media (max-width:1080px){.wx-shop-grid{grid-template-columns:repeat(3,1fr)}.wx-shop-home-grid{grid-template-columns:160px 1fr}}
 @media (max-width:800px){.wx-shop-grid{grid-template-columns:repeat(2,1fr)}.wx-shop-home-grid,.wx-shop-hero{grid-template-columns:1fr}.wx-shop-fields{grid-template-columns:repeat(2,1fr)}.wx-shop-table-head,.wx-shop-cart-row{grid-template-columns:2fr 1fr 1fr 1fr}}
 `;
@@ -1169,7 +1485,7 @@ export function ShopEmpty() {
 
 export function ShopTable({ columns = [], rows = [] } = {}) {
   const head = columns.map((c) => `<th>${esc(c.label)}</th>`).join('');
-  const body = rows.map((r) => `<tr>${columns.map((c) => `<td>${dash(r[c.key])}</td>`).join('')}</tr>`).join('');
+  const body = rows.map((r) => `<tr>${columns.map((c) => `<td>${c.price ? ShopPrice(r[c.key]) : dash(r[c.key])}</td>`).join('')}</tr>`).join('');
   return `<div class="wx-shop-table"><table class="wx-table"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
 }
 
@@ -1186,7 +1502,7 @@ export function ShopDetailHero(p = {}) {
   return `<div class="wx-shop-detail"><div class="wx-shop-thumb wx-shop-thumb--${esc(p.tone || 'food')} wx-shop-thumb--lg">${esc(String(p.skuName || '货').slice(0, 1))}</div>`
     + `<div class="wx-shop-detail-copy"><b>${esc(p.skuName)}</b>`
     + `<span>${esc(p.spec)} · ${esc(p.unit)} · ${esc(p.owner)}</span>`
-    + `<div class="wx-shop-card-price"><b>${money(p.price)}</b><span>/ ${esc(p.unit)}</span></div>`
+    + `<div class="wx-shop-card-price">${ShopPrice(p.price)}<span class="wx-shop-price-value">/ ${esc(p.unit)}</span></div>`
     + `<span>起批 ${esc(p.minQty)} ${esc(p.unit)} · 可售 ${esc(p.stock)} · 店铺评分 ${esc(p.score)}</span>`
     + `<div class="wx-shop-card-actions">`
     + `<button type="button" class="wx-shop-btn" data-shop-add data-shop-sku="${esc(p.skuCode || '')}">加入进货单</button>`

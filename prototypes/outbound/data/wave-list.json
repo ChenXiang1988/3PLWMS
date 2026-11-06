@@ -1,3 +1,10 @@
 {
-  "rows": []
+  "rows": [
+    { "waveNo": "WAV20261106001", "waveStatus": "busy", "workWindow": "09:00-11:00", "capacity": 14, "orderCount": 12, "taskCount": 4, "createTime": "2026-11-06 07:30" },
+    { "waveNo": "WAV20261106002", "waveStatus": "wait", "workWindow": "14:00-16:00", "capacity": 10, "orderCount": 8, "taskCount": 3, "createTime": "2026-11-06 08:10" },
+    { "waveNo": "WAV20261106003", "waveStatus": "done", "workWindow": "07:00-09:00", "capacity": 15, "orderCount": 15, "taskCount": 5, "createTime": "2026-11-06 06:20" },
+    { "waveNo": "WAV20261106005", "waveStatus": "blocked", "workWindow": "16:00-18:00", "capacity": 12, "orderCount": 6, "taskCount": 2, "createTime": "2026-11-06 09:00" },
+    { "waveNo": "WAV20261105004", "waveStatus": "done", "workWindow": "09:00-11:00", "capacity": 12, "orderCount": 10, "taskCount": 3, "createTime": "2026-11-05 07:45" },
+    { "waveNo": "WAV20261104006", "waveStatus": "closed", "workWindow": "14:00-16:00", "capacity": 8, "orderCount": 4, "taskCount": 2, "createTime": "2026-11-04 08:30" }
+  ]
 }

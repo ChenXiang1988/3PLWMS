@@ -1,4 +1,4 @@
-import { ListPage, StatusTag, dash, n, uniq } from '../../01 shared/ui.mjs';
+import { ListPage, StatusTag, dash, n, uniq } from '../../shared/ui.mjs';
 
 export const STATUS_META = {
   normal: { label: '正常', type: 'enabled' },
@@ -36,7 +36,6 @@ export function renderPage(data, ctx) {
     filters: [
       { label: '仓库', key: 'warehouse', type: 'select', options: ['全部', ...uniq(derived.map((r) => r.warehouse))] },
       { label: '商品编码', key: 'skuCode', type: 'text', placeholder: '请输入商品编码' },
-      { label: '货主', key: 'owner', type: 'select', options: ['全部', ...uniq(derived.map((r) => r.owner))] },
     ],
     toolbar: [
       { label: '确认处置', toast: '确认处置（原型示意）' },

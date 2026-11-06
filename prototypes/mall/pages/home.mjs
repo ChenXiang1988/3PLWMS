@@ -1,7 +1,7 @@
 import {
   ShopPage, ShopHero, ShopCategory, ShopFloor, ProductCard, ShopPanel,
   ShopHomeGrid, ShopRow, ShopActions, SHOP_CATEGORIES,
-} from '../../01 shared/ui.mjs';
+} from '../../shared/ui.mjs';
 
 export function renderPage(data, ctx) {
   const home = data.home || {};
@@ -27,6 +27,7 @@ export function renderPage(data, ctx) {
   }).join('');
 
   const body = ShopHero({
+    guest: true,
     title: '热销货源',
     note: '本部署货主在仓现货，下单后由出库订单履约',
     marks: [
@@ -44,7 +45,7 @@ export function renderPage(data, ctx) {
       body: shops + ShopActions({ items: [{ label: '申请入驻', ghost: true, toast: '申请入驻（原型示意）' }] }),
     });
 
-  return ShopPage({ title: ctx.pageName, note: `共 ${products.length} 件商品`, body });
+  return ShopPage({ title: ctx.pageName, body });
 }
 
 export const PAGE_CSS = ``;

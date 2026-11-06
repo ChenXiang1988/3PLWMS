@@ -1,4 +1,4 @@
-import { ShopPage, OrderCard, StatusTag } from '../../01 shared/ui.mjs';
+import { ShopPage, OrderCard, StatusTag } from '../../shared/ui.mjs';
 
 const STATUS_META = {
   unpaid: { label: '待付款', type: 'pending' },

@@ -1,0 +1,9 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "processNo": "PK20261106001", "processStatus": "busy", "sourcePlans": "OP20261106001、OP20261106002", "waveNo": "WAV20261106001", "rowCount": 6, "planQty": 2400, "doneQty": 1560 },
+    { "owner": "辰星日化", "processNo": "PK20261106002", "processStatus": "wait", "sourcePlans": "OP20261106004", "waveNo": "WAV20261106002", "rowCount": 3, "planQty": 1200, "doneQty": 0 },
+    { "owner": "海纳食品", "processNo": "PK20261106003", "processStatus": "done", "sourcePlans": "OP20261105003", "waveNo": "WAV20261106003", "rowCount": 3, "planQty": 900, "doneQty": 900 },
+    { "owner": "云途电商", "processNo": "PK20261106005", "processStatus": "blocked", "sourcePlans": "OP20261106007", "waveNo": "WAV20261106001", "rowCount": 5, "planQty": 3200, "doneQty": 640 },
+    { "owner": "云途电商", "processNo": "PK20261106006", "processStatus": "wait", "sourcePlans": "OP20261105008", "waveNo": "WAV20261106005", "rowCount": 3, "planQty": 1500, "doneQty": 0 }
+  ]
+}

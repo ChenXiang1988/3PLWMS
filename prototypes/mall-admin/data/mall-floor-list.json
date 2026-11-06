@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "floorName": "热销货源", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "sortNo": 1, "floorStatus": "active", "updateTime": "2026-11-06 09:00" },
+    { "floorName": "热销货源", "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "sortNo": 2, "floorStatus": "active", "updateTime": "2026-11-06 09:00" },
+    { "floorName": "热销货源", "skuCode": "SKU100198", "skuName": "云途收纳箱 45L", "sortNo": 3, "floorStatus": "active", "updateTime": "2026-11-06 09:00" },
+    { "floorName": "新品上架", "skuCode": "SKU100402", "skuName": "海纳常温酸奶礼盒 200g×12", "sortNo": 1, "floorStatus": "active", "updateTime": "2026-11-05 14:20" },
+    { "floorName": "新品上架", "skuCode": "SKU100355", "skuName": "辰星柔顺剂 1kg×12", "sortNo": 2, "floorStatus": "active", "updateTime": "2026-11-05 14:20" },
+    { "floorName": "临期特惠", "skuCode": "SKU100175", "skuName": "海纳酸奶 100g×12", "sortNo": 1, "floorStatus": "active", "updateTime": "2026-11-04 10:10" },
+    { "floorName": "店铺推荐", "skuCode": "SKU100206", "skuName": "云途蓝牙耳机 二代", "sortNo": 1, "floorStatus": "inactive", "updateTime": "2026-10-28 11:30" },
+    { "floorName": "店铺推荐", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "sortNo": 2, "floorStatus": "active", "updateTime": "2026-11-02 16:45" }
+  ]
+}

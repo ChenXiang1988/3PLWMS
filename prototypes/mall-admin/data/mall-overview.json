@@ -1,0 +1,10 @@
+{
+  "rows": [
+    { "shopName": "海纳优品", "onSaleCount": 10, "orderCount": 18, "amount": 8600.0 },
+    { "shopName": "海纳乳品专营", "onSaleCount": 6, "orderCount": 12, "amount": 5400.0 },
+    { "shopName": "辰星洁净馆", "onSaleCount": 8, "orderCount": 15, "amount": 6200.0 },
+    { "shopName": "辰星家居", "onSaleCount": 5, "orderCount": 9, "amount": 3100.0 },
+    { "shopName": "云途优选", "onSaleCount": 12, "orderCount": 21, "amount": 9800.0 },
+    { "shopName": "云途数码", "onSaleCount": 7, "orderCount": 11, "amount": 4600.0 }
+  ]
+}

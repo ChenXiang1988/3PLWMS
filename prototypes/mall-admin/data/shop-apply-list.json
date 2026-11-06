@@ -1,0 +1,10 @@
+{
+  "rows": [
+    { "applyNo": "AP20261106001", "owner": "海纳食品", "applyTime": "2026-11-06 09:20", "reviewStatus": "pendingReview", "applicant": "陈晓" },
+    { "applyNo": "AP20261105002", "owner": "辰星日化", "applyTime": "2026-11-05 15:40", "reviewStatus": "pendingReview", "applicant": "周敏" },
+    { "applyNo": "AP20261104003", "owner": "云途电商", "applyTime": "2026-11-04 11:10", "reviewStatus": "approved", "applicant": "吴迪" },
+    { "applyNo": "AP20261028004", "owner": "海纳食品", "applyTime": "2026-10-28 14:25", "reviewStatus": "approved", "applicant": "陈晓" },
+    { "applyNo": "AP20261020005", "owner": "辰星日化", "applyTime": "2026-10-20 10:05", "reviewStatus": "rejectedReview", "applicant": "周敏" },
+    { "applyNo": "AP20261015006", "owner": "云途电商", "applyTime": "2026-10-15 16:30", "reviewStatus": "approved", "applicant": "吴迪" }
+  ]
+}

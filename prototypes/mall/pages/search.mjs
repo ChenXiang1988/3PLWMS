@@ -1,6 +1,6 @@
 import {
   ShopPage, ShopFloor, ProductCard, ShopFilter, ShopResult, ShopEmpty,
-} from '../../01 shared/ui.mjs';
+} from '../../shared/ui.mjs';
 
 export function renderPage(data, ctx) {
   const products = (data.home || {}).products || [];

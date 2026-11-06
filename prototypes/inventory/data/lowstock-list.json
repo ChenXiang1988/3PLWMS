@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "skuCode": "SKU100175", "skuName": "海纳酸奶 100g×12", "warehouse": "华东中心仓", "onHandQty": 120, "safetyQty": 200, "gapQty": 80, "warnStatus": "warning" },
+    { "owner": "辰星日化", "skuCode": "SKU100142", "skuName": "辰星洗洁精 500ml×20", "warehouse": "华南前置仓", "onHandQty": 75, "safetyQty": 150, "gapQty": 75, "warnStatus": "warning" },
+    { "owner": "云途电商", "skuCode": "SKU100206", "skuName": "云途蓝牙耳机 二代", "warehouse": "华北分拨仓", "onHandQty": 0, "safetyQty": 80, "gapQty": 80, "warnStatus": "shortage" },
+    { "owner": "辰星日化", "skuCode": "SKU100355", "skuName": "辰星柔顺剂 1kg×12", "warehouse": "华南前置仓", "onHandQty": 40, "safetyQty": 100, "gapQty": 60, "warnStatus": "warning" },
+    { "owner": "云途电商", "skuCode": "SKU100268", "skuName": "云途折叠收纳凳", "warehouse": "华北分拨仓", "onHandQty": 0, "safetyQty": 60, "gapQty": 60, "warnStatus": "shortage" },
+    { "owner": "海纳食品", "skuCode": "SKU100402", "skuName": "海纳常温酸奶礼盒 200g×12", "warehouse": "华东中心仓", "onHandQty": 180, "safetyQty": 120, "gapQty": 0, "warnStatus": "normal" },
+    { "owner": "海纳食品", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "warehouse": "华东中心仓", "onHandQty": 480, "safetyQty": 300, "gapQty": 0, "warnStatus": "normal" },
+    { "owner": "云途电商", "skuCode": "SKU100198", "skuName": "云途收纳箱 45L", "warehouse": "华东中心仓", "onHandQty": 240, "safetyQty": 200, "gapQty": 0, "warnStatus": "normal" }
+  ]
+}

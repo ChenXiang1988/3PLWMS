@@ -1,3 +1,11 @@
 {
-  "rows": []
+  "rows": [
+    { "owner": "海纳食品", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "batchNo": "B20261028001", "binCode": "A-01-01", "onHandQty": 480, "availableQty": 440, "countFrozenQty": 0, "planLockedQty": 40 },
+    { "owner": "海纳食品", "skuCode": "SKU100175", "skuName": "海纳酸奶 100g×12", "batchNo": "B20261104002", "binCode": "A-02-03", "onHandQty": 120, "availableQty": 120, "countFrozenQty": 0, "planLockedQty": 0 },
+    { "owner": "海纳食品", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "batchNo": "B20260920005", "binCode": "A-01-02", "onHandQty": 360, "availableQty": 340, "countFrozenQty": 20, "planLockedQty": 0 },
+    { "owner": "辰星日化", "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "batchNo": "B20260901003", "binCode": "B-01-02", "onHandQty": 860, "availableQty": 800, "countFrozenQty": 0, "planLockedQty": 60 },
+    { "owner": "辰星日化", "skuCode": "SKU100142", "skuName": "辰星洗洁精 500ml×20", "batchNo": "B20260510006", "binCode": "B-02-01", "onHandQty": 75, "availableQty": 75, "countFrozenQty": 0, "planLockedQty": 0 },
+    { "owner": "云途电商", "skuCode": "SKU100198", "skuName": "云途收纳箱 45L", "batchNo": "B20260310004", "binCode": "C-03-01", "onHandQty": 240, "availableQty": 240, "countFrozenQty": 0, "planLockedQty": 0 },
+    { "owner": "云途电商", "skuCode": "SKU100198", "skuName": "云途收纳箱 45L", "batchNo": "B20260801007", "binCode": "C-01-04", "onHandQty": 510, "availableQty": 510, "countFrozenQty": 0, "planLockedQty": 0 }
+  ]
 }

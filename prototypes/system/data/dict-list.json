@@ -1,0 +1,10 @@
+{
+  "rows": [
+    { "dictCode": "DICT001", "dictName": "入库类型", "dictType": "业务字典", "itemCount": 4, "dictStatus": "active", "updateTime": "2026-10-28 09:30" },
+    { "dictCode": "DICT002", "dictName": "出库类型", "dictType": "业务字典", "itemCount": 4, "dictStatus": "active", "updateTime": "2026-10-28 09:35" },
+    { "dictCode": "DICT003", "dictName": "库位类型", "dictType": "业务字典", "itemCount": 8, "dictStatus": "active", "updateTime": "2026-11-02 14:10" },
+    { "dictCode": "DICT004", "dictName": "设备类型", "dictType": "业务字典", "itemCount": 6, "dictStatus": "active", "updateTime": "2026-11-03 10:25" },
+    { "dictCode": "DICT005", "dictName": "策略域", "dictType": "业务字典", "itemCount": 4, "dictStatus": "active", "updateTime": "2026-11-05 16:40" },
+    { "dictCode": "DICT006", "dictName": "登录方式", "dictType": "系统字典", "itemCount": 3, "dictStatus": "inactive", "updateTime": "2026-10-15 11:05" }
+  ]
+}

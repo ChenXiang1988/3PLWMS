@@ -1,4 +1,4 @@
-import { ReportHero, StatRow, Block, BaseTable, StatusTag, esc, n } from '../../01 shared/ui.mjs';
+import { ReportHero, StatRow, Block, BaseTable, StatusTag, esc, n } from '../../shared/ui.mjs';
 
 export const STATUS_META = {
   preparing: { label: '筹建中', type: 'pending' },

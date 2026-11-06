@@ -2,7 +2,7 @@
 /**
  * 原型交付验收脚本（3pl-wms-proto skill）。
  *
- * 用法：node verify-delivery.mjs [--app owner] [--fast] [--json] [--root <工作区路径>]
+ * 用法：node verify-delivery.mjs [--app owner-app] [--fast] [--json] [--root <工作区路径>]
  * 不带 --app 即全量验收所有端。验收对象按端，不再按模块逐个出产物。
  * 退出码：0 全通过；1 有违规；2 运行环境不满足。
  */
@@ -28,9 +28,9 @@ for (let i = 0; i < ARGS.length; i++) {
 }
 
 const PROTO = path.join(ROOT, 'prototypes');
-const SHARED = path.join(PROTO, '01 shared');
-const DIST = path.join(PROTO, '00 dist');
-const GLOSSARY = path.join(SKILL, 'references', 'glossary.md');
+const SHARED = path.join(PROTO, 'shared');
+const DIST = path.join(PROTO, 'dist');
+const GLOSSARY = path.join(SKILL, 'references', 'core', 'glossary.md');
 const SAAS_WORDS = ['租户', '账号空间', '按租户分库', '订阅', '套餐', '充值', '续费', '试用到期', '升级专业版', '平台运营后台', '主体切换器'];
 const DOC_WORDS = ['TODO', 'lorem', '占位符', '示意代码', '本期不做', '后续迭代', '暂不支持', '待开发', '实现说明', '设计注解', '操作指引'];
 
@@ -82,7 +82,7 @@ function checkBoundary() {
   for (const app of selected) {
     for (const e of entriesOf(app)) {
       for (const hit of (read(e.file) || '').matchAll(/\bfrom\s+['"]([^'"]+)['"]/g)) {
-        if (hit[1].startsWith('../../') && !hit[1].startsWith('../../01 shared/')) {
+        if (hit[1].startsWith('../../') && !hit[1].startsWith('../../shared/')) {
           bad.push(`${rel(e.file)} 跨模块引用 ${hit[1]}`);
         }
       }
@@ -182,7 +182,7 @@ function checkProduct() {
     }
   }
   const gi = read(path.join(ROOT, '.gitignore')) || '';
-  if (!gi.split(/\r?\n/).some((l) => l.trim() === 'prototypes/00 dist/')) bad.push('.gitignore 未忽略 prototypes/00 dist/');
+  if (!gi.split(/\r?\n/).some((l) => l.trim() === 'prototypes/dist/')) bad.push('.gitignore 未忽略 prototypes/dist/');
   const stray = [];
   for (const m of reg.modules) {
     const d = path.join(PROTO, m.id, 'dist');
@@ -192,10 +192,10 @@ function checkProduct() {
   const r = spawnSync('git', ['ls-files', 'prototypes'], { cwd: ROOT, encoding: 'utf8' });
   let note = '';
   if (r.status === 0) {
-    const tracked = (r.stdout || '').split('\n').filter((l) => l.includes('/dist/') || l.startsWith('prototypes/00 dist/'));
+    const tracked = (r.stdout || '').split('\n').filter((l) => l.includes('/dist/') || l.startsWith('prototypes/dist/'));
     if (tracked.length) bad.push(`git 索引里仍有产物：${tracked.slice(0, 3).join('、')}`);
   } else note = '当前目录不是 git 仓库或 git 不可用，跳过索引项检查';
-  add('S5', '端产物：单文件自包含、页容器齐全、产物集中在 00 dist、不入库', bad, note);
+  add('S5', '端产物：单文件自包含、页容器齐全、产物集中在 dist、不入库', bad, note);
 }
 
 /* X：端产物漂移检查 */
@@ -226,5 +226,6 @@ if (JSON_OUT) {
   }
   console.log('');
   console.log(failed.length ? `违规 ${failed.length} 组。规则原文：.codebuddy/skills/3pl-wms-proto/references/` : `全部通过${FAST ? '（--fast：未验证产物漂移）' : ''}`);
+  if (failed.length) console.log('  分层：registry.md / core/ / shells/ / implementation.md');
 }
 process.exit(failed.length ? 1 : 0);

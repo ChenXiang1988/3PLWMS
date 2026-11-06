@@ -1,0 +1,18 @@
+{
+  "id": "pda",
+  "name": "PDA 终端",
+  "version": "0.2.0",
+  "owner": "产品组",
+  "tier": "core",
+  "deployed": true,
+  "dependsOn": [
+    "shared"
+  ],
+  "scope": "登录、人脸、设备接入与版本更新等终端壳层页",
+  "deliverables": [
+    "pages/",
+    "data/"
+  ],
+  "status": "review",
+  "note": "登录、人脸识别、接入自带手机、激活本机、我的设备、版本与更新六页"
+}

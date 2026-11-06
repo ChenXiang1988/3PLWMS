@@ -1,3 +1,7 @@
 {
-  "rows": []
+  "rows": [
+    { "owner": "海纳食品", "onHandQty": 960, "frozenQty": 60, "availableQty": 900, "binCount": 8 },
+    { "owner": "辰星日化", "onHandQty": 935, "frozenQty": 60, "availableQty": 875, "binCount": 6 },
+    { "owner": "云途电商", "onHandQty": 750, "frozenQty": 0, "availableQty": 750, "binCount": 5 }
+  ]
 }

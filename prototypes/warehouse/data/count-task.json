@@ -1,3 +1,10 @@
 {
-  "rows": []
+  "rows": [
+    { "countNo": "PD20261106001", "countStatus": "doing", "countScope": "全仓", "binCount": 320, "diffCount": 4, "createTime": "2026-11-06 08:00" },
+    { "countNo": "PD20261106002", "countStatus": "pending", "countScope": "A 区-常温存储", "binCount": 96, "diffCount": 0, "createTime": "2026-11-06 09:30" },
+    { "countNo": "PD20261106004", "countStatus": "exception", "countScope": "C 区-暂存缓冲", "binCount": 48, "diffCount": 6, "createTime": "2026-11-06 07:20" },
+    { "countNo": "PD20261105003", "countStatus": "completed", "countScope": "B 区-拆零拣选", "binCount": 64, "diffCount": 2, "createTime": "2026-11-05 07:50" },
+    { "countNo": "PD20261105005", "countStatus": "completed", "countScope": "D 区-不良品", "binCount": 12, "diffCount": 1, "createTime": "2026-11-05 14:10" },
+    { "countNo": "PD20261104006", "countStatus": "cancelled", "countScope": "全仓", "binCount": 320, "diffCount": 0, "createTime": "2026-11-04 08:15" }
+  ]
 }

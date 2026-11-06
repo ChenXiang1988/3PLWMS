@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "containerCode": "CT00001", "containerType": "托盘", "spec": "1200×1000mm", "warehouse": "华东中心仓", "containerStatus": "busy", "owner": "海纳食品", "binCode": "A-01-01", "bizNo": "ASN20261106001", "createTime": "2026-05-12 09:30" },
+    { "containerCode": "CT00002", "containerType": "托盘", "spec": "1200×1000mm", "warehouse": "华东中心仓", "containerStatus": "idle", "owner": "", "binCode": "", "bizNo": "", "createTime": "2026-05-12 09:32" },
+    { "containerCode": "CT00003", "containerType": "周转箱", "spec": "600×400×300mm", "warehouse": "华东中心仓", "containerStatus": "busy", "owner": "辰星日化", "binCode": "B-01-02", "bizNo": "SO20261106002", "createTime": "2026-06-08 14:10" },
+    { "containerCode": "CT00004", "containerType": "笼车", "spec": "1100×800×1700mm", "warehouse": "华南前置仓", "containerStatus": "busy", "owner": "辰星日化", "binCode": "B-02-01", "bizNo": "MOV20261106002", "createTime": "2026-06-15 10:20" },
+    { "containerCode": "CT00005", "containerType": "料箱", "spec": "400×300×200mm", "warehouse": "华东中心仓", "containerStatus": "idle", "owner": "", "binCode": "", "bizNo": "", "createTime": "2026-07-03 16:45" },
+    { "containerCode": "CT00006", "containerType": "托盘", "spec": "1200×1000mm", "warehouse": "华北分拨仓", "containerStatus": "repairing", "owner": "", "binCode": "", "bizNo": "", "createTime": "2026-07-21 11:05" },
+    { "containerCode": "CT00007", "containerType": "周转箱", "spec": "600×400×300mm", "warehouse": "华北分拨仓", "containerStatus": "busy", "owner": "云途电商", "binCode": "C-01-04", "bizNo": "SO20261106006", "createTime": "2026-08-09 08:50" },
+    { "containerCode": "CT00008", "containerType": "托盘", "spec": "1200×1000mm", "warehouse": "华南前置仓", "containerStatus": "scrapped", "owner": "", "binCode": "", "bizNo": "", "createTime": "2026-08-22 15:30" }
+  ]
+}

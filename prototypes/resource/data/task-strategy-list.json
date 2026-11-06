@@ -1,0 +1,10 @@
+{
+  "rows": [
+    { "ruleCode": "RULE001", "warehouse": "华东中心仓", "docType": "入库通知单", "splitDim": "按托盘", "tailPolicy": "尾差归最后一张", "bufferNode": "上架", "qtyRule": "数量守恒，不超不欠", "status": "enabled", "updateTime": "2026-11-05 11:20" },
+    { "ruleCode": "RULE002", "warehouse": "华东中心仓", "docType": "出库订单", "splitDim": "按订单", "tailPolicy": "尾差单独成单", "bufferNode": "拣货", "qtyRule": "数量守恒，不超不欠", "status": "enabled", "updateTime": "2026-11-04 15:40" },
+    { "ruleCode": "RULE003", "warehouse": "华东中心仓", "docType": "移库单", "splitDim": "按库位", "tailPolicy": "尾差归最后一张", "bufferNode": "移库", "qtyRule": "数量守恒，不超不欠", "status": "enabled", "updateTime": "2026-10-29 09:10" },
+    { "ruleCode": "RULE004", "warehouse": "华南前置仓", "docType": "出库订单", "splitDim": "按订单", "tailPolicy": "尾差单独成单", "bufferNode": "复核", "qtyRule": "数量守恒，不超不欠", "status": "enabled", "updateTime": "2026-11-02 14:30" },
+    { "ruleCode": "RULE005", "warehouse": "华北分拨仓", "docType": "盘点单", "splitDim": "按库位", "tailPolicy": "尾差归最后一张", "bufferNode": "盘点", "qtyRule": "数量守恒，不超不欠", "status": "disabled", "updateTime": "2026-10-22 10:05" },
+    { "ruleCode": "RULE006", "warehouse": "华南前置仓", "docType": "补货单", "splitDim": "按容器", "tailPolicy": "尾差归最后一张", "bufferNode": "上架", "qtyRule": "数量守恒，不超不欠", "status": "enabled", "updateTime": "2026-11-03 09:25" }
+  ]
+}
