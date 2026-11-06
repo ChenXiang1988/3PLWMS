@@ -1,0 +1,13 @@
+{
+  "id": "network",
+  "name": "仓网管理",
+  "version": "0.1.0",
+  "owner": "产品组",
+  "tier": "core",
+  "deployed": true,
+  "dependsOn": ["shared"],
+  "scope": "仓网总览与跨仓调拨",
+  "deliverables": ["pages/", "data/"],
+  "status": "review",
+  "note": "仓网管理端页面"
+}

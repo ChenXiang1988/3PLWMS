@@ -146,6 +146,33 @@
         { "key": "checkout", "name": "确认订单", "type": "shop", "file": "pages/checkout.mjs", "ownerScoped": false, "app": "mall" },
         { "key": "orders", "name": "我的订单", "type": "shop", "file": "pages/orders.mjs", "ownerScoped": false, "app": "mall" }
       ]
+    },
+    {
+      "id": "network",
+      "name": "仓网管理",
+      "prefix": "nw-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "仓网总览与跨仓调拨",
+      "pages": [
+        { "key": "network-overview", "name": "仓网总览", "type": "report", "file": "pages/network-overview.mjs", "ownerScoped": false, "app": "network" },
+        { "key": "transfer-order", "name": "跨仓调拨", "type": "list", "file": "pages/transfer-order.mjs", "ownerScoped": true, "app": "network" }
+      ]
+    },
+    {
+      "id": "resource",
+      "name": "作业资源",
+      "prefix": "rs-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "设备、容器、执行单元、班组、人员、排班与作业配置",
+      "pages": [
+        { "key": "hardware-archive", "name": "设备档案", "type": "list", "file": "pages/hardware-archive.mjs", "ownerScoped": false, "app": "network" },
+        { "key": "hardware-transfer", "name": "设备调拨", "type": "list", "file": "pages/hardware-transfer.mjs", "ownerScoped": false, "app": "network" },
+        { "key": "container-archive", "name": "容器档案", "type": "list", "file": "pages/container-archive.mjs", "ownerScoped": false, "app": "network" }
+      ]
     }
   ]
 }

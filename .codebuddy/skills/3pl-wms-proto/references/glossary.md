@@ -110,6 +110,35 @@
 | `user-list` | 账号管理 | list | 账号、姓名、角色、所属部门、状态、创建时间 |
 | `role-list` | 角色权限 | list | 角色编码、角色名称、权限范围、账号数、状态 |
 
+### 仓网管理 `network`
+
+| key | 页面名 | 类型 | 主要列名 |
+| --- | --- | --- | --- |
+| `network-overview` | 仓网总览 | report | 仓库、仓库状态、库位数、已用库位、在库数量、今日入库量、今日出库量 |
+| `transfer-order` | 跨仓调拨 | list | 调拨单号、单据状态、货主、调出仓库、调入仓库、商品编码、计划数量、创建时间 |
+
+### 作业资源 `resource`
+
+| key | 页面名 | 类型 | 主要列名 |
+| --- | --- | --- | --- |
+| `hardware-archive` | 设备档案 | list | 设备编码、设备名称、设备类型、设备型号、所属仓库、设备状态、购置日期、创建时间 |
+| `hardware-transfer` | 设备调拨 | list | 调拨单号、设备编码、设备名称、调出仓库、调入仓库、调拨状态、创建时间 |
+| `container-archive` | 容器档案 | list | 容器编码、容器类型、规格、所属仓库、容器状态、归属货主、购置日期、创建时间 |
+
+### 作业资源状态
+
+| 值 | 中文 | tone |
+| --- | --- | --- |
+| `active` | 启用 | `enabled` |
+| `inactive` | 停用 | `disabled` |
+| `maintaining` | 维保 | `pending` |
+| `scrapped` | 报废 | `disabled` |
+| `idle` | 空闲 | `info` |
+| `busy` | 在用 | `enabled` |
+| `repairing` | 维修 | `pending` |
+
+跨仓调拨单据状态取第 3 节「单据状态」，不另立枚举。
+
 ## 3. 状态枚举与色型
 
 `StatusTag` 只接受 `disabled` / `enabled` / `info` / `pending` / `rejected` 五种 tone（[design-spec.md](design-spec.md) 第 5 节）。中文名与色型按下表逐字取，不自造词、不自造色型。

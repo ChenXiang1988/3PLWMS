@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "warehouse": "华东中心仓", "warehouseStatus": "active", "binCount": 4200, "usedBin": 3610, "qty": 186400, "inboundQty": 12600, "outboundQty": 9800 },
+    { "warehouse": "华南前置仓", "warehouseStatus": "active", "binCount": 1600, "usedBin": 1320, "qty": 62800, "inboundQty": 5400, "outboundQty": 6100 },
+    { "warehouse": "华北分拨仓", "warehouseStatus": "active", "binCount": 2800, "usedBin": 2140, "qty": 94700, "inboundQty": 7300, "outboundQty": 8200 },
+    { "warehouse": "西南中心仓", "warehouseStatus": "active", "binCount": 3200, "usedBin": 2560, "qty": 112500, "inboundQty": 6900, "outboundQty": 5400 },
+    { "warehouse": "华中转运仓", "warehouseStatus": "active", "binCount": 1200, "usedBin": 780, "qty": 41300, "inboundQty": 3800, "outboundQty": 4200 },
+    { "warehouse": "浙北冷链仓", "warehouseStatus": "preparing", "binCount": 900, "usedBin": 0, "qty": 0, "inboundQty": 0, "outboundQty": 0 },
+    { "warehouse": "浦东保税仓", "warehouseStatus": "preparing", "binCount": 1400, "usedBin": 0, "qty": 0, "inboundQty": 0, "outboundQty": 0 },
+    { "warehouse": "苏南前置仓", "warehouseStatus": "disabled", "binCount": 1100, "usedBin": 260, "qty": 8600, "inboundQty": 0, "outboundQty": 0 }
+  ]
+}

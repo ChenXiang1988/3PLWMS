@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "transferNo": "TR20261106001", "status": "pending", "owner": "海纳食品", "fromWarehouse": "华东中心仓", "toWarehouse": "华南前置仓", "skuCode": "SKU0001", "planQty": 1200, "createTime": "2026-11-06 08:40:00" },
+    { "transferNo": "TR20261106002", "status": "doing", "owner": "辰星日化", "fromWarehouse": "华东中心仓", "toWarehouse": "华北分拨仓", "skuCode": "SKU0003", "planQty": 860, "createTime": "2026-11-06 09:12:00" },
+    { "transferNo": "TR20261105008", "status": "exception", "owner": "云途电商", "fromWarehouse": "西南中心仓", "toWarehouse": "华中转运仓", "skuCode": "SKU0002", "planQty": 450, "createTime": "2026-11-05 14:35:00" },
+    { "transferNo": "TR20261105006", "status": "completed", "owner": "海纳食品", "fromWarehouse": "华北分拨仓", "toWarehouse": "苏南前置仓", "skuCode": "SKU0001", "planQty": 620, "createTime": "2026-11-05 10:20:00" },
+    { "transferNo": "TR20261104012", "status": "completed", "owner": "辰星日化", "fromWarehouse": "华南前置仓", "toWarehouse": "华东中心仓", "skuCode": "SKU0004", "planQty": 980, "createTime": "2026-11-04 16:05:00" },
+    { "transferNo": "TR20261104009", "status": "cancelled", "owner": "云途电商", "fromWarehouse": "华中转运仓", "toWarehouse": "西南中心仓", "skuCode": "SKU0002", "planQty": 300, "createTime": "2026-11-04 11:48:00" },
+    { "transferNo": "TR20261103015", "status": "doing", "owner": "海纳食品", "fromWarehouse": "华东中心仓", "toWarehouse": "华北分拨仓", "skuCode": "SKU0001", "planQty": 1500, "createTime": "2026-11-03 09:30:00" },
+    { "transferNo": "TR20261103011", "status": "pending", "owner": "辰星日化", "fromWarehouse": "西南中心仓", "toWarehouse": "华南前置仓", "skuCode": "SKU0003", "planQty": 740, "createTime": "2026-11-03 15:22:00" }
+  ]
+}

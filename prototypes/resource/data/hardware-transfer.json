@@ -1,0 +1,10 @@
+{
+  "rows": [
+    { "transferNo": "DT20261106001", "deviceCode": "DV0008", "deviceName": "冷链区 AGV-02", "fromWarehouse": "华东中心仓", "toWarehouse": "浙北冷链仓", "status": "pending", "createTime": "2026-11-06 08:15:00" },
+    { "transferNo": "DT20261105004", "deviceCode": "DV0003", "deviceName": "收货区 AGV-01", "fromWarehouse": "华东中心仓", "toWarehouse": "华南前置仓", "status": "doing", "createTime": "2026-11-05 10:40:00" },
+    { "transferNo": "DT20261104007", "deviceCode": "DV0006", "deviceName": "月台称重设备", "fromWarehouse": "华北分拨仓", "toWarehouse": "华中转运仓", "status": "exception", "createTime": "2026-11-04 15:20:00" },
+    { "transferNo": "DT20261103002", "deviceCode": "DV0001", "deviceName": "1 号电动叉车", "fromWarehouse": "华东中心仓", "toWarehouse": "华北分拨仓", "status": "completed", "createTime": "2026-11-03 09:05:00" },
+    { "transferNo": "DT20261102009", "deviceCode": "DV0005", "deviceName": "复核台电子标签组", "fromWarehouse": "西南中心仓", "toWarehouse": "苏南前置仓", "status": "cancelled", "createTime": "2026-11-02 13:48:00" },
+    { "transferNo": "DT20261101005", "deviceCode": "DV0004", "deviceName": "拣货输送线 A", "fromWarehouse": "苏南前置仓", "toWarehouse": "华北分拨仓", "status": "completed", "createTime": "2026-11-01 11:30:00" }
+  ]
+}

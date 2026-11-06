@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "deviceCode": "DV0001", "deviceName": "1 号电动叉车", "deviceType": "叉车", "hardwareModel": "CPD20", "warehouse": "华东中心仓", "deviceStatus": "active", "purchaseDate": "2024-05-18", "createTime": "2024-05-20 09:10:00" },
+    { "deviceCode": "DV0002", "deviceName": "2 号电动叉车", "deviceType": "叉车", "hardwareModel": "CPD20", "warehouse": "华东中心仓", "deviceStatus": "maintaining", "purchaseDate": "2024-05-18", "createTime": "2024-05-20 09:12:00" },
+    { "deviceCode": "DV0003", "deviceName": "收货区 AGV-01", "deviceType": "AGV", "hardwareModel": "QR-500", "warehouse": "华南前置仓", "deviceStatus": "active", "purchaseDate": "2025-02-11", "createTime": "2025-02-13 10:30:00" },
+    { "deviceCode": "DV0004", "deviceName": "拣货输送线 A", "deviceType": "输送线", "hardwareModel": "LS-12M", "warehouse": "华北分拨仓", "deviceStatus": "active", "purchaseDate": "2023-09-06", "createTime": "2023-09-08 14:20:00" },
+    { "deviceCode": "DV0005", "deviceName": "复核台电子标签组", "deviceType": "电子标签", "hardwareModel": "PTL-24", "warehouse": "西南中心仓", "deviceStatus": "inactive", "purchaseDate": "2022-11-30", "createTime": "2022-12-02 08:45:00" },
+    { "deviceCode": "DV0006", "deviceName": "月台称重设备", "deviceType": "称重设备", "hardwareModel": "WS-3T", "warehouse": "华中转运仓", "deviceStatus": "active", "purchaseDate": "2025-07-22", "createTime": "2025-07-24 11:05:00" },
+    { "deviceCode": "DV0007", "deviceName": "旧款手持终端", "deviceType": "手持终端", "hardwareModel": "PDA-100", "warehouse": "苏南前置仓", "deviceStatus": "scrapped", "purchaseDate": "2020-04-15", "createTime": "2020-04-17 16:00:00" },
+    { "deviceCode": "DV0008", "deviceName": "冷链区 AGV-02", "deviceType": "AGV", "hardwareModel": "QR-500C", "warehouse": "浙北冷链仓", "deviceStatus": "active", "purchaseDate": "2026-09-28", "createTime": "2026-10-02 09:35:00" }
+  ]
+}

@@ -40,6 +40,8 @@
 | `task` | 任务中心 | `tk-` | ext | `task-list` 作业任务 list<br>`task-report` 作业看板 report | 跨模块任务聚合视图，仅为视图不持有业务源 |
 | `system` | 系统设置 | `sy-` | ext | `user-list` 账号管理 list<br>`role-list` 角色权限 list | 本部署实例内的账号与权限 |
 | `mall` | 商城 | `ml-` | core | `home` 商城首页 shop<br>`search` 商品搜索 shop<br>`product-detail` 商品详情 shop<br>`cart` 进货单 shop<br>`checkout` 确认订单 shop<br>`orders` 我的订单 shop | 商城首页、商品搜索、商品详情、进货单、确认订单、我的订单 |
+| `network` | 仓网管理 | `nw-` | core | `network-overview` 仓网总览 report<br>`transfer-order` 跨仓调拨 list | 仓网总览与跨仓调拨 |
+| `resource` | 作业资源 | `rs-` | core | `hardware-archive` 设备档案 list<br>`hardware-transfer` 设备调拨 list<br>`container-archive` 容器档案 list | 设备、容器、执行单元、班组、人员、排班与作业配置 |
 
 分工边界：`base` 管主档、`warehouse` 管库位与库内作业、`inventory` 管账与流水，三者不重叠。`task` 只是聚合视图，不复制其它模块的任务源数据。`mall` 只做商城前台展示与下单演示，商品与库存取自货主主档，不另建一份商品真相；成交后的履约在 `outbound` 的出库订单里，不在商城模块重复建模。
 
@@ -50,7 +52,7 @@
 | 端 id | 端名 | 外壳 | 本次归属页面 |
 | --- | --- | --- | --- |
 | `owner` | 货主端 | `admin` | `base/sku-apply-list`、`inventory/batch-owner-list` |
-| `network` | 仓网管理端 | `admin` | `base/owner-list`、`base/warehouse-list`、`base/sku-list`、`base/sku-audit-list`、`base/sku-policy-detail`、`inventory/batch-network-report` |
+| `network` | 仓网管理端 | `admin` | `base/owner-list`、`base/warehouse-list`、`base/sku-list`、`base/sku-audit-list`、`base/sku-policy-detail`、`inventory/batch-network-report`、`network/network-overview`、`network/transfer-order`、`resource/hardware-archive`、`resource/hardware-transfer`、`resource/container-archive` |
 | `warehouse` | 单仓端 | `admin` | `base/sku-warehouse-list`、`inventory/batch-list` |
 | `mall` | 商城端 | `mall` | `mall/home`、`mall/search`、`mall/product-detail`、`mall/cart`、`mall/checkout`、`mall/orders` |
 

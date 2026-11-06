@@ -1,0 +1,13 @@
+{
+  "id": "resource",
+  "name": "作业资源",
+  "version": "0.1.0",
+  "owner": "产品组",
+  "tier": "core",
+  "deployed": true,
+  "dependsOn": ["shared"],
+  "scope": "设备、容器、执行单元、班组、人员、排班与作业配置",
+  "deliverables": ["pages/", "data/"],
+  "status": "review",
+  "note": "作业资源台账页面"
+}
