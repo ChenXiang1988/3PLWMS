@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三套对标系统源码调研 · JeeWMS / OpenWES / OpenWCS</title>
+<meta name="topic" content="三套对标系统源码调研">
+<meta name="survey-window" content="2026-11-08T00:00 / 2026-11-08T23:59">
+<meta name="survey-objects" content="JeeWMS,OpenWES,OpenWCS">
+<style>
+:root{
+  --bg:#f4f6f9; --paper:#fff; --ink:#1c2430; --muted:#59657a; --faint:#8490a2;
+  --line:#dfe5ed; --line-soft:#eef1f5; --accent:#1d5f8c; --accent-soft:#eaf2f9;
+  --ok:#2b6c49; --ok-soft:#e9f4ed; --warn:#9a5b16; --warn-soft:#fdf3e5;
+  --grey:#5f6b7a; --grey-soft:#f0f2f5; --red:#9c3b3b; --red-soft:#fbeded;
+  --shadow:0 1px 2px rgba(20,32,48,.05),0 10px 30px rgba(20,32,48,.06);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:14px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  -webkit-font-smoothing:antialiased}
+.layout{display:grid;grid-template-columns:262px minmax(0,1fr);gap:24px;max-width:1520px;margin:0 auto;padding:24px}
+aside{position:sticky;top:20px;align-self:start;max-height:calc(100vh - 40px);overflow:auto;
+  background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:16px 12px;box-shadow:var(--shadow)}
+aside .st{font-size:11px;letter-spacing:.1em;color:var(--faint);font-weight:700;margin:0 0 8px 8px}
+#q{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:5px;font:13px inherit;margin-bottom:6px}
+#q:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
+#qcount{font-size:11.5px;color:var(--faint);margin:0 0 10px 8px;min-height:16px}
+aside a{display:block;color:var(--muted);text-decoration:none;font-size:12.8px;padding:4px 8px;border-radius:4px;border-left:2px solid transparent}
+aside a:hover{background:var(--accent-soft);color:var(--accent)}
+aside a.lv2{padding-left:20px;font-size:12px;color:var(--faint)}
+aside a.active{border-left-color:var(--accent);color:var(--accent);background:var(--accent-soft);font-weight:650}
+aside .grp{margin-top:12px;padding-top:10px;border-top:1px solid var(--line-soft)}
+main{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:44px 52px 70px;box-shadow:var(--shadow);min-width:0}
+.cover{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:26px}
+.kicker{font-size:11.5px;letter-spacing:.14em;color:var(--accent);font-weight:700;margin:0 0 8px}
+h1{font-size:27px;line-height:1.35;margin:0 0 10px}
+.sub{font-size:14.5px;color:var(--muted);margin:0 0 18px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 24px;font-size:12.5px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:650}
+h2{font-size:20px;margin:48px 0 12px;padding-bottom:9px;border-bottom:1px solid var(--line);scroll-margin-top:16px}
+h2 .n{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.05em;display:block;margin-bottom:3px}
+h3{font-size:15.5px;margin:26px 0 8px;scroll-margin-top:16px}
+h4{font-size:13.5px;margin:18px 0 6px;color:var(--accent);scroll-margin-top:16px}
+p{margin:8px 0 12px}
+ul,ol{margin:8px 0 14px;padding-left:20px}
+li{margin:3px 0}
+a{color:var(--accent)}
+code{font:12.2px/1.5 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
+  background:var(--grey-soft);padding:1px 4px;border-radius:3px;color:#334;word-break:break-word}
+.tw{overflow-x:auto;margin:10px 0 18px;border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:12.6px;min-width:600px}
+th,td{border-bottom:1px solid var(--line-soft);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:#f7f9fc;color:#3c4859;font-weight:650;position:sticky;top:0;z-index:1;white-space:nowrap}
+tbody tr:hover{background:#fafcff}
+tbody tr:last-child td{border-bottom:none}
+td.k{white-space:nowrap;font-weight:600;color:#2c394a}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr.hit{background:#fff8dc}
+tbody tr.dim{display:none}
+.tag{display:inline-block;font-size:10.5px;line-height:1.5;padding:1px 6px;border-radius:3px;font-weight:700;white-space:nowrap}
+.t-b{background:var(--accent-soft);color:var(--accent)}
+.t-c{background:var(--warn-soft);color:var(--warn)}
+.t-a{background:var(--ok-soft);color:var(--ok)}
+.t-no{background:var(--red-soft);color:var(--red)}
+.t-ok{background:var(--ok-soft);color:var(--ok)}
+.t-wait{background:var(--grey-soft);color:var(--grey)}
+.note{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--accent-soft);
+  padding:11px 15px;border-radius:0 5px 5px 0;margin:14px 0;font-size:12.8px}
+.note.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.note.caution{border-left-color:var(--red);background:var(--red-soft)}
+.note p:last-child{margin-bottom:0}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0 22px}
+.summary div{border:1px solid var(--line);border-radius:6px;padding:10px 12px;background:#fbfcfe}
+.summary b{display:block;font-size:20px;color:var(--accent);font-variant-numeric:tabular-nums}
+.summary span{font-size:11.5px;color:var(--muted)}
+.src{font-size:11.5px;color:var(--faint);margin:-10px 0 14px}
+.anchor{font-size:11px;color:var(--faint);text-decoration:none;margin-left:8px}
+hr{border:none;border-top:1px solid var(--line-soft);margin:28px 0}
+footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--faint)}
+@media(max-width:980px){.layout{grid-template-columns:1fr;padding:12px}aside{position:static;max-height:none}main{padding:26px 18px 44px}}
+@media print{body{background:#fff}aside{display:none}.layout{display:block;padding:0}main{border:none;box-shadow:none;padding:0}th{position:static}.tw{overflow:visible}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+  <div class="st">目录 / 检索</div>
+  <input id="q" type="search" placeholder="输入关键词过滤表格行，例：账单 / gtp / 验收">
+  <div id="qcount"></div>
+  <div id="nav"></div>
+  <div class="grp" style="font-size:11.5px;color:var(--faint);padding:0 8px;line-height:1.6">
+    表格行为过滤单位；清空输入框还原。<br>章节锚点可复制用于评审引用。
+  </div>
+</aside>
+<main>
+
+<div class="cover">
+  <p class="kicker">DOC · 产品需求 / 参考系统调研</p>
+  <h1>三套对标系统源码调研：JeeWMS · OpenWES · OpenWCS</h1>
+  <p class="sub">面向「货灵运营中台管理端」与「货灵WMS」功能方案的字段级、界面级、架构级证据</p>
+  <div class="meta">
+    <span>访问日期 <b>2026-11-08</b></span>
+    <span>调研方式 <b>公开仓库只读 GET</b></span>
+    <span>账号条件 <b>无账号 · 未授权 · 无业务数据</b></span>
+    <span>写操作 <b>0</b></span>
+    <span>覆盖端 <b>PC Web 源码 / 官方文档站 / README 与构建清单</b></span>
+    <span>关联文档 <b>运营中台与WMS功能方案.md</b></span>
+  </div>
+</div>
+
+<div class="summary">
+  <div><b>3</b><span>核实到实体的对标系统</span></div>
+  <div><b>9</b><span>逐页八段实读页面</span></div>
+  <div><b>19</b><span>组结论（可借鉴/不跟随/待定）</span></div>
+  <div><b>31 + 2</b><span>方案新增页 / 启用页</span></div>
+  <div><b>0</b><span>登录运行实例 · 实见界面</span></div>
+  <div><b>4</b><span>轮调研修正的判断</span></div>
+</div>
+
+<div class="note caution">
+  <p><b>证据边界（先读）</b>：本次调研未登录任何运行中的目标系统，未打开任何真实界面，全部材料为公开仓库的源码、README、文档与构建清单。按工作区「调研颗粒度」规则，<b>A 级（本人实见页面）为 0 条</b>；逐页八段记录中的「默认排序、分页大小、空态、加载、请求失败」等无法从静态源码确认的，一律标「未验证」，不写成默认行为。表 T3 给出本表与方案文档分级口径的映射。</p>
+</div>
+
+<h2 id="s1"><span class="n">01</span>口径与证据：背景、目标、范围、方法<a class="anchor" href="#s1">#</a></h2>
+
+<h3 id="s1-1">1.1 背景与目标</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:130px">项</th><th>内容</th></tr></thead>
+<tbody>
+<tr><td class="k">触发</td><td>用户要求：设计货灵运营中台管理端时参考 <code>jeewsms</code> 的功能架构与交互模式；设计货灵WMS 时参考 JeeWMS、OpenWES、OpenWCS 的仓储管理、设备调度与作业流程，形成完整功能方案。</td></tr>
+<tr><td class="k">口径澄清</td><td><code>jeewsms</code> 经 GitHub 公开检索为 0 条，用户 2026-11-08 确认为 <b>JeeWMS 笔误</b>。两端对标源统一为 JeeWMS；中台取 JeeWMS 管理端（主数据、系统管理、计费、报表、看板），WMS 取其单据与账实作业。</td></tr>
+<tr><td class="k">目标一</td><td>为「运营中台与WMS功能方案」的 31 个新增页、约 55 个列名、19 组枚举找到可复核的出处，替换掉凭印象写的功能项。</td></tr>
+<tr><td class="k">目标二</td><td>把「字段 / 界面结构 / 设计理念」三层框架中的字段层，补到能直接进 <code>docs/数据字典/</code> 的深度：字段用途、类型、枚举、必填、来源、校验、展示格式。</td></tr>
+<tr><td class="k">目标三</td><td>给出每条结论的落点：端、模块、页面 key、字段、数据字典实体；落不到具体落点的判断不写成结论。</td></tr>
+<tr><td class="k">不做什么</td><td>不做部署、不跑系统集成测试、不评价商业版功能、不引用第三方评测作为功能依据、不改动 <code>prototypes/</code> 任何文件。</td></tr>
+</tbody></table></div>
+
+<h3 id="s1-2">1.2 范围与对象</h3>
+<div class="tw"><table>
+<thead><tr><th>对象</th><th>仓库 / 标识</th><th>许可证 · 语言</th><th>规模</th><th>本次取用</th><th>明确不取</th></tr></thead>
+<tbody>
+<tr><td class="k">JeeWMS</td><td><code>erzhongxmu/JeeWMS</code><br>Gitee 镜像 <code>erzhongxmu/JEEWMS</code></td><td>GPL-3.0 · Java / Vue / uni-app</td><td>153★ / 56 fork；2018-11-04 建，2026-10-09 推送</td><td>云端版 PC Web 前端 118+ 页源码、计费 16 页、系统管理 26 页、两份 README、目录树</td><td>多租户 <code>TenantList</code>、公有云/混合云部署形态</td></tr>
+<tr><td class="k">OpenWES</td><td><code>jingsewu/openwes-docs</code><br><code>jingsewu/mock</code></td><td>Apache-2.0 · TypeScript / Java</td><td>3★ / 2★；文档站 11.6 MB</td><td><code>sidebars.ts</code>、功能清单、收货/拣货逐步操作文档</td><td>多租户架构、SaaS 部署选项；无业务代码可读</td></tr>
+<tr><td class="k">OpenWCS</td><td><code>brettljausn-ai/openwcs</code></td><td>AGPL-3.0 · Java / Go</td><td>9★ / 4 fork；2026-06-02 建</td><td><code>settings.gradle</code> 19 模块、README 服务表与设备契约</td><td>Keycloak 认证、K8s 部署、AI 助手</td></tr>
+<tr><td class="k">本项目基线</td><td><code>prototypes/shared/modules.json</code><br><code>docs/数据字典/index.md</code></td><td>—</td><td>五端 / 17 模块 / 130 页已分配 + 2 页预留；50 份实体字典</td><td>中台 40 页 10 段、WMS 32 页 8 段的现状，用于计算差距</td><td>—</td></tr>
+</tbody></table></div>
+<p class="src">T1 · 规模数据来自 GitHub 仓库元数据（工作区规则 C 级），仅用于定位与体量判断，不作功能依据。</p>
+
+<h3 id="s1-3">1.3 方法与检索过程</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:110px">步骤</th><th>接口 / 手段</th><th>结果</th></tr></thead>
+<tbody>
+<tr><td class="k">源定位</td><td>GitHub REST <code>search/repositories</code></td><td>8 组检索式，逐条返回数见 T2</td></tr>
+<tr><td class="k">目录枚举</td><td>GitHub <code>contents</code> / <code>git/trees</code></td><td>逐层下钻到 <code>views/wms/jee</code>、<code>views/wms/bms</code>、<code>views/system</code>、<code>views/erp</code></td></tr>
+<tr><td class="k">原文读取</td><td><code>raw.githubusercontent.com</code></td><td>README、<code>sidebars.ts</code>、<code>features-overview.md</code>、<code>workflow.md</code>、<code>settings.gradle</code></td></tr>
+<tr><td class="k">限流与绕行</td><td>GitHub 匿名配额 60 次/小时</td><td><code>54.250.207.109</code> 触发 <code>API rate limit exceeded</code>；jsDelivr <code>?structure=flat</code> 返回 403（仓库 &gt; 50 MB）；<code>raw.gitmirror.com</code> fetch failed</td></tr>
+<tr><td class="k">替代源</td><td>Gitee API v5 <code>contents</code> / <code>git/trees</code> + Gitee <code>raw</code></td><td>补齐 JeeWMS 出库侧目录与 9 页 Vue 源码；Gitee 目录接口 <code>size</code> 为 null，故字节数取 GitHub contents</td></tr>
+<tr><td class="k">只读约束</td><td>全部为 GET</td><td>未注册账号、未绕过权限、未批量抓取、未执行任何写操作；DOC/ 下的 .doc/.pptx/.pdf/.pdm 未下载解包</td></tr>
+</tbody></table></div>
+
+<h4 id="s1-3a">T2 · 检索式与返回</h4>
+<div class="tw"><table>
+<thead><tr><th>检索式</th><th class="num">命中</th><th>判定与去噪</th></tr></thead>
+<tbody>
+<tr><td><code>q=jeewsms</code></td><td class="num">0</td><td>公开仓库无此名；用户确认为 JeeWMS 笔误</td></tr>
+<tr><td><code>q=jeesms</code></td><td class="num">1</td><td><code>manasbharadia/Jeesms</code>，Python，5 KB，0★，无描述，无关</td></tr>
+<tr><td><code>q=jeews</code></td><td class="num">16</td><td>9 个以 jeews 开头，均为 JAX-WS / Java EE 练习项目，0★</td></tr>
+<tr><td><code>q=jeewms</code></td><td class="num">14</td><td>主仓 <code>erzhongxmu/JeeWMS</code> 153★；<code>allpersonking/jeewms</code> 47★（JS）、<code>suomitek/jeewms</code> 2★（TSQL）、<code>cgb-scm/jeewms</code> 0★（AGPL-3.0，疑似镜像）、<code>dycccccccc/JEEWMS</code> 0★</td></tr>
+<tr><td><code>q=jeewms in:name,description,readme</code></td><td class="num">54</td><td>4 个本体/分支；唯一供应链套件 <code>wucaibao/Y-oms-wms-tms-bms</code> 69★（OMS+WMS+TMS+BMS，2022 停更）；其余 11 条为漏洞 POC 合集噪声</td></tr>
+<tr><td><code>q=openwes</code></td><td class="num">66</td><td>仅 <code>openwes-docs</code> 与 <code>mock</code> 属 WES；其余为 OpenWest 技术大会、SMMWE 游戏引擎、Wesabe 理财</td></tr>
+<tr><td><code>q=openwcs</code></td><td class="num">12</td><td><code>brettljausn-ai/openwcs</code> 为仓储控制系统；<code>CynxCode/OpenWcs</code> 是已归档摄像头软件；<code>katway/OpenWCS</code> 空壳</td></tr>
+<tr><td><code>q=运营中台</code></td><td class="num">482</td><td>主流为电商后台（<code>macrozheng/mall</code> 85017★ 等）；描述严格含「运营中台」的仅 <code>lbh1nb/cross-border-ai-platform</code> 23★</td></tr>
+</tbody></table></div>
+
+<h3 id="s1-4">1.4 证据分级与口径差异</h3>
+<div class="tw"><table>
+<thead><tr><th>级别（工作区规则）</th><th>定义</th><th>本次条数</th><th>材料</th></tr></thead>
+<tbody>
+<tr><td><span class="tag t-a">A</span></td><td>本人在目标系统实见：页面、字段、状态、操作</td><td class="num">0</td><td>无运行实例、无账号，未打开任何真实界面</td></tr>
+<tr><td><span class="tag t-b">B</span></td><td>官方帮助中心或官方文档原文</td><td>本报告主体</td><td>仓库内 README、<code>.vue</code> 源码、<code>sidebars.ts</code>、<code>workflow.md</code>、<code>features-overview.md</code>、<code>settings.gradle</code></td></tr>
+<tr><td><span class="tag t-c">C</span></td><td>第三方文章、评测、搜索摘要，只作范围参考</td><td>仅定位用</td><td>star 数、仓库描述、许可证、创建时间、目录名推断</td></tr>
+</tbody></table></div>
+<div class="note warn">
+  <p><b>口径差异（按规则第 8 条报差异）</b>：方案文档第 1.2 节用的是「源文件形态分级」——A = 仓库文件原文、B = README 自述、C = 目录名推断；本表用的是工作区规则的「可核对程度分级」。两者不是同一把尺子，映射见 T3。本报告以工作区规则为验收判据，方案文档原分级保留但只作材料形态标注。</p>
+</div>
+<div class="tw"><table id="t3">
+<thead><tr><th>方案文档分级</th><th>本报告分级</th><th>理由</th></tr></thead>
+<tbody>
+<tr><td>A · 仓库文件原文（Vue 源码、settings.gradle、sidebars.ts）</td><td><span class="tag t-b">B</span></td><td>属官方一手原文，但未在目标系统实见</td></tr>
+<tr><td>B · README 自述</td><td><span class="tag t-b">B</span></td><td>同为官方原文；清单级描述不升级</td></tr>
+<tr><td>C · 目录名 / 服务名推断、仓库元数据</td><td><span class="tag t-c">C</span></td><td>只作范围参考，不作功能结论</td></tr>
+</tbody></table></div>
+
+<h2 id="s2"><span class="n">02</span>覆盖清单<a class="anchor" href="#s2">#</a></h2>
+
+<h3 id="s2-1">2.1 菜单树 / 目录树</h3>
+<p class="src">JeeWMS 后端菜单存于数据库（<code>.nb3</code> Navicat 二进制备份，未解包），无法取得真实菜单标题与排序。以下为前端视图目录树，不等价于菜单树。</p>
+<div class="tw"><table>
+<thead><tr><th style="width:210px">路径</th><th>一级</th><th>二级 / 三级</th><th class="num">条目</th></tr></thead>
+<tbody>
+<tr><td class="k">JeeWMS · views/</td><td>Home.vue + 15 目录</td><td>account · activiti · approle · bi · dashboard · erp · examples · exception · jeecg · modules · result · system · user · wms · wmsapp</td><td class="num">16</td></tr>
+<tr><td class="k">JeeWMS · views/wms/</td><td>3 目录</td><td>bms（计费） · di（数据接口） · jee（核心业务）</td><td class="num">3</td></tr>
+<tr><td class="k">JeeWMS · views/erp/</td><td>11 目录 + 2 页</td><td>baseInfo · busiom · busipay · busipo · busiprd · conf · expense · modules · sample · schedule · warehouse；<code>BaseGoodsItemList.vue</code>、<code>BusiInOrOutList.vue</code></td><td class="num">13</td></tr>
+<tr><td class="k">JeeWMS · views/system/</td><td>26 页 + modules/</td><td>用户 UserList / DepartList / DepartUserList / RoleList / RoleUserList / SysPositionList / AddressList；权限 PermissionList / NewPermissionList / PermissionDataRuleList / SysCheckRuleList；字典 DictList / DictItemList / DictDeleteList / SysCategoryList；日志 LogList / DataLogList；运维 QuartzJobList / SysDataSourceList / SysFillRuleList / SysGatewayRouteList(2) / <b>TenantList</b>；通告 SysAnnouncementList / UserAnnouncementList</td><td class="num">26</td></tr>
+<tr><td class="k">JeeWMS · wms/bms/</td><td>16 页 + 2 子目录</td><td>BmsBillHList · BmsCostDetailList · BmsCostList · BmsCostRuleHList · BmsCostRuleHListBatch(2) · BmsCostSourceList · BmsCostTypeList · BmsCsTypeList · BmsFiCompanyList · BmsInvoiceList · BmsPaymentList · MvCusCostList · WmBillConfList · WmCusCostHList · WmCusCostIList；modules/ · subTables/</td><td class="num">16</td></tr>
+<tr><td class="k">OpenWES · docs（sidebars.ts）</td><td>5 大类</td><td>Getting Started 3 · System Overview 4 · For Warehouse Operators 3 · For WMS Managers 5 · For Developers（含 API Reference 4）8</td><td class="num">23</td></tr>
+<tr><td class="k">OpenWCS · UI（README）</td><td>5 分区</td><td>Master data · Operations · Engineering · Configuration · Administration；另有落地看板 <code>/</code>、<code>/dashboards/*</code> 五块、<code>/dashboards/andon</code>、<code>/dashboards/alert-health</code></td><td class="num">5+</td></tr>
+</tbody></table></div>
+
+<h3 id="s2-2">2.2 逐页覆盖表（实读页）</h3>
+<div class="tw"><table>
+<thead><tr><th>菜单路径 / 文件</th><th>页面类型</th><th>角色线索</th><th>状态</th><th>正文小节</th></tr></thead>
+<tbody>
+<tr><td><code>views/wms/jee/WmOmClientHList.vue</code></td><td>列表</td><td><code>omClient:add/check/update/import/batchDelete</code></td><td><span class="tag t-ok">已看</span></td><td>3.1</td></tr>
+<tr><td><code>views/wms/jee/WmOmQmIList.vue</code></td><td>列表 + 批量编辑</td><td><code>WmOmQmIList:export/batchRemove/batchUpdate/batchSave/batchPrint/check</code></td><td><span class="tag t-ok">已看</span></td><td>3.2</td></tr>
+<tr><td><code>views/wms/jee/WmToUpList.vue</code></td><td>列表（无查询区）</td><td>无 <code>v-has</code></td><td><span class="tag t-ok">已看</span></td><td>3.3</td></tr>
+<tr><td><code>views/wms/jee/WmToMoveGoodsList.vue</code></td><td>列表 + 批量转移</td><td><code>WmToMoveGoodsList:export/batchDelete/batchMove/batchSave/cancelBatchMove/check/delete</code></td><td><span class="tag t-ok">已看</span></td><td>3.4</td></tr>
+<tr><td><code>views/wms/jee/WaveToDownList.vue</code></td><td>列表 + 打印弹窗</td><td>无 <code>v-has</code></td><td><span class="tag t-ok">已看</span></td><td>3.5</td></tr>
+<tr><td><code>views/wms/jee/WmReturnAcceptList.vue</code></td><td>列表 + 验收弹窗</td><td><code>returnAccept:batchUpdate/check/update/accept</code></td><td><span class="tag t-ok">已看</span></td><td>3.6</td></tr>
+<tr><td><code>views/wms/bms/BmsCostRuleHList.vue</code></td><td>列表 + 展开子表</td><td>无 <code>v-has</code></td><td><span class="tag t-ok">已看</span></td><td>3.7</td></tr>
+<tr><td><code>views/wms/bms/BmsBillHList.vue</code></td><td>列表 + 双页签 + 展开子表</td><td>无 <code>v-has</code>；<code>system == 'WMS'</code> 控制开票按钮</td><td><span class="tag t-ok">已看</span></td><td>3.8</td></tr>
+<tr><td><code>views/wms/bms/subTables/BmsBillISubTable.vue</code></td><td>内嵌子表</td><td>—</td><td><span class="tag t-ok">已看</span></td><td>3.9</td></tr>
+<tr><td>JeeWMS 其余 100+ 页</td><td>—</td><td>—</td><td><span class="tag t-no">未看</span>：本轮只取与 31 新增页直接对标的页面</td><td>6.2 缺项</td></tr>
+<tr><td>OpenWES 23 篇文档</td><td>文档站</td><td>按读者角色分：Operators / Managers / Developers</td><td><span class="tag t-ok">3 篇全文</span>，20 篇仅见导航 ID</td><td>4.2 / 4.3</td></tr>
+<tr><td>OpenWCS 19 个服务源码</td><td>后端</td><td>—</td><td><span class="tag t-no">未看</span>：仅 README 服务表与 settings.gradle</td><td>4.4 / 6.2</td></tr>
+</tbody></table></div>
+
+<h3 id="s2-3">2.3 非页面能力、覆盖端、角色、未覆盖项</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:120px">项</th><th>已覆盖</th><th>未覆盖 / 未验证</th></tr></thead>
+<tbody>
+<tr><td class="k">规则引擎</td><td>OpenWES <code>Business Rules Engine</code>（no-code、动态路由、审批流、自定义字段）；OpenWCS <code>process-engine</code>（Flowable BPMN）+ <code>process-designer</code>（版本化流程、<code>skipWhen</code>、服务端任务库、GraalJS 沙箱）；JeeWMS <code>BmsCostRuleHListBatch(2)</code>、<code>WmBillConfList</code></td><td>规则表达式语法、命中优先级、冲突处理</td></tr>
+<tr><td class="k">导入导出</td><td>JeeWMS 列表普遍有 <code>handleExportXls</code> / <code>handleImportExcel</code>，接口 <code>exportXls</code> / <code>getBankListByExcel</code>；OpenWES <code>Order Import/Export</code>、<code>Master Data Management</code></td><td>模板字段、导入失败回滚</td></tr>
+<tr><td class="k">批量工具</td><td>下架任务批量下架 / 批量改托盘与数量 / 批量打印标签；库存转移批量转移 / 批量保存 / 取消；账单批量开票</td><td>批量部分失败的现场保留</td></tr>
+<tr><td class="k">通知 / 告警</td><td>OpenWCS <code>notification</code>：~60 s ShedLock 评估、WARNING/CRITICAL 按仓区指标去重、email + webhook、<code>/alerts</code>、<code>/alerts/{id}/ack</code>、<code>/alerts/health</code>（ISA-18.2）；JeeWMS <code>WmNoticeConfList</code>、<code>WmOmMessageH*</code>、<code>SysAnnouncementList</code></td><td>通知模板、升降级策略</td></tr>
+<tr><td class="k">定时任务</td><td>JeeWMS 启动清单含 <code>xxljob</code>、<code>QuartzJobList</code>；OpenWCS ShedLock 防重复调度</td><td>具体作业与周期</td></tr>
+<tr><td class="k">开放接口</td><td>JeeWMS <code>DOC/【JEEWMS接口文档】开放接口V4.3.pdf</code>（401 KB，<b>未下载</b>）；OpenWCS <code>integration-host</code> 厂商中立 <code>/api/host/**</code>；OpenWES <code>api-client-to-wes</code> / <code>api-wes-to-client</code></td><td>接口字段与鉴权细节</td></tr>
+<tr><td class="k">权限点</td><td>逐页 <code>v-has</code> 权限码（见 2.2）；OpenWCS <code>iam</code>：users → roles → 编码权限 + 按用户仓库访问；JeeWMS <code>PermissionDataRuleList</code> 数据权限规则</td><td><b>角色差异未验证</b>：无账号，无法比较管理员与受限角色看到的菜单、字段、按钮</td></tr>
+<tr><td class="k">覆盖端</td><td>PC Web 管理端前端源码（JeeWMS 云端版）；单体版 <code>src/main/webapp</code> 目录结构；官方文档站（OpenWES）；README / 构建清单（OpenWCS）</td><td>PDA、uni-app 移动端运行时、微信小程序、真实运行实例、界面截图内容（DOC/ 下 4 张微信截图与 gzl.png 未逐张打开）</td></tr>
+</tbody></table></div>
+
+<h2 id="s3"><span class="n">03</span>逐页记录（固定八段）<a class="anchor" href="#s3">#</a></h2>
+<p class="src">每页按「入口 / 结构分区 / 列表列 / 筛选与搜索 / 行与批量操作 / 表单字段 / 状态×动作矩阵 / 交互与异常」八段记。静态源码无法确认的一律标「未验证」。字段名记原生叫法，不译不改。</p>
+
+<h3 id="s3-1">3.1 <code>WmOmClientHList.vue</code> · 出库通知单（组件名 <code>WmOmNoticeHList</code>）</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:120px">段</th><th>记录</th></tr></thead>
+<tbody>
+<tr><td class="k">1 入口</td><td>组件 <code>name: 'WmOmNoticeHList'</code>，<code>description: '出库管理列表管理页面'</code>；Vue 2 + Ant Design Vue + JeecgBoot（<code>JeecgListMixin</code>、<code>commonTableRowClass</code>、<code>listCheckMixin</code>）。列表 <code>/jeewms/wmOmNoticeH/list</code>；弹窗 <code>WmOmClientHModal</code>；子表 <code>WmOmClientHSubTable</code> 已整段注释但 <code>@expand</code> 逻辑保留。入口条件、可跳转去向：未验证。</td></tr>
+<tr><td class="k">2 结构分区</td><td>查询区（2 常显 + 折叠项）→ 操作按钮区 → 已选择提示条 → 表格 → 表单弹窗。<code>handleToggleSearch</code> 控制展开/收起，图标 down/up。</td></tr>
+<tr><td class="k">3 列表列</td><td>默认 9 列，序：操作 · 出库通知单 <code>omNoticeId</code> · 货主单号 <code>imCusCode</code> · 货主编码 <code>cusCode</code> · 货主名称 <code>cusCode_dictText</code> · 要求交货时间 <code>delvData</code> · 订单类型 <code>orderTypeCode</code> · 创建人名称 <code>createName</code> · 创建日期 <code>createTime</code>。已注释列：行号、所属部门 <code>sysOrgCode</code>、所属公司、收货人 <code>delvMember</code> / 电话 / 地址、承运人 <code>reMember</code> / 电话 / 车号 <code>reCarno</code>、发货月台 <code>omPlatNo_dictText</code>、状态 <code>omSta</code>、附件 <code>fuJian</code>、三方货主 <code>ocusCode</code>、订单号、打印状态 <code>printStatus</code>、对接单据类型 <code>piClass</code>、账套 <code>piMaster</code>、备注 <code>omBeizhu</code>。<code>orderTypeCode == '19'</code> 渲染「其他出库」，其余「货主出库」。默认排序、分页大小、汇总行、冻结列：未验证（由 Mixin 提供，未读 Mixin 源码）。</td></tr>
+<tr><td class="k">4 筛选</td><td>出货单号 <code>omNoticeId</code>（input）· 货主编码 <code>cusCode</code>（<code>j-search-select-tag</code>，<code>dict="md_cus,ke_hu_bian_ma,ke_hu_bian_ma"</code>）· 货主名称 <code>cusCode</code>（同字段，<code>dict="md_cus,zhong_wen_qch,ke_hu_bian_ma"</code>）· 要求交货时间区间 <code>delvData_begin/end</code>（两个 <code>j-date</code>，折叠）。<b>缺陷</b>：货主编码与货主名称绑定同一 <code>cusCode</code>，后者会覆盖前者。已注释筛选项：收货人、电话、承运人（<code>dictCode="tms_kd"</code>）、车号、状态、三方货主、订单号、打印状态。是否跨页签保留：本页无页签。</td></tr>
+<tr><td class="k">5 行与批量</td><td>工具条：添加（<code>omClient:add</code>）、导出（<code>handleExportXls('出库管理')</code>）、导入（<code>omClient:import</code>）、批量删除（<code>omClient:batchDelete</code>）；行内：查看（<code>omClient:check</code>）、编辑（<code>omClient:update</code>），行内删除已注释。已选择 N 项 / 清空。二次确认：仅注释掉的删除有 <code>a-popconfirm</code>「你确定吗?」。</td></tr>
+<tr><td class="k">6 表单字段</td><td>弹窗 <code>WmOmClientHModal</code> 未读，字段未验证。</td></tr>
+<tr><td class="k">7 状态×动作</td><td>状态列 <code>omSta</code> 与状态筛选均已注释，<b>状态枚举与状态约束的动作矩阵未验证</b>。可确认的是 <code>orderTypeCode</code> 的二值渲染（19 → 其他出库，其余 → 货主出库）。</td></tr>
+<tr><td class="k">8 交互异常</td><td>空态、加载、请求失败、重复提交、超时：均由 JeecgListMixin 提供，<b>未验证</b>。可见：图片空显示「无图片」、文件空显示「无文件」、展开行同一时刻只允许一行（<code>handleExpand</code> 先清空再 push）。</td></tr>
+</tbody></table></div>
+
+<h3 id="s3-2">3.2 <code>WmOmQmIList.vue</code> · 下架任务管理</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:120px">段</th><th>记录</th></tr></thead>
+<tbody>
+<tr><td class="k">1 入口</td><td><code>description: '下架任务管理页面'</code>；列表 <code>/jeewms/wmOmQmI/list</code>；弹窗 <code>WmOmQmIModal</code>；打印组件 <code>ShippingMark</code>。接口 <code>dotowavedown: /jeewms/wmOmQmI/dotodown1</code>（PUT，id 数组）、<code>editBatch</code>（PUT）。</td></tr>
+<tr><td class="k">2 结构分区</td><td>查询区（9 条件）→ 工具条（导出/批量下架/批量修改/批量保存/批量取消修改/批量打印标签）→ 已选择提示条 → 表格（部分列可切为输入框）→ 弹窗。</td></tr>
+<tr><td class="k">3 列表列</td><td>15 列：装箱单号 <code>imCusCode</code> · 子PO号 <code>goodsBatch</code> · 商品编码 <code>goodsId</code> · 商品名称 <code>goodsName</code> · 货主编码 <code>cusCode</code> · 货主名称 <code>cusCode_dictText</code> · 库位 <code>binId</code> · 托盘 <code>tinId</code> · 出货数量 <code>baseGoodscount</code> · 单位 <code>goodsUnit</code> · 创建人 <code>createBy</code> · 创建日期 <code>createTime</code>（截前 10 位）· 生产日期 <code>proData</code> · 出库单号 <code>omNoticeId</code> · 操作。前 14 列均 <code>sorter: true</code>；可批量编辑列 <code>['tinId','baseGoodscount']</code>。已注释列：是否下架 <code>binSta</code>、备注 <code>itemText</code>、数量 <code>qmOkQuat</code>、体积 <code>tinTj</code>、重量 <code>tinZhl</code>、温度 <code>recDeg</code>、任务接收人 <code>assignTo</code>、基本单位、波次编号 <code>waveId</code>。</td></tr>
+<tr><td class="k">4 筛选</td><td>出库单号 · 商品编码 · 商品名称 · 货主编码/名称（同为 <code>cusCode</code>，重复绑定）· 库位 <code>binId</code> · 托盘 <code>tinId</code> · 子PO号 <code>goodsBatch</code> · 装箱单号 <code>imCusCode</code>；回车即查询。</td></tr>
+<tr><td class="k">5 行与批量</td><td>工具条：导出（<code>WmOmQmIList:export</code>，导出参数名「下架」）、批量下架（<code>batchRemove</code>，带 loading）、批量修改（<code>batchEdit</code>）、批量保存（<code>batchSave</code>）、批量取消修改、批量打印标签（<code>handlePrint('ck')</code>，<code>pageType='XJ'</code>）。行内：查看 / 编辑 / 删除（<code>a-popconfirm</code>「你确定吗?」）；单条下架 <code>downGoods</code> 已注释。确认框标题「确定下架」、内容「是否确认下架选定数据」；成功「下架成功」「批量修改成功」；校验「请选择一条记录!」「无可保存内容!」「无修改内容可取消!」。</td></tr>
+<tr><td class="k">6 表单字段</td><td>弹窗未读；批量编辑态把选中行的 <code>tinId</code>、<code>baseGoodscount</code> 渲染为 <code>a-input</code>，失焦写 <code>newColData</code>。</td></tr>
+<tr><td class="k">7 状态×动作</td><td><code>binSta</code>（是否下架）列已注释，但 <code>customRender</code> 保留取值：<code>'Y'</code> → 是，其余 → 否。工具条动作未见按状态条件渲染，故<b>状态×动作矩阵未验证</b>。</td></tr>
+<tr><td class="k">8 交互异常</td><td>已见：无图片/无文件占位、已选择 N 项、导出转圈 <code>exportOk</code>、批量下架按钮 <code>isLoading</code>。请求失败、超时、空态：未验证。</td></tr>
+</tbody></table></div>
+
+<h3 id="s3-3">3.3 <code>WmToUpList.vue</code> · 上架任务</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:120px">段</th><th>记录</th></tr></thead>
+<tbody>
+<tr><td class="k">1 入口</td><td><code>description: 'wm_to_up管理页面'</code>；列表 <code>/jeewms/wmToUp/list</code>；弹窗 <code>WmToUpModal</code>。</td></tr>
+<tr><td class="k">2 结构分区</td><td>查询区为<b>空 <code>a-row</code></b>（无任何条件）→ 工具条 → 已选择提示条 → 表格 → 弹窗。</td></tr>
+<tr><td class="k">3 列表列</td><td>13 列：操作 · 创建人名称 <code>createName</code> · 创建人登录名称 <code>createBy</code> · 创建日期 <code>createDate</code>（截前 10 位）· 更新人名称 <code>updateName</code> · 更新人登录名称 <code>updateBy</code> · 更新日期 <code>updateDate</code> · 所属部门 <code>sysOrgCode</code> · 所属公司 <code>sysCompanyCode</code> · 托盘码 <code>binId</code> · 库位编码 <code>kuWeiBianMa</code> · 作业类型 <code>actTypeCode</code> · 货主 <code>cusCode</code>。<b>业务字段仅 4 个，其余 8 个为审计列。</b></td></tr>
+<tr><td class="k">4 筛选</td><td>无。</td></tr>
+<tr><td class="k">5 行与批量</td><td>工具条：添加、导出（<code>'wm_to_up'</code>）、导入、批量删除；行内：编辑、更多 → 删除（<code>a-popconfirm</code>「你确定吗?」）。无 <code>v-has</code>。</td></tr>
+<tr><td class="k">6 表单字段</td><td>弹窗未读，未验证。</td></tr>
+<tr><td class="k">7 状态×动作</td><td>无状态列，矩阵不适用。</td></tr>
+<tr><td class="k">8 交互异常</td><td>无图片/无文件/下载占位；其余未验证。</td></tr>
+</tbody></table></div>
+
+<h3 id="s3-4">3.4 <code>WmToMoveGoodsList.vue</code> · 库存转移（移库）</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:120px">段</th><th>记录</th></tr></thead>
+<tbody>
+<tr><td class="k">1 入口</td><td><code>description: '库存转移管理页面'</code>；列表 <code>/jeewms/wmToMoveGoods/list</code>；批量保存 <code>/jeewms/wmToMoveGoods/editBatch</code>；另有 <code>updateBatch</code> 指向 <code>/jeewms/wmToDownGoods/updateBatch</code>。</td></tr>
+<tr><td class="k">2 结构分区</td><td>查询区（9 条件）→ 工具条（按状态条件渲染）→ 已选择提示条 → 表格（3 列可编辑）→ 弹窗。</td></tr>
+<tr><td class="k">3 列表列</td><td>14 列：商品编码 <code>goodsId</code> · 商品名称 <code>goodsName</code> · 货主编码 <code>cusCode</code> · 货主名称 <code>cusCode_dictText</code> · 到库位 <code>binTo</code> · 到托盘 <code>tinId</code> · 数量 <code>goodsQua</code> · 生产日期 <code>goodsProData</code> · 源托盘 <code>tinFrom</code> · 源库位 <code>binFrom</code> · 状态 <code>moveSta</code> · 操作时间 <code>updateTime</code> · 操作人 <code>updateBy</code> · 操作。除操作列外均 <code>sorter: true</code>。已注释列：审计列、<b>原始单据三元组</b> <code>orderTypeCode</code> / <code>orderId</code> / <code>orderIdI</code>、<b>执行状态</b> <code>runSta</code>、转移客户 <code>toCusCode</code>、批次 <code>goodsbatch</code>、到生产日期、基本单位/数量。</td></tr>
+<tr><td class="k">4 筛选</td><td>商品编码、商品名称、货主编码/名称（同一 <code>cusCode</code>）、源库位 <code>binFrom</code>、到库位 <code>binTo</code>、源托盘 <code>tinFrom</code>、到托盘 <code>tinId</code>、状态 <code>moveSta</code>（<code>j-dict-select-tag</code>，<code>dictCode="moveSta"</code>）。<b>默认值 <code>queryParam: { moveSta: '计划中' }</code></b>。</td></tr>
+<tr><td class="k">5 行与批量</td><td>工具条 4 个按钮均带 <code>v-if="queryParam.moveSta == '计划中'"</code>：批量删除、批量转移、批量保存、取消批量转移；导出常显。行内：查看、删除（仅「计划中」+ <code>a-popconfirm</code>）。批量修改把选中行的 <code>binTo</code>、<code>tinId</code>、<code>goodsQua</code> 变为输入框，<code>batchSave</code> 用 <code>putAction(editBatch, arr)</code> 提交，成功「批量修改成功」。</td></tr>
+<tr><td class="k">6 表单字段</td><td>弹窗未读；批量编辑字段见上。</td></tr>
+<tr><td class="k">7 状态×动作</td><td><b>唯一有实证的状态约束</b>：<code>moveSta == '计划中'</code> 时可执行批量删除/批量转移/批量保存/取消批量转移/行内删除；其余状态不可。另有隐藏的 <code>runSta</code>（执行状态）——双状态并存。字典 <code>moveSta</code> 的全部取值未取到，<b>其余状态与动作矩阵未验证</b>。不可逆终态未验证。</td></tr>
+<tr><td class="k">8 交互异常</td><td>已见：无图片/无文件、已选择 N 项、导出转圈、「请选择一条记录!」「无可保存内容!」「无修改内容可取消!」「操作失败」。空态与请求失败：未验证。</td></tr>
+</tbody></table></div>
+
+<h3 id="s3-5">3.5 <code>WaveToDownList.vue</code> · 波次下发</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:120px">段</th><th>记录</th></tr></thead>
+<tbody>
+<tr><td class="k">1 入口</td><td><code>description: 'wave_to_down管理页面'</code>；列表 <code>/jeewms/waveToDown/list</code>；打印明细 <code>/jeewms/waveToDown/queryWaveList</code>（按 <code>waveId</code>）。</td></tr>
+<tr><td class="k">2 结构分区</td><td>查询区（2 常显 + 3 折叠）→ 工具条（导出、打印）→ 已选择提示条 → 表格 → 打印弹窗（内嵌第二张表）→ 隐藏的打印 DOM。</td></tr>
+<tr><td class="k">3 列表列</td><td>20 列：操作 · 创建人登录名称 <code>createBy</code> · 创建人名称 <code>createName</code> · 货主 <code>cusCode</code> · 货主名称 <code>cusName</code> · 波次号 <code>waveId</code> · 商品编码 <code>goodsId</code> · 商品名称 <code>goodsName</code> · 单号 <code>imCusCode</code> · 仓位 <code>binId</code> · 托盘 <code>tinId</code> · 生产日期 <code>proData</code> · 数量 <code>baseGoodscount</code> · 出库备注 <code>omBeiZhu</code> · 基本单位 <code>baseUnit</code> · <b>一次下架容器 <code>firstRq</code></b> · <b>分拣容器 <code>secondRq</code></b> · 批次 <code>goodsBatch</code> · 商品条码 <code>shpTiaoMa</code>。另有 <code>by1~by5</code> 备用列已注释。打印子表 8 列：序号、商品条码、商品编码、商品名称、数量、仓位、托盘、生产日期；打印单抬头含条码、打印日期、波次单号、订单总数 <code>by1</code>、总拣数量 <code>num</code>；明细表头：序号 / 仓位 / 商品条码 / 应检数量 / 生产日期 / 品名。</td></tr>
+<tr><td class="k">4 筛选</td><td>货主名称 <code>cusName</code>、波次号 <code>waveId</code>、商品编码 <code>goodsId</code>、仓位 <code>binId</code>、一次下架容器 <code>firstRq</code>；展开/收起。</td></tr>
+<tr><td class="k">5 行与批量</td><td>工具条：导出、打印（<code>printData</code> → 弹窗 → <code>v-print</code>）。行内：详情（模板里 <code>a-menu</code> 未包在 <code>a-dropdown</code> 内，实际可点性存疑）。无批量作业动作。</td></tr>
+<tr><td class="k">6 表单字段</td><td>无录入表单；<code>superFieldList</code> 高级查询字段 21 项，含 <code>type: 'double'</code> 的 <code>baseGoodscount</code> 与 <code>type: 'BigDecimal'</code> 的 <code>omBeiZhu</code>（<b>类型标注与字段语义不符，属源码疑似笔误</b>）。</td></tr>
+<tr><td class="k">7 状态×动作</td><td>无状态列，矩阵不适用。</td></tr>
+<tr><td class="k">8 交互异常</td><td>打印弹窗 pageSize 默认 5；其余未验证。</td></tr>
+</tbody></table></div>
+
+<h3 id="s3-6">3.6 <code>WmReturnAcceptList.vue</code> · 收货验收（<b>文件名误导，非退货验收</b>）</h3>
+<div class="note caution"><p><b>调研纠错</b>：文件名含 Return，但组件为 <code>WmImNoticeIList</code>、<code>description: '商品管理页面'</code>、列表接口 <code>/jeewms/wmImNoticeI/ysList</code>（ys = 验收），操作对象是<b>到货通知单明细</b>。前一轮据此把 JeeWMS 退货链记为「7 页四件套」是错的，已更正为 <code>WmReturn*</code> 共 6 个文件、退货专属 5 页。</p></div>
+<div class="tw"><table>
+<thead><tr><th style="width:120px">段</th><th>记录</th></tr></thead>
+<tbody>
+<tr><td class="k">1 入口</td><td>列表 <code>/jeewms/wmImNoticeI/ysList</code>；验收写入 <code>/jeewms/wmInQmI/batchAdd</code>；弹窗为 <code>j-modal title="验收"</code>（宽 800，<code>switchFullscreen</code>）。</td></tr>
+<tr><td class="k">2 结构分区</td><td>查询区（2 常显 + 2 折叠）→ 工具条（批量验收/批量保存/批量取消验收）→ 已选择提示条 → 表格（5 列可编辑）→ 验收弹窗。</td></tr>
+<tr><td class="k">3 列表列</td><td>7 列：操作 · 到货通知单号 <code>imNoticeId</code> · 商品编码 <code>goodsCode</code> · 商品名称 <code>goodsName</code> · 数量 <code>goodsCount</code> · 生产日期 <code>goodsPrdData</code> · 批次 <code>goodsBatch</code> · 收货登记数量 <code>goodsQmCount</code>。已注释列：计划库位 <code>binPlan</code>、单位 <code>goodsUnit</code>、未清数量 <code>goodsWqmCount</code>、订单号 <code>imCusCode</code>、托盘 <code>tinId</code>。</td></tr>
+<tr><td class="k">4 筛选</td><td>到货通知单号 <code>imNoticeId</code>、商品编码 <code>goodsCode</code>、商品名称 <code>goodsName</code>、订单号 <code>imCusCode</code>；展开/收起；回车查询。</td></tr>
+<tr><td class="k">5 行与批量</td><td>工具条：批量验收、批量保存、批量取消验收（均 <code>returnAccept:batchUpdate</code>）。行内：查看（<code>returnAccept:check</code>）、编辑（<code>returnAccept:update</code>）、验收（<code>returnAccept:accept</code>）。单条验收 <code>openAccept(id)</code> → 弹窗 → <code>accept()</code> 校验后 <code>postAction(batchAdd, [formData])</code>；成功清空 5 个表单字段并 <code>loadData()</code>。</td></tr>
+<tr><td class="k">6 表单字段</td><td>验收弹窗 5 字段：生产日期 <code>goodsPrdData</code>（<code>j-date</code>）、批次 <code>goodsBatch</code>（input）、计划库位 <code>binPlan</code>（input）、<b>验收数量 <code>goodsWqmCount</code>（required，错误文案「请输入验收数量!」）</b>、托盘 <code>tinId</code>（input）。批量编辑可改 <code>goodsPrdData</code>（<code>a-date-picker</code>，moment 格式化 YYYY-MM-DD）、<code>goodsBatch</code>、<code>goodsWqmCount</code>、<code>tinId</code>、<code>binPlan</code>。</td></tr>
+<tr><td class="k">7 状态×动作</td><td>无状态列；<code>batchEditFlag</code> 控制是否进入可编辑态，非业务状态。矩阵未验证。</td></tr>
+<tr><td class="k">8 交互异常</td><td>已见：表单必填校验、提交 loading <code>confirmLoading</code>、操作成功/失败提示、取消时清空表单。空态、请求失败、重复提交：未验证。</td></tr>
+</tbody></table></div>
+
+<h3 id="s3-7">3.7 <code>BmsCostRuleHList.vue</code> · 计费规则主表</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:120px">段</th><th>记录</th></tr></thead>
+<tbody>
+<tr><td class="k">1 入口</td><td><code>description: '计费规则主列表管理页面'</code>；列表 <code>/bms/bmsCostRuleH/list</code>；弹窗 <code>BmsCostRuleHModal</code>；展开行内嵌 <code>BmsCostRuleISubTable</code>。</td></tr>
+<tr><td class="k">2 结构分区</td><td>查询区（3 常显 + 1 折叠）→ 工具条 → 已选择提示条 → 表格 → 展开行内嵌标签页「计费规则子」→ 弹窗。</td></tr>
+<tr><td class="k">3 列表列</td><td>18 列：操作 · 合同编号 <code>contNo</code> · 合同名称 <code>contName</code> · 规则编号 <code>costRuleNo</code> · 规则名称 <code>costRuleName</code> · 费用编号 <code>costNo</code> · 费用名称 <code>costName</code> · 来源类型编号 <code>costSNo</code> · 来源类型名称 <code>costSName</code> · 计费对象类型 <code>costObjType_dictText</code> · 计费对象编号 <code>costObjNo</code> · 计费对象名称 <code>costObjName</code> · <b>最低收费 <code>costMin</code></b> · <b>最高收费 <code>costMax</code></b> · <b>计费周期 <code>costPeriod</code></b> · <b>有效开始时间 <code>costValidBegin</code></b> · <b>有效结束时间 <code>costValidEnd</code></b>。</td></tr>
+<tr><td class="k">4 筛选</td><td>合同编号、合同名称、规则编号、规则名称（折叠）；另有 <code>j-super-query</code> 高级查询，字段表 17 项，含 <code>popup</code> 型弹窗选择：<code>costNo</code> → <code>bms_cost(cost_no)</code>、<code>costSNo</code> → <code>bms_cs_type(cost_s_no)</code>；<code>costMin</code>/<code>costMax</code> 标 <code>type: 'BigDecimal'</code>；有效期标 <code>type: 'datetime'</code>。</td></tr>
+<tr><td class="k">5 行与批量</td><td>工具条：新增、导出（「计费规则主」）、导入、批量删除下拉。行内：编辑、详情、删除（<code>a-popconfirm</code>「确定删除吗?」）。展开行同一时刻只展开一行。</td></tr>
+<tr><td class="k">6 表单字段</td><td>弹窗未读；展开子表 <code>BmsCostRuleISubTable</code> 未读。</td></tr>
+<tr><td class="k">7 状态×动作</td><td>无状态列；有效期起止是字段不是状态。矩阵未验证。</td></tr>
+<tr><td class="k">8 交互异常</td><td>已见：删除二次确认、无图片/无文件占位、已选择 N 项。其余未验证。</td></tr>
+</tbody></table></div>
+
+<h3 id="s3-8">3.8 <code>BmsBillHList.vue</code> · 账单主表</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:120px">段</th><th>记录</th></tr></thead>
+<tbody>
+<tr><td class="k">1 入口</td><td><code>description: '账单详情主列表管理页面'</code>；列表 <code>/bms/bmsBillH/list</code>；<code>system = window.localStorage.getItem('SystemPattern')</code>。</td></tr>
+<tr><td class="k">2 结构分区</td><td>查询区（3 条件）→ 工具条（导出、高级查询、开票）→ 已选择提示条 → <b>双页签「未开票(total1) / 已开票(total2)」</b> → 表格 → 展开行内嵌「账单详情子」→ 两个弹窗 <code>BmsBillHModal</code> / <code>BmsBillHModal1</code>。</td></tr>
+<tr><td class="k">3 列表列</td><td>12 列：操作 · 账单编号 <code>billNo</code> · 账单类型 <code>billType</code> · 期间 <code>billPeriod</code> · 计费对象类型 <code>costObjType</code> · 计费对象编号 <code>costObjNo</code> · 计费对象名称 <code>costObjName</code> · 账单金额 <code>billSum</code> · 货币 <code>costHb</code> · 备注 <code>remark</code> · 状态 <code>status</code> · 文件 <code>attr1</code>（fileSlot 下载）。高级查询 <code>superFieldList</code> 中 <code>billSum</code> 为 <code>BigDecimal</code>、<code>remark</code> 为 <code>Text</code>。</td></tr>
+<tr><td class="k">4 筛选</td><td>账单编号、计费对象编号、计费对象名称；<code>loadData()</code> 把当前页签作为 <code>params.status</code> 传入，按页签计数 <code>total1</code> / <code>total2</code>。高级查询 <code>getSuperFieldList()</code> 整段被注释（11 字段仍写在代码里）。</td></tr>
+<tr><td class="k">5 行与批量</td><td>工具条：导出「账单详情主」、<b>开票</b>（<code>v-if="system == 'WMS'"</code>，<code>makeInvoice()</code> 校验「请至少选择一条数据」，打开 <code>modalForm1</code> 标题「开票」）。行内 6 动作：审核 <code>billAudit</code> → <code>/bms/bmsBillH/shenhebillById</code>（提示「账单已审核」）、发送 <code>billSend</code> → <code>sendbillById</code>、确认 <code>billConfirm</code> → <code>querenbillById</code>、完成 <code>billComplete</code> → <code>wanchengbillById</code>、账单调整 <code>handleEdit</code>（标题「账单调整」）、详情。<b>注意</b>：上述动作定义整段在源码中被注释，方法体在注释块内，实际启用状态未验证。</td></tr>
+<tr><td class="k">6 表单字段</td><td>两个弹窗均未读；账单明细子表见 3.9。</td></tr>
+<tr><td class="k">7 状态×动作</td><td>状态维度有两个：<b>页签开票状态「未开票 / 已开票」</b>（可核，带计数）；<code>status</code> 列的取值未取到字典定义。行内 6 动作在模板中对两页签同样渲染，<b>未按状态条件渲染</b>；审核→发送→确认→完成的顺序由方法名与接口名推得，属源码命名级证据，非实见状态机。不可逆终态未验证。</td></tr>
+<tr><td class="k">8 交互异常</td><td>已见：<code>res.code === 510</code> 时 <code>$message.warning(res.message)</code>、删除相关代码整段注释、展开行同一时刻一行。空态、加载、请求失败、重复提交、超时：未验证。</td></tr>
+</tbody></table></div>
+
+<h3 id="s3-9">3.9 <code>subTables/BmsBillISubTable.vue</code> · 账单明细内嵌子表</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:120px">段</th><th>记录</th></tr></thead>
+<tbody>
+<tr><td class="k">1 入口</td><td>由 3.8 的展开行加载；<code>disableMixinCreated: true</code>；接口 <code>/bms/bmsBillH/queryBmsBillIByMainId</code>，参数 <code>{id: record.id}</code>；<code>watch: record</code> 立即触发 <code>loadData</code>。</td></tr>
+<tr><td class="k">2 结构分区</td><td>单张 <code>a-table</code>，<code>:pagination="false"</code>，无工具条、无筛选、无表头外分区。</td></tr>
+<tr><td class="k">3 列表列</td><td>8 列：账单编号 <code>billNo</code> · <b>来源编号 <code>costSoNo</code></b> · 来源名称 <code>costSoName</code> · 来源日期 <code>costSoDate</code> · <b>计费税率 <code>costSl</code></b> · 货币 <code>costHb</code> · <b>计费不含税价 <code>costCoBhsj</code></b> · <b>计费原含税价 <code>costCoYhsj</code></b>。</td></tr>
+<tr><td class="k">4 筛选</td><td>无。</td></tr>
+<tr><td class="k">5 行与批量</td><td>无（只读内嵌表）。</td></tr>
+<tr><td class="k">6 表单字段</td><td>无。</td></tr>
+<tr><td class="k">7 状态×动作</td><td>无状态列，矩阵不适用。</td></tr>
+<tr><td class="k">8 交互异常</td><td><code>loading</code> 由 <code>finally</code> 复位；<code>res.success</code> 为假时无提示。空态未验证（无自定义空态插槽）。</td></tr>
+</tbody></table></div>
+
+<h3 id="s3-10">3.10 字段表（固定表头）</h3>
+<p class="src">按规则第 3 节表头列全。类型与长度精度、必填默认值、唯一性、展示格式中源码未暴露的一律写「未验证 / 未暴露」，不推测。</p>
+<div class="tw"><table>
+<thead><tr><th>字段名</th><th>标识</th><th>类型与长度精度</th><th>枚举与取值口径</th><th>必填·只读·默认值</th><th>来源</th><th>校验与唯一性</th><th>展示格式</th></tr></thead>
+<tbody>
+<tr><td>出库通知单</td><td><code>omNoticeId</code></td><td>字符串，长度未暴露</td><td>未暴露</td><td>只读（列表列）/ 未验证</td><td>系统生成（推定，未验证）</td><td>未暴露</td><td>文本</td></tr>
+<tr><td>订单类型</td><td><code>orderTypeCode</code></td><td>字符串 / 枚举</td><td><code>'19'</code> → 其他出库；其余 → 货主出库。<b>全量取值未验证</b></td><td>只读（列表列）/ 未验证</td><td>录入或同步，未验证</td><td>未暴露</td><td>字典渲染为文字</td></tr>
+<tr><td>要求交货时间</td><td><code>delvData</code></td><td>日期或日期时间，未暴露</td><td>—</td><td>未验证</td><td>录入，未验证</td><td>筛选支持 <code>_begin</code>/<code>_end</code> 区间</td><td>未暴露</td></tr>
+<tr><td>货主编码 / 名称</td><td><code>cusCode</code> / <code>cusCode_dictText</code></td><td>字符串 / 字典翻译列</td><td>字典 <code>md_cus</code>：<code>ke_hu_bian_ma</code> 编码、<code>zhong_wen_qch</code> 中文全称</td><td>只读（列表列）</td><td>引用主档 <code>md_cus</code></td><td>两筛选绑同一字段，互相覆盖（源码缺陷）</td><td>编码 + 名称双列</td></tr>
+<tr><td>发货月台</td><td><code>omPlatNo_dictText</code></td><td>字符串 / 字典翻译</td><td>未暴露</td><td>列已注释</td><td>引用主档，未验证</td><td>未暴露</td><td>字典文字</td></tr>
+<tr><td>状态 / 打印状态</td><td><code>omSta</code> / <code>printStatus</code></td><td>枚举，未暴露</td><td><b>全量取值未验证</b></td><td>列已注释</td><td>系统生成，未验证</td><td>未暴露</td><td>未暴露</td></tr>
+<tr><td>出货数量</td><td><code>baseGoodscount</code></td><td>数值，精度未暴露（高级查询标 <code>double</code>）</td><td>—</td><td>可批量编辑（下架任务）</td><td>录入 / 批量编辑</td><td>未见数值校验</td><td>数字，无千分位配置</td></tr>
+<tr><td>托盘 / 库位</td><td><code>tinId</code> / <code>binId</code></td><td>字符串，长度未暴露</td><td>—</td><td><code>tinId</code> 可批量编辑；<code>binId</code> 只读</td><td>录入 / 引用主档，未验证</td><td>未暴露</td><td>文本</td></tr>
+<tr><td>是否下架</td><td><code>binSta</code></td><td>枚举（Y/N）</td><td><code>'Y'</code> → 是；其余 → 否</td><td>列已注释</td><td>系统生成，未验证</td><td>未暴露</td><td>文字「是/否」</td></tr>
+<tr><td>一次下架容器 / 分拣容器</td><td><code>firstRq</code> / <code>secondRq</code></td><td>字符串，长度未暴露</td><td>—</td><td>只读（列表列）</td><td>录入或系统生成，未验证</td><td>未暴露</td><td>文本</td></tr>
+<tr><td>商品条码 / 批次 / 生产日期</td><td><code>shpTiaoMa</code> / <code>goodsBatch</code> / <code>proData</code></td><td>字符串 / 字符串 / 日期</td><td>—</td><td>只读</td><td>引用主档，未验证</td><td>未暴露</td><td>日期在打印单原样输出</td></tr>
+<tr><td>源/到库位、源/到托盘</td><td><code>binFrom</code> / <code>binTo</code> / <code>tinFrom</code> / <code>tinId</code></td><td>字符串，长度未暴露</td><td>—</td><td><code>binTo</code>、<code>tinId</code> 可批量编辑；<code>binFrom</code>、<code>tinFrom</code> 只读</td><td>录入 / 引用主档</td><td>未暴露</td><td>文本</td></tr>
+<tr><td>状态（移库）</td><td><code>moveSta</code></td><td>枚举，字典 <code>moveSta</code></td><td><b>仅确认默认值「计划中」；全量取值未验证</b></td><td>查询默认值 <code>'计划中'</code></td><td>系统生成，未验证</td><td>控制 4 个批量动作与行内删除的可用条件</td><td>字典文字</td></tr>
+<tr><td>执行状态（移库，隐藏）</td><td><code>runSta</code></td><td>枚举，未暴露</td><td>未验证</td><td>列已注释</td><td>未验证</td><td>未暴露</td><td>未暴露</td></tr>
+<tr><td>原始单据三元组</td><td><code>orderTypeCode</code> / <code>orderId</code> / <code>orderIdI</code></td><td>字符串 × 3</td><td>类型 / 编码 / 行项目</td><td>列已注释</td><td>引用来源单据</td><td>未暴露</td><td>未暴露</td></tr>
+<tr><td>收货登记数量</td><td><code>goodsQmCount</code></td><td>数值，精度未暴露</td><td>—</td><td>只读</td><td>系统生成，未验证</td><td>未暴露</td><td>数字</td></tr>
+<tr><td>验收数量</td><td><code>goodsWqmCount</code></td><td>数值，精度未暴露</td><td>—</td><td><b>必填</b>，错误文案「请输入验收数量!」</td><td>录入（弹窗 / 批量编辑）</td><td><code>rules: [{required:true}]</code>，未见 ≤ 收货数的校验</td><td>数字</td></tr>
+<tr><td>计划库位 / 托盘</td><td><code>binPlan</code> / <code>tinId</code></td><td>字符串</td><td>—</td><td>选填；列已注释，弹窗可录</td><td>录入</td><td>未暴露</td><td>文本</td></tr>
+<tr><td>合同编号 / 名称</td><td><code>contNo</code> / <code>contName</code></td><td>字符串</td><td>—</td><td>只读（列表列）</td><td>引用合同主档，未验证</td><td>未暴露</td><td>文本</td></tr>
+<tr><td>最低 / 最高收费</td><td><code>costMin</code> / <code>costMax</code></td><td>金额，源码标 <code>BigDecimal</code>，币种与小数位未暴露</td><td>—</td><td>只读（列表列）</td><td>录入，未验证</td><td>未见 <code>min ≤ max</code> 校验</td><td>数字，无千分位配置</td></tr>
+<tr><td>计费周期 / 有效期</td><td><code>costPeriod</code> / <code>costValidBegin</code> / <code>costValidEnd</code></td><td>枚举 / datetime</td><td>周期取值未验证</td><td>只读（列表列）</td><td>录入，未验证</td><td>未见起止先后校验</td><td>日期时间，格式未暴露</td></tr>
+<tr><td>账单编号 / 类型 / 期间</td><td><code>billNo</code> / <code>billType</code> / <code>billPeriod</code></td><td>字符串 × 3</td><td>类型与期间格式未验证</td><td>只读</td><td>系统生成，未验证</td><td>未暴露</td><td>文本</td></tr>
+<tr><td>账单金额</td><td><code>billSum</code></td><td>金额，<code>BigDecimal</code>，币种见 <code>costHb</code>，小数位未暴露</td><td>—</td><td>只读</td><td>计算（由明细合计，公式未验证）</td><td>未暴露</td><td>数字，无千分位配置</td></tr>
+<tr><td>开票状态（页签）</td><td><code>status</code>（loadData 参数）</td><td>枚举</td><td><b>未开票 / 已开票</b>（两页签，各带计数 <code>total1</code>/<code>total2</code>）</td><td>默认激活「未开票」</td><td>系统生成，未验证</td><td>作为列表查询条件 <code>params.status</code></td><td>页签标题 + 计数</td></tr>
+<tr><td>来源编号 / 名称 / 日期</td><td><code>costSoNo</code> / <code>costSoName</code> / <code>costSoDate</code></td><td>字符串 × 2 / 日期</td><td>—</td><td>只读（内嵌子表）</td><td>引用来源单据</td><td>未暴露</td><td>文本 / 日期</td></tr>
+<tr><td>计费税率 / 货币</td><td><code>costSl</code> / <code>costHb</code></td><td>数值 / 枚举</td><td>税率单位（百分数或小数）未暴露；货币取值未验证</td><td>只读</td><td>录入 / 引用配置，未验证</td><td>未暴露</td><td>数字 / 文本</td></tr>
+<tr><td>不含税价 / 原含税价</td><td><code>costCoBhsj</code> / <code>costCoYhsj</code></td><td>金额，精度与小数位未暴露</td><td>—</td><td>只读</td><td>计算，公式未验证</td><td>未暴露</td><td>数字，无千分位配置</td></tr>
+</tbody></table></div>
+
+<h2 id="s4"><span class="n">04</span>详细数据与发现<a class="anchor" href="#s4">#</a></h2>
+
+<h3 id="s4-1">4.1 JeeWMS：仓库结构与流程原句</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:220px">路径</th><th>可核数据</th></tr></thead>
+<tbody>
+<tr><td class="k">根目录</td><td>11 项：<code>1111.png</code>、<code>DOC/</code>、<code>LICENSE</code>、<code>README.md</code>、<code>README_EN.md</code>、<code>database/</code>、<code>jeewms-cloud/</code>、<code>pom.xml</code>、<code>src/</code>、<code>velocity.log</code>、<code>微信图片_20250226182400.png</code></td></tr>
+<tr><td class="k">database/</td><td><code>WMS初始化SQL，特别谨慎使用.txt</code> 967 B；<code>wms20241105数据库备份.nb3</code> 1,533,440 B（Navicat 二进制，<b>不可读 DDL</b>）</td></tr>
+<tr><td class="k">DOC/（11 项，未解包）</td><td>开发环境搭建指南 .pdf 3.56 MB · 简易操作手册 .pptx 0.98 MB · 详细操作手册 .doc 2.97 MB · 开放接口 V4.3 .pdf 401 KB · <code>jeewms仓储管理系统v1.0.pdm</code> 1.99 MB · 开发启动步骤 .doc 1.22 MB · <code>gzl.png</code> · 4 张微信截图（2025-05-12 13:04~13:18）</td></tr>
+<tr><td class="k">jeewms-cloud/</td><td><code>DOC/</code>、<code>README.md</code> 1,292 B、<code>dataex/</code>、<code>db/</code>、<code>java/</code>、<code>uniapp/</code>、<code>web/</code>；<code>db/</code> 仅 <code>base-nacos.nb3</code> 37,376 B 与 <code>jeewms-cloud.nb3</code> 2,796,032 B，<b>无纯 SQL 脚本</b></td></tr>
+<tr><td class="k">jeewms-cloud/java/</td><td>5 模块：<code>base-boot-base</code> · <code>base-boot-module-demo</code> · <code>base-boot-module-system</code> · <code>base-boot-starter</code> · <code>base-cloud-module</code></td></tr>
+<tr><td class="k">README 流程原句</td><td>「入库、<b>理货</b>、上架、下单、库存、波次、拣货、复核、<b>称重</b>、发货」；业务代码在 <code>base-cloud-module/base-cloud-busin</code> 的 <code>com\base\modules\jeewms\controller</code>；库存与理货任务在报表模块；启动顺序 nacos → gateway → xxljob → bussi → system</td></tr>
+<tr><td class="k">README 能力</td><td>WMS / OMS / BMS / TMS 四域；多租户、公有云/私有云/混合云、PDA/RFID/AGV 接入、动态计费与业务结算引擎、AGV 调度模拟、BI 看板；截图可反推：仓位图、仓位使用率、效期预警、运输单、货品主数据、拣货单</td></tr>
+<tr><td class="k">技术栈</td><td>Java JDK 1.8 · Spring Cloud · Vue · Minidao · Redis + Ehcache · MySQL 5.7 · Maven/Tomcat7 · UNI-APP；<b>单体 war 与微服务两套启动方式并存</b></td></tr>
+<tr><td class="k">views/wms/jee/</td><td>Gitee <code>contents</code> 响应在 <code>WmPlatIoList.vue</code> 处截断，可见 118 个 <code>.vue</code>：<code>Ba*</code> 51、<code>Wm*</code> 46、<code>Md*</code> 8、<code>Tms*</code> 7、<code>Bi*</code> 1、其他 5；5 个子目录 <code>gsModules</code> · <code>modules</code> · <code>pltn</code> · <code>subTables</code> · <code>sync</code>。<code>git/trees</code>（<code>truncated:false</code>）在其后另列 24 个 <code>Wm*</code>/<code>Wms*</code> 文件，故「Wm* 46」不是总数</td></tr>
+<tr><td class="k">jee 业务分组（按前缀语义归类，互斥且完整）</td><td><code>git/trees</code> 全表中 <code>Wm*</code> 65 + <code>Wms*</code> 5 = <b>70</b> 个，分组合计吻合：入库/验收 13（<code>WmIm*</code> 9、<code>WmInQm*</code> 2、<code>WmNoticeConf*</code>、<code>WmImportData*</code>）· 出库/下架 21（<code>WmOm*</code> 20、<code>WmOrderPickGoods*</code>）· <code>WmReturn*</code> 6（其中验收页实为收货验收，退货专属 5）· 上下架与移库 7（<code>WmToUp*</code> 2、<code>WmToDown*</code>、<code>WmToMove*</code> 3、<code>WmSttInGoods*</code>）· 装车复核 2 · 费用与历史库存 11（含箱号 <code>WmCartonNumberList</code>）· 托盘/称重/温控 3 · 平台出入库 2 · <code>Wms*</code> 5</td></tr>
+<tr><td class="k">Ba* 基础资料 51 项</td><td>库位 <code>BaKwList</code>(2 版) · 仓库 <code>BaStoreList</code> · 库区 <code>BaStoreAreaList</code> · 库位类型 <code>BaBinTypeList</code> · 作业类型 <code>BaOperTypeList</code> · 作业步骤 <code>BaOperStepList</code> · 序列号 <code>BaSnroList</code>/<code>BaSnroTypeList</code> · 质检 <code>BaQmQaList</code>/<code>BaQmStaList</code> · 加工方式 <code>BaPronutMethodList</code>/<code>BaPronutTypeList</code> · 客户属性 <code>BaKehushuxingList</code> · 客户状态 <code>BaKehuzhuangtaiList</code> · 费用项 <code>BaCostList</code>/<code>BaCostTypeList</code>/<code>BaCostConfList</code> · 价格类型 <code>BaPriceTypeList</code> · 单位 <code>BaUnit*</code> · 容器 <code>BaContTypeList</code>/<code>BaContSpecList</code> · 城市/港口/平台/承运方式等</td></tr>
+<tr><td class="k">Md* / Tms* / 其他</td><td>主数据 8：<code>MdCus</code>、<code>MdCusOther</code>、<code>MdSup</code>(2)、<code>MdGoods</code>(2)、<code>MdGeneralGoods</code>、<code>MdAvabin</code>；运输 7：<code>TmsYwCarList</code>、<code>TmsYwWindList</code>、<code>TmsYwDingdanList</code>、<code>TmsYwReportList</code>、<code>TmsMdCheliangList</code> 等；其他 5：<code>PositionsFigure</code>（库位图）、<code>RfidBuseList</code>、<code>Statement</code>(3 版，对账单)</td></tr>
+</tbody></table></div>
+
+<h3 id="s4-2">4.2 OpenWES：文档站与能力清单</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:200px">项</th><th>可核数据</th></tr></thead>
+<tbody>
+<tr><td class="k">站点框架</td><td>Docusaurus 3.x + TypeScript；根含 <code>blog/</code> · <code>docs/</code> · <code>i18n/</code> · <code>src/</code> · <code>static/</code>；<code>docusaurus.config.ts</code> 2,932 B、<code>sidebars.ts</code> 2,596 B、<code>package-lock.json</code> 645,755 B；显式侧栏（非文件系统生成）</td></tr>
+<tr><td class="k">侧栏 5 类 23 页</td><td>Getting Started 3（<code>collapsible:false</code>）· System Overview 4（<code>collapsed:false</code>）· For Warehouse Operators 3 · For WMS Managers 5 · For Developers 8（内嵌 API Reference 4，<code>collapsed:false</code>）。<code>advanced/</code> 8 页跨 3 章投放；<code>concepts/user-guide</code> 归 Operators 而非 Overview</td></tr>
+<tr><td class="k">功能清单条目数</td><td>入库 6 · 出库 <b>7</b> · 库存 6 · 任务编排 6 · 人力 6 · 设备集成 6 · 预测分析 5 · 实时看板 5 · 质量管理 6 · 合规 6 · 业务规则引擎 6 · 多租户 5 · 系统性能 6 · 扩展性 6 · 安全 6 · 可靠性 6 · API 与集成 6 · 定制框架 6 · 部署形态 6 · 实施支持 6 · 运营效率 6 · 战略优势 6</td></tr>
+<tr><td class="k">收货六步（workflow 原文）</td><td>① 登录选工作站（如 test）→ Confirm；② 主界面选 Product Receiving；③ 扫 LPN 号或手输；④ 校验 customer ID、storage type，扫商品条码、录收货数量；⑤ 扫 bin 号、录 SKU 数量、选货架位，Confirm；箱满点 <b>Full Box</b> 后由机器人搬入；⑥ 系统生成收货明细（收货单号、容器码、商品码），可查库存确认已更新</td></tr>
+<tr><td class="k">拣货六步（workflow 原文）</td><td>① 登录进 Picking；② 任务详情显示 bin 码与待拣数量，播种墙两个蓝色格口表示需绑定周转箱；③ 扫格口号（如 1）+ 周转箱号（如 Z000003），绑定成功格口转白；④ 扫 SKU 条码，校验有效后格口转绿，点绿色格口确认；⑤ 该格口全部拣完转蓝，点蓝格或熄灭播种灯确认订单完成；⑥ 格口回白，进入下一单</td></tr>
+<tr><td class="k">格口三色状态</td><td>蓝 = 需绑定周转箱 / 该订单已拣完待确认；白 = 已绑定可开拣 / 订单已处理完待下一单；绿 = SKU 有效可点击确认。角色：操作员（扫描与点击）、系统（校验与生成明细）、机器人（满箱搬运）、客户（仅 <code>customer ID</code> 字段）</td></tr>
+<tr><td class="k">代码可用性</td><td>本轮核实到的仅文档站与 <code>jingsewu/mock</code>（Java，2★，「OpenWES system mock service」）。<b>无业务源码</b>，故 OpenWES 结论停在文档级</td></tr>
+</tbody></table></div>
+
+<h3 id="s4-3">4.3 OpenWCS：19 模块、服务表、设备契约</h3>
+<p class="src">下表 19 行为 README 服务表与设备契约条目，与 <code>settings.gradle</code> 的 19 个 <code>include</code> <b>不是同一份清单</b>：Gradle 清单含无独立端口的 <code>libs:common</code>，不含 <code>ui</code> 与 <code>equipment-emulator</code>；下表把 <code>integration-sap</code> 与 <code>integration-manhattan</code> 合并为一行，并补了仿真器与前端两行。<code>services/adapters/*</code> 为独立 Go module，用 <code>go build</code> 构建，不参与 Gradle 项目。</p>
+<div class="tw"><table>
+<thead><tr><th>服务</th><th class="num">端口</th><th>职责（README 原文要点）</th></tr></thead>
+<tbody>
+<tr><td><code>gateway</code></td><td class="num">8080</td><td>Spring Cloud Gateway，路由 + JWT 校验（可开关），转发 <code>X-Auth-User</code> / <code>X-Auth-Roles</code></td></tr>
+<tr><td><code>master-data</code></td><td class="num">8081</td><td>SKU、UoM/bundles、条码、库位、设备、仓库；层级 Areas（<code>parentAreaId</code> 自嵌套、递归 CTE）；<code>/skus/{id}/card</code>；只读扫描解析 <code>/resolve/{...}</code></td></tr>
+<tr><td><code>inventory</code></td><td class="num">8082</td><td>实时 <code>stock</code> 表与 txlog 同步；锁定/不可用；库位级预留；FEFO/FIFO；报表聚合与 ShedLock 日快照</td></tr>
+<tr><td><code>process-engine</code></td><td class="num">8083</td><td>管理员设计的 BPMN 流程定义与执行（Flowable）</td></tr>
+<tr><td><code>order-management</code></td><td class="num">8084</td><td>出库订单与履约生命周期、放行管理；持久化 dispatch waves（OPEN/LOADING/DEPARTED）；pick-tasks 队列 / 确认 / 短拣；库位可用量守卫</td></tr>
+<tr><td><code>flow-orchestrator</code></td><td class="num">8085</td><td>向适配器派发设备任务；厂商中立输送线路由（拓扑图 + HU 路线计划 + 扫描时最短路径下一跳）；内存图快照 + 预计算下一跳表；<code>GET/PUT /api/flow/automation/topology</code>；<code>POST /api/flow/moves</code>；逐 HU 轨迹；HandlingUnitMoved 审计</td></tr>
+<tr><td><code>txlog</code></td><td class="num">8086</td><td>只追加事务日志，系统记录源；append/query/replay，outbox relay 发布到 <code>txlog.stream</code></td></tr>
+<tr><td><code>iam</code></td><td class="num">8087</td><td>users → roles → 编码权限；按用户仓库访问（允许仓库 + 默认仓库）；Keycloak 负责认证</td></tr>
+<tr><td><code>notification</code></td><td class="num">8088</td><td>~60 s ShedLock 评估器拉取看板指标 + 阈值，开 WARNING/CRITICAL（按仓/区/指标去重），email + webhook；<code>/alerts</code>、<code>/alerts/{id}/ack</code>、<code>/alerts/health</code></td></tr>
+<tr><td><code>integration-sap</code> / <code>integration-manhattan</code></td><td class="num">8089 / 8090</td><td>主机网关：SAP S/4HANA（OData/BAPI/RFC/IDoc）、Manhattan Active（REST）</td></tr>
+<tr><td><code>allocation</code></td><td class="num">8091</td><td>出库准备：拣选库位分配（UoM 拆分）、多尺寸装箱（最大优先、逐行纸箱可追溯）、批次拣选、allow-short</td></tr>
+<tr><td><code>integration-host</code></td><td class="num">8092</td><td>厂商中立 Host API <code>/api/host/**</code>：订单 + ASN + SKU 同步进，确认出</td></tr>
+<tr><td><code>slotting</code></td><td class="num">8093</td><td>上架与补货：GTP 区块上架、人工拣选面 min/max + 机会式补货、非高峰重槽；<code>claim-next</code> + <code>FOR UPDATE SKIP LOCKED</code>；lane-depth 对账</td></tr>
+<tr><td><code>gtp</code></td><td class="num">8094</td><td>货到人工作站：STOCK/ORDER 节点、put-to-light 上架清单、布局 <code>ONE_TO_ONE / ONE_TO_N / PUT_WALL</code>、pick-to-light 驱动 <code>ILLUMINATE/CLEAR</code>；运行模式 PICKING / DECANTING / DECANT_MULTI / STOCK_COUNT / QC / MAINTENANCE</td></tr>
+<tr><td><code>counting</code></td><td class="num">8095</td><td>循环盘点（库位/SKU/区/区块范围，盲盘或差异盘）、ABC 节奏排程、采集→差异→对账（容差内自动批准）→ <code>StockAdjusted</code>；站内盲盘至两人一致；行级预留与 TTL 清扫</td></tr>
+<tr><td><code>assistant</code></td><td class="num">8096</td><td>只读 WCS 端点的应用内 AI 助手（tool-use 循环），转发调用者身份与仓库范围</td></tr>
+<tr><td><code>process-designer</code></td><td class="num">8097</td><td>可配置手持流程：版本化定义（唯一 ACTIVE 版本）、草稿/激活、<code>skipWhen</code> 条件、实例 start/checkpoint/resume、服务端任务库（<code>inventory.move</code>、<code>slotting.putaway</code>、<code>picking.confirm</code> 等）、GraalJS 沙箱脚本、RF 韧性（逐步历史、精确恢复、<code>reassign</code>）</td></tr>
+<tr><td><code>equipment-emulator</code></td><td class="num">9097</td><td>全设备族仿真：<code>HARDWARE_EMULATOR_ENABLED</code>、<code>OPENWCS_EMULATOR_LATENCY_MS</code>、<code>FAULT_RATE</code>、<code>RECIRC_EVERY</code>、<code>GET/POST /config</code>；<code>/amr/fleet</code>、<code>/autostore/grid</code>、<code>/asrs/cranes</code> 孪生遥测</td></tr>
+<tr><td><code>ui</code></td><td class="num">5173 / 443</td><td>React + TS SPA、可安装 PWA；落地看板 + 五块深屏 + andon 安灯墙 + alert-health；五大侧栏分区；3D 硬件孪生（绿正常 / 橙堵塞 / 红故障）；6 语言 ~1700 key；<code>/live-demo</code> 只读沙箱</td></tr>
+</tbody></table></div>
+<div class="tw"><table>
+<thead><tr><th>设备契约 / 适配器</th><th class="num">端口</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td class="k">统一契约</td><td>—</td><td>所有设备族适配器暴露 <code>POST /tasks</code> + <code>/healthz</code> + <code>/readyz</code>；核心永不直连厂商协议；新设备 = 新适配器</td></tr>
+<tr><td><code>conveyor</code></td><td class="num">9091</td><td>输送机；当前返回 FAILED（"hardware not connected"）——真实硬件接缝</td></tr>
+<tr><td><code>asrs</code> / <code>amr-geekplus</code> / <code>autostore</code></td><td class="num">9096 / 9093 / 9094</td><td>穿梭车堆垛机 / Geek+ AMR / AutoStore 网格，同为硬件接缝</td></tr>
+<tr><td><code>ptl</code></td><td class="num">9098</td><td>拣选灯，<code>ILLUMINATE</code> / <code>CLEAR</code> + <code>/state</code>，由 <code>gtp</code> 驱动</td></tr>
+<tr><td><code>conveyor-sniffer</code></td><td class="num">9095</td><td>抓取扫描报文上报 WCS，用于输送拓扑学习</td></tr>
+<tr><td class="k">移动原语与轨迹</td><td>—</td><td><code>STORE</code> / <code>RETRIEVE</code> / <code>RELOCATE</code>（+ <code>BIN_*</code>）；同系统单次 RELOCATE，跨系统 RETRIEVE→CONVEY→STORE 链；HU 轨迹 REQUESTED → RETRIEVED → INDUCTED → [SCANNED…RECIRCULATED/DIVERTED] → ARRIVED → QUEUED → DONE</td></tr>
+<tr><td class="k">架构原则</td><td>—</td><td>Kafka 事件驱动；txlog 为唯一真相源，库存与看板为可重放投影；共享 Postgres 只放主数据 + txlog，无跨 schema 外键；认证默认关闭</td></tr>
+</tbody></table></div>
+
+<h3 id="s4-4">4.4 四轮调研中修正的判断</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:44px">轮</th><th>原判断</th><th>证据</th><th>更正</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td><code>jeewsms</code> 是另一套系统，中台对标按「3PL 通用能力」</td><td>GitHub 检索 0 条；用户确认笔误</td><td>两端统一以 JeeWMS 为源；中台取管理端能力</td></tr>
+<tr><td class="num">2</td><td>OpenWCS 是纯 WCS，WES 层全归 OpenWES</td><td><code>settings.gradle</code> 含 <code>allocation</code>/<code>slotting</code>/<code>gtp</code>/<code>counting</code>/<code>order-management</code></td><td>OpenWCS 为 WES + WCS 合体</td></tr>
+<tr><td class="num">2</td><td>工作站交互写成「站台队列 / 拣选位 / 播种格」</td><td><code>workflow.md</code> 拣货六步 + 格口三色</td><td>按原文重写；补 LPN、Full Box、熄灯</td></tr>
+<tr><td class="num">2</td><td>方案漏「理货」环节</td><td>jeewms-cloud README 流程原句</td><td>补 <code>tally-task</code>，30 → 31 页；称重并入打包单</td></tr>
+<tr><td class="num">3</td><td><code>WmReturnAcceptList.vue</code> 是退货验收；退货链 7 页四件套</td><td>组件 <code>WmImNoticeIList</code>、接口 <code>ysList</code>、到货通知单号</td><td>实为收货验收；<code>WmReturn*</code> 6 文件、退货专属 5 页</td></tr>
+<tr><td class="num">3</td><td>分播只有一层 <code>gridCode</code></td><td><code>WaveToDownList</code> 的 <code>firstRq</code> / <code>secondRq</code></td><td>补两级容器 <code>firstContainerNo</code> / <code>secondContainerNo</code></td></tr>
+<tr><td class="num">4</td><td>结算状态自拟六态；计价字段缺合同与税务口径</td><td><code>BmsBillHList</code> 四步动作 + 页签；<code>BmsCostRuleHList</code>；<code>BmsBillISubTable</code></td><td>状态改四步链；补合同、最低/最高收费、周期、有效期、税率、含税/不含税价、来源编号；枚举 14 → 19 组</td></tr>
+<tr><td class="num">4</td><td>方案写「19 个新实体」但清单列 25 项</td><td>内部一致性核对</td><td>撤销不实计数，改为一页一核</td></tr>
+<tr><td class="num">4</td><td>OpenWES 出库 8 项；<code>wms/jee</code>「Wm* 46 个」</td><td><code>features-overview.md</code> 逐条数 7 项；Gitee contents 在 <code>WmPlatIoList</code> 截断、git/trees 另列 24 个</td><td>改为 7 项；改为「可见 118 页、Wm* 46 非总数」</td></tr>
+</tbody></table></div>
+
+<h2 id="s5"><span class="n">05</span>对比分析<a class="anchor" href="#s5">#</a></h2>
+
+<h3 id="s5-1">5.1 三套系统定位与材料深度</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:110px">维度</th><th>JeeWMS</th><th>OpenWES</th><th>OpenWCS</th></tr></thead>
+<tbody>
+<tr><td class="k">实际定位</td><td>单据与计费齐全的 WMS（+ OMS/BMS/TMS 域），单体与微服务两套并存</td><td>文档先行的 WES 设计方案，公开代码仅 mock</td><td>事件驱动的 WES + WCS 工程，服务与适配器齐备</td></tr>
+<tr><td class="k">材料深度</td><td><span class="tag t-b">B</span> 118+ 页 Vue 源码、9 页字段级实读、两份 README</td><td><span class="tag t-b">B</span> 23 篇文档导航、3 篇全文；<b>无业务源码</b></td><td><span class="tag t-b">B</span> README 服务表 + 19 模块清单；<b>服务源码未读</b></td></tr>
+<tr><td class="k">主要贡献</td><td>单据字段、计费四段链、库内作业分工、批次/托盘/序列号主档</td><td>工作站交互、任务编排分类、质检/隔离/盘点策略</td><td>设备统一契约、任务下发与回传、孪生与告警、状态分离</td></tr>
+<tr><td class="k">工程特征</td><td>JeecgBoot 生成器风格；大量列与动作整段注释；同一字段重复绑定；新旧版本并存（<code>List01~03</code>、<code>List2</code>）</td><td>Docusaurus 文档站按读者角色组织，文档投入重于代码曝光</td><td>19 服务 + Go 适配器 + 仿真器；契约优先（Avro / OpenAPI）；txlog 唯一真相源</td></tr>
+<tr><td class="k">与本项目关系</td><td>中台与 WMS 单据层的字段来源</td><td>工作站与任务层的交互来源</td><td>设备层与状态分离的架构来源</td></tr>
+</tbody></table></div>
+
+<h3 id="s5-2">5.2 能力矩阵（按本项目 WMS 四层两线）</h3>
+<div class="tw"><table>
+<thead><tr><th>层 / 线</th><th>JeeWMS</th><th>OpenWES</th><th>OpenWCS</th><th>货灵WMS 现状</th><th>方案增量</th></tr></thead>
+<tbody>
+<tr><td class="k">任务层</td><td><code>WmOmTaskConfirmList</code>、<code>WmToUpList</code>、<code>WmOmQmIList</code>（下架任务）</td><td>Task Orchestration 6 项：动态建单、优先级与 SLA、资源分配、负载均衡、进度监控、绩效分析</td><td><code>flow-orchestrator</code> 设备任务派发；<code>process-designer</code> 服务端任务库</td><td>作业任务、作业看板、单据总览</td><td>任务池与派工、人效与准确率</td></tr>
+<tr><td class="k">单据层 · 入库</td><td>通知单、验收（<code>ysList</code>）、质检、理货、上架、越库 <code>WmImCrossList</code></td><td>ASN、多步收货含质检、Cross-Docking、上架优化、异常分流</td><td><code>integration-host</code> ASN 同步</td><td>入库通知单、收货单、上架单</td><td>到货预约、质检单、理货任务、越库直发</td></tr>
+<tr><td class="k">单据层 · 出库</td><td>通知单、波次下发、下架、复核、称重 <code>WmWeigh</code>、装车 <code>TmsYwWindList</code>、箱号</td><td>订单、波次、拣选路径、多拣选策略、Pick-to-Light、打包优化、发运</td><td><code>allocation</code>、<code>order-management</code> pick-tasks、dispatch waves</td><td>出库订单、波次、拣货单、复核单、交接单</td><td>打包单、分播播种、装车发运</td></tr>
+<tr><td class="k">单据层 · 库内</td><td>移库 <code>WmToMove*</code>、补货、上下架、加工 <code>BaPronut*</code>、盘点</td><td>循环盘点与 ABC、补货、调整、隔离</td><td><code>slotting</code> 重槽、<code>counting</code> 盲盘与容差对账</td><td>库位、移库、盘点计划/单、补货</td><td>库位容量与 ABC、组套加工、冻结解冻、盘点差异审批</td></tr>
+<tr><td class="k">账实层</td><td>历史库存 3 页、批次、库位图、序列号主档、对账单 <code>Statement</code></td><td>实时可见、批次/序列号、FEFO/FIFO</td><td><code>inventory</code> 实时 stock + 锁定/预留 + 报表聚合</td><td>库存、批次、仓位、日清、初始、调整、快照</td><td>序列号追踪</td></tr>
+<tr><td class="k">设备层</td><td>AGV 调度模拟（README）、RFID <code>RfidBuseList</code>、温度 <code>WmWenduList</code></td><td>输送线、AGV/AMR、机器人、打印、扫描、称重</td><td>统一设备契约 + 6 适配器 + 仿真器 + 孪生遥测 + andon</td><td>设备、容器、执行单元</td><td>设备监控、告警工单、驱动协议、AGV 策略</td></tr>
+<tr><td class="k">贯穿线 · 策略</td><td><code>BaOperStep</code>、计费规则批量、波次下发</td><td>业务规则引擎、动态路由、审批流、自定义字段</td><td>BPMN 流程、版本化流程定义、<code>skipWhen</code></td><td>策略管理、单据工序编排、任务中心策略</td><td>不增页，策略挂在触发页</td></tr>
+<tr><td class="k">贯穿线 · 异常</td><td>差异处理、拒收、温度、黑白件</td><td>Exception Handling、Quarantine、Corrective Actions</td><td>告警 ack、故障注入、逐 HU 轨迹审计</td><td>无独立页</td><td>异常登记与处置</td></tr>
+</tbody></table></div>
+
+<h3 id="s5-3">5.3 与货灵运营中台管理端的差距</h3>
+<div class="tw"><table>
+<thead><tr><th>域</th><th>JeeWMS 可核依据</th><th>中台现状（40 页 / 10 段）</th><th>方案增量</th></tr></thead>
+<tbody>
+<tr><td class="k">服务关系</td><td><code>MdCus</code>、<code>BaKehushuxing</code>、<code>BaKehuzhuangtai</code>、<code>BasePriceList</code></td><td>货主档案、货主组、承运商、时效协议、协议审核</td><td>货主仓授权、服务目录与报价</td></tr>
+<tr><td class="k">仓网资源</td><td><code>BaStore</code>、<code>BaKw</code>、<code>PositionsFigure</code>、<code>BaBinType</code></td><td>仓库档案、设备档案、设备调拨、容器档案</td><td>仓容与产能规划、设备利用率、维保计划</td></tr>
+<tr><td class="k">作业协同</td><td><code>TmsYwCar</code>/<code>TmsYwWind</code>、<code>BiVisualConfigList</code>、<code>dashboard/</code></td><td>仓网总览、计划单确认、跨仓调拨</td><td>告警中心、运营日报、月台预约计划</td></tr>
+<tr><td class="k">结算</td><td><b>bms 16 页四段</b>：费用类型/来源/规则/明细 → 账单/配置/客户费用 → 结算类型/财务主体 → 收付款/发票</td><td>仅「软件服务费」与协议审核；<code>billing</code> 两页未分配端</td><td>启用费用规则与费用账单；新增结算单、发票与收款；段 10 → 12</td></tr>
+<tr><td class="k">运营治理</td><td><code>system/</code> 26 页：部门、岗位、角色、权限、数据权限规则、字典、日志、定时任务、网关路由</td><td>账号管理、角色权限、操作日志、字典</td><td>组织架构、审批流配置</td></tr>
+</tbody></table></div>
+<div class="note"><p><b>最硬的一处差距</b>：<code>billing</code> 模块四页中，<code>rate-owner-list</code> / <code>bill-owner-list</code> 归货灵ERP，<code>rate-list</code> / <code>bill-list</code> 未写 <code>app</code>，不进任何端产物。运营中台作为服务商结算端，一个费用页都没有，与端定位直接冲突。JeeWMS 的 bms 四段链提供了补齐路径。</p></div>
+
+<h3 id="s5-4">5.4 差异归因</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:130px">差异</th><th>原因</th><th>处置</th></tr></thead>
+<tbody>
+<tr><td class="k">JeeWMS 有退货链、温控、黑白件、平台出入库、托盘单页</td><td>其定位是单仓全量作业系统；货灵把退货源头放在货灵ERP 退货申请单与售后入库计划单，平台对接放在平台适配器</td><td><span class="tag t-no">不跟随</span>，仓内只落一张入库通知单（来源=售后）；理由写入方案第 10 节</td></tr>
+<tr><td class="k">JeeWMS 与 OpenWES 都含多租户 / SaaS</td><td>项目硬约束：单实例单主体，多货主只是业务维度</td><td><span class="tag t-no">不跟随</span></td></tr>
+<tr><td class="k">OpenWCS 用 BPMN 与 txlog 重放</td><td>其面向自动化设备的事件驱动工程；本项目原型是自包含 HTML，无后端与事件总线</td><td><span class="tag t-no">不跟随</span>引擎；只借鉴状态分离、设备契约、告警 ack 的界面语义</td></tr>
+<tr><td class="k">JeeWMS 大量注释列与重复绑定</td><td>生成器代码与历史迭代产物</td><td><span class="tag t-no">不跟随</span>；字段表只保留有界面出口的字段（方案原则 P1）</td></tr>
+<tr><td class="k">本项目缺设备层 4 页与异常闭环</td><td>现有 32 页覆盖单据与账实，未下沉到 WES/WCS</td><td><span class="tag t-ok">可借鉴</span>，按 OpenWCS 服务划分补页</td></tr>
+<tr><td class="k">本项目比三套系统多的</td><td>五端共享注册表、50 份字段字典、界面文案纪律、跨端联动确认流程</td><td>保持；这些是原型可交付与可评审的前提，不是参考系统能力</td></tr>
+</tbody></table></div>
+
+<h2 id="s6"><span class="n">06</span>术语对照<a class="anchor" href="#s6">#</a></h2>
+<p class="src">左列为竞品原生叫法；本项目用词先查 <code>references/core/glossary.md</code>，新词先登记再使用，不把竞品词直接搬进界面。</p>
+<div class="tw"><table>
+<thead><tr><th>竞品原生叫法</th><th>标识</th><th>本项目叫法 / 标识</th><th>差异</th></tr></thead>
+<tbody>
+<tr><td>货主编码 / 客户</td><td><code>cusCode</code> / <code>md_cus</code></td><td>货主 / <code>ownerCode</code></td><td>JeeWMS 用「客户」，本项目统一「货主」；不引入「客户」界面词</td></tr>
+<tr><td>仓位 / 库位编码</td><td><code>binId</code> / <code>kuWeiBianMa</code></td><td>库位 / <code>locationCode</code></td><td>同一仓库两套词并存；本项目只用一个</td></tr>
+<tr><td>托盘码</td><td><code>tinId</code> / <code>binId</code>（上架页）</td><td>托盘 / <code>palletNo</code>，容器 / <code>containerNo</code></td><td>JeeWMS 上架页把 <code>binId</code> 当托盘码，与出库页的库位语义冲突；本项目按对象区分</td></tr>
+<tr><td>装箱单号 / 货主单号</td><td><code>imCusCode</code></td><td>来源单据号 / <code>docNo</code>、打包单号 / <code>packingNo</code></td><td>同一标识在不同页含义不同；本项目按单据类型分字段</td></tr>
+<tr><td>一次下架容器 / 分拣容器</td><td><code>firstRq</code> / <code>secondRq</code></td><td><code>firstContainerNo</code> / <code>secondContainerNo</code></td><td>两级容器；不要合并成一层格口</td></tr>
+<tr><td>下架</td><td><code>WmOmQmI</code> / <code>dotodown1</code></td><td>拣货 / 下架任务</td><td>本项目出库段已有「拣货单」，新增页沿用而不叫「下架」</td></tr>
+<tr><td>理货</td><td>README 流程原句</td><td>理货任务 / <code>tally-task</code></td><td>收货与上架之间的独立环节，本项目原缺</td></tr>
+<tr><td>播种墙 / 周转箱 / 格口</td><td>Sowing Wall / turnover container / grid</td><td>分播播种 / <code>sort-task</code>、<code>gridCode</code>、<code>containerNo</code></td><td>OpenWES 用颜色表状态；本项目用状态枚举列，不用颜色单独承载语义</td></tr>
+<tr><td>LPN</td><td>License Plate Number</td><td>周转箱号 / <code>containerNo</code></td><td>不在界面出现 LPN 缩写</td></tr>
+<tr><td>工作站 / GTP</td><td>Workstation / Goods-To-Person</td><td>工作站 / <code>stationCode</code></td><td>本项目只画工作站页面，不画 GTP 服务</td></tr>
+<tr><td>波次号</td><td><code>waveId</code></td><td>波次 / <code>waveNo</code></td><td>命名前缀不同，语义一致</td></tr>
+<tr><td>计费对象</td><td><code>costObjNo</code> / <code>costObjName</code></td><td>结算对象 / <code>ownerCode</code></td><td>本项目结算对象只取货主；不引入「计费对象类型」维度</td></tr>
+<tr><td>账单 / 结算类型</td><td><code>billNo</code> / <code>bmsCsType</code></td><td>结算单 / <code>settlementNo</code>；费用账单 / <code>bill-list</code></td><td>本项目把「账单」与「结算单」拆成两级，与 JeeWMS 的账单主页 + 结算类型不同</td></tr>
+<tr><td>未开票 / 已开票</td><td>账单主页签</td><td><code>invoiceStatus</code></td><td>作页签状态，不作单据状态</td></tr>
+<tr><td>审核 / 发送 / 确认 / 完成</td><td><code>shenhebillById</code> 等</td><td>结算状态 <code>status</code> 四步链</td><td>本项目替换原自拟六态</td></tr>
+<tr><td>状态 / 执行状态</td><td><code>moveSta</code> / <code>runSta</code></td><td><code>taskStatus</code> / <code>deviceStatus</code> / <code>docStatus</code></td><td>JeeWMS 双状态印证本项目 P3「状态分离」；本项目拆三态</td></tr>
+<tr><td>原始单据三元组</td><td><code>orderTypeCode</code> / <code>orderId</code> / <code>orderIdI</code></td><td><code>sourceNo</code> / <code>changeType</code></td><td>本项目简化为来源 + 变动类型，但要求改账必填（P4）</td></tr>
+<tr><td>盲盘 / 容差内自动批准</td><td><code>counting</code> 服务</td><td>盘点差异审批 / <code>count-diff-audit</code></td><td>本项目差异一律走审批，不自动通过</td></tr>
+<tr><td>待处理 / 占用 / 波次</td><td>各系统自有枚举</td><td>逐字取 <code>glossary.md</code></td><td>同名不同义，禁止直接搬用竞品枚举</td></tr>
+</tbody></table></div>
+
+<h2 id="s7"><span class="n">07</span>关键结论与落点<a class="anchor" href="#s7">#</a></h2>
+<p class="src">结论只允许「可借鉴 / 不跟随 / 待定」。每条必须落到端、模块、页面 key、字段、数据字典实体。</p>
+<div class="tw"><table>
+<thead><tr><th style="width:44px">编号</th><th style="width:78px">判定</th><th>结论与依据</th><th>落点（端 / 模块 / 页 key / 字段 / 字典实体）</th></tr></thead>
+<tbody>
+<tr><td class="num">C1</td><td><span class="tag t-ok">可借鉴</span></td><td>计费四段链：费用类型/来源/规则/明细 → 账单/配置 → 结算类型/财务主体 → 收付款/发票（bms 16 页 + 9 页实读中的 3 页）</td><td>network-app · <code>billing</code> · <code>rate-list</code>（启用）、<code>bill-list</code>（启用）、<code>settlement-list</code>、<code>invoice-list</code> · 字典「费用账单」+ 新实体「结算单」「发票与收款」</td></tr>
+<tr><td class="num">C2</td><td><span class="tag t-ok">可借鉴</span></td><td>账单「未开票/已开票」页签带计数；审核→发送→确认→完成四步状态链</td><td>network-app · <code>settlement-list</code>、<code>invoice-list</code> · <code>invoiceStatus</code>、<code>status</code> 四步枚举 · glossary 登记</td></tr>
+<tr><td class="num">C3</td><td><span class="tag t-ok">可借鉴</span></td><td>报价挂合同，带最低/最高收费、计费周期、有效起止；账单明细带来源编号、税率、含税/不含税价</td><td>network-app · <code>service-catalog</code>、<code>settlement-list</code> · <code>contractNo</code>、<code>minCharge</code>、<code>maxCharge</code>、<code>billingCycle</code>、<code>effectiveFrom/To</code>、<code>sourceNo</code>、<code>taxRate</code>、<code>amountBeforeTax</code>、<code>amountWithTax</code> · 字典「服务目录与报价」「结算单」</td></tr>
+<tr><td class="num">C4</td><td><span class="tag t-ok">可借鉴</span></td><td>收货验收需同时录验收数量（必填）、生产日期、批次、计划库位、托盘</td><td>warehouse-app · <code>inbound/qc-order</code> · <code>acceptedQty</code>、<code>producedAt</code>、<code>plannedLocationCode</code>、<code>palletNo</code>、<code>receivedQty</code> · 字典「质检单」</td></tr>
+<tr><td class="num">C5</td><td><span class="tag t-ok">可借鉴</span></td><td>理货是收货与上架之间的独立环节（README 流程原句）</td><td>warehouse-app · <code>inbound/tally-task</code> · <code>tallyNo</code>、<code>stageLocationCode</code>、<code>tallyStatus</code> · 字典「理货单」</td></tr>
+<tr><td class="num">C6</td><td><span class="tag t-ok">可借鉴</span></td><td>波次下发用两级容器（一次下架容器 → 分拣容器），与 OpenWES 播种墙格口绑定拼成完整分播链</td><td>warehouse-app · <code>outbound/sort-task</code> · <code>firstContainerNo</code>、<code>secondContainerNo</code>、<code>gridCode</code>、<code>barcode</code>、<code>orderCount</code>、<code>pickedQty</code> · 字典「分播任务」</td></tr>
+<tr><td class="num">C7</td><td><span class="tag t-ok">可借鉴</span></td><td>工作站拣货六步 + 格口三色 + LPN + Full Box</td><td>warehouse-app · <code>outbound/sort-task</code>、<code>inbound/receiving-order</code>（现有页）· 交互模式写入方案第 6.2 节 · 字典「容器档案」补 LPN 绑定</td></tr>
+<tr><td class="num">C8</td><td><span class="tag t-ok">可借鉴</span></td><td>状态分离：<code>moveSta</code> 与 <code>runSta</code> 双轨；原始单据三元组回指来源</td><td>warehouse-app · <code>task/task-pool</code>、<code>warehouse/move-task</code>（现有页）· <code>taskStatus</code> / <code>deviceStatus</code> / <code>docStatus</code>、<code>sourceNo</code> · 印证设计原则 P3/P4</td></tr>
+<tr><td class="num">C9</td><td><span class="tag t-ok">可借鉴</span></td><td>统一设备契约 <code>POST /tasks</code> + <code>/healthz</code> + <code>/readyz</code>；适配器按设备族分；告警 ack 与停机时长</td><td>warehouse-app · <code>resource/device-driver</code>、<code>device-alarm</code>、<code>device-monitor</code> · <code>endpoint</code>、<code>protocol</code>、<code>heartbeatSeconds</code>、<code>downMinutes</code> · 字典「设备驱动」「设备告警」「故障工单」</td></tr>
+<tr><td class="num">C10</td><td><span class="tag t-ok">可借鉴</span></td><td>货到人工作站布局与运行模式（ONE_TO_ONE / ONE_TO_N / PUT_WALL；PICKING / QC / MAINTENANCE 等）</td><td>warehouse-app · <code>outbound/sort-task</code>、<code>task/task-pool</code> · <code>stationCode</code>、<code>status</code> 播种状态枚举 · 字典「分播任务」</td></tr>
+<tr><td class="num">C11</td><td><span class="tag t-ok">可借鉴</span></td><td>盘点差异走审批、容差与盲盘（OpenWCS <code>counting</code>）</td><td>warehouse-app · <code>inventory/count-diff-audit</code> · <code>diffQty</code>、<code>approveStatus</code>、<code>adjustNo</code> · 字典「盘点差异」</td></tr>
+<tr><td class="num">C12</td><td><span class="tag t-ok">可借鉴</span></td><td>系统管理含部门、岗位、数据权限规则、定时任务、网关路由</td><td>network-app · <code>system/org-list</code>、<code>approval-flow</code> · <code>orgCode</code>、<code>orgType</code>、<code>nodeSeq</code>、<code>approverRole</code> · 字典「组织」「审批流」</td></tr>
+<tr><td class="num">C13</td><td><span class="tag t-ok">可借鉴</span></td><td>库位图与仓位使用率、效期预警（README 配图 + <code>PositionsFigure</code>）</td><td>network-app · <code>network/capacity-plan</code>；warehouse-app · <code>warehouse/location-capacity</code> · <code>usageRate</code>、<code>abcClass</code> · 字典「库区库位」扩字段</td></tr>
+<tr><td class="num">C14</td><td><span class="tag t-no">不跟随</span></td><td>多租户（<code>TenantList</code>、OpenWES Multi-Tenant Architecture）</td><td>项目硬约束：单实例单主体；不落任何端与字段</td></tr>
+<tr><td class="num">C15</td><td><span class="tag t-no">不跟随</span></td><td>JeeWMS 退货链五页、温控、黑白件、平台出入库、托盘单页</td><td>货灵ERP <code>owner/return-apply-list</code> 与售后入库计划单承担源头；仓内只落一张入库通知单；理由见方案第 10 节</td></tr>
+<tr><td class="num">C16</td><td><span class="tag t-no">不跟随</span></td><td>OpenWCS BPMN 引擎、txlog 重放、Kafka 事件驱动</td><td>原型无后端；<code>workflow-list</code> 已承担工序编排，不引 BPMN 建模器</td></tr>
+<tr><td class="num">C17</td><td><span class="tag t-no">不跟随</span></td><td>JeeWMS 大量注释列、同一字段双重绑定、<code>List01~03</code> 复制版本</td><td>字段表只保留有界面出口的字段（原则 P1）；派生列用纯函数，不落数据</td></tr>
+<tr><td class="num">C18</td><td><span class="tag t-wait">待定</span></td><td>设备利用率指标口径、维保计划、AGV 调度策略参数（充电阈值/避让区/单机并发）</td><td>三套仓库均无对应页面或参数表；<b>卡在</b>：无源码依据；<b>需谁定</b>：产品 + 设备侧；<b>定了影响</b>：<code>device-utilization</code>、<code>maintenance-plan</code>、<code>agv-strategy</code> 三页字段与字典</td></tr>
+<tr><td class="num">C19</td><td><span class="tag t-wait">待定</span></td><td>库位容积/承重字段名、<code>moveSta</code>/<code>omSta</code>/<code>orderTypeCode</code> 全量枚举值、字段长度精度与唯一约束</td><td>数据库只有 <code>.nb3</code> 二进制；<b>卡在</b>：DDL 与字典定义不可读；<b>需谁定</b>：字段真值以 <code>docs/数据字典/</code> 为准，由产品确认；<b>定了影响</b>：<code>location-capacity</code>、<code>move-task</code>、<code>out-plan-list</code> 等现有页列名</td></tr>
+</tbody></table></div>
+
+<h2 id="s8"><span class="n">08</span>建议<a class="anchor" href="#s8">#</a></h2>
+<div class="tw"><table>
+<thead><tr><th style="width:44px">序</th><th style="width:110px">建议</th><th>内容</th><th>判据 / 前置</th></tr></thead>
+<tbody>
+<tr><td class="num">R1</td><td>先登记后落页</td><td>A 批先在 <code>references/core/glossary.md</code> 登记 31 个页名、约 55 个列名、19 组枚举；新实体与扩字段进 <code>docs/数据字典/</code>；注册表加 31 条、<code>billing</code> 两页补 <code>app</code>、两处 <code>nav</code> 改写</td><td>构建期断言会拦未登记页名；本批不产页面，<code>build-app.mjs</code> 通过即装配成立</td></tr>
+<tr><td class="num">R2</td><td>按链路分批</td><td>B 中台 14 落点（计费四段先通）→ C WMS 单据与账实 12 页（含理货与差异审批）→ D WMS 任务与设备 7 页 → E 五端重建与全量验收</td><td>D 依赖 C 的单据数据；B 与 C 可并行</td></tr>
+<tr><td class="num">R3</td><td>先补证据再画 C 级页</td><td>C18/C19 三页在参数确认前只保留页面骨架与占位，不写死阈值与枚举</td><td>规则第 8 条：颗粒度不足不得用推测填空</td></tr>
+<tr><td class="num">R4</td><td>统一证据口径</td><td>方案文档第 1.2 节的「源文件形态 A/B/C」改为本报告 T3 的工作区规则口径，或明确并列标注，避免评审时同一结论两套等级</td><td>本轮已报差异；后续合并为一套</td></tr>
+<tr><td class="num">R5</td><td>原型改动另走确认</td><td>本调研不等于改动批准；落页前按「跨端联动确认」规则出评估清单（受影响端、落点、联动点、必须同改/无需改），确认后才改 <code>prototypes/</code></td><td>调研颗粒度规则第 8 条</td></tr>
+<tr><td class="num">R6</td><td>验收挂证据</td><td>每个新增页在验收时核对：列名出自本字段表、状态枚举出自 glossary、抽屉分区数等于字段分组数、危险动作带 <code>reason</code>/<code>operator</code>/<code>actedAt</code></td><td>方案第 11 节三层一致性自检</td></tr>
+<tr><td class="num">R7</td><td>保鲜期</td><td>三套系统均在 2026 年有推送（JeeWMS 2026-10-09、OpenWCS 2026-07-09 等）；产品改版后需复核并更新访问日期</td><td>调研颗粒度规则第 4 节</td></tr>
+</tbody></table></div>
+
+<h2 id="s9"><span class="n">09</span>缺项与未验证清单<a class="anchor" href="#s9">#</a></h2>
+<div class="tw"><table>
+<thead><tr><th style="width:190px">缺项</th><th>原因</th><th>影响范围</th></tr></thead>
+<tbody>
+<tr><td class="k">数据库 DDL 与字段精度</td><td>JeeWMS <code>database/</code> 与 <code>jeewms-cloud/db/</code> 只有 <code>.nb3</code> Navicat 二进制备份，未解包</td><td>字段长度、小数位、唯一约束、索引；C19</td></tr>
+<tr><td class="k">真实菜单标题与排序</td><td>菜单存于数据库；未解包 <code>.pdm</code> 与手册</td><td>本报告 2.1 只能给视图目录树</td></tr>
+<tr><td class="k">DOC/ 手册与接口文档</td><td>3 份 .doc/.pptx/.pdf 与 1 份 .pdm 未下载解包；4 张界面截图与 <code>gzl.png</code> 未逐张打开</td><td>可能补充流程说明与字段口径</td></tr>
+<tr><td class="k">状态枚举全量取值</td><td><code>moveSta</code>、<code>omSta</code>、<code>printStatus</code>、<code>costPeriod</code> 的字典定义在数据库，源码只见默认值与二值渲染</td><td>状态×动作矩阵；C19</td></tr>
+<tr><td class="k">角色差异</td><td>无账号、未登录运行实例；仅见 <code>v-has</code> 权限码</td><td>管理员与受限角色的菜单、字段、按钮差异全部未验证</td></tr>
+<tr><td class="k">空数据下的默认行为</td><td>静态源码无法确认默认排序、分页大小、空态文案、加载与请求失败表现</td><td>逐页八段第 3、8 段</td></tr>
+<tr><td class="k">移动端 / PDA / 运行实例</td><td><code>uniapp/</code> 只列目录；未部署任何目标系统</td><td>A 级证据为 0；覆盖端缺口</td></tr>
+<tr><td class="k">OpenWES 业务源码</td><td>核实到的只有文档站与 mock 服务</td><td>其能力结论停在文档级，未做代码验证</td></tr>
+<tr><td class="k">OpenWCS 服务源码与 UI</td><td>只读 <code>README.md</code> 与 <code>settings.gradle</code>；<code>build.md</code>(53 KB)、<code>styling.md</code>(47 KB)、<code>ui/</code> 未读</td><td>服务表为自述级证据；UI 视觉与交互细节未核</td></tr>
+<tr><td class="k">批量部分失败、重复提交、超时</td><td>由 JeecgListMixin / 后端提供，Mixin 源码未读</td><td>逐页八段第 8 段</td></tr>
+</tbody></table></div>
+
+<h2 id="s10"><span class="n">10</span>附录：可复核索引<a class="anchor" href="#s10">#</a></h2>
+
+<h3 id="s10-1">10.1 源地址清单</h3>
+<div class="tw"><table>
+<thead><tr><th>用途</th><th>地址</th></tr></thead>
+<tbody>
+<tr><td class="k">JeeWMS 主仓</td><td><code>https://github.com/erzhongxmu/JeeWMS</code>；镜像 <code>https://gitee.com/erzhongxmu/JEEWMS</code></td></tr>
+<tr><td class="k">JeeWMS README</td><td><code>raw.githubusercontent.com/erzhongxmu/JeeWMS/master/README.md</code>；<code>.../master/jeewms-cloud/README.md</code></td></tr>
+<tr><td class="k">JeeWMS 目录</td><td><code>api.github.com/repos/erzhongxmu/JeeWMS/contents/{path}</code>；<code>gitee.com/api/v5/repos/erzhongxmu/JEEWMS/contents/{path}</code>；<code>.../git/trees/{sha}</code></td></tr>
+<tr><td class="k">JeeWMS 实读页</td><td><code>gitee.com/erzhongxmu/JEEWMS/raw/master/jeewms-cloud/web/baseWeb/src/views/wms/{jee|bms|bms/subTables}/&lt;文件&gt;.vue</code>；9 个文件名见 2.2</td></tr>
+<tr><td class="k">OpenWES 文档站</td><td><code>raw.githubusercontent.com/jingsewu/openwes-docs/master/sidebars.ts</code>；<code>.../master/docs/concepts/features-overview.md</code>；<code>.../master/docs/concepts/workflow.md</code></td></tr>
+<tr><td class="k">OpenWCS</td><td><code>raw.githubusercontent.com/brettljausn-ai/openwcs/main/settings.gradle</code>；<code>.../main/README.md</code></td></tr>
+<tr><td class="k">检索接口</td><td><code>api.github.com/search/repositories?q=&lt;检索式&gt;</code>（8 组，见 T2）</td></tr>
+</tbody></table></div>
+
+<h3 id="s10-2">10.2 本项目基线（调研时点 2026-11-08）</h3>
+<div class="tw"><table>
+<thead><tr><th>项</th><th>值</th></tr></thead>
+<tbody>
+<tr><td class="k">注册表</td><td><code>prototypes/shared/modules.json</code>：五端 17 模块、130 页已分配、2 页预留</td></tr>
+<tr><td class="k">端页数</td><td>货灵ERP 38 · 货灵运营中台管理端 40 · 货灵WMS 32 · 货灵商城 6 · PDA 14</td></tr>
+<tr><td class="k">产物基线</td><td><code>node prototypes/build-app.mjs --check</code> 五端 check ok：ERP <code>09f4f1b1</code>、中台 <code>7c239063</code>、WMS <code>e8999f14</code>、商城 <code>cb9b848f</code>、PDA <code>65e1938b</code></td></tr>
+<tr><td class="k">字典</td><td><code>docs/数据字典/</code> 50 份实体文档；分类自检零错误</td></tr>
+<tr><td class="k">方案文档</td><td><code>docs/产品需求/运营中台与WMS功能方案.md</code>：31 新增页 + 2 启用页；中台 40→54（12 段）、WMS 32→51（11 段）；7 条原则、19 组枚举</td></tr>
+<tr><td class="k">自检</td><td><code>node docs/check.mjs</code> 零错误；<code>node docs/数据字典/check.mjs</code> 零错误</td></tr>
+</tbody></table></div>
+
+<h3 id="s10-3">10.3 与关联文档的分工</h3>
+<div class="tw"><table>
+<thead><tr><th>文档</th><th>职责</th></tr></thead>
+<tbody>
+<tr><td class="k">本 HTML</td><td>调研证据、覆盖清单、逐页八段、字段表、术语对照、结论落点、缺项</td></tr>
+<tr><td class="k">运营中台与WMS功能方案.md</td><td>设计理念、界面结构、字段清单、功能架构、31 页增量、侧栏重排、跨端联动清单、分批实施</td></tr>
+<tr><td class="k">三端核心功能清单.md</td><td>三端能力边界</td></tr>
+<tr><td class="k">docs/数据字典/</td><td>字段真值源；本报告的字段表是设计期依据，不替代字典</td></tr>
+</tbody></table></div>
+
+<footer>
+  调研日期 2026-11-08 · 公开仓库只读 GET · 未执行任何写操作 · 未登录任何运行实例 · A 级证据 0 条<br>
+  文档归属 <code>docs/产品需求/</code>，索引与变更见 <code>docs/index.md</code> / <code>docs/log.md</code>。
+</footer>
+
+</main>
+</div>
+<script>
+(function(){
+  var nav=document.getElementById('nav'), links=[], groups=[];
+  document.querySelectorAll('main h2, main h3').forEach(function(h){
+    var a=document.createElement('a');
+    a.href='#'+h.id; a.textContent=h.textContent.replace(/#$/,'').trim();
+    if(h.tagName==='H3') a.className='lv2';
+    nav.appendChild(a); links.push({a:a,h:h});
+  });
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(x){x.a.classList.toggle('active',x.a.getAttribute('href')==='#'+e.target.id);});
+      }
+    });
+  },{rootMargin:'0px 0px -78% 0px',threshold:0});
+  links.forEach(function(x){io.observe(x.h);});
+
+  var q=document.getElementById('q'), cnt=document.getElementById('qcount');
+  var rows=[].slice.call(document.querySelectorAll('main tbody tr'));
+  rows.forEach(function(r){r._t=(r.textContent||'').toLowerCase();});
+  q.addEventListener('input',function(){
+    var v=q.value.trim().toLowerCase(), n=0;
+    rows.forEach(function(r){
+      var hit=v.length>0 && r._t.indexOf(v)>-1;
+      r.classList.toggle('hit',hit);
+      r.classList.toggle('dim',v.length>0 && !hit);
+      if(hit)n++;
+    });
+    cnt.textContent=v.length?('命中 '+n+' 行'+(n?'：按 Ctrl+F 可继续定位':'')):'';
+  });
+})();
+</script>
+</body>
+</html>

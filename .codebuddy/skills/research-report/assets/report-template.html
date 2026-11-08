@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="topic" content="{{命题，与文件名主干一致}}">
+<meta name="survey-window" content="{{YYYY-MM-DDTHH:mm}} / {{YYYY-MM-DDTHH:mm}}">
+<meta name="survey-objects" content="{{对象简称，逗号分隔}}">
+<title>{{报告标题}}</title>
+<style>
+:root{--bg:#f4f6f9;--paper:#fff;--ink:#1c2430;--muted:#5a6675;--faint:#8792a1;--line:#e2e7ee;--accent:#1d5f8c;--accent-soft:#eaf2f9;--warn:#9a5b16;--warn-soft:#fdf3e5;--red:#9c3b3b;--red-soft:#fbeded;--shadow:0 1px 2px rgba(20,32,48,.05),0 10px 32px rgba(20,32,48,.06)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.78 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+.layout{display:grid;grid-template-columns:224px minmax(0,1fr);gap:24px;max-width:1360px;margin:0 auto;padding:24px}
+aside{position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:18px 14px;box-shadow:var(--shadow)}
+aside .side-title{font-size:12px;letter-spacing:.08em;color:var(--faint);font-weight:600;margin:0 0 10px 4px}
+aside a{display:block;color:var(--muted);text-decoration:none;font-size:13.5px;padding:5px 9px;border-radius:5px;border-left:2px solid transparent}
+aside a:hover{background:var(--accent-soft);color:var(--accent)}
+main{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:48px 56px 64px;box-shadow:var(--shadow);min-width:0}
+.cover{border-bottom:2px solid var(--ink);padding-bottom:24px;margin-bottom:30px}
+.kicker{font-size:12.5px;letter-spacing:.14em;color:var(--accent);font-weight:700;margin:0 0 10px}
+h1{font-size:29px;line-height:1.35;margin:0 0 12px;letter-spacing:-.01em}
+.sub{font-size:16px;color:var(--muted);margin:0 0 20px}
+.meta{display:flex;flex-wrap:wrap;gap:10px 24px;font-size:13px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600;margin-right:4px}
+h2{font-size:21px;margin:48px 0 6px;padding-bottom:10px;border-bottom:1px solid var(--line);scroll-margin-top:20px}
+h2 .num{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.04em;margin-right:8px}
+h3{font-size:16.5px;margin:28px 0 8px;scroll-margin-top:20px}
+h4{font-size:14.5px;margin:18px 0 6px;color:var(--accent)}
+p{margin:8px 0 12px}
+ul,ol{margin:8px 0 14px;padding-left:22px}
+li{margin:4px 0}
+code{font:13px/1.5 ui-monospace,Consolas,monospace;background:#f0f2f5;padding:1px 5px;border-radius:3px}
+table{width:100%;border-collapse:collapse;font-size:13.6px;margin:12px 0 20px}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:#f3f6fa;font-weight:650}
+tbody tr:nth-child(even){background:#fafbfd}
+td:first-child{font-weight:600}
+.callout{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 16px;border-radius:0 6px 6px 0;margin:16px 0;font-size:14px}
+.callout.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.callout.caution{border-left-color:var(--red);background:var(--red-soft)}
+figure{margin:16px 0 22px}
+figure img{max-width:100%;border:1px solid var(--line);border-radius:6px}
+figcaption{font-size:12.5px;color:var(--faint);margin-top:6px;line-height:1.6}
+.tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:3px;background:#e5f0f8;color:var(--accent);font-weight:600;margin-right:4px}
+.badge-ok{background:#e9f4ed;color:#2b6c49}
+.badge-no{background:#fbeded;color:#9c3b3b}
+.badge-tbd{background:#fdf3e5;color:#9a5b16}
+@media(max-width:980px){.layout{grid-template-columns:1fr;padding:12px}aside{position:static;max-height:none}main{padding:28px 20px 44px}h1{font-size:24px}table{font-size:12.8px}}
+@media print{body{background:#fff;font-size:11.5pt}.layout{display:block;padding:0;max-width:none}aside{display:none}main{border:0;box-shadow:none;padding:0}table,figure,.callout{page-break-inside:avoid}a{text-decoration:none;color:inherit}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+  <p class="side-title">目录</p>
+  <nav>
+    <a href="#s1">1 口径与证据</a>
+    <a href="#s2">2 覆盖清单</a>
+    <a href="#s3">3 逐页记录</a>
+    <a href="#s4">4 术语对照</a>
+    <a href="#s5">5 横向对比</a>
+    <a href="#s6">6 结论与落点</a>
+    <a href="#s7">7 缺项</a>
+    <a href="#s8">8 截图索引</a>
+  </nav>
+</aside>
+<main>
+
+<div class="cover">
+  <p class="kicker">调研报告</p>
+  <h1>{{报告标题}}</h1>
+  <p class="sub">中台缺计费闭环，bms 四段链可补 5 页</p>
+  <div class="meta">
+    <span><b>日期</b>{{YYYY-MM-DD}}</span>
+    <span><b>状态</b>{{草案}}</span>
+    <span><b>版本</b>{{v0.1}}</span>
+    <span><b>作者</b>{{}}</span>
+    <span><b>报告对象</b>{{调研的系统、方案或问题}}</span>
+  </div>
+</div>
+
+<!-- GUIDE 封面
+六项齐全：日期、状态、版本、作者、报告对象、一句话结论。
+状态只能取 草案 / 评审中 / 已定稿；日期写具体某天，不写「今天」。
+一句话结论必须是判断句，能被单独摘出来引用而不失真。
+head 的三个 meta 与文件名的对应关系由项目规则约束，填完别改。
+-->
+
+<h2 id="s1"><span class="num">1</span> 口径与证据</h2>
+
+<p>本轮覆盖 {{N}} 个对象，全部为只读访问，未在目标系统执行任何写操作。证据级别分三档：<b>A</b> 本人在目标系统实见（页面、字段、状态、操作）；<b>B</b> 官方帮助中心或源码原文；<b>C</b> 第三方文章与搜索摘要，只作范围参考。</p>
+
+<h3>1.1 调研对象</h3>
+
+<table>
+<thead><tr><th>对象</th><th>简称</th><th>访问时刻</th><th>账号条件</th><th>覆盖端</th><th>证据级</th><th>未验证项</th></tr></thead>
+<tbody>
+<tr><td>{{系统名}}</td><td>{{简称}}</td><td>{{2026-11-08 09:20}}</td><td>{{未登录，公开资料只读}}</td><td>{{Web}}</td><td>{{A/B/C}}</td><td>{{无}}</td></tr>
+</tbody>
+</table>
+
+<!-- GUIDE 1. 口径与证据
+写什么：一行一个对象，给访问时刻（精确到分钟）、账号条件（是否授权、数据是否为空）、覆盖端、证据级范围、未验证项。
+不写什么：不写「据了解」「业内普遍」；不把同一对象的多次访问拆成多行。
+合格线：每个对象都有访问时刻；未验证项写具体是哪一页或哪个字段；未执行写操作的声明必须有。
+-->
+
+<h2 id="s2"><span class="num">2</span> 覆盖清单</h2>
+
+<p>覆盖清单用来回答「看过什么、没看什么」，逐页覆盖表是第 3 节的索引。</p>
+
+<h3>2.1 菜单树</h3>
+
+<ul>
+  <li>{{一级菜单}}
+    <ul>
+      <li>{{二级分组}}
+        <ul><li>{{三级页面}}</li></ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3>2.2 逐页覆盖表</h3>
+
+<table>
+<thead><tr><th>菜单路径</th><th>页面类型</th><th>角色</th><th>状态</th><th>记录节号</th></tr></thead>
+<tbody>
+<tr><td>{{一级 › 二级 › 三级}}</td><td>{{列表}}</td><td>{{管理员}}</td><td>{{已看}}</td><td>{{3.1}}</td></tr>
+<tr><td>{{一级 › 二级 › 三级}}</td><td>{{详情}}</td><td>{{受限角色}}</td><td>{{未看：需付费}}</td><td>{{—}}</td></tr>
+</tbody>
+</table>
+
+<h3>2.3 非页面能力</h3>
+
+<p>规则引擎、导入导出、批量工具、通知、定时任务、开放接口与权限点通常不在主流程页里，逐项记是否覆盖。</p>
+
+<h3>2.4 未覆盖项</h3>
+
+<p>缺哪些页、哪些段、为什么缺（无权限、需付费、入口未找到），写在这里，并在第 7 节汇总。</p>
+
+<!-- GUIDE 2. 覆盖清单
+写什么：菜单树全量、一行一页的覆盖表、非页面能力、覆盖端与角色差异、未覆盖项。
+不写什么：不写功能简介；不把「有这功能」当覆盖，必须落到页面与状态。
+合格线：覆盖表里每个「已看」都能在第 3 节找到对应小节号；未覆盖项给了原因。
+-->
+
+<h2 id="s3"><span class="num">3</span> 逐页记录</h2>
+
+<h3>3.1 {{对象 › 菜单路径}}</h3>
+
+<h4>入口</h4>
+<p>{{菜单路径、页面类型、进入条件、可跳转去向}}</p>
+
+<h4>结构分区</h4>
+<p>{{顶部操作区、筛选区、列表区、批量条、抽屉或弹窗}}</p>
+
+<h4>列表列与筛选</h4>
+<p>{{默认列、可选列、默认排序、冻结列、汇总行；筛选控件类型与默认值}}</p>
+
+<h4>行与批量操作</h4>
+<p>{{动作名、可用条件、影响范围、二次确认与后果提示}}</p>
+
+<h4>状态 × 动作</h4>
+
+<table>
+<thead><tr><th>状态</th><th>{{动作一}}</th><th>{{动作二}}</th></tr></thead>
+<tbody>
+<tr><td>{{待处理}}</td><td>{{可}}</td><td>{{不可}}</td></tr>
+<tr><td>{{已完成}}</td><td>{{有条件：需管理员}}</td><td>{{不可}}</td></tr>
+</tbody>
+</table>
+
+<h4>交互与异常</h4>
+<p>{{空态、加载、请求失败、批量部分失败、重复提交、提示位置与现场保留}}</p>
+
+<!-- GUIDE 3. 逐页记录
+写什么：一页一节，节标题写「对象 › 菜单路径」；入口、结构分区、列表列与筛选、行与批量、状态×动作、交互与异常逐项写。
+不写什么：不贴大段原文摘录；不把没点到的写成默认行为，标「未验证」。
+合格线：状态×动作矩阵给出即可判定；每个「未验证」都能说清为什么。
+-->
+
+<h2 id="s4"><span class="num">4</span> 术语对照</h2>
+
+<p>同名不同义必须先对照再用，避免把甲对象的状态当成乙对象的。</p>
+
+<table>
+<thead><tr><th>对象</th><th>原生叫法</th><th>该对象下的判定口径</th><th>我方叫法</th></tr></thead>
+<tbody>
+<tr><td>{{简称}}</td><td>{{原生词}}</td><td>{{在什么条件下成立}}</td><td>{{本项目词}}</td></tr>
+</tbody>
+</table>
+
+<!-- GUIDE 4. 术语对照
+写什么：对象、原生叫法、该对象下的判定口径、我方叫法四列，同名项分行。
+不写什么：不只列词不写差异；不把竞品词直接搬进我方叫法。
+合格线：读者看完不会把两个对象的同名状态混为一谈。
+-->
+
+<h2 id="s5"><span class="num">5</span> 横向对比</h2>
+
+<p>行是对象、列是能力维度，格填 有 / 无 / 未验证。单对象时本节写「本轮单对象，无横向对比」，不跳号。</p>
+
+<table>
+<thead><tr><th>能力维度</th><th>{{对象 A}}</th><th>{{对象 B}}</th><th>差异与口径</th></tr></thead>
+<tbody>
+<tr><td>{{维度名}}</td><td>{{有}}</td><td>{{未验证}}</td><td>{{差异原因}}</td></tr>
+</tbody>
+</table>
+
+<!-- GUIDE 5. 横向对比
+写什么：对象 × 能力维度的矩阵，格用三种取值；矩阵后写差异原因。
+不写什么：不把「有这功能」当差异，差异要能指到页面或字段。
+合格线：每个「有」都能回指第 3 节的记录；「未验证」进第 7 节。
+-->
+
+<h2 id="s6"><span class="num">6</span> 结论与落点</h2>
+
+<p>每条结论只允许三种判定：可借鉴、不跟随、待定。落不到具体落点的是描述，不是结论。</p>
+
+<table>
+<thead><tr><th>编号</th><th>判定</th><th>结论</th><th>落点</th></tr></thead>
+<tbody>
+<tr><td>C1</td><td>待定</td><td>计费链路是否覆盖结算与发票两级，待财务确认</td><td><code>billing/settlement-list</code></td></tr>
+<tr><td>C2</td><td>可借鉴</td><td>波次下发可补一页，证据见 3.2</td><td><code>wms/wave-down</code></td></tr>
+</tbody>
+</table>
+
+<h3>6.1 建议</h3>
+
+<table>
+<thead><tr><th>编号</th><th>动作</th><th>前置</th><th>判据</th></tr></thead>
+<tbody>
+<tr><td>R1</td><td>{{动词开头}}</td><td>{{依赖什么}}</td><td>{{怎么算完成}}</td></tr>
+</tbody>
+</table>
+
+<!-- GUIDE 6. 结论与落点
+写什么：结论表四列（编号、判定、结论、落点），建议表四列（编号、动作、前置、判据）。
+不写什么：不写「建议加强协同」「持续优化」；不把发现换个说法当结论。
+合格线：每条结论能被反驳；每条建议能被验收；待定项写清卡点与决策人。
+-->
+
+<h2 id="s7"><span class="num">7</span> 缺项</h2>
+
+<p>缺哪些页、哪些字段、哪些口径，为什么缺，影响哪条结论。</p>
+
+<table>
+<thead><tr><th>项</th><th>原因</th><th>影响</th></tr></thead>
+<tbody>
+<tr><td>{{缺失项}}</td><td>{{无权限 / 需付费 / 入口未找到}}</td><td>{{影响 C1 的落点判断}}</td></tr>
+</tbody>
+</table>
+
+<!-- GUIDE 7. 缺项
+写什么：一行一项，给原因与影响；确实没有缺项时写一句「本轮无缺项」。
+不写什么：不写「部分内容未覆盖」这类无法核对的话。
+合格线：每条缺项都能说清为什么拿不到、影响哪条结论。
+-->
+
+<h2 id="s8"><span class="num">8</span> 截图索引</h2>
+
+<p>每张截图四必填：图号、菜单路径、拍摄时刻、这张图证明什么。另标数据状态（空数据 / 演示数据 / 真实数据已脱敏）与打码项。</p>
+
+<table>
+<thead><tr><th>图号</th><th>文件</th><th>对象</th><th>菜单路径</th><th>证明什么</th><th>数据状态</th></tr></thead>
+<tbody>
+<tr><td>{{简称-01}}</td><td><code>{{报告名.assets/简称/简称-01-页面名.png}}</code></td><td>{{简称}}</td><td>{{菜单路径}}</td><td>{{列表默认列与筛选区}}</td><td>{{空数据}}</td></tr>
+</tbody>
+</table>
+
+<!-- GUIDE 8. 截图索引
+写什么：一行一张图，四必填 + 数据状态；截图存同名 .assets/<对象简称>/ 目录，正文用相对路径引用。
+不写什么：不内联 base64；不引外部链接；不拍付费墙后、越权页与他人数据。
+合格线：正文每个 img 都能在本表找到对应行；缺图写「无截图：原因」并把证据级降到 B/C。
+截图位示例（用完解除注释）：
+<figure>
+  <img src="报告名.assets/简称/简称-01-页面名.png" alt="简称-01 菜单路径">
+  <figcaption>简称-01 ｜ 菜单路径 ｜ 2026-11-08 10:20 ｜ 证明：列表默认列与筛选区 ｜ 空数据</figcaption>
+</figure>
+-->
+
+</main>
+</div>
+</body>
+</html>

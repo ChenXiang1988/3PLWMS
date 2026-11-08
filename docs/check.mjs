@@ -8,6 +8,7 @@
  *   - index「分类与文档」表：状态与日期合法、链接文件存在、分类名与路径一致、无孤儿文档
  *   - 自带 index.md 的分类（如 数据字典/）由分类索引自管，顶层只校验入口已登记
  *   - 每个 log.md：归档索引表、日期分节、记录类型与段数、跨月/条数/体积超限、归档文件与索引双向闭环
+ *   - 调研报告体系（调研/）：必需 meta、调研窗口不超过 24 小时、文件名与窗口起始日一致、与分类索引双向闭环；章节与图片由 research-report 的 check-report.mjs 校验；legacy- 前缀的存量报告只校验登记与文件存在
  * 不做内容级禁语校验，由 docs/数据字典/check.mjs 负责。
  *
  * 用法：node docs/check.mjs
@@ -191,13 +192,72 @@ for (const logRel of logFiles) {
     if (segs.length < 4) { err(where, `记录不足 4 段（分类/文档｜类型｜摘要｜原因）：${line.trim()}`); continue; }
     if (types.size && !types.has(segs[1])) err(where, `记录类型「${segs[1]}」不在格式声明内：${[...types].join('/')}`);
     if (segs[0].endsWith('.md') && segs[0].includes('/') && !linkedDocs.has(relOf(segs[0]))) {
-      err(where, `记录引用的文档未在 index.md 登记：${segs[0]}`);
+      // 迁入 调研/legacy-<原名>-<日期>.md 的存量文档，历史记录仍按原路径写，视为有效
+      const stem = path.basename(segs[0], '.md');
+      const moved = isDir('调研') && fs.readdirSync(abs('调研')).some((f) => f.startsWith(`legacy-${stem}`));
+      if (!moved) err(where, `记录引用的文档未在 index.md 登记：${segs[0]}`);
     }
   }
   totalRecords += records;
   if (months.size > 1) err(where, `活跃日志跨月未归档：${[...months].join('、')}`);
   if (records > MAX_RECORDS) err(where, `活跃记录 ${records} 条超过 ${MAX_RECORDS} 条，应归档`);
   if (Buffer.byteLength(text, 'utf8') > MAX_BYTES) err(where, `活跃日志超过 ${MAX_BYTES / 1024} KB，应归档`);
+}
+
+// E. 调研报告体系：调研/（规则见 .codebuddy/rules/调研颗粒度/RULE.mdc 的「交付物」一节）
+// 章节齐全、章节非空、结论判定、截图与图片路径由 research-report 的 check-report.mjs 负责，本段只管体系
+const SURVEY_DIR = '调研';
+const SURVEY_NAME = /^(.+)-(\d{4}-\d{2}-\d{2})(-\d+)?\.html$/;
+const WINDOW_RE = /^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})\s*\/\s*(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})$/;
+const surveyIndexRel = `${SURVEY_DIR}/index.md`;
+const surveyFiles = isDir(SURVEY_DIR)
+  ? fs.readdirSync(abs(SURVEY_DIR)).filter((f) => f.endsWith('.html'))
+  : [];
+for (const f of surveyFiles) {
+  const rel = `${SURVEY_DIR}/${f}`;
+  // legacy- 前缀是迁入的存量报告：格式不追溯，只要求登记进分类索引、文件存在
+  if (/^legacy-/.test(f)) continue;
+  const text = read(rel) || '';
+  const nm = f.match(SURVEY_NAME);
+  if (!nm) { err(rel, '文件名应为 <命题>-<YYYY-MM-DD>.html，同日第二轮起加 -2'); continue; }
+  const topic = nm[1];
+  const date = nm[2];
+  const metaOf = (name) => (text.match(new RegExp(`<meta\\s+name="${name}"\\s+content="([^"]*)"`, 'i')) || [])[1] || '';
+  const mTopic = metaOf('topic').trim();
+  if (!mTopic) err(rel, '缺少 <meta name="topic">');
+  else if (mTopic !== topic) err(rel, `meta topic「${mTopic}」与文件名命题「${topic}」不一致`);
+  if (!metaOf('survey-objects').trim()) err(rel, '缺少 <meta name="survey-objects">');
+  const wm = metaOf('survey-window').trim().match(WINDOW_RE);
+  if (!wm) err(rel, '缺少 <meta name="survey-window"> 或格式不是 YYYY-MM-DDTHH:mm / YYYY-MM-DDTHH:mm');
+  else {
+    if (wm[1] !== date) err(rel, `调研窗口起始日 ${wm[1]} 与文件名日期 ${date} 不一致`);
+    const start = Date.parse(`${wm[1]}T${wm[2]}:00`);
+    const end = Date.parse(`${wm[3]}T${wm[4]}:00`);
+    if (Number.isNaN(start) || Number.isNaN(end)) err(rel, '调研窗口时间无法解析');
+    else if (end < start) err(rel, '调研窗口结束早于开始');
+    else if (end - start > 24 * 3600 * 1000) err(rel, '调研窗口超过 24 小时，应另起一份');
+  }
+}
+if (surveyFiles.length || exists(surveyIndexRel)) {
+  const idx = read(surveyIndexRel);
+  if (idx == null) err(surveyIndexRel, '调研分类索引缺失');
+  else {
+    const tbl = findTable(parseTables(idx), '文件', '调研窗口');
+    if (!tbl) err(surveyIndexRel, '缺少轮次表（表头需含：文件 / 调研窗口）');
+    else {
+      const registered = new Set();
+      for (const r of dataRows(tbl)) {
+        const cell = (r['文件'] || '').trim();
+        if (!cell || cell.includes('暂无') || cell === '—') continue;
+        const base = path.basename(relOf(linkOf(cell) || strip(cell)));
+        registered.add(base);
+        if (!exists(`${SURVEY_DIR}/${base}`)) err(surveyIndexRel, `登记的报告不存在：${base}`);
+      }
+      for (const f of surveyFiles) {
+        if (!registered.has(f)) err(surveyIndexRel, `报告未在分类索引登记：${f}`);
+      }
+    }
+  }
 }
 
 console.log('文档体系检查：');

@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>店小秘与领星 ERP 调研报告 · 2026-11-08</title>
+<meta name="topic" content="店小秘与领星ERP调研报告">
+<meta name="survey-window" content="2026-11-08T00:00 / 2026-11-08T23:59">
+<meta name="survey-objects" content="店小秘,领星">
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#fff; --line:#e3e6ec; --line2:#eef0f4;
+    --ink:#14161a; --ink2:#525a68; --ink3:#8a94a4;
+    --accent:#3e63dd; --accent-bg:#eef2ff;
+    --a:#176b4d; --a-bg:#e8f5ef;
+    --b:#2f5da8; --b-bg:#eaf0fb;
+    --c:#6b6f7a; --c-bg:#f0f1f4;
+    --warn:#8a5a00; --warn-bg:#fbf2e0;
+    --bad:#96302a; --bad-bg:#fbeceb;
+    --r:8px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.75;font-variant-numeric:tabular-nums;
+    -webkit-font-smoothing:antialiased;
+  }
+  .layout{display:grid;grid-template-columns:248px minmax(0,1fr);max-width:1400px;margin:0 auto}
+  aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:26px 16px 40px 22px;border-right:1px solid var(--line);font-size:13px}
+  aside .brand{font-weight:600;font-size:13px;margin-bottom:3px}
+  aside .stamp{font-size:11.5px;color:var(--ink3);margin-bottom:20px;line-height:1.6}
+  aside nav a{display:block;padding:4px 8px;margin-left:-8px;border-radius:5px;color:var(--ink2);text-decoration:none;line-height:1.45}
+  aside nav a:hover{background:#eceef3;color:var(--ink)}
+  aside nav a.lv1{font-weight:500;margin-top:9px;color:var(--ink)}
+  aside nav a.lv2{padding-left:18px;font-size:12.5px}
+  aside nav a.active{background:var(--accent-bg);color:var(--accent)}
+  main{padding:38px 52px 96px;min-width:0}
+
+  .kicker{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+  h1{font-size:28px;line-height:1.35;margin:0 0 12px;letter-spacing:-.02em;font-weight:650}
+  .lede{font-size:16px;color:var(--ink2);margin:0 0 16px;max-width:78ch}
+  .meta{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--ink3);margin-bottom:8px}
+  .meta span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+
+  h2{font-size:19px;margin:48px 0 4px;padding-top:16px;font-weight:640;letter-spacing:-.01em;border-top:1px solid var(--line)}
+  h2 .n{color:var(--ink3);font-weight:500;margin-right:8px;font-size:15px}
+  h3{font-size:15.5px;margin:26px 0 6px;font-weight:620}
+  h4{font-size:14px;margin:20px 0 5px;font-weight:620;color:var(--ink)}
+  p{margin:0 0 11px;color:var(--ink2);max-width:84ch}
+  p strong,li strong{color:var(--ink);font-weight:600}
+  ul,ol{margin:0 0 13px;padding-left:20px;color:var(--ink2)}
+  li{margin-bottom:5px}
+  code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;background:#f1f3f7;border:1px solid var(--line2);border-radius:4px;padding:1px 5px;color:#3c4351}
+
+  .ev{display:inline-block;font-size:10.5px;font-weight:600;line-height:1.6;padding:0 5px;border-radius:4px;vertical-align:1px;margin-left:4px}
+  .ev-a{background:var(--a-bg);color:var(--a)}
+  .ev-b{background:var(--b-bg);color:var(--b)}
+  .ev-c{background:var(--c-bg);color:var(--c)}
+  .ev-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--ink2);margin:10px 0 16px}
+
+  .tw{overflow-x:auto;margin:12px 0 20px;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:540px}
+  th{text-align:left;font-weight:600;font-size:12px;color:var(--ink2);background:#fafbfc;padding:8px 13px;border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:8px 13px;border-bottom:1px solid var(--line2);color:var(--ink2);vertical-align:top}
+  tr:last-child td{border-bottom:0}
+  td:first-child{color:var(--ink);font-weight:500}
+  td.num,th.num{text-align:right}
+  .cap{font-size:12px;color:var(--ink3);margin:-12px 0 20px}
+
+  .callout{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--r);padding:14px 18px;margin:16px 0 22px}
+  .callout .t{font-size:12px;font-weight:600;color:var(--accent);letter-spacing:.04em;margin-bottom:5px}
+  .callout p{margin:0;color:var(--ink);max-width:none}
+  .callout.warn{border-left-color:#c08a1e}
+  .callout.warn .t{color:var(--warn)}
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin:20px 0 24px}
+  .kpi{background:var(--card);padding:13px 15px}
+  .kpi .k{font-size:11.5px;color:var(--ink3);margin-bottom:4px}
+  .kpi .v{font-size:21px;font-weight:650;letter-spacing:-.02em;line-height:1.2}
+  .kpi .n{font-size:11.5px;color:var(--ink3);margin-top:2px}
+
+  .finding{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin-bottom:12px}
+  .finding .h{display:flex;align-items:baseline;gap:9px;margin-bottom:5px}
+  .finding .idx{font-size:11.5px;font-weight:700;color:var(--accent);letter-spacing:.04em}
+  .finding h3{margin:0;font-size:14.5px}
+  .finding p{margin:0 0 6px;font-size:13.8px}
+  .finding .basis{font-size:12.5px;color:var(--ink3);border-top:1px dashed var(--line);padding-top:7px;margin-top:9px}
+
+  pre{background:#f8f9fb;border:1px solid var(--line);border-radius:var(--r);padding:13px 15px;overflow-x:auto;font-size:12.5px;line-height:1.7;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:#333a47;margin:12px 0 18px}
+
+  details{border:1px solid var(--line);border-radius:var(--r);background:var(--card);margin:12px 0 18px;overflow:hidden}
+  summary{cursor:pointer;padding:10px 15px;font-size:13px;font-weight:600;background:#fafbfc;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"+";display:inline-block;width:13px;color:var(--ink3);font-weight:400}
+  details[open] summary::before{content:"−"}
+  details[open] summary{border-bottom:1px solid var(--line)}
+  details .body{padding:12px 15px 2px}
+
+  .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:4px;background:#f1f3f6;color:var(--ink2);margin-right:4px}
+  .tag.g{background:var(--a-bg);color:var(--a)}
+  .tag.r{background:var(--bad-bg);color:var(--bad)}
+  .tag.w{background:var(--warn-bg);color:var(--warn)}
+
+  .foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink3);line-height:1.9}
+  .foot b{color:var(--ink2);font-weight:600}
+
+  @media (max-width:1080px){
+    .layout{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:18px}
+    aside nav{display:none}
+    main{padding:26px 22px 70px}
+    .kpis{grid-template-columns:repeat(2,1fr)}
+  }
+  @media print{
+    aside{display:none}.layout{display:block}body{background:#fff;font-size:10.5pt}main{padding:0}
+    h2{page-break-after:avoid}.tw,.finding,.callout{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<aside>
+  <div class="brand">店小秘 · 领星 调研</div>
+  <div class="stamp">数据快照 2026-11-08<br>对照主体 货灵ERP</div>
+  <nav id="toc">
+    <a class="lv1" href="#s0">摘要</a>
+    <a class="lv1" href="#s1">1 背景</a>
+    <a class="lv1" href="#s2">2 目标与问题</a>
+    <a class="lv1" href="#s3">3 范围与边界</a>
+    <a class="lv1" href="#s4">4 方法与证据</a>
+    <a class="lv2" href="#s4-1">4.1 来源</a>
+    <a class="lv2" href="#s4-2">4.2 分级</a>
+    <a class="lv2" href="#s4-3">4.3 缺口</a>
+    <a class="lv1" href="#s5">5 市场结构</a>
+    <a class="lv1" href="#s6">6 店小秘</a>
+    <a class="lv2" href="#s6-1">6.1 定位与客群</a>
+    <a class="lv2" href="#s6-2">6.2 信息架构</a>
+    <a class="lv2" href="#s6-3">6.3 订单能力</a>
+    <a class="lv2" href="#s6-4">6.4 商品与库存</a>
+    <a class="lv2" href="#s6-5">6.5 财务能力</a>
+    <a class="lv2" href="#s6-6">6.6 定价</a>
+    <a class="lv1" href="#s7">7 领星</a>
+    <a class="lv2" href="#s7-1">7.1 定位与客群</a>
+    <a class="lv2" href="#s7-2">7.2 信息架构</a>
+    <a class="lv2" href="#s7-3">7.3 订单能力</a>
+    <a class="lv2" href="#s7-4">7.4 Listing 与商品</a>
+    <a class="lv2" href="#s7-5">7.5 广告能力</a>
+    <a class="lv2" href="#s7-6">7.6 财务能力</a>
+    <a class="lv2" href="#s7-7">7.7 统计与 BI</a>
+    <a class="lv2" href="#s7-8">7.8 定价</a>
+    <a class="lv1" href="#s8">8 横向对比</a>
+    <a class="lv2" href="#s8-1">8.1 能力矩阵</a>
+    <a class="lv2" href="#s8-2">8.2 订单</a>
+    <a class="lv2" href="#s8-3">8.3 商品</a>
+    <a class="lv2" href="#s8-4">8.4 财务</a>
+    <a class="lv2" href="#s8-5">8.5 架构与体验</a>
+    <a class="lv2" href="#s8-6">8.6 定价结构</a>
+    <a class="lv1" href="#s9">9 开源替代</a>
+    <a class="lv2" href="#s9-1">9.1 检索结果</a>
+    <a class="lv2" href="#s9-2">9.2 三类路线</a>
+    <a class="lv2" href="#s9-3">9.3 失败样本</a>
+    <a class="lv2" href="#s9-4">9.4 四条结论</a>
+    <a class="lv1" href="#s10">10 关键发现</a>
+    <a class="lv1" href="#s11">11 货灵定位</a>
+    <a class="lv1" href="#s12">12 架构与取舍</a>
+    <a class="lv1" href="#s13">13 商业化</a>
+    <a class="lv1" href="#s14">14 结论与建议</a>
+    <a class="lv1" href="#s15">15 附录</a>
+  </nav>
+</aside>
+
+<main>
+
+<div class="doc-head">
+  <div class="kicker">Competitive Research</div>
+  <h1>店小秘与领星 ERP 调研报告</h1>
+  <p class="lede">两家中国跨境电商 ERP 的客群、功能、体验与定价结构对照，以及据此为货灵ERP 划出的定位空位、功能取舍与商业化区间。</p>
+  <div class="meta">
+    <span>数据快照 2026-11-08</span><span>对照主体 货灵ERP</span><span>只读调研，未执行写操作</span>
+  </div>
+</div>
+
+<!-- ===== 摘要 ===== -->
+<h2 id="s0"><span class="n">00</span>摘要</h2>
+<div class="kpis">
+  <div class="kpi"><div class="k">店小秘一级导航</div><div class="v">13</div><div class="n">按动作与对象分</div></div>
+  <div class="kpi"><div class="k">领星一级模块</div><div class="v">12</div><div class="n">按职能与数据流分</div></div>
+  <div class="kpi"><div class="k">店小秘订单文档</div><div class="v">30</div><div class="n">其中 14 篇为平台专项</div></div>
+  <div class="kpi"><div class="k">领星广告分析模型</div><div class="v">26</div><div class="n">SP / SB / SD / ST</div></div>
+</div>
+
+<div class="callout">
+  <div class="t">八条结论</div>
+  <p>
+  一、两家客群几乎不重叠：店小秘做多平台铺货的宽度，领星做亚马逊单店的深度。<br>
+  二、定价锚点就是战略：店小秘卡店铺数，领星卡订单量；被惩罚的行为分别对应「开很多店」与「出很多单」。<br>
+  三、店小秘的财务是「够用的毛利估算」——按发货时点、17 平台自动取费、其余手动导入、6 个平台完全不支持利润核算。<br>
+  四、领星的财务是「可审计的核算」——三种收入确认口径、五种延迟结算状态、15 个收支科目、可与亚马逊 Transaction 报告逐笔核对。<br>
+  五、店小秘的护城河是平台适配的广度与运维：30 篇订单文档里 14 篇是平台专项，平台 × 托管模式逐条拆。<br>
+  六、两家的订单都停在「把这一单推出去」：店小秘靠审单规则打标记，领星靠 8 类失败原因兜底，都不记录「为什么这么决定」。<br>
+  七、货灵要同时做铺货与履约，前提是补一层电商商品模型（SPU → 变体 → 平台 Listing → 仓储 SKU），否则两条路径会各建一套商品。<br>
+  八、开源侧没有可用的跨境 ERP，不构成竞争威胁；但 Odoo/ERPNext 是真实的自建基线，构成 3–5 万元/年的定价上限。
+  </p>
+</div>
+
+<!-- ===== 1 背景 ===== -->
+<h2 id="s1"><span class="n">01</span>调研背景</h2>
+<p>货灵ERP 是产品群里的获客入口，单独售卖给跨境电商卖家，客群为铺货卖家与直做 POP 卖家<span class="ev ev-b">B</span>。它面对两类对手：多平台铺货工具（店小秘）与单平台精细化运营系统（领星）。</p>
+<p>此前的资产只有店小秘的逐页实测记录，领星仅到菜单层；定价维度两家都缺。产品定位、功能取舍、免费版边界都没有可以对照的量化依据，导致方案讨论停留在「应该做什么」，而不是「别人卡在哪、我们卡不卡得起」。</p>
+<p>本次把两家拉到同一张表上，补三块：领星的功能深度、两家的定价结构、由定价反推的产品战略。</p>
+
+<!-- ===== 2 目标 ===== -->
+<h2 id="s2"><span class="n">02</span>调研目标与问题</h2>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:32%">要回答的问题</th><th>为什么必须回答</th><th style="width:22%">结论落点</th></tr></thead>
+  <tbody>
+    <tr><td>两家的客群与能力侧重分别是什么</td><td>决定货灵是补位还是正面竞争</td><td>第 6、7、8 章</td></tr>
+    <tr><td>定价按什么计量，为什么这么选</td><td>计费锚点会反向约束产品边界</td><td>8.6 节</td></tr>
+    <tr><td>哪些能力是真护城河，哪些只是页面多</td><td>决定自建还是绕开</td><td>第 10 章</td></tr>
+    <tr><td>货灵的位置与设计原则</td><td>后续页面与字典的上位依据</td><td>第 10、11 章</td></tr>
+    <tr><td>商业化区间与免费版边界</td><td>决定获客路径</td><td>第 13 章</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ===== 3 范围 ===== -->
+<h2 id="s3"><span class="n">03</span>调研范围与边界</h2>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:20%">项</th><th>口径</th></tr></thead>
+  <tbody>
+    <tr><td>对照主体</td><td>货灵ERP 端。货灵WMS、运营中台管理端、货灵商城、PDA 是产品族的端分工，不参与对比</td></tr>
+    <tr><td>竞品范围</td><td>店小秘、领星。聚水潭、旺店通、马帮、积加在 humanfile 与用户口径中被列为竞品，本轮未调研，不做能力推断</td></tr>
+    <tr><td>能力范围</td><td>ERP 主干：订单、履约、售后、商品、平台接入、库存、采购、物流、财务、广告、客服、报表、账号权限</td></tr>
+    <tr><td>不覆盖</td><td>仓内作业（归 WMS）、设备控制、真实平台接口联调、资金清算</td></tr>
+    <tr><td>访问纪律</td><td>只读；未注册多账号、未绕过权限、未执行任何页面上的写操作</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ===== 4 方法 ===== -->
+<h2 id="s4"><span class="n">04</span>调研方法与证据</h2>
+
+<h3 id="s4-1">4.1 来源</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:18%">类型</th><th style="width:34%">具体来源</th><th>取得的内容</th></tr></thead>
+  <tbody>
+    <tr><td>产品实测</td><td>店小秘网页版，只读浏览</td><td>13 项一级顶栏、订单状态分组、审单规则页签、商品管理列与库存六段、九类异常筛选。调研账号未授权任何店铺（全部 74 / 已授权 0 / 未授权 74），订单与库存计数为 0</td></tr>
+    <tr><td>官方帮助中心</td><td>店小秘 14 个分类 + 29 个平台 FAQ；领星功能概览</td><td>两家的菜单层级与二级功能项</td></tr>
+    <tr><td>官方功能文档</td><td>店小秘利润核算、订单模块索引；领星订单管理、Listing、广告仪表盘、利润报表口径、销售看板</td><td>字段清单、状态机、计算公式、操作规则与失败原因</td></tr>
+    <tr><td>官方定价页</td><td>店小秘官方博客（2026-04-10）；领星 <code>/price</code> 与 <code>/en/price</code></td><td>免费版边界、VIP 四档、按单计费、退款政策</td></tr>
+    <tr><td>第三方评测</td><td>行业对比文章、卖家实测记录</td><td>客群规模、上手难度、操作摩擦、包年区间（仅作范围参考）</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="s4-2">4.2 分级</h3>
+<div class="ev-legend">
+  <span><span class="ev ev-a">A</span>本人在目标系统实见页面、字段、状态、操作</span>
+  <span><span class="ev ev-b">B</span>官方帮助中心 / 官方文档 / 官方定价页原文</span>
+  <span><span class="ev ev-c">C</span>第三方文章、评测、搜索摘要，只作范围参考</span>
+</div>
+<p>正文每条事实后标注等级。空数据下的默认行为、未点到的交互一律视为未验证。</p>
+
+<h3 id="s4-3">4.3 证据缺口</h3>
+<div class="callout warn">
+  <div class="t">这份报告的不对称</div>
+  <p>店小秘有 A 级实测，领星零登录。领星的订单、Listing、财务、广告四块靠官方帮助文档补到了字段级<span class="ev ev-b">B</span>，但<strong>「实际好不好用、真实数据量下什么表现」仍未验证</strong>。涉及操作手感、报错表现、性能的结论对领星一律不成立。补齐需要账号实见，约 2 人日。</p>
+</div>
+
+<!-- ===== 5 市场结构 ===== -->
+<h2 id="s5"><span class="n">05</span>市场结构</h2>
+<p>中国跨境电商 ERP 不是一条连续光谱，而是按「平台策略」分成几个互不重叠的阵营。同一个卖家不会同时是两家的目标客户。</p>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:16%">阵营</th><th style="width:22%">代表</th><th style="width:28%">核心命题</th><th>产品形态特征</th></tr></thead>
+  <tbody>
+    <tr><td>多平台铺货</td><td>店小秘、马帮、芒果店长</td><td>怎么用最低成本把货铺到最多平台</td><td>刊登与采集重、平台覆盖广、单量大客单低、免费版承担获客</td></tr>
+    <tr><td>单平台精品</td><td>领星、积加、赛狐</td><td>怎么把单店单 SKU 的利润与广告效率做到极致</td><td>广告与财务深、BI 强、按量计费、客单高</td></tr>
+    <tr><td>供应链与仓配</td><td>马帮、易仓</td><td>怎么管住采购、头程、海外仓</td><td>采购与仓配重，适合有自建供应链的卖家</td></tr>
+    <tr><td>全渠道中台</td><td>聚水潭、旺店通</td><td>国内电商与跨境订单统一处理</td><td>订单中台强、跨平台库存统一</td></tr>
+    <tr><td>开源 / 自建</td><td>Odoo、ERPNext、启航</td><td>能不能不买 SaaS，自己搭一套</td><td>通用底座完整但跨境能力靠连接器，无开箱即用方案，见第 9 章</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="cap">阵营划分依据为各家官方定位与公开客群描述<span class="ev ev-c">C</span>；店小秘与领星的归类有菜单结构与定价锚点佐证<span class="ev ev-a">A</span><span class="ev ev-b">B</span>。</p>
+<p>货灵现有 12 段导航（工作台 / 订单 / 履约 / 售后 / 仓储委托 / 异常与对账 / 库存 / 商品 / 商城店铺 / 平台接入 / 账单与服务 / 报表与设置）不属于任何一列：有铺货的订单入口，有精品的履约深度，还有两家都没有的仓储委托与商城店铺。这个结构是差异化的起点，也是必须选边的原因——<strong>不选边就在每个阵营里都排第三</strong>。</p>
+
+<!-- ===== 6 店小秘 ===== -->
+<h2 id="s6"><span class="n">06</span>店小秘</h2>
+
+<h3 id="s6-1">6.1 定位与客群</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:18%">项</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td>一句话定位</td><td>多平台铺货工具，免费起步，用广度换规模</td></tr>
+    <tr><td>目标客群</td><td>铺货卖家、新手、中小团队、店群；单店日均 50–300 单为主力区间<span class="ev ev-c">C</span></td></tr>
+    <tr><td>平台覆盖</td><td>70+ 平台、1700+ 物流渠道<span class="ev ev-c">C</span>；平台授权按平台 × 托管模式逐条拆<span class="ev ev-a">A</span></td></tr>
+    <tr><td>规模口径</td><td>180 万+ 卖家<span class="ev ev-c">C</span>，厂商口径，未独立核验</td></tr>
+    <tr><td>免费版定位</td><td>不是试用，是长期可用的产品档位：订单处理不限量，卡在店铺数与存储<span class="ev ev-b">B</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="s6-2">6.2 信息架构</h3>
+<p>产品顶栏 13 项，按<strong>动作与对象</strong>分：</p>
+<pre>首页 · 产品 · 订单 · 客服 · 采购 · 仓库 · 物流 · 数据 · 财务 · 托管 · 广告 · 服务 · 设置<span class="ev ev-a">A</span></pre>
+<p>帮助中心是另一套 14 分类，与顶栏不对齐：把「仓库」拆成库存模块与海外仓库，「物流」拆成物流设置与货代授权，另有平台授权与 PDA 模块，但没有首页、托管、广告、设置。之所以按文档分类记录，是因为只有它带三级原文路径。</p>
+
+<details>
+<summary>店小秘二三级菜单（A 级原文路径节选）</summary>
+<div class="body">
+<div class="tw">
+<table>
+  <thead><tr><th style="width:12%">一级</th><th>二级 → 三级</th></tr></thead>
+  <tbody>
+    <tr><td>订单</td><td>订单管理（手工订单）；订单规则（审单规则、物流规则、赠品规则）；通用功能（欧盟 IOSS 税号）；分拨组包（速卖通组包/预约交货 → 批量分拨）；按平台单列 15 篇「订单处理（×平台篇）」</td></tr>
+    <tr><td>产品</td><td>数据采集（插件、1688、链接、分类、关键词采集）；数据搬家；按平台 × 模式拆 20 余个「×平台刊登产品汇总」（Temu 全托管/本土/半托管、TikTok 含全球、Lazada 站点、Amazon、Shopee 站点/全球、速卖通、Mercado、Miravia、Coupang、Wildberries 等）</td></tr>
+    <tr><td>客服</td><td>通用服务（客户管理、黑名单、常用回复、消息模板）；智能客服（发货提醒、自动催付、自动评价、付款消息、延迟发货）；物流消息；按平台拆（速卖通纠纷/延长收货/买家取消、eBay 客服消息/评价/纠纷/议价、Amazon Feedback/Review/VAT 发票/邮件、Shopify 邮件管理、Shopee 退货退款、Lazada 退货退款、Wish Tickets）</td></tr>
+    <tr><td>采购</td><td>采购建议（备货、安全库存、库存下限、缺货、无库存、1688 采购、云仓采购、海外仓备货、采购计划）；1688 采购（自动获取/手动添加、一键下单、申请付款、一 SKU 匹配多 1688 产品）；采购订单（变更单、获取淘宝/拼多多订单）；采购流程设置</td></tr>
+    <tr><td>仓库</td><td>商品管理（单个/组合/加工/多变种 SKU、导入平台 SKU、分类、配对一键生成、合并、状态规则、批量换供货商、重量采集）；仓库清单；自营仓库 → 分区管理；货架管理；条码工具</td></tr>
+    <tr><td>物流</td><td>物流设置（报关信息、面单类型/纸张、平台面单推送、TikTok 日本跨境申报、自动推送 ASIN）；运费设置（模板、计算）；物流方式设置（最大/最小报关金额、运单号上传方式、追踪承运商、语音/面单分拣码、重量上限、州省简称转换、邮编转换）；报关设置（DHL 申报、合并申报、CPSC 合规）；海外仓物流（Amazon/Walmart 多渠道映射）；平台物流映射</td></tr>
+    <tr><td>财务</td><td>财务管理（账号管理、付款审批、收款管理、收支明细）；利润管理（利润核算、物流对账、平台费用、按平台细分）；平台结算（eBay、Shopee、TikTok、Lazada、Temu 全托管）；平台利润（Temu 全托管/半托管）；收款工具（小秘收款、PayPal、Payoneer）</td></tr>
+  </tbody>
+</table>
+</div>
+</div>
+</details>
+
+<p><strong>结构判断</strong>：店小秘把「平台差异」<strong>外化</strong>。Temu 全托管 / 半托管 / 本土、TikTok 全托管 / 美国本土、速卖通 POP / 半托管 / 全托管、Lazada 全托管、Shopee 全球 / 本土 / 全托管 / SIP，每个组合一条授权入口、一篇刊登文档、一套订单流程。订单模块 30 篇文档里，<strong>14 篇是平台专项</strong><span class="ev ev-b">B</span>。</p>
+<p>这不是设计失误，是策略：平台规则变化快，外化成文档可以按平台单独更新，不动系统；代价是学习成本转嫁给用户，跨平台卖家要在多套流程间切换。</p>
+
+<h3 id="s6-3">6.3 订单能力</h3>
+<p>订单是<strong>打单流水线状态机</strong>，围绕「把这一单打出来发走」组织：</p>
+<pre>全部 · 待审核 · 待处理 · 运单号申请 · 待打单 · 有货/缺货 · 已交运 · 发货失败 · 发货成功 · 已退款 · 已搁置<span class="ev ev-a">A</span></pre>
+<p>异常不是独立单据，是列表筛选条件，共九类<span class="ev ev-a">A</span>：有备注、有留言、买家指定多物流、报关信息未填写、俄罗斯收件人非全名、缺货、未配对 SKU、仓库无此 SKU、黑名单买家。小团队用起来有效——不用切页就能处理；但它不能回答「这个异常是谁造成的、什么时候必须解决、超时谁负责」。</p>
+<p>审单规则四个页签：审单规则、物流规则、赠品规则、运单号自动申请规则，另有自定导出<span class="ev ev-a">A</span>。结构是「优先级 + 条件 → 动作」，有规则试算与系统规则两层。页面提示语写明用途是「将订单移入待审核并打上对应的标记/备注」。</p>
+<p>这是一个<strong>分流器</strong>，不是决策记录器：命中后只留标记，不记录为什么这单走了这个仓、这个承运商。规则试算值得借鉴——它把「配错了会怎样」提前暴露。</p>
+
+<h3 id="s6-4">6.4 商品与库存</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:22%">维度</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td>商品管理列</td><td>商品信息、仓库位置、货架位、库存情况、销量（3/7/15/30 天）、单价、总价、创建/更新时间<span class="ev ev-a">A</span></td></tr>
+    <tr><td>库存六段</td><td>安全、在途、未发、占用、可用、总量<span class="ev ev-a">A</span></td></tr>
+    <tr><td>SKU 类型</td><td>单个、组合、加工、多变种<span class="ev ev-a">A</span></td></tr>
+    <tr><td>商品状态</td><td>在售、热销、新品、滞销、清仓、停售<span class="ev ev-a">A</span></td></tr>
+    <tr><td>搜索维度</td><td>商品 SKU、商品编码、商品名称、货架位、识别码、备注<span class="ev ev-a">A</span></td></tr>
+    <tr><td>汇总行</td><td>库存总价值、库存总数、可用库存总数<span class="ev ev-a">A</span></td></tr>
+  </tbody>
+</table>
+</div>
+<p>关键点：店小秘的商品管理是<strong>仓储视角</strong>（货架位、库存六段、安全库存），刊登在「产品」模块另成一套，两者靠「商品配对」连接。也就是说它的电商商品与仓储商品也是两层，只是没有统一在中枢里。</p>
+
+<h3 id="s6-5">6.5 财务能力</h3>
+<p>官方公式<span class="ev ev-b">B</span>：</p>
+<pre>实收费用 = 订单总价 − 平台手续费 − 营销费用 − 税费
+利润     = 实收费用 − 物流费用 − 采购成本 − 退款费用 + 平台其他费用 + 自定义其他费用
+成本利润率 = 利润 ÷ (采购成本 + 物流费用)
+销售利润率 = 利润 ÷ 销售额</pre>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:20%">项</th><th>口径</th></tr></thead>
+  <tbody>
+    <tr><td>收入确认</td><td>统一按<strong>发货时间（北京时间）</strong>；Ozon FBP 例外按下单时间。非店小秘页面发货的订单接口不返回发货时间，<strong>不计入利润核算</strong></td></tr>
+    <tr><td>平台手续费</td><td>17 个平台自动获取（eBay、Shopee、TikTok、Amazon、Shein、Ozon、Lazada、Wish、速卖通、Fnac、Joom、敦煌、京东国际、Cdiscount、Mercado、Kaufland、乐天法国），其余手动导入；<strong>Amazon 返还佣金不同步</strong></td></tr>
+    <tr><td>物流费用</td><td>预估 → 「物流对账」审核通过后转真实。Lazada、Shopee、TikTok、FBA 尾程、Ozon 运费免费版即可自动获取</td></tr>
+    <tr><td>采购成本</td><td>产品进价 + 包装；未使用小秘仓库者可按 SKU 设置；支持按日期批量重算（次日看结果）</td></tr>
+    <tr><td>分析维度</td><td>订单、SKU/产品、包裹号/运单号；<strong>未提及店铺维度</strong></td></tr>
+    <tr><td>对账机制</td><td>有。「财务—物流对账」形成运费预估转真实的闭环；费用可用模板按包裹号/运单号导入补录</td></tr>
+    <tr><td>完全不支持</td><td>Magento、Temu、Shein（OBM）、Shopee 全托管、TikTok 全托管、voghion —— 这些渠道需在系统外单独核算</td></tr>
+  </tbody>
+</table>
+</div>
+<p>判断：这是一套<strong>够用的毛利估算工具</strong>。它解决「这单大概赚没赚」，不解决「这个月到底赚了多少、能不能审计」。三处硬伤决定了它的上限：收入与费用都存在结算滞后、6 个平台无法核算、Amazon 佣金返还不同步。</p>
+
+<h3 id="s6-6">6.6 定价</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:15%">档位</th><th class="num">年费</th><th class="num">店铺/平台</th><th class="num">子账号</th><th class="num">订单存储</th><th class="num">日志</th></tr></thead>
+  <tbody>
+    <tr><td>免费版</td><td class="num">0</td><td class="num">1（部分不限/5）</td><td class="num">3</td><td class="num">120 天</td><td class="num">30 天</td></tr>
+    <tr><td>VIP1</td><td class="num">2,016</td><td class="num">10</td><td class="num">10</td><td class="num">360 天</td><td class="num">60 天</td></tr>
+    <tr><td>VIP2</td><td class="num">6,000</td><td class="num">30</td><td class="num">30</td><td class="num">1,080 天</td><td class="num">90 天</td></tr>
+    <tr><td>VIP3</td><td class="num">9,888</td><td class="num">100</td><td class="num">200</td><td class="num">无限</td><td class="num">180 天</td></tr>
+    <tr><td>至尊 VIP</td><td class="num">19,800</td><td class="num">200</td><td class="num">200</td><td class="num">无限</td><td class="num">180 天</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="cap">单位元/年。来源：店小秘官方博客 2026-04-10<span class="ev ev-b">B</span>。各档均含无限量采集刊登、订单处理、库存管理、利润计算。</p>
+<p>免费版的店铺额度按平台分三档：速卖通（除美国本土）、速卖通全托管/半托管/海外托管、Alibaba 不限；Shopee、Lazada、Lazada 全托管 5 个；Amazon、TikTok、Temu 全/半托管/本土、Shein、Shopify、eBay 等 1 个；其余平台需开 VIP<span class="ev ev-b">B</span>。</p>
+<p>意图很清楚：让新手在速卖通零成本起步，把 Amazon、TikTok、Temu 这些高价值平台卡在付费墙后。</p>
+
+<!-- ===== 7 领星 ===== -->
+<h2 id="s7"><span class="n">07</span>领星</h2>
+
+<h3 id="s7-1">7.1 定位与客群</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:18%">项</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td>一句话定位</td><td>亚马逊精细化运营的数据与财务中枢，用深度换客单</td></tr>
+    <tr><td>目标客群</td><td>亚马逊精品 / FBA 卖家、中大型团队、重广告投放<span class="ev ev-c">C</span></td></tr>
+    <tr><td>平台覆盖</td><td>官网称 40+ 主流平台，但深度集中在亚马逊，兼顾 TikTok<span class="ev ev-b">B</span><span class="ev ev-c">C</span></td></tr>
+    <tr><td>规模口径</td><td>70 万+ 企业；中国跨境电商 ERP 市占率第一（艾瑞 2025 引用）<span class="ev ev-c">C</span></td></tr>
+    <tr><td>标杆客户</td><td>安克创新、巨星集团、齐心集团<span class="ev ev-b">B</span></td></tr>
+    <tr><td>迭代节奏</td><td>官方称平均 15 天迭代一次<span class="ev ev-b">B</span></td></tr>
+  </tbody>
+</table>
+</div>
+<p>客群描述里有个关键限定：<strong>「亚马逊」在前，「多平台」在后</strong>。12 个一级模块里 FBA、广告、亚马逊结算中心三个是亚马逊专属，决定了它即使接 40 个平台，产品重心仍在亚马逊。</p>
+
+<h3 id="s7-2">7.2 信息架构</h3>
+<pre>产品 · 销售 · FBA · 采购 · 仓库 · 物流 · 财务 · 广告 · 客服 · 统计 · 工具 · BI<span class="ev ev-a">A</span></pre>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:11%">一级</th><th>二级功能项</th></tr></thead>
+  <tbody>
+    <tr><td>产品</td><td>新品开发、产品管理、1688 商品配对</td></tr>
+    <tr><td>销售</td><td>Listing、订单管理、促销活动</td></tr>
+    <tr><td>FBA</td><td>采购管理、委外订单、1688 下单 <span class="tag w">与采购栏重复，疑为官网渲染错误</span></td></tr>
+    <tr><td>采购</td><td>采购管理、委外订单、1688 下单</td></tr>
+    <tr><td>仓库</td><td>仓库列表、海外仓备货单、扫码收货</td></tr>
+    <tr><td>物流</td><td>运费试算、头程物流单、物流渠道</td></tr>
+    <tr><td>财务</td><td>业绩报表、亚马逊结算中心、收款工具集成</td></tr>
+    <tr><td>广告</td><td>仪表盘、关键词抢位、超级结构</td></tr>
+    <tr><td>客服</td><td>邮件统计、售后邮件、RMA 管理</td></tr>
+    <tr><td>统计</td><td>销售看板、目标管理、产品表现</td></tr>
+    <tr><td>工具</td><td>ChatGPT 文案、评论分析、竞品监控</td></tr>
+    <tr><td>BI</td><td>应用创作、关联数据、数据分析</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="cap">二级功能项来源：领星官方帮助中心功能概览，每模块仅展示前 3 项<span class="ev ev-b">B</span>。</p>
+<p><strong>结构判断</strong>：领星把「平台差异」<strong>收进后台</strong>。官方对订单管理的描述是「多平台多店铺订单汇总统一处理」，帮助中心里没有按托管模式拆的入口。用户按业务职能找功能，适配成本由产品承担。</p>
+<p>这与店小秘正好相反，也是本次最重要的选边依据：<strong>前者让系统适应平台，后者让用户适应平台</strong>。前者工程成本高、体验好；后者工程成本低、学习成本高。</p>
+
+<h3 id="s7-3">7.3 订单能力</h3>
+<p>订单列表字段 12 类<span class="ev ev-b">B</span>：</p>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:18%">字段</th><th>含义</th></tr></thead>
+  <tbody>
+    <tr><td>处理类型</td><td>系统自动识别 + 用户手动标记，顶部汇总数量（待人工审核、地址错误、商品未配对、买家取消、缺货、可合并、留言待处理）</td></tr>
+    <tr><td>系统单号 / 平台单号</td><td>一个系统单号可对应多个平台单号（合并），多个系统单号可对应一个平台单号（拆分）</td></tr>
+    <tr><td>剩余发货</td><td>倒计时，距平台规定发货时间的剩余</td></tr>
+    <tr><td>买家留言</td><td>带留言订单自动归类「留言待处理」，<strong>必须标记已处理才能继续操作</strong></td></tr>
+    <tr><td>标发时间 / 标发单号</td><td>上传物流信息到平台后台的时间；实际回传平台的那个单号</td></tr>
+    <tr><td>标签</td><td>自定义标签 + 系统默认标签（拆分、合并、预发货、eBay EDG），系统标签不可移除</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h4>状态机</h4>
+<pre>未付款 ──(仅全部 Tab 可查，不支持审核)
+已付款 ──→ 待审核 ──→ 待发货（已推物流与仓库，未扣库存）──→ 已发货（库存已扣减）
+              ↓                    ↓
+           不发货（归档封存）      预发货（已取号未推仓）
+已付款取消 → 自动冻结；待发货态 → 自动截单回待审核并冻结
+未付款取消 → 自动转不发货，防误发<span class="ev ev-b">B</span></pre>
+<p>订单来源分四类：线上订单（接口同步）、手工订单（<strong>不支持标发</strong>）、补发订单（售后工单生成，同手工）、平台发货订单（Walmart WFS、Wayfair Castlegate、Cdiscount FBC，仅同步不发货）。</p>
+
+<h4>批量操作（待审核页，20+ 项）</h4>
+<p>批量编辑订单信息、地址快捷填充、重新获取 SKU 配对、订单合并/拆分（含拆分预览）、设定仓库物流（固定 or <strong>物流比价</strong>）、留言已处理、标记标签、生成采购单（按勾选或按筛选条件汇总缺货）、批量换货、规则审核、预发货、不发货、<strong>快速出库</strong>（跳过物流与打单直接扣库存）、审核、导入订单<span class="ev ev-b">B</span>。</p>
+<p>几个设计细节值得记：</p>
+<ul>
+  <li><strong>物流比价</strong>：指定范围内多选物流商，系统选价格最低者；前提是已维护运费模板；海外仓必须配该海外仓物流才能审核。</li>
+  <li><strong>预发货</strong>：只向物流取号、不推仓，用来赶平台发货时效；后续审核进仓不重复下单。</li>
+  <li><strong>截单</strong>：退待审核，同时取消三方物流单或撤回三方海外仓订单。</li>
+  <li><strong>审核失败 8 类原因</strong>：商品未配对、地址不完整、未分配仓库、未分配物流、缺货、仓库物流未匹配、仓库无法锁库存、其他推送报错——每类给了对应解法。</li>
+</ul>
+<p>这 8 类原因清单是产品化的成熟标志：它把「审核为什么失败」变成可枚举、可自助排查的清单，而不是让用户找客服。</p>
+
+<h3 id="s7-4">7.4 Listing 与商品</h3>
+<p>核心模型是 <strong>MSKU（平台上架单元）↔ SKU（本地产品编码）配对</strong>：一个 MSKU 只能配一个 SKU，一个 SKU 可配多个 MSKU<span class="ev ev-b">B</span>。这与货灵要建的四层模型前两层对应，但<strong>没有 SPU 层</strong>——它直接从平台上架单元连到本地 SKU。</p>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:20%">维度</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td>列表字段</td><td>MSKU、FNSKU、ASIN、ParentASIN、SKU、品名、评分、评论数、销量、大类/小类排名（5 小时更新）、配送方式、Listing 标签</td></tr>
+    <tr><td>价格三口径</td><td>总价 = 优惠价 + 运费 − 积分；价格 = 后台 Your Price；优惠价 = Sale Price</td></tr>
+    <tr><td>时间三口径</td><td>创建时间（All Listing 报表 open-date，不可改）、开售时间（需手动）、首单时间（授权后首单，可手动）</td></tr>
+    <tr><td>FBA 可售八段</td><td>可售 / 待调仓 / 调仓中 / 入库中 / 待发货 / 计划入库 / 在途 / 不可售；小计 = 前四项</td></tr>
+    <tr><td>状态三分类</td><td>在售（active+incomplete）、停售（inactive）、已删除（报表消失）——<strong>已删除也不可删，只能设为不显示</strong></td></tr>
+    <tr><td>人员字段</td><td>负责人按「店铺 + ASIN」分配，同一 ASIN 只能一个负责人；业绩归属人单独设，避免多负责人重复计业绩</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h4>刊登的三条路径与硬约束</h4>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:22%">路径</th><th>做法</th><th style="width:34%">约束</th></tr></thead>
+  <tbody>
+    <tr><td>单个刊登</td><td>Listing 页「添加商品」→ 刊登草稿页</td><td>需开启刊登权限</td></tr>
+    <tr><td>草稿箱</td><td>销售 → 刊登管理 → 草稿箱 → 添加草稿</td><td>—</td></tr>
+    <tr><td>批量刊登</td><td>Listing → 导入 → 上传商品（表格）</td><td>亚马逊 2025-07-31 下线旧版表格接口，<strong>ERP 只支持新版表格且不提供模板</strong>，需自行到店铺后台下载；不支持 Delete；Full Update 填已有 MSKU 会覆盖更新</td></tr>
+  </tbody>
+</table>
+</div>
+<p>批量编辑在线商品：<strong>最多 50 个 MSKU、必须同国家、可跨店铺</strong>，支持标题、要点、描述、搜索词、后台图片；每个 MSKU 单独建任务、互不影响。提交后进刊登队列，预计 15 分钟出结果。</p>
+
+<h4>调价与库存同步</h4>
+<ul>
+  <li><strong>调价三方式</strong>：单个、批量、导入。批量时每个 MSKU 至少填价格或优惠价之一，填优惠价则优惠日期必填。</li>
+  <li><strong>风控</strong>：降价超 20% 红色提示；<strong>单日降幅超 50% 会触发全局保护，所有用户当日无法调价</strong>，需后台操作或申请白名单。</li>
+  <li><strong>库存同步</strong>：FBA 库存直接引用仓库模块（八段）；FBM 库存通过「修改 FBM 库存」回写。</li>
+  <li><strong>数据源</strong>：亚马逊 All Listing Report；图片同步的是前台主图，不是后台图。</li>
+</ul>
+<p>这些细节反映出一种产品取向：<strong>把平台的硬约束翻译成系统的软约束</strong>。同国家、50 个上限、日降 50% 锁定，都是平台规则决定的，产品没有假装它不存在，而是把它做成可解释的限制。</p>
+
+<h3 id="s7-5">7.5 广告能力</h3>
+<p>这是领星最重的一块。官方文档给出的规模：集成 <strong>SP、SB（含 SBV）、SD、ST 四类广告</strong>，内置 <strong>26 种分析模型</strong><span class="ev ev-b">B</span>。</p>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:18%">指标</th><th>定义</th><th style="width:14%">方向</th></tr></thead>
+  <tbody>
+    <tr><td>ACoS</td><td>广告花费 ÷ 广告销售额 × 100%</td><td>增长为不利</td></tr>
+    <tr><td>ROAS</td><td>广告销售额 ÷ 广告花费</td><td>增长为有利</td></tr>
+    <tr><td>CTR / CVR</td><td>点击 ÷ 曝光；广告订单 ÷ 点击</td><td>增长为有利</td></tr>
+    <tr><td>CPC / CPA</td><td>花费 ÷ 点击；花费 ÷ 广告订单</td><td>增长为不利</td></tr>
+    <tr><td>SPC</td><td>广告销售额 ÷ 点击（单次点击价值）</td><td>增长为有利</td></tr>
+    <tr><td>ASoAS / ACoAS</td><td>广告销售额 ÷ 店铺销售额；广告花费 ÷ 店铺销售额</td><td>增长为不利</td></tr>
+  </tbody>
+</table>
+</div>
+<p>文档专门定义了「哪些指标增长是坏事」，并允许在设置里全局切换绿升红降 / 红升绿降。这个细节说明它把「指标方向」当产品能力，而不是让用户自己判断。</p>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:24%">模型</th><th>它回答的问题</th></tr></thead>
+  <tbody>
+    <tr><td>趋势分析</td><td>小时级粒度，最多回溯 3 个月内连续 30 天，看分钟级预算消耗</td></tr>
+    <tr><td>预算不足</td><td>跨店铺查今日剩余预算不足且表现优异的广告活动，可当场调预算</td></tr>
+    <tr><td>库存不足</td><td>跨店铺查可售天数不足的广告商品，把广告与补货连起来</td></tr>
+    <tr><td>投放表现 · 花费分析</td><td>把投放分成高 ACoS / 低 ACoS / 高点击不出单 / 低点击不出单四类，分界值可自定义</td></tr>
+    <tr><td>投放表现 · 透视分析</td><td>四象限散点图，5 种对比模型，可下钻到搜索词</td></tr>
+    <tr><td>品牌 · 品类表现</td><td>对照亚马逊品类基准的 P25/P50/P75 分位，判断同类品牌中的位置</td></tr>
+    <tr><td>转化漏斗</td><td>曝光 → 点击 → 转化逐层流失，定位瓶颈</td></tr>
+    <tr><td>广告位</td><td>搜索结果页顶部 / 其余 / 商品页面 / Off Amazon 的效果对比</td></tr>
+    <tr><td>关键词族</td><td>长尾词、高频词根 TOP50、关键词 TOP200、搜索词 TOP200</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout">
+  <div class="t">这一块的含义</div>
+  <p>领星不是做了「一个广告报表」，而是把亚马逊广告的<strong>全部投放对象、指标口径、归因关系</strong>产品化。26 个模型背后是对广告 API 与业务语义的长期投入，成本在接口、指标定义与数据校验，不在 UI。</p>
+</div>
+
+<h3 id="s7-6">7.6 财务能力</h3>
+<p>本次调研里最被低估的一块。利润报表支持<strong>三种收入确认口径</strong>，每种都能与亚马逊原始报告逐笔核对<span class="ev ev-b">B</span>。</p>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:20%">口径</th><th style="width:26%">确认时点</th><th>延迟订单处理</th><th style="width:24%">适用场景</th></tr></thead>
+  <tbody>
+    <tr><td>按结算时间</td><td>亚马逊实际释放、进入店铺余额</td><td>实际释放后计入</td><td>只关注实际到账</td></tr>
+    <tr><td>按结算时间（含预结算）</td><td>已发放 + 符合规则的预结算</td><td>本月应结未结的提前计入，实际结算后自动冲销</td><td>利润要及时反映当月经营</td></tr>
+    <tr><td>按发货时间</td><td>订单发货时间（Transaction 报告 Date/Time）</td><td>按发货口径核算，不依赖后续释放，不产生冲销</td><td>按发货核算且不需后续调整</td></tr>
+  </tbody>
+</table>
+</div>
+<p>延迟结算被拆成五种交易类型：<code>已发放</code>、<code>已推迟</code>、<code>已推迟-跨月结算</code>、<code>已推迟-估实差异</code>、<code>已推迟-已入账冲销</code>。切换口径有三个可验证后果：历史分摊配置失效需重新配对、订单维度 API 唯一键变更、历史数据从启用月重算。</p>
+<p>收支科目拆到 15 项<span class="ev ev-b">B</span>：</p>
+<pre>平台收入 = 销售额 + 买家运费 + 促销折扣 + FBA库存赔偿 + COD + 其他收入
+平台支出 = 平台费 + 发货费 + 其他订单费用 + 广告费 + 推广费
+         + FBA仓储费 + FBA国际物流运费 + 调整费 + 平台其他费</pre>
+<div class="callout warn">
+  <div class="t">对货灵的直接约束</div>
+  <p>「订单利润做到订单级」第一个要定的不是分摊，是<strong>收入确认时点</strong>：按发货还是按结算。时点不同，同一张订单在不同月份可能一次是利润一次是亏损；跨月结算、退款、汇率都会让数字变化。领星把它做成可配置口径，货灵至少要明确一种默认口径并写进字典。</p>
+</div>
+<p>另一个细节：文档专门解释了「为什么会出现负利润」——延迟结算让收入晚于销售时间入账，而广告费、仓储费按原时间发生。说明这套口径是从<strong>会计异常场景</strong>倒推的，不是从页面布局倒推的。</p>
+
+<h3 id="s7-7">7.7 统计与 BI</h3>
+<p>销售看板 11 个模块<span class="ev ev-b">B</span>：业绩分析、销售额与均价、毛利润与毛利率、业绩详情、目标完成率、波动异常、应收资金、应付金额、收支构成、库存概况、广告构成。</p>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:22%">模块</th><th>关键口径</th></tr></thead>
+  <tbody>
+    <tr><td>业绩分析</td><td>销售额、净销售额、广告花费、毛利润；环比 =（本期 − 上期）/|上期| × 100%</td></tr>
+    <tr><td>波动异常</td><td>单指标连续两个区间增长率 &gt;20% 或 &lt;−20%；维度下钻 产品 → 店铺 → 负责人</td></tr>
+    <tr><td>应收资金</td><td>亚马逊转账、月末应收余额、本月收入、退款、支出合计</td></tr>
+    <tr><td>应付金额</td><td>月结预付款、头程款、其他应付款、现结货款、月结货款各自的未付/已付/总数</td></tr>
+    <tr><td>库存概况</td><td>库存分布、FBA 货件、库龄；本地仓与海外仓统计已绑定店铺的产品库存（时点快照，非区间累计）</td></tr>
+    <tr><td>图表</td><td>趋势图（同比环比）、<strong>四象限散点</strong>（明星 / 金牛 / 问题 / 瘦狗）、明细表（低于均值红色标记）、构成图、目标完成率图</td></tr>
+    <tr><td>维度</td><td>店铺、品牌、分类、站点、Listing 标签、Listing 负责人</td></tr>
+  </tbody>
+</table>
+</div>
+<p>关键点：看板里的财务指标<strong>全部来自利润报表</strong>，口径一致、不需要二次计算。这是「一个数只算一次」的典型做法，也是货灵多份报表容易踩的坑。</p>
+
+<h3 id="s7-8">7.8 定价</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:18%">项</th><th>内容</th><th style="width:14%">证据</th></tr></thead>
+  <tbody>
+    <tr><td>计费锚点</td><td>订单量</td><td><span class="ev ev-b">B</span></td></tr>
+    <tr><td>免费版</td><td>月订单 ≤5,000 长期免费，<strong>功能与付费版相同</strong>，差异只在可用工具数量、订单量、客服级别</td><td><span class="ev ev-b">B</span></td></tr>
+    <tr><td>充值版</td><td>按订单量充值，0.04 元/单起，3 年有效</td><td><span class="ev ev-c">C</span></td></tr>
+    <tr><td>包年版</td><td>按单量选套餐，官网不公开，需询价；第三方称 1 万–20 万元/年</td><td><span class="ev ev-b">B</span><span class="ev ev-c">C</span></td></tr>
+    <tr><td>退款</td><td>60 天无理由</td><td><span class="ev ev-b">B</span></td></tr>
+    <tr><td>增项</td><td>多平台 ERP、Track123、海外仓 WMS、星拓广告为独立产品线，另售</td><td><span class="ev ev-b">B</span></td></tr>
+  </tbody>
+</table>
+</div>
+<p>关键差异：领星给的是「全功能免费到 5,000 单」，店小秘给的是「全功能但只 1 个店」。前者按业务量设闸，后者按店铺数设闸。5,000 单/月对精品卖家意味着可以白用很久——先让你用上全套深度功能，等单量起来，价格谈判时已经没有替换动力。</p>
+
+<!-- ===== 8 对比 ===== -->
+<h2 id="s8"><span class="n">08</span>横向对比</h2>
+
+<h3 id="s8-1">8.1 能力矩阵</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:12%">能力域</th><th style="width:29%">店小秘</th><th style="width:29%">领星</th><th>货灵ERP 现状</th></tr></thead>
+  <tbody>
+    <tr><td>刊登与采集</td><td>强。插件 / 1688 / 链接 / 分类 / 关键词采集，跨平台搬家，批量发布<span class="ev ev-a">A</span></td><td>中。亚马逊 Listing 字段与调价做透，但平台仅限亚马逊系<span class="ev ev-b">B</span></td><td>无。只有商品主档申请与审核</td></tr>
+    <tr><td>订单处理</td><td>强。状态分组流水线 + 审单/物流/赠品规则<span class="ev ev-a">A</span></td><td>强。20+ 批量操作、合并拆分、物流比价、8 类审核失败兜底<span class="ev ev-b">B</span></td><td>中。三层单据，偏履约决策</td></tr>
+    <tr><td>采购</td><td>强。采购建议、1688 一键下单、变更单<span class="ev ev-a">A</span></td><td>强。采购计划到签收、委外订单<span class="ev ev-c">C</span></td><td>弱。只有代发采购单</td></tr>
+    <tr><td>仓储</td><td>自营仓作业：收货、货架、分区、波次、PDA<span class="ev ev-a">A</span></td><td>海外仓备货、扫码收货、到货质检<span class="ev ev-b">B</span></td><td>委托视角：入/出库计划单、委托单据中心</td></tr>
+    <tr><td>物流</td><td>强。运费模板、报关、面单推送、平台映射<span class="ev ev-a">A</span></td><td>强。头程物流单、运费试算、<strong>物流比价</strong><span class="ev ev-b">B</span></td><td>中。物流跟踪、平台备货</td></tr>
+    <tr><td>财务</td><td>中。发货时点毛利估算，17 平台自动取费，6 平台不支持<span class="ev ev-b">B</span></td><td>强。三种收入口径、15 项收支科目、可逐笔核对<span class="ev ev-b">B</span></td><td>服务费账单与对账，不含卖家经营利润</td></tr>
+    <tr><td>广告</td><td>有，深度一般<span class="ev ev-c">C</span></td><td>极强。四类型、26 模型、小时级趋势、品类基准<span class="ev ev-b">B</span></td><td>无</td></tr>
+    <tr><td>客服</td><td>强。按平台拆纠纷、智能客服（3 平台）、消息模板<span class="ev ev-a">A</span><span class="ev ev-b">B</span></td><td>强。邮件中心、RMA、Request a Review<span class="ev ev-b">B</span></td><td>弱。只有平台售后单</td></tr>
+    <tr><td>数据</td><td>中。运营分析与仓储物流报表，店铺维度未明确<span class="ev ev-b">B</span></td><td>强。销售看板 11 模块、四象限、6 维度、BI 自定义<span class="ev ev-b">B</span></td><td>固定报表，偏仓储履约</td></tr>
+    <tr><td>特色</td><td>全托管、平台仓、第三方海外仓、免翻直连<span class="ev ev-a">A</span></td><td>29+ 风险预警、品类基准、手机端<span class="ev ev-c">C</span><span class="ev ev-b">B</span></td><td>商城双身份、3PL 委托、异常与对账、履约决策记录</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="cap">货灵一列为内部现状（38 页原型与方案文档），非竞品数据。</p>
+
+<h3 id="s8-2">8.2 订单能力对比</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:16%">维度</th><th style="width:42%">店小秘</th><th>领星</th></tr></thead>
+  <tbody>
+    <tr><td>组织方式</td><td>按状态分组的流水线，用户按「这单到哪一步」找</td><td>待审核 / 待发货两页承载全部动作，按「该做什么操作」找</td></tr>
+    <tr><td>状态数</td><td>11 个（含发货失败、已退款、已搁置）</td><td>6 个主状态 + 预发货、不发货两个分支</td></tr>
+    <tr><td>合并</td><td>有</td><td>同店铺 + 买家信息 + 收件地址一致 → 自动打「可合并」</td></tr>
+    <tr><td>拆分</td><td>有</td><td>有，且提供<strong>拆分预览</strong></td></tr>
+    <tr><td>物流分配</td><td>物流规则：条件 → 渠道</td><td>固定物流 or <strong>物流比价</strong>（多选，选最低价）</td></tr>
+    <tr><td>异常</td><td>九类筛选条件</td><td>处理类型汇总 + 8 类审核失败原因与解法</td></tr>
+    <tr><td>留言</td><td>筛选条件之一</td><td>必须标记已处理才能继续推单</td></tr>
+    <tr><td>售后</td><td>在客服模块按平台拆纠纷</td><td>已发货订单可创建售后单，补发订单自动生成</td></tr>
+    <tr><td>决策记录</td><td>无。规则只打标记</td><td>无。失败时有原因，成功时无记录</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两家在「把单推出去」这一层都做得很成熟，差别是店小秘靠规则分流、领星靠状态与检查清单兜底。共同缺口是<strong>决策留痕</strong>：为什么选这个仓、这个物流，事后都查不到。</p>
+
+<h3 id="s8-3">8.3 商品能力对比</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:16%">维度</th><th style="width:42%">店小秘</th><th>领星</th></tr></thead>
+  <tbody>
+    <tr><td>商品模型</td><td>仓储 SKU + 产品（刊登）两套，靠配对连接</td><td>本地 SKU + MSKU 两套，靠配对连接（1 MSKU : 1 SKU）</td></tr>
+    <tr><td>是否有 SPU 层</td><td>无</td><td>无（直接 MSKU ↔ SKU）</td></tr>
+    <tr><td>刊登方式</td><td>采集 → 批量发布，按平台 × 模式拆入口</td><td>单个 / 草稿箱 / 批量上传表格；受亚马逊表格接口约束</td></tr>
+    <tr><td>批量上限</td><td>未见明确上限</td><td>批量编辑 50 个 MSKU、必须同国家</td></tr>
+    <tr><td>调价</td><td>批量改价</td><td>单个/批量/导入，含毛利预估、降幅风控</td></tr>
+    <tr><td>库存同步</td><td>库存推送规则（配对关系 + 推送记录）</td><td>FBA 引用仓库模块，FBM 手动回写</td></tr>
+    <tr><td>平台覆盖</td><td>70+，多平台刊登</td><td>亚马逊为主，其余平台刊登能力弱</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两家的商品模型都是「平台单元 ↔ 本地 SKU」二元结构，都没有 SPU。这意味着<strong>一个商品在多个平台的多个 listing 之间没有共同父级</strong>，改一次价格要逐条改。这正好是货灵做商品中枢的空间。</p>
+
+<h3 id="s8-4">8.4 财务能力对比</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:18%">维度</th><th style="width:38%">店小秘</th><th>领星</th></tr></thead>
+  <tbody>
+    <tr><td>收入确认</td><td>固定按发货时间（北京时间），Ozon FBP 例外</td><td>三种口径可选：结算、结算含预结算、发货</td></tr>
+    <tr><td>费用来源</td><td>17 平台接口自动取，其余手动导入；Amazon 佣金返还不支持</td><td>亚马逊 Transaction 报告，15 项收支科目</td></tr>
+    <tr><td>延迟结算</td><td>无概念，费用侧存在结算滞后</td><td>五种状态：已发放、已推迟、跨月结算、估实差异、已入账冲销</td></tr>
+    <tr><td>对账</td><td>物流对账（预估转真实）</td><td>与亚马逊报告逐笔核对，口径切换可重算</td></tr>
+    <tr><td>维度</td><td>订单、SKU、包裹/运单；店铺维度未明确</td><td>订单、SKU、店铺、站点、品牌、分类、负责人</td></tr>
+    <tr><td>覆盖缺口</td><td>6 个平台完全不支持核算</td><td>深度绑定亚马逊，非亚马逊平台核算弱</td></tr>
+    <tr><td>可信度</td><td>毛利估算，够日常看</td><td>可审计核算，够财务结账</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout">
+  <div class="t">这一组对比的含义</div>
+  <p>店小秘的财务是<strong>运营工具</strong>：帮卖家判断这单赚没赚。领星的财务是<strong>会计系统</strong>：帮卖家结账、对账、算清回款。两者的差距不在页面数量，在「收入什么时候算、费用从哪来、能不能核对」这三个问题上。</p>
+</div>
+
+<h3 id="s8-5">8.5 架构与体验</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:14%">维度</th><th style="width:43%">店小秘</th><th>领星</th></tr></thead>
+  <tbody>
+    <tr><td>一级划分</td><td>按动作与对象：订单、发货、客服、采购、仓库、物流、数据、财务<span class="ev ev-a">A</span></td><td>按职能与数据流：产品、销售、FBA、采购、仓库、物流、财务、广告、客服、统计、BI<span class="ev ev-a">A</span></td></tr>
+    <tr><td>平台差异</td><td>外化。平台 × 托管模式逐条入口，30 篇订单文档中 14 篇平台专项<span class="ev ev-b">B</span></td><td>收敛。统一入口，适配在后台<span class="ev ev-b">B</span></td></tr>
+    <tr><td>上手成本</td><td>低。注册即用，免费版跑通全流程<span class="ev ev-b">B</span></td><td>中。界面偏工业化，功能深、学习曲线长<span class="ev ev-c">C</span></td></tr>
+    <tr><td>长期摩擦</td><td>模块多、配置密，跨平台切换频繁<span class="ev ev-b">B</span><span class="ev ev-c">C</span></td><td>重管理逻辑，SKU 过万时改补货计划的点击成本高<span class="ev ev-c">C</span></td></tr>
+    <tr><td>异常处理</td><td>筛选条件，九类<span class="ev ev-a">A</span></td><td>处理类型汇总 + 8 类审核失败原因 + 29 预警模型<span class="ev ev-b">B</span><span class="ev ev-c">C</span></td></tr>
+    <tr><td>移动端</td><td>PDA 作业模块<span class="ev ev-a">A</span></td><td>APP 看数据、调广告、审批、回站内信<span class="ev ev-b">B</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="s8-6">8.6 定价结构</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:16%">维度</th><th style="width:42%">店小秘</th><th>领星</th></tr></thead>
+  <tbody>
+    <tr><td>计费单位</td><td>店铺数 + 子账号 + 存储天数</td><td>订单量</td></tr>
+    <tr><td>免费门槛</td><td>1 店铺/平台（部分 5 个或不限），3 子账号，订单存 120 天</td><td>月单 5,000，功能与付费版相同</td></tr>
+    <tr><td>价格带</td><td>0 / 2,016 / 6,000 / 9,888 / 19,800 元/年</td><td>按单 0.04 元起；包年 1 万–20 万（第三方）</td></tr>
+    <tr><td>透明度</td><td>公开，官网可查</td><td>不公开，需询价</td></tr>
+    <tr><td>功能分层</td><td>基本全开，卡店铺与存储</td><td>各档功能一致，卡单量与工具数</td></tr>
+    <tr><td>被惩罚</td><td>开很多店</td><td>出很多单</td></tr>
+    <tr><td>被奖励</td><td>单店精耕</td><td>低单量高客单</td></tr>
+  </tbody>
+</table>
+</div>
+<pre>店小秘：收入 = f(店铺数, 子账号, 存储)
+        → 押注「店越开越多」的铺货卖家
+        → 单店卖家觉得不值，多店卖家越用越贵
+
+领星：  收入 = f(订单量)
+        → 押注「单店越做越大」的精品卖家
+        → 低单量长期白用，高单量被迫议价
+        → 不透明本身就是筛选器：筛掉不会算账的小卖家</pre>
+<p>两家都没有把「履约」作为计费单位。店小秘的仓储在自己的作业体系内，领星的仓储走海外仓备货，都不构成订阅档位的计价维度。这给货灵留了空位：ERP 与仓配同源，委托单可计量，订阅与服务费可以分账。</p>
+
+<!-- ===== 9 开源 ===== -->
+<h2 id="s9"><span class="n">09</span>开源替代方案与自建威胁</h2>
+
+<p>商业竞品之外还有一条替代路径：用开源 ERP 自建。这条线决定了货灵面对的不只是「换一家 SaaS」，还有「不买，自己做」。本节回答三个问题：开源侧到底有没有能用的东西、它们的死法说明什么、对货灵的定价与架构有什么约束。</p>
+
+<h3 id="s9-1">9.1 检索结果：品类极薄</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:34%">检索式</th><th class="num" style="width:14%">结果数</th><th style="width:16%">最高 Star</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><code>topic:erp</code> 按 star 排序</td><td class="num">5,415</td><td class="num">55,630</td><td>通用 ERP 池子大，Odoo、ERPNext 占据头部</td></tr>
+    <tr><td><code>ecommerce erp</code></td><td class="num">545</td><td class="num">8,944</td><td>第一名是 ERP+CRM（Idurar），不是跨境 ERP</td></tr>
+    <tr><td><code>"cross-border" ecommerce</code></td><td class="num">288</td><td class="num">1,049</td><td>头部全是 AI 运营工具箱、技能库，不是 ERP</td></tr>
+    <tr><td>中文「跨境电商」</td><td class="num">2,138</td><td class="num">5,324</td><td>头部是电商商城系统（mall4j），不是 ERP</td></tr>
+    <tr><td>中文「跨境 ERP」</td><td class="num">58</td><td class="num">117</td><td>第一名是启航跨境版，仅支持 idosell 与 Shein</td></tr>
+    <tr><td><code>oms order management ecommerce</code></td><td class="num">20</td><td class="num">51</td><td>开源电商 OMS 近乎空白</td></tr>
+    <tr><td><code>topic:cross-border-ecommerce</code></td><td class="num">181</td><td class="num">1,049</td><td>topic 已被 AI 工具占满，无 ERP</td></tr>
+  </tbody>
+</table>
+</div>
+<p>结论：<strong>没有开箱即用的开源跨境电商 ERP</strong>。「跨境 ERP」这个细分在开源世界里只有 58 个仓库、最高 117 star，而真正可用的候选全在通用 ERP 与区域型集成层里，需要大量二次开发。</p>
+
+<h3 id="s9-2">9.2 三类可行路线</h3>
+<p>18 个候选按「近 90 天有提交 + 近 12 个月有可交付版本 + 有真实使用痕迹」三条信号分档。</p>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:16%">路线</th><th style="width:20%">代表项目</th><th style="width:28%">能力与边界</th><th style="width:8%">Star</th><th>判断</th></tr></thead>
+  <tbody>
+    <tr><td>通用 ERP 底座</td><td>Odoo</td><td>订单、库存、财务、制造完整；跨境靠官方与 OCA 连接器拼装，需实施</td><td class="num">55,630</td><td>生态最大，实施资源最多；体量重，1.1 万开放 issue</td></tr>
+    <tr><td>通用 ERP 底座</td><td>ERPNext</td><td>近一年 30+ 次发布，发版最稳；GPL-3.0 无 open-core 阉割</td><td class="num">41,072</td><td>发版纪律最好，适合做技术参照</td></tr>
+    <tr><td>通用 ERP 底座</td><td>Dolibarr</td><td>轻量、模块化；无官方多平台连接器</td><td class="num">7,841</td><td>稳定但跨境能力靠第三方模块</td></tr>
+    <tr><td>国内电商 OMS</td><td>启航 qihang-erp-open</td><td>淘宝/京东/拼多多/抖店/微信小店；电子面单、供应商代发；<strong>无财务模块</strong>；多商户/多仓/多供应商在企业版</td><td class="num">322</td><td>业务最贴近，但 open-core 残缺、平台偏国内</td></tr>
+    <tr><td>区域型集成层</td><td>OpenLinker</td><td>六边形架构；双向库存同步；波兰生态（Allegro/InPost/KSeF）；alpha pre-1.0</td><td class="num">51</td><td>架构最现代，区域最窄</td></tr>
+    <tr><td>进销存 + 财务</td><td>jshERP</td><td>进销存与财务扎实，面向国内中小企业</td><td class="num">4,690</td><td>活跃，但与跨境无关</td></tr>
+    <tr><td>框架 / 脚手架</td><td>Open Mercato</td><td>Next.js + PostgreSQL，提供 CRM/ERP/commerce 模块</td><td class="num">1,910</td><td>不是成品，是给 AI 编码用的底座</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三条路线对应三种用法：<strong>通用 ERP 当底座</strong>（改造量最大，但财务与库存不用自建）、<strong>国内 OMS 当业务参照</strong>（学订单与售后模型，平台侧用不上）、<strong>区域集成层当架构参照</strong>（学适配器抽象，功能不可直接用）。</p>
+
+<h3 id="s9-3">9.3 四个失败样本</h3>
+<p>开源 ERP 的死法比活法更有信息量。四个样本分别对应四种失真。</p>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:16%">项目</th><th class="num" style="width:12%">Star</th><th style="width:30%">现象</th><th>说明什么</th></tr></thead>
+  <tbody>
+    <tr><td>seasonstar/bibi</td><td class="num">1,048</td><td>最后提交 2017-04-27，README 仍自称「跨境电商全栈解决方案」</td><td>star 是历史遗产，与可用性无关</td></tr>
+    <tr><td>FJ-OMS/oms-erp</td><td class="num">1,930</td><td>仅 94 次提交、1 个开放 issue、唯一版本发布于 2022、最后提交 2025-12</td><td>高 star 可以是展示型仓库，没有真实用户</td></tr>
+    <tr><td>metasfresh</td><td class="num">2,464</td><td>代码每天提交，GitHub 最后一次发布停在 2023-06，2,989 个开放 issue</td><td>「在写代码」不等于「能交付」</td></tr>
+    <tr><td>AureusERP</td><td class="num">12,182</td><td>仅 24 个 watcher，fork/star 比例 5%（正常 15–25%）</td><td>热度可能被营销放大，不能当市占率</td></tr>
+  </tbody>
+</table>
+</div>
+<p>四条合起来是一个判断：<strong>在 ERP 这个品类，star 与可用性的相关性很弱</strong>。有效的信号只有三个——发版节奏、issue 是否有回应、watch 与 fork 的比例是否正常。这与第 8 章对商业竞品的判断同构：真正难的是持续运维，不是功能清单。</p>
+
+<h3 id="s9-4">9.4 对货灵的四条结论</h3>
+
+<div class="finding">
+  <div class="h"><span class="idx">S1</span><h3>开源不是竞争威胁，但构成定价上限</h3></div>
+  <p>没有能直接替代商业 ERP 的开源项目，所以不必担心客户「下载一个就用」。但 Odoo/ERPNext 是真实存在的「自建基线」，中大型卖家会算这笔账。参照启航 README 的自述：自研维护需 1–2 人、年成本 30–50 万、3–6 个月熟悉代码。对照货灵专业版 8,000–15,000 元/年，自建成本是订阅价的 20–60 倍。</p>
+  <p>结论：定价区间安全，甚至可以更自信；但超过 3–5 万元/年时，中大型客户的「自建」选项会重新变得有吸引力。</p>
+  <div class="basis">依据：GitHub 检索结果<span class="ev ev-a">A</span>；启航 README 的自研成本自述<span class="ev ev-b">B</span>。</div>
+</div>
+
+<div class="finding">
+  <div class="h"><span class="idx">S2</span><h3>开源项目的死法印证「ERP 是运维生意」</h3></div>
+  <p>metasfresh 每天提交但三年不发版、FJ-OMS 高 star 零 issue、bibi 停更九年仍挂着跨境全栈的名头。这三件事说明：写代码不是壁垒，持续把平台变化接住才是。店小秘 70+ 平台、1700+ 物流渠道的运维积累，在这条逻辑上被开源侧独立验证。</p>
+  <p>对货灵的含义：要建的不是功能数量，是运维能力——适配器版本发布、同步健康、失败重试、游标续传。这些在方案里是「能力层」，在竞争里是「护城河」。</p>
+  <div class="basis">依据：GitHub API 的 pushed_at 与 releases 对照<span class="ev ev-a">A</span>；店小秘平台适配广度<span class="ev ev-a">A</span>。</div>
+</div>
+
+<div class="finding">
+  <div class="h"><span class="idx">S3</span><h3>可借鉴的架构是 OpenLinker，不是 Odoo</h3></div>
+  <p>OpenLinker 的六边形架构把每类外部系统抽成能力端口：<code>OrderSourcePort</code>（订单接入）、<code>ProductMasterPort</code>（商品主数据）、<code>InventoryMasterPort</code>（库存）、<code>ShippingProviderManagerPort</code>（承运商）、<code>InvoicingPort</code>（开票），每个端口下挂平台适配器，用 <code>dispatchCapability&lt;T&gt;</code> 分发。这与货灵的 <code>platformCode × orderTypeCode</code> 配置矩阵是同一思路，且比货灵现有方案更彻底——它把「能力」而非「平台」作为第一等公民。</p>
+  <p>Odoo 不适合当底座：5.5 万 star、1.1 万开放 issue、300+ 模块，改造成本高于收益。可借鉴的只是它的配置化思想（服务端配置驱动界面显隐），不是代码。</p>
+  <div class="basis">依据：OpenLinker README 与端口清单<span class="ev ev-b">B</span>；货灵现有平台适配器方案<span class="ev ev-a">A</span>。</div>
+</div>
+
+<div class="finding">
+  <div class="h"><span class="idx">S4</span><h3>「没有 SPU 层」这个空位，开源侧同样存在</h3></div>
+  <p>第 8.3 节发现店小秘与领星都没有 SPU，开源侧也一样：Odoo 最接近，但它是「产品模板 + 变体」（product template / variant），解决的是同一商品多规格，不是「一个商品 → N 个平台 listing」；OpenLinker 有 <code>ProductMasterPort</code>，同样不做 SPU 聚合。</p>
+  <p>一个空位在商业与开源两侧同时存在，说明它不是谁疏忽了，而是被平台差异切碎后的结构性缺口。这提高了货灵做商品中枢的判断权重。</p>
+  <div class="basis">依据：Odoo 商品模型<span class="ev ev-b">B</span>；OpenLinker 商品端口<span class="ev ev-b">B</span>；店小秘与领星配对模型<span class="ev ev-a">A</span><span class="ev ev-b">B</span>。</div>
+</div>
+
+<!-- ===== 10 发现 ===== -->
+<h2 id="s10"><span class="n">10</span>关键发现</h2>
+
+<div class="finding">
+  <div class="h"><span class="idx">F1</span><h3>两家客群几乎不重叠</h3></div>
+  <p>店小秘把 Amazon、TikTok、Temu 卡在付费墙后、放开速卖通，要的是从速卖通起步的铺货卖家。领星反过来，亚马逊功能全量开放到月单 5,000，要的是已经在亚马逊出单的精品卖家。两家的产品深度与免费策略互相排斥，一个卖家很难同时是两家的目标客户。</p>
+  <div class="basis">依据：店小秘免费版分平台额度<span class="ev ev-b">B</span>；领星免费版规则<span class="ev ev-b">B</span>；两家一级菜单构成<span class="ev ev-a">A</span>。</div>
+</div>
+
+<div class="finding">
+  <div class="h"><span class="idx">F2</span><h3>定价锚点决定产品边界，不是反过来</h3></div>
+  <p>店小秘按店铺数收费，所以必须把多店铺管理做顺：授权、批量、跨店汇总。领星按订单量收费，所以必须把单店单 SKU 的产出算到极致：广告效率、利润口径、库存周转。如果货灵按店铺数定价却去做广告深度，或按订单量定价却去做多店批量，商业模型与产品投入会互相拖累。</p>
+  <div class="basis">依据：计费单位与核心模块强度的对应关系<span class="ev ev-b">B</span><span class="ev ev-a">A</span>。</div>
+</div>
+
+<div class="finding">
+  <div class="h"><span class="idx">F3</span><h3>财务深度是两家的分水岭，也是货灵最容易被低估的一块</h3></div>
+  <p>店小秘的利润核算解决「这单赚没赚」：固定发货时点、17 平台自动取费、其余手动导入、6 平台完全不支持。领星解决「这个月赚了多少、能不能审计」：三种口径、五种延迟结算、15 项科目、与平台报告逐笔核对。前者是运营工具，后者是会计系统。货灵要做订单利润，绕不开先定收入确认时点。</p>
+  <div class="basis">依据：店小秘利润核算文档<span class="ev ev-b">B</span>；领星利润报表计算口径文档<span class="ev ev-b">B</span>。</div>
+</div>
+
+<div class="finding">
+  <div class="h"><span class="idx">F4</span><h3>店小秘的护城河是平台适配的广度与运维</h3></div>
+  <p>70+ 平台、平台 × 托管模式逐条拆、1700+ 物流渠道、30 篇订单文档里 14 篇是平台专项。这不是产品设计能力，是长期运营与接口维护的积累。价值在「平台改规则时用户不用改操作」，代价是用户要记 20 多条路径。</p>
+  <div class="basis">依据：帮助中心 14 分类与三级路径<span class="ev ev-a">A</span>；订单模块 30 篇文档结构<span class="ev ev-b">B</span>。</div>
+</div>
+
+<div class="finding">
+  <div class="h"><span class="idx">F5</span><h3>两家的订单都停在「推出去」，都不记录「为什么」</h3></div>
+  <p>店小秘的审单规则命中后只打标记；领星把审核失败拆成 8 类原因，但成功路径没有决策记录。两家都能回答「这单发货了吗」，都不能回答「为什么走这个仓、这个承运商、承诺了几号发」。中间这段是空的。</p>
+  <div class="basis">依据：店小秘审单规则页面提示语与实际效果<span class="ev ev-a">A</span>；领星订单管理文档的状态与异常机制<span class="ev ev-b">B</span>。</div>
+</div>
+
+<div class="finding">
+  <div class="h"><span class="idx">F6</span><h3>两家都没有 SPU 层，一个商品的多平台 listing 没有共同父级</h3></div>
+  <p>店小秘是「仓储 SKU + 产品」两套靠配对连接；领星是「本地 SKU + MSKU」1:1 配对。两者都没有 SPU，意味着同一商品在不同平台的 listing 之间没有父级，改价改库存要逐条操作。这既是两家的共同盲区，也是货灵商品中枢的空间。</p>
+  <div class="basis">依据：领星 Listing 文档的配对规则（1 MSKU : 1 SKU）<span class="ev ev-b">B</span>；店小秘商品管理与产品模块分离<span class="ev ev-a">A</span>。</div>
+</div>
+
+<div class="finding">
+  <div class="h"><span class="idx">F7</span><h3>免费版不是试用，是产品档位</h3></div>
+  <p>两家免费版都能长期使用，功能没阉割到不可用：店小秘订单处理不限量，领星功能与付费版相同。免费版要能独立支撑一个卖家的完整业务，否则转化与口碑双输；同时必须有限制点，否则没有付费动力——店小秘卡店铺数，领星卡单量。</p>
+  <div class="basis">依据：两家官方免费版规则<span class="ev ev-b">B</span>。</div>
+</div>
+
+<!-- ===== 11 定位 ===== -->
+<h2 id="s11"><span class="n">11</span>货灵ERP 的定位</h2>
+
+<div class="tw">
+<table>
+  <thead><tr><th style="width:22%"></th><th>平台与铺货广度窄</th><th>平台与铺货广度宽</th></tr></thead>
+  <tbody>
+    <tr><td><strong>订单之后的能力深</strong></td><td>领星：亚马逊精品，财务与供应链深</td><td><strong>货灵ERP：多平台 + 履约闭环 + 订单级财务</strong></td></tr>
+    <tr><td><strong>订单之后的能力浅</strong></td><td>—</td><td>店小秘：铺货效率高，履约停在打单流水线</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="t">定位陈述</div>
+  <p>面向多渠道卖家的商品与履约中枢：一个商品管住所有平台的 listing、库存与订单；铺货靠它放量，履约靠它收口。</p>
+</div>
+
+<ol>
+  <li><strong>商品是地基，不是附属。</strong>一个商品在十个平台的价格、库存、上下架状态，在中心改一次，不是去十个后台各改一次。</li>
+  <li><strong>两条路径共用一条链。</strong>铺货是「采集进来 → 批量推到 N 个平台」；履约是「订单回来 → 渠道单 → 履约单 → 执行单」。同一份商品与库存数据。</li>
+  <li><strong>货源与仓配在同一套数据里。</strong>缺货时进商城找货源、走一件代发，货到了能进仓。这是两家结构上做不到的，因为它们没有货源和仓网。</li>
+</ol>
+
+<div class="tw">
+<table>
+  <thead><tr><th style="width:14%">支点</th><th style="width:43%">能做</th><th>不能吹</th></tr></thead>
+  <tbody>
+    <tr><td>商品中枢</td><td>一个 SPU 管多平台 listing、批量改价改库存、批量上下架</td><td>不等于采集能力比店小秘强；采集来源与成功率是工程活</td></tr>
+    <tr><td>履约闭环</td><td>决策可追溯、异常可归属、四单对账</td><td>不等于仓内作业强，仓内是货灵WMS 的事</td></tr>
+    <tr><td>货源直连</td><td>商城一件代发、工厂货源、代发采购</td><td>不等于货源自营，规模取决于招商</td></tr>
+    <tr><td>仓配同源</td><td>委托单据直连仓网、服务费同链结算</td><td>只是 ERP 的一项能力，不是差异化的全部理由</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ===== 12 架构 ===== -->
+<h2 id="s12"><span class="n">12</span>架构与取舍</h2>
+
+<h3>12.1 商品中枢四层</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:14%">层</th><th style="width:44%">回答什么</th><th>与现有资产的关系</th></tr></thead>
+  <tbody>
+    <tr><td>SPU</td><td>这是什么商品：标题、描述、类目、属性、主图</td><td>新增。两家都没有这一层</td></tr>
+    <tr><td>变体</td><td>颜色/尺码/规格，一个变体对应一个可售单元</td><td>新增，可关联仓储 SKU</td></tr>
+    <tr><td>平台 Listing</td><td>某平台某店铺的售卖页：平台商品 ID、平台 SKU、价格、库存、状态</td><td>新增，挂在平台店铺下</td></tr>
+    <tr><td>仓储 SKU</td><td>这个货怎么存、怎么拣、怎么算效期</td><td>已有 `商品主档`，语义不改</td></tr>
+  </tbody>
+</table>
+</div>
+<p>关键设计：<strong>SPU 与仓储 SKU 的关联可为空</strong>。铺货卖家一件代发，商品不进仓，SPU 直接连货源与供应商；货到仓再补配对。这是铺货与履约能在同一套模型里共存的唯一办法。</p>
+
+<h3>12.2 五层架构</h3>
+<pre>商品层   SPU ──→ 变体 ──→ 平台 Listing（平台 × 店铺）
+                      └──→ 仓储 SKU（配对，可为空）
+            ↓
+接入层   平台适配器（授权 / 刊登 / 拉单 / 回传）  商城货源  仓网委托
+            ↓
+主干层   渠道单 ──→ 履约单 ──→ 执行单
+            ↓
+能力层   库存 ATP  售后  代发采购  订单利润  头程
+            ↓
+闭环层   异常队列  四单对账  委托单据中心  服务费账单
+            ↓
+数据层   固定报表（周转 / 履约时效 / 费用构成 / 订单利润）</pre>
+
+<h3>12.3 能力取舍</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:26%">能力域</th><th style="width:10%">取舍</th><th>理由</th><th style="width:8%">分期</th></tr></thead>
+  <tbody>
+    <tr><td>商品中枢（SPU / 变体 / Listing）</td><td><span class="tag g">做</span></td><td>铺货与履约共用地基；不做则两条路径各建一套商品，必然分叉</td><td>P0</td></tr>
+    <tr><td>商品配对</td><td><span class="tag g">做</span></td><td>拉回来的单要能关联库存；放 SPU 详情页签，不单开页</td><td>P0</td></tr>
+    <tr><td>采集与批量刊登</td><td><span class="tag g">做</span></td><td>只做 1688 与链接两条来源 + 按平台发布适配，不做全渠道采集与图片处理</td><td>P0–P1</td></tr>
+    <tr><td>订单利润（订单级）</td><td><span class="tag g">做</span></td><td>卖家选 ERP 的硬指标；先定收入确认时点，不做分摊</td><td>P0</td></tr>
+    <tr><td>代发采购单</td><td><span class="tag g">补强</span></td><td>已有页面，需与商城货源打通</td><td>P0</td></tr>
+    <tr><td>头程物流单</td><td><span class="tag g">做（轻）</span></td><td>与仓配同源是差异化；只做单据与轨迹，不做比价</td><td>P1</td></tr>
+    <tr><td>客服消息聚合</td><td><span class="tag g">做（聚合）</span></td><td>只聚合订单相关消息并跳转平台回复，不做智能客服</td><td>P1</td></tr>
+    <tr><td>广告管理</td><td><span class="tag r">不做</span></td><td>26 个模型背后是广告 API 与指标体系的长期投入，不是页面问题</td><td>—</td></tr>
+    <tr><td>BI 自定义报表</td><td><span class="tag r">不做</span></td><td>固定报表覆盖九成场景；自定义是专业分析工具的事</td><td>—</td></tr>
+  </tbody>
+</table>
+</div>
+<p>取舍后的页面增量：38 页 → 约 45 页。两家功能表加起来是 80+ 页，差距不在做少了什么，在商品层复用了同一份数据。</p>
+
+<h3>12.4 订单利润口径</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:22%">项</th><th>取值</th><th style="width:26%">来源</th></tr></thead>
+  <tbody>
+    <tr><td>商品售价 + 买家运费</td><td>订单明细行金额 + 运费</td><td>平台订单</td></tr>
+    <tr><td>平台佣金与手续费</td><td>平台费率 × 金额，或平台回传的实际扣费</td><td>平台结算 / 费率配置</td></tr>
+    <tr><td>物流费</td><td>实际面单费用</td><td>运单</td></tr>
+    <tr><td>采购成本</td><td>代发采购价 × 数量，或仓储 SKU 成本价</td><td>采购单 / 商品主档</td></tr>
+    <tr><td>退款</td><td>已退款金额</td><td>售后单</td></tr>
+    <tr><td>毛利</td><td>收入 − 上述成本</td><td>计算</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>不做</strong>：广告费、头程运费、包材、仓储服务费的分摊。这些的分摊维度是运营与财务口径问题，不同卖家答案不同；强行分摊会让订单利润变成没人信的估算值。</p>
+<p><strong>必须先定</strong>：按发货时间确认还是按结算时间确认。建议默认按发货时间——与货灵的履约单据天然对齐，且不需要处理冲销。但要把「平台结算回传后可重算」留成能力，否则会重蹈店小秘「费用侧结算滞后」的覆辙。</p>
+
+<!-- ===== 13 商业化 ===== -->
+<h2 id="s13"><span class="n">13</span>商业化建议</h2>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:13%">档位</th><th class="num">店铺数</th><th class="num">月订单量</th><th style="width:28%">3PL 委托</th><th>定位</th></tr></thead>
+  <tbody>
+    <tr><td>免费版</td><td class="num">1</td><td class="num">500</td><td>含，月 20 单以内</td><td>仓配是钩子：先用 ERP 管店，货要进仓时链路已通</td></tr>
+    <tr><td>标准版</td><td class="num">5</td><td class="num">5,000</td><td>按单计费</td><td>主力档，对标店小秘 VIP1（2,016 元/年）</td></tr>
+    <tr><td>专业版</td><td class="num">20</td><td class="num">不限</td><td>按单计费，含对账与异常</td><td>对标店小秘 VIP2–VIP3、领星包年版下限</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>锚点选店铺数为主、订单量为辅。</strong>货灵定位多渠道卖家，店铺数是核心变量；纯按单量会把低单量多店铺的铺货卖家挡在门外，而那正是免费版要承接的人。</p>
+<p><strong>免费版含委托但必须限额。</strong>仓配是成本中心，无限委托等于用软件补贴仓储。20 单/月够跑通「报备商品 → 入库计划 → 出库计划 → 账单」整条链，够验证价值，不够当免费仓用。</p>
+<p><strong>价格带</strong>：标准版 2,000–4,000 元/年，专业版 8,000–15,000 元/年。低于店小秘同档、显著低于领星，用「商品中枢 + 履约闭环 + 货源」补差价。</p>
+<p><strong>自建 TCO 对照</strong>：Odoo/ERPNext 软件免费，但实施与运维的年成本在 30–50 万级（启航 README 自述：需 1–2 人维护、3–6 个月熟悉代码）。货灵专业版 8,000–15,000 元/年是自建成本的 1/20–1/60，区间安全；但定价超过 3–5 万元/年时，中大型客户的自建选项会重新变得有吸引力。这也解释了领星为什么用询价制——它面向的客群本来就会算这笔账。</p>
+<p><strong>订阅与服务费分账</strong>：订阅是按年预付的软件费；仓储是按委托单量的服务费，走月度账单与对账。不在同一张账单上，避免卖家把「用了仓」和「买了软件」绑死，也避免仓配亏损拖累软件定价。</p>
+
+<!-- ===== 14 结论 ===== -->
+<h2 id="s14"><span class="n">14</span>结论与建议</h2>
+
+<h3>14.1 直接结论</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:18%">对象</th><th>结论</th></tr></thead>
+  <tbody>
+    <tr><td>店小秘</td><td>多平台铺货的宽度型选手，用免费版获客、用店铺数收费。护城河是平台适配广度与运维积累，财务是够用的毛利估算</td></tr>
+    <tr><td>领星</td><td>亚马逊精品的深度型选手，用全功能免费到 5,000 单获客、用订单量收费。护城河是财务口径与广告体系的产品化</td></tr>
+    <tr><td>货灵的机会</td><td>不在两家中间，在两家都缺的两处：商品没有 SPU 父级、订单没有决策留痕</td></tr>
+    <tr><td>货灵的前提</td><td>同时做铺货与履约，必须先补 SPU / 变体 / 平台 Listing 三层商品模型</td></tr>
+    <tr><td>开源替代</td><td>没有开箱即用的跨境 ERP，不构成竞争威胁；但 Odoo/ERPNext 是真实的自建基线，构成 3–5 万元/年的定价上限</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>14.2 建议（按优先级）</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:6%">序</th><th style="width:26%">动作</th><th>理由</th><th style="width:18%">前置</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>建三份数据字典：SPU、商品变体、平台 Listing</td><td>字段是页面与列名的真值源；字典不定，商品段 5 页做了也会返工</td><td>无</td></tr>
+    <tr><td>2</td><td>定订单利润的收入确认时点</td><td>决定同一张订单在不同月份是利润还是亏损；不做分摊可以先放，时点不能空</td><td>与财务确认</td></tr>
+    <tr><td>3</td><td>商品段改 5 页，原仓储商品档案移入仓储委托段</td><td>商品段要回答「卖什么、怎么上架」，不是「存什么」</td><td>字典 1；跨端联动清单</td></tr>
+    <tr><td>4</td><td>补商品配对与订单利润两个抽屉</td><td>不新增页面，挂 SPU 详情与订单 360，边际成本最低</td><td>字典 1、2</td></tr>
+    <tr><td>5</td><td>定免费版委托限额口径</td><td>影响开通流程与账单口径，需与仓网计费一起定</td><td>仓网计费口径</td></tr>
+    <tr><td>6</td><td>订单利润预留广告花费导入字段</td><td>不做分摊不等于不记账；广告花费是真实成本，迟早要进利润表</td><td>无</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>14.3 不建议做的事</h3>
+<ul>
+  <li><strong>不正面拼平台覆盖。</strong>70+ 平台的运维是长期投入，只构成准入，不构成差异。</li>
+  <li><strong>不做全量采集。</strong>采集来源与反爬是工程军备竞赛，店小秘已领先多年。</li>
+  <li><strong>不做广告深度。</strong>26 个模型背后是广告 API 与指标体系的长期积累。</li>
+  <li><strong>不在没有财务口径时上订单利润页。</strong>数字对不上账，比没有这个功能更伤信任。</li>
+</ul>
+
+<!-- ===== 15 附录 ===== -->
+<h2 id="s15"><span class="n">15</span>附录</h2>
+
+<h3>15.1 来源清单</h3>
+<div class="tw">
+<table>
+  <thead><tr><th style="width:20%">来源</th><th style="width:40%">内容</th><th>用途</th><th style="width:8%">等级</th></tr></thead>
+  <tbody>
+    <tr><td>店小秘网页版</td><td>只读浏览，未授权店铺</td><td>菜单、订单状态、审单规则、商品列、异常筛选</td><td>A</td></tr>
+    <tr><td>店小秘帮助中心</td><td>14 分类 + 29 平台 FAQ</td><td>二三级菜单、平台 × 托管路径</td><td>A</td></tr>
+    <tr><td>店小秘官方博客</td><td>免费版权益与限制（2026-04-10）</td><td>免费版边界与 VIP 四档</td><td>B</td></tr>
+    <tr><td>店小秘利润核算</td><td>financialManagement/167</td><td>公式、收入时点、平台覆盖、对账机制</td><td>B</td></tr>
+    <tr><td>店小秘订单模块</td><td>orderManagement 索引（30 篇）</td><td>订单能力范围与平台专项结构</td><td>B</td></tr>
+    <tr><td>领星帮助中心</td><td>功能概览</td><td>12 模块与二级功能项</td><td>B</td></tr>
+    <tr><td>领星订单管理</td><td>OrderManagement1</td><td>字段、状态机、20+ 批量操作、8 类失败原因</td><td>B</td></tr>
+    <tr><td>领星 Listing</td><td>listing1</td><td>字段、配对规则、刊登约束、调价风控</td><td>B</td></tr>
+    <tr><td>领星广告</td><td>Dashboard</td><td>四类型、26 模型、指标方向定义</td><td>B</td></tr>
+    <tr><td>领星利润口径</td><td>ProfitStatementnew</td><td>三种口径、五种延迟结算、重算规则</td><td>B</td></tr>
+    <tr><td>领星销售看板</td><td>manageBoard</td><td>11 模块、四象限、6 维度、15 项收支</td><td>B</td></tr>
+    <tr><td>领星定价页</td><td>/price、/en/price</td><td>免费门槛、按单计费、退款政策</td><td>B</td></tr>
+    <tr><td>第三方评测</td><td>行业对比与卖家记录</td><td>规模、上手难度、操作摩擦、包年区间</td><td>C</td></tr>
+    <tr><td>GitHub 检索</td><td>REST API（repos / releases / readme）+ ungh.cc 代理</td><td>18 个开源项目的 star / fork / watch / 开放 issue / 发版节奏 / 最后提交</td><td>A</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>15.2 未验证项</h3>
+<ul>
+  <li>领星未登录：操作手感、报错表现、真实数据量下的性能全部未知。</li>
+  <li>领星包年档位与单价不公开；0.04 元/单与 1 万–20 万区间为第三方口径。</li>
+  <li>店小秘的合并/拆分、批量操作细节收纳在进阶文档正文内，本轮只做标题级判断。</li>
+  <li>两家的客群规模（180 万、70 万、市占率第一）为厂商或引用第三方口径，未独立核验。</li>
+  <li>货灵 38 页为内部现状，不是竞品数据。</li>
+</ul>
+
+<h3>15.3 保鲜期</h3>
+<p>竞品定价与菜单每季度复核一次；产品大改版后立即复核，并在 <code>docs/log.md</code> 留痕。本报告的数据快照为 2026-11-08。</p>
+
+<div class="foot">
+  <b>编制</b>　基于店小秘与领星官方公开资料、店小秘网页版只读实测、第三方评测<br>
+  <b>口径</b>　对标主体为货灵ERP 端；3PL 委托是它的一项能力，不作为产品定位；仓内作业归货灵WMS<br>
+  <b>同源文档</b>　`docs/产品需求/货灵ERP竞品对标与定位方案.md`（定位与架构决策）、`店小秘ERP竞品对照.md`（店小秘逐页字段）、`店小秘与领星ERP菜单结构.md`（菜单层级）
+</div>
+
+</main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+  var targets = links.map(function(a){
+    var id = a.getAttribute('href').slice(1);
+    return document.getElementById(id);
+  }).filter(Boolean);
+
+  function onScroll(){
+    var pos = window.scrollY + 120;
+    var current = null;
+    for (var i = 0; i < targets.length; i++){
+      if (targets[i].offsetTop <= pos) current = targets[i].id;
+    }
+    links.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>
