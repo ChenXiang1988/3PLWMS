@@ -1,0 +1,44 @@
+{
+  "config": {
+    "unit": "条",
+    "statusField": "waybillStatus",
+    "keyField": "waybillNo",
+    "statusMeta": {
+      "shipped": { "label": "已发货", "tone": "pending" },
+      "inTransit": { "label": "在途", "tone": "info" },
+      "signed": { "label": "已签收", "tone": "enabled" },
+      "exception": { "label": "异常件", "tone": "rejected" },
+      "closed": { "label": "已关闭", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "已发货", "value": "shipped" },
+      { "label": "在途", "value": "inTransit" },
+      { "label": "已签收", "value": "signed" },
+      { "label": "异常件", "value": "exception" },
+      { "label": "已关闭", "value": "closed" }
+    ],
+    "columns": [
+      { "key": "waybillNo", "label": "运单号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "sourceDocType", "label": "来源单据类型", "width": "120px" },
+      { "key": "sourceDocNo", "label": "来源单号", "width": "160px" },
+      { "key": "carrierName", "label": "承运商", "width": "108px" },
+      { "key": "packageCount", "label": "包裹数", "width": "80px", "align": "right" },
+      { "key": "shipTime", "label": "发货交接时间", "width": "157px" },
+      { "key": "waybillStatus", "label": "运单状态", "width": "108px", "type": "status" }
+    ],
+    "filters": [
+      { "label": "来源单据类型", "key": "sourceDocType", "type": "select" },
+      { "label": "承运商", "key": "carrierName", "type": "select" },
+      { "label": "运单号", "key": "waybillNo", "type": "text", "placeholder": "请输入运单号" }
+    ],
+    "emptyTitle": "暂无运单"
+  },
+  "rows": [
+    { "owner": "海纳食品", "waybillNo": "SF261107778", "sourceDocType": "出库订单", "sourceDocNo": "OP20261108001", "carrierName": "顺丰速运", "packageCount": 2, "shipTime": "2026-11-08 08:20", "waybillStatus": "inTransit" },
+    { "owner": "海纳食品", "waybillNo": "YD202611070001", "sourceDocType": "出库订单", "sourceDocNo": "OP20261108002", "carrierName": "京东物流", "packageCount": 1, "shipTime": "2026-11-07 17:40", "waybillStatus": "signed" },
+    { "owner": "海纳食品", "waybillNo": "YT261107001", "sourceDocType": "自发货单", "sourceDocNo": "SS20261107002", "carrierName": "顺丰速运", "packageCount": 2, "shipTime": "2026-11-07 14:20", "waybillStatus": "inTransit" },
+    { "owner": "海纳食品", "waybillNo": "BL20261105001", "sourceDocType": "平台备货单", "sourceDocNo": "RP20261106002", "carrierName": "中远海运", "packageCount": 18, "shipTime": "2026-11-05 10:20", "waybillStatus": "signed" },
+    { "owner": "辰星日化", "waybillNo": "YT261107002", "sourceDocType": "自发货单", "sourceDocNo": "SS20261108005", "carrierName": "云途物流", "packageCount": 1, "shipTime": "2026-11-07 10:00", "waybillStatus": "exception" },
+    { "owner": "辰星日化", "waybillNo": "JD261106221", "sourceDocType": "出库订单", "sourceDocNo": "OP20261107004", "carrierName": "京东物流", "packageCount": 1, "shipTime": "2026-11-06 09:30", "waybillStatus": "signed" }
+  ]
+}

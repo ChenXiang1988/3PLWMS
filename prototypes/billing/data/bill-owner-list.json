@@ -1,12 +1,12 @@
 {
   "rows": [
-    { "owner": "海纳食品", "billNo": "BILL202611001", "billStatus": "pending", "period": "2026-11", "totalFee": 4200.0, "createTime": "2026-11-06 09:00" },
-    { "owner": "海纳食品", "billNo": "BILL202610001", "billStatus": "confirmed", "period": "2026-10", "totalFee": 15600.0, "createTime": "2026-11-02 10:15" },
-    { "owner": "海纳食品", "billNo": "BILL202609001", "billStatus": "paid", "period": "2026-09", "totalFee": 12800.0, "createTime": "2026-10-03 09:30" },
-    { "owner": "海纳食品", "billNo": "BILL202608001", "billStatus": "invoiced", "period": "2026-08", "totalFee": 11200.0, "createTime": "2026-09-03 11:05" },
-    { "owner": "辰星日化", "billNo": "BILL202611002", "billStatus": "pending", "period": "2026-11", "totalFee": 3100.0, "createTime": "2026-11-06 09:10" },
-    { "owner": "辰星日化", "billNo": "BILL202610002", "billStatus": "confirmed", "period": "2026-10", "totalFee": 10400.0, "createTime": "2026-11-02 10:25" },
-    { "owner": "辰星日化", "billNo": "BILL202609002", "billStatus": "paid", "period": "2026-09", "totalFee": 9600.0, "createTime": "2026-10-03 09:40" },
-    { "owner": "辰星日化", "billNo": "BILL202607002", "billStatus": "cancelled", "period": "2026-07", "totalFee": 8800.0, "createTime": "2026-08-03 14:20" }
+    { "owner": "海纳食品", "billNo": "BILL202611001", "billStatus": "pending", "period": "2026-11", "totalFee": 4200.0, "feeItem": "仓储作业费", "billingMode": "按件", "unitPrice": 1.20, "qty": 3500, "amount": 4200.0, "docNo": "OP20261108001", "createTime": "2026-11-06 09:00", "confirmTime": "", "confirmBy": "" },
+    { "owner": "海纳食品", "billNo": "BILL202610001", "billStatus": "confirmed", "period": "2026-10", "totalFee": 15600.0, "feeItem": "仓租", "billingMode": "按托", "unitPrice": 12.00, "qty": 1300, "amount": 15600.0, "docNo": "WH-HN-01", "createTime": "2026-11-02 10:15", "confirmTime": "2026-11-03 10:00", "confirmBy": "陈晓" },
+    { "owner": "海纳食品", "billNo": "BILL202609001", "billStatus": "paid", "period": "2026-09", "totalFee": 12800.0, "feeItem": "出库操作费", "billingMode": "按件", "unitPrice": 0.80, "qty": 16000, "amount": 12800.0, "docNo": "OP202609001", "createTime": "2026-10-03 09:30", "confirmTime": "2026-10-04 09:20", "confirmBy": "陈晓" },
+    { "owner": "海纳食品", "billNo": "BILL202608001", "billStatus": "invoiced", "period": "2026-08", "totalFee": 11200.0, "feeItem": "入库操作费", "billingMode": "按件", "unitPrice": 1.00, "qty": 11200, "amount": 11200.0, "docNo": "OP202608001", "createTime": "2026-09-03 11:05", "confirmTime": "2026-09-04 14:10", "confirmBy": "陈晓" },
+    { "owner": "辰星日化", "billNo": "BILL202611002", "billStatus": "pending", "period": "2026-11", "totalFee": 3100.0, "feeItem": "仓储作业费", "billingMode": "按件", "unitPrice": 1.10, "qty": 2818, "amount": 3100.0, "docNo": "OP20261108003", "createTime": "2026-11-06 09:10", "confirmTime": "", "confirmBy": "" },
+    { "owner": "辰星日化", "billNo": "BILL202610002", "billStatus": "confirmed", "period": "2026-10", "totalFee": 10400.0, "feeItem": "仓租", "billingMode": "按托", "unitPrice": 10.00, "qty": 1040, "amount": 10400.0, "docNo": "WH-CX-01", "createTime": "2026-11-02 10:25", "confirmTime": "2026-11-03 11:30", "confirmBy": "周敏" },
+    { "owner": "辰星日化", "billNo": "BILL202609002", "billStatus": "paid", "period": "2026-09", "totalFee": 9600.0, "feeItem": "出库操作费", "billingMode": "按件", "unitPrice": 0.80, "qty": 12000, "amount": 9600.0, "docNo": "OP202609002", "createTime": "2026-10-03 09:40", "confirmTime": "2026-10-04 10:10", "confirmBy": "周敏" },
+    { "owner": "辰星日化", "billNo": "BILL202607002", "billStatus": "cancelled", "period": "2026-07", "totalFee": 8800.0, "feeItem": "仓储作业费", "billingMode": "按件", "unitPrice": 1.00, "qty": 8800, "amount": 8800.0, "docNo": "OP202607002", "createTime": "2026-08-03 14:20", "confirmTime": "", "confirmBy": "" }
   ]
 }

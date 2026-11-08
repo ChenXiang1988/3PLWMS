@@ -1,12 +1,18 @@
 {
   "rows": [
-    { "owner": "海纳食品", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "batchNo": "B20261028001", "warehouse": "华东中心仓", "onHandQty": 480, "availableQty": 440, "frozenQty": 40 },
-    { "owner": "海纳食品", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "batchNo": "B20260920005", "warehouse": "华北分拨仓", "onHandQty": 360, "availableQty": 340, "frozenQty": 20 },
-    { "owner": "海纳食品", "skuCode": "SKU100175", "skuName": "海纳酸奶 100g×12", "batchNo": "B20261104002", "warehouse": "华东中心仓", "onHandQty": 120, "availableQty": 120, "frozenQty": 0 },
-    { "owner": "海纳食品", "skuCode": "SKU100402", "skuName": "海纳常温酸奶礼盒 200g×12", "batchNo": "B20261030001", "warehouse": "华东中心仓", "onHandQty": 180, "availableQty": 160, "frozenQty": 20 },
-    { "owner": "辰星日化", "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "batchNo": "B20260901003", "warehouse": "华南前置仓", "onHandQty": 860, "availableQty": 800, "frozenQty": 60 },
-    { "owner": "辰星日化", "skuCode": "SKU100142", "skuName": "辰星洗洁精 500ml×20", "batchNo": "B20260510006", "warehouse": "华南前置仓", "onHandQty": 75, "availableQty": 75, "frozenQty": 0 },
-    { "owner": "辰星日化", "skuCode": "SKU100355", "skuName": "辰星柔顺剂 1kg×12", "batchNo": "B20261019003", "warehouse": "华南前置仓", "onHandQty": 240, "availableQty": 240, "frozenQty": 0 },
-    { "owner": "辰星日化", "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "batchNo": "B20260901003", "warehouse": "华东中心仓", "onHandQty": 420, "availableQty": 400, "frozenQty": 20 }
+    { "owner": "海纳食品", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "batchNo": "B20261028001", "warehouse": "华东中心仓", "onHandQty": 480, "availableQty": 440, "frozenQty": 40, "reservedQty": 60, "inboundQty": 100, "atpQty": 480, "atpUpdatedAt": "2026-11-08 10:00" },
+    { "owner": "海纳食品", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "batchNo": "B20260920005", "warehouse": "华北分拨仓", "onHandQty": 360, "availableQty": 340, "frozenQty": 20, "reservedQty": 40, "inboundQty": 0, "atpQty": 300, "atpUpdatedAt": "2026-11-08 10:00" },
+    { "owner": "海纳食品", "skuCode": "SKU100175", "skuName": "海纳酸奶 100g×12", "batchNo": "B20261104002", "warehouse": "华东中心仓", "onHandQty": 120, "availableQty": 120, "frozenQty": 0, "reservedQty": 8, "inboundQty": 0, "atpQty": 112, "atpUpdatedAt": "2026-11-08 10:00" },
+    { "owner": "海纳食品", "skuCode": "SKU100402", "skuName": "海纳常温酸奶礼盒 200g×12", "batchNo": "B20261030001", "warehouse": "华东中心仓", "onHandQty": 180, "availableQty": 160, "frozenQty": 20, "reservedQty": 20, "inboundQty": 0, "atpQty": 140, "atpUpdatedAt": "2026-11-08 10:00" },
+    { "owner": "海纳食品", "skuCode": "SKU100232", "skuName": "海苔脆片 50g", "batchNo": "B20261020001", "warehouse": "华东中心仓", "onHandQty": 520, "availableQty": 480, "frozenQty": 40, "reservedQty": 120, "inboundQty": 0, "atpQty": 360, "atpUpdatedAt": "2026-11-08 10:00" },
+    { "owner": "海纳食品", "skuCode": "SKU100205", "skuName": "海苔薄饼 200g", "batchNo": "B20261021001", "warehouse": "华东中心仓", "onHandQty": 240, "availableQty": 220, "frozenQty": 20, "reservedQty": 60, "inboundQty": 0, "atpQty": 160, "atpUpdatedAt": "2026-11-08 10:00" },
+    { "owner": "海纳食品", "skuCode": "SKU100198", "skuName": "海苔夹心脆 120g", "batchNo": "B20261022001", "warehouse": "华东中心仓", "onHandQty": 200, "availableQty": 180, "frozenQty": 20, "reservedQty": 20, "inboundQty": 0, "atpQty": 160, "atpUpdatedAt": "2026-11-08 10:00" },
+    { "owner": "辰星日化", "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "batchNo": "B20260901003", "warehouse": "华南前置仓", "onHandQty": 860, "availableQty": 800, "frozenQty": 60, "reservedQty": 120, "inboundQty": 0, "atpQty": 680, "atpUpdatedAt": "2026-11-08 10:00" },
+    { "owner": "辰星日化", "skuCode": "SKU100142", "skuName": "辰星洗洁精 500ml×20", "batchNo": "B20260510006", "warehouse": "华南前置仓", "onHandQty": 75, "availableQty": 75, "frozenQty": 0, "reservedQty": 10, "inboundQty": 50, "atpQty": 115, "atpUpdatedAt": "2026-11-08 10:00" },
+    { "owner": "辰星日化", "skuCode": "SKU100355", "skuName": "辰星柔顺剂 1kg×12", "batchNo": "B20261019003", "warehouse": "华南前置仓", "onHandQty": 240, "availableQty": 240, "frozenQty": 0, "reservedQty": 0, "inboundQty": 0, "atpQty": 240, "atpUpdatedAt": "2026-11-08 10:00" },
+    { "owner": "辰星日化", "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "batchNo": "B20260901003", "warehouse": "华东中心仓", "onHandQty": 420, "availableQty": 400, "frozenQty": 20, "reservedQty": 80, "inboundQty": 0, "atpQty": 320, "atpUpdatedAt": "2026-11-08 10:00" },
+    { "owner": "辰星日化", "skuCode": "SKU100205", "skuName": "海苔薄饼 200g", "batchNo": "B20261021001", "warehouse": "华南前置仓", "onHandQty": 260, "availableQty": 240, "frozenQty": 20, "reservedQty": 24, "inboundQty": 0, "atpQty": 216, "atpUpdatedAt": "2026-11-08 10:00" },
+    { "owner": "辰星日化", "skuCode": "SKU100198", "skuName": "海苔夹心脆 120g", "batchNo": "B20261022001", "warehouse": "华东中心仓", "onHandQty": 180, "availableQty": 180, "frozenQty": 0, "reservedQty": 150, "inboundQty": 0, "atpQty": 30, "atpUpdatedAt": "2026-11-08 10:00" },
+    { "owner": "辰星日化", "skuCode": "SKU100175", "skuName": "海苔礼盒装", "batchNo": "B20261022002", "warehouse": "华东中心仓", "onHandQty": 120, "availableQty": 120, "frozenQty": 0, "reservedQty": 50, "inboundQty": 0, "atpQty": 70, "atpUpdatedAt": "2026-11-08 10:00" }
   ]
 }

@@ -1,0 +1,69 @@
+{
+  "config": {
+    "unit": "个",
+    "statusField": "taskStatus",
+    "keyField": "taskNo",
+    "statusMeta": {
+      "queued": { "label": "待执行", "tone": "pending" },
+      "running": { "label": "执行中", "tone": "info" },
+      "success": { "label": "成功", "tone": "enabled" },
+      "partial": { "label": "部分失败", "tone": "pending" },
+      "failed": { "label": "失败", "tone": "rejected" }
+    },
+    "tabs": [
+      { "label": "待执行", "value": "queued" },
+      { "label": "执行中", "value": "running" },
+      { "label": "成功", "value": "success" },
+      { "label": "部分失败", "value": "partial" },
+      { "label": "失败", "value": "failed" }
+    ],
+    "columns": [
+      { "key": "taskNo", "label": "任务号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "shopName", "label": "店铺", "width": "168px" },
+      { "key": "syncType", "label": "同步类型", "width": "88px" },
+      { "key": "triggerType", "label": "触发方式", "width": "88px" },
+      { "key": "windowStart", "label": "时间窗", "width": "180px" },
+      { "key": "taskStatus", "label": "任务状态", "width": "108px", "type": "status" },
+      { "key": "successCount", "label": "成功数", "width": "80px", "align": "right", "type": "num" },
+      { "key": "failCount", "label": "失败数", "width": "80px", "align": "right", "type": "num" },
+      { "key": "failReason", "label": "失败原因", "width": "200px" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "处理" }
+    ],
+    "filters": [
+      { "label": "店铺", "key": "shopName", "type": "select" },
+      { "label": "同步类型", "key": "syncType", "type": "select" },
+      { "label": "触发方式", "key": "triggerType", "type": "select" }
+    ],
+    "scopeNote": "每店独立同步，任务失败可重试；页面不展示队列与限流参数",
+    "form": {
+      "title": "同步任务",
+      "note": "重试只重新执行本任务，不改写已拉订单与已完成履约。",
+      "groups": [
+        { "title": "任务信息", "fields": [
+          { "label": "任务号", "key": "taskNo", "readonly": true },
+          { "label": "店铺", "key": "shopName", "readonly": true },
+          { "label": "同步类型", "key": "syncType", "readonly": true },
+          { "label": "触发方式", "key": "triggerType", "readonly": true },
+          { "label": "时间窗", "key": "windowStart", "readonly": true },
+          { "label": "失败原因", "key": "failReason", "type": "textarea", "readonly": true }
+        ] }
+      ],
+      "actions": [
+        { "label": "重试", "primary": true, "attrs": { "data-form-action": "retry" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": { "retry": "queued" },
+    "emptyTitle": "暂无同步任务"
+  },
+  "rows": [
+    { "owner": "海纳食品", "taskNo": "ST20261108001", "shopName": "海纳食品优选店", "syncType": "拉单", "triggerType": "定时", "windowStart": "2026-11-08 09:00", "taskStatus": "success", "successCount": 36, "failCount": 0, "failReason": "", "retryCount": 0, "lastSuccessTime": "2026-11-08 09:40", "nextRetryTime": "", "operator": "" },
+    { "owner": "海纳食品", "taskNo": "ST20261108002", "shopName": "HN Global Store", "syncType": "售后", "triggerType": "定时", "windowStart": "2026-11-08 09:00", "taskStatus": "partial", "successCount": 8, "failCount": 2, "failReason": "平台售后接口限流", "retryCount": 1, "lastSuccessTime": "2026-11-08 09:30", "nextRetryTime": "2026-11-08 09:50", "operator": "" },
+    { "owner": "海纳食品", "taskNo": "ST20261108003", "shopName": "HN Foods US", "syncType": "回传", "triggerType": "手动", "windowStart": "2026-11-08 09:10", "taskStatus": "failed", "successCount": 0, "failCount": 3, "failReason": "运单号格式校验不通过", "retryCount": 2, "lastSuccessTime": "2026-11-07 18:20", "nextRetryTime": "2026-11-08 10:10", "operator": "陈晓" },
+    { "owner": "辰星日化", "taskNo": "ST20261108004", "shopName": "辰星日化 SG", "syncType": "拉单", "triggerType": "定时", "windowStart": "2026-11-08 09:00", "taskStatus": "success", "successCount": 24, "failCount": 0, "failReason": "", "retryCount": 0, "lastSuccessTime": "2026-11-08 09:20", "nextRetryTime": "", "operator": "" },
+    { "owner": "辰星日化", "taskNo": "ST20261108005", "shopName": "CX Daily US", "syncType": "拉单", "triggerType": "重试", "windowStart": "2026-11-06 18:00", "taskStatus": "failed", "successCount": 0, "failCount": 12, "failReason": "刷新令牌失败，需重新授权", "retryCount": 3, "lastSuccessTime": "2026-11-06 18:20", "nextRetryTime": "", "operator": "周敏" },
+    { "owner": "辰星日化", "taskNo": "ST20261108006", "shopName": "辰星日化官方店", "syncType": "回传", "triggerType": "定时", "windowStart": "2026-11-08 08:30", "taskStatus": "running", "successCount": 6, "failCount": 0, "failReason": "", "retryCount": 0, "lastSuccessTime": "2026-11-08 08:50", "nextRetryTime": "", "operator": "" },
+    { "owner": "云途电商", "taskNo": "ST20261108007", "shopName": "云途马来店", "syncType": "拉单", "triggerType": "定时", "windowStart": "2026-11-08 09:00", "taskStatus": "success", "successCount": 18, "failCount": 0, "failReason": "", "retryCount": 0, "lastSuccessTime": "2026-11-08 09:10", "nextRetryTime": "", "operator": "" },
+    { "owner": "云途电商", "taskNo": "ST20261108008", "shopName": "云途出海店", "syncType": "拉单", "triggerType": "定时", "windowStart": "2026-11-08 09:00", "taskStatus": "queued", "successCount": 0, "failCount": 0, "failReason": "", "retryCount": 0, "lastSuccessTime": "", "nextRetryTime": "", "operator": "" }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "id": "warehouse",
   "name": "仓储管理",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "owner": "产品组",
   "tier": "core",
   "deployed": true,
@@ -14,5 +14,5 @@
     "data/"
   ],
   "status": "review",
-  "note": "库区库位、移库任务、盘点任务、补货任务四页；盘点作业归 PDA 端"
+  "note": "库区库位、移库任务、盘点计划、盘点单、补货任务五页；盘点单行抽屉列盘点任务，盘点作业归 PDA 端"
 }

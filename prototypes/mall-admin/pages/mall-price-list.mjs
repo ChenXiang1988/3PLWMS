@@ -1,6 +1,4 @@
-import { ListPage, Tag, dash, uniq } from '../../shared/ui.mjs';
-
-const money = (v) => (v == null || v === '' ? '—' : `￥${Number(v).toFixed(2)}`);
+import { ListPage, Tag, dash, uniq, moneyOrDash } from '../../shared/ui.mjs';
 
 export function renderPage(data, ctx) {
   const { rows = [] } = data[ctx.pageKey] || {};
@@ -24,7 +22,7 @@ export function renderPage(data, ctx) {
       { key: 'skuCode', label: '商品编码', width: '160px', cls: 'wx-col-strong' },
       { key: 'skuName', label: '商品名称', render: (r) => dash(r.skuName) },
       { key: 'owner', label: '货主', width: '120px', render: (r) => dash(r.owner) },
-      { key: 'price', label: '单价', width: '120px', align: 'right', render: (r) => money(r.price) },
+      { key: 'price', label: '单价', width: '120px', align: 'right', render: (r) => moneyOrDash(r.price) },
       { key: 'ladderPrice', label: '阶梯价', width: '160px', render: (r) => dash(r.ladderPrice) },
       { key: 'guestVisible', label: '访客可见', width: '108px', render: (r) => Tag(dash(r.guestVisible), r.guestVisible === '否' ? 'info' : 'default') },
       { key: 'memberVisible', label: '登录可见', width: '108px', render: (r) => Tag(dash(r.memberVisible), r.memberVisible === '否' ? 'info' : 'default') },

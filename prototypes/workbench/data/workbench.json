@@ -1,12 +1,22 @@
 {
   "rows": [
-    { "owner": "海纳食品", "docType": "入库通知单", "pending": 1, "doing": 1, "exception": 0, "completed": 1, "overdue": 0 },
-    { "owner": "海纳食品", "docType": "出库订单", "pending": 1, "doing": 1, "exception": 0, "completed": 1, "overdue": 0 },
-    { "owner": "海纳食品", "docType": "移库单", "pending": 0, "doing": 0, "exception": 0, "completed": 1, "overdue": 0 },
-    { "owner": "海纳食品", "docType": "盘点单", "pending": 0, "doing": 0, "exception": 0, "completed": 1, "overdue": 0 },
-    { "owner": "辰星日化", "docType": "入库通知单", "pending": 1, "doing": 0, "exception": 1, "completed": 1, "overdue": 1 },
-    { "owner": "辰星日化", "docType": "出库订单", "pending": 1, "doing": 0, "exception": 1, "completed": 1, "overdue": 0 },
-    { "owner": "辰星日化", "docType": "移库单", "pending": 0, "doing": 0, "exception": 0, "completed": 0, "overdue": 0 },
-    { "owner": "辰星日化", "docType": "盘点单", "pending": 0, "doing": 0, "exception": 0, "completed": 1, "overdue": 0 }
+    { "owner": "海纳食品", "docType": "入库通知单", "pending": 1, "doing": 1, "exception": 0, "completed": 1, "overdue": 0, "stockTotal": 12480, "pendingBill": 2, "authExpiring": 1, "syncFailed": 1, "notDispatched": 2, "pendingShip": 3, "pendingBook": 1, "pendingAfterSale": 2, "promiseRisk": 2, "stockRisk": 1, "reconcileDiff": 1, "queue": [
+      { "riskType": "承诺超时", "objectNo": "PO20261108003", "deadline": "2026-11-08 18:00", "riskLevel": "超时", "entry": "订单中心" },
+      { "riskType": "库存缺口", "objectNo": "SKU100198 / 华东中心仓", "deadline": "2026-11-08 18:00", "riskLevel": "高", "entry": "订单中心" },
+      { "riskType": "对账差异", "objectNo": "RC20261108002", "deadline": "2026-11-09 12:00", "riskLevel": "中", "entry": "对账差异" },
+      { "riskType": "授权即将过期", "objectNo": "HN Global Store", "deadline": "2026-11-10 09:00", "riskLevel": "中", "entry": "平台店铺" }
+    ] },
+    { "owner": "海纳食品", "docType": "出库订单", "pending": 1, "doing": 1, "exception": 0, "completed": 1, "overdue": 0, "stockTotal": 12480, "pendingBill": 2 },
+    { "owner": "海纳食品", "docType": "移库单", "pending": 0, "doing": 0, "exception": 0, "completed": 1, "overdue": 0, "stockTotal": 12480, "pendingBill": 2 },
+    { "owner": "海纳食品", "docType": "盘点单", "pending": 0, "doing": 0, "exception": 0, "completed": 1, "overdue": 0, "stockTotal": 12480, "pendingBill": 2 },
+    { "owner": "辰星日化", "docType": "入库通知单", "pending": 1, "doing": 0, "exception": 1, "completed": 1, "overdue": 1, "stockTotal": 8960, "pendingBill": 1, "authExpiring": 1, "syncFailed": 1, "notDispatched": 1, "pendingShip": 2, "pendingBook": 1, "pendingAfterSale": 1, "promiseRisk": 1, "stockRisk": 1, "reconcileDiff": 1, "queue": [
+      { "riskType": "承诺超时", "objectNo": "PO20261108008", "deadline": "2026-11-07 12:00", "riskLevel": "超时", "entry": "订单中心" },
+      { "riskType": "库存缺口", "objectNo": "SKU100198 / 华东中心仓", "deadline": "2026-11-10 18:00", "riskLevel": "高", "entry": "订单中心" },
+      { "riskType": "对账差异", "objectNo": "RC20261108003", "deadline": "2026-11-09 12:00", "riskLevel": "中", "entry": "对账差异" },
+      { "riskType": "授权即将过期", "objectNo": "CX Daily US", "deadline": "2026-11-10 09:00", "riskLevel": "中", "entry": "平台店铺" }
+    ] },
+    { "owner": "辰星日化", "docType": "出库订单", "pending": 1, "doing": 0, "exception": 1, "completed": 1, "overdue": 0, "stockTotal": 8960, "pendingBill": 1 },
+    { "owner": "辰星日化", "docType": "移库单", "pending": 0, "doing": 0, "exception": 0, "completed": 0, "overdue": 0, "stockTotal": 8960, "pendingBill": 1 },
+    { "owner": "辰星日化", "docType": "盘点单", "pending": 0, "doing": 0, "exception": 0, "completed": 1, "overdue": 0, "stockTotal": 8960, "pendingBill": 1 }
   ]
 }

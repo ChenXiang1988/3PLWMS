@@ -1,0 +1,65 @@
+{
+  "config": {
+    "unit": "条",
+    "statusField": "agreementStatus",
+    "statusMeta": {
+      "draft": { "label": "草稿", "tone": "disabled" },
+      "pendingReview": { "label": "待审核", "tone": "pending" },
+      "approved": { "label": "已生效", "tone": "enabled" },
+      "rejected": { "label": "已驳回", "tone": "rejected" },
+      "terminated": { "label": "已终止", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "草稿", "value": "draft" },
+      { "label": "待审核", "value": "pendingReview" },
+      { "label": "已生效", "value": "approved" },
+      { "label": "已驳回", "value": "rejected" },
+      { "label": "已终止", "value": "terminated" }
+    ],
+    "columns": [
+      { "key": "agreementNo", "label": "协议编号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "warehouseScope", "label": "服务仓库" },
+      { "key": "serviceItems", "label": "服务项目" },
+      { "key": "billingCycle", "label": "账期" },
+      { "key": "agreementStatus", "label": "协议状态", "type": "status" },
+      { "key": "effectiveDate", "label": "生效日期" },
+      { "key": "expireDate", "label": "到期日期" },
+      { "key": "action", "label": "操作", "type": "action", "button": "处理" }
+    ],
+    "filters": [
+      { "label": "协议状态", "key": "agreementStatus", "type": "select" },
+      { "label": "协议编号", "key": "agreementNo", "type": "text", "placeholder": "请输入协议编号" }
+    ],
+    "keyField": "agreementNo",
+    "scopeNote": "未签约的注册账号只能用订单、刊登与库存查询，建不了入库与出库计划单",
+    "form": {
+      "title": "仓储服务协议",
+      "note": "提交后由仓网端审核，审核通过才可在对应仓提交入库与出库计划单。",
+      "groups": [
+        { "title": "协议信息", "fields": [
+          { "label": "协议编号", "key": "agreementNo", "readonly": true },
+          { "label": "服务仓库", "key": "warehouseScope", "readonly": true },
+          { "label": "服务项目", "key": "serviceItems", "readonly": true },
+          { "label": "账期", "key": "billingCycle", "readonly": true },
+          { "label": "生效日期", "key": "effectiveDate", "readonly": true },
+          { "label": "到期日期", "key": "expireDate", "readonly": true }
+        ] }
+      ],
+      "actions": [
+        { "label": "提交审核", "primary": true, "attrs": { "data-form-action": "submitReview" } },
+        { "label": "撤回", "ghost": true, "attrs": { "data-form-action": "withdraw" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": { "submitReview": "pendingReview", "withdraw": "draft" },
+    "emptyTitle": "暂无仓储服务协议"
+  },
+  "rows": [
+    { "owner": "海纳食品", "agreementNo": "SA20261107001", "warehouseScope": "华东中心仓、华南前置仓", "serviceItems": "仓储、库内加工", "billingCycle": "月结", "agreementStatus": "approved", "effectiveDate": "2026-11-01", "expireDate": "2027-10-31" },
+    { "owner": "海纳食品", "agreementNo": "SA20261107002", "warehouseScope": "华北分拨仓", "serviceItems": "仓储", "billingCycle": "月结", "agreementStatus": "pendingReview", "effectiveDate": "2026-12-01", "expireDate": "" },
+    { "owner": "辰星日化", "agreementNo": "SA20261106003", "warehouseScope": "华东中心仓", "serviceItems": "仓储、配送", "billingCycle": "半月结", "agreementStatus": "approved", "effectiveDate": "2026-10-15", "expireDate": "2027-10-14" },
+    { "owner": "辰星日化", "agreementNo": "SA20261105004", "warehouseScope": "西南分拨仓", "serviceItems": "仓储", "billingCycle": "月结", "agreementStatus": "terminated", "effectiveDate": "2026-06-01", "expireDate": "2026-10-31" },
+    { "owner": "海纳食品", "agreementNo": "SA20261107007", "warehouseScope": "华东中心仓", "serviceItems": "仓储", "billingCycle": "月结", "agreementStatus": "draft", "effectiveDate": "", "expireDate": "" },
+    { "owner": "辰星日化", "agreementNo": "SA20261103008", "warehouseScope": "华北分拨仓", "serviceItems": "仓储、库内加工", "billingCycle": "月结", "agreementStatus": "rejected", "effectiveDate": "", "expireDate": "" }
+  ]
+}

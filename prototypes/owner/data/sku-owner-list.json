@@ -1,0 +1,36 @@
+{
+  "config": {
+    "unit": "条",
+    "statusField": "skuStatus",
+    "keyField": "skuCode",
+    "statusMeta": {
+      "active": { "label": "启用", "tone": "enabled" },
+      "inactive": { "label": "停用", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "启用", "value": "active" },
+      { "label": "停用", "value": "inactive" }
+    ],
+    "columns": [
+      { "key": "skuCode", "label": "商品编码", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "skuName", "label": "商品名称" },
+      { "key": "spec", "label": "规格" },
+      { "key": "barcode", "label": "条码", "width": "160px" },
+      { "key": "unit", "label": "单位" },
+      { "key": "skuStatus", "label": "商品状态", "type": "status" },
+      { "key": "version", "label": "版本号", "align": "right" }
+    ],
+    "filters": [
+      { "label": "商品编码", "key": "skuCode", "type": "text", "placeholder": "请输入商品编码" },
+      { "label": "商品名称", "key": "skuName", "type": "text", "placeholder": "请输入商品名称" }
+    ],
+    "emptyTitle": "暂无商品"
+  },
+  "rows": [
+    { "owner": "海纳食品", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "spec": "250ml×24 箱", "barcode": "6901234500011", "unit": "箱", "skuStatus": "active", "version": 3 },
+    { "owner": "海纳食品", "skuCode": "SKU100175", "skuName": "海纳酸奶 100g×12", "spec": "100g×12 箱", "barcode": "6901234500042", "unit": "箱", "skuStatus": "active", "version": 3 },
+    { "owner": "辰星日化", "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "spec": "2kg×6 箱", "barcode": "6901234500028", "unit": "箱", "skuStatus": "active", "version": 2 },
+    { "owner": "辰星日化", "skuCode": "SKU100142", "skuName": "辰星洗洁精 500ml×20", "spec": "500ml×20 箱", "barcode": "6901234500059", "unit": "箱", "skuStatus": "inactive", "version": 1 },
+    { "owner": "云途电商", "skuCode": "SKU100198", "skuName": "云途收纳箱 45L", "spec": "45L", "barcode": "6901234500035", "unit": "个", "skuStatus": "inactive", "version": 4 }
+  ]
+}

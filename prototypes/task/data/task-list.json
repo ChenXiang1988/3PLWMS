@@ -1,14 +1,14 @@
 {
   "rows": [
-    { "taskNo": "PT-20261106-001", "taskType": "收货", "taskStatus": "busy", "owner": "海纳食品", "operator": "张伟", "planQty": 1200, "doneQty": 760, "createTime": "2026-11-06 08:12" },
-    { "taskNo": "PT-20261106-002", "taskType": "上架", "taskStatus": "wait", "owner": "海纳食品", "operator": "李静", "planQty": 600, "doneQty": 0, "createTime": "2026-11-06 08:26" },
-    { "taskNo": "PT-20261106-003", "taskType": "拣货", "taskStatus": "busy", "owner": "辰星日化", "operator": "王磊", "planQty": 480, "doneQty": 320, "createTime": "2026-11-06 08:41" },
-    { "taskNo": "PT-20261106-004", "taskType": "复核", "taskStatus": "wait", "owner": "辰星日化", "operator": "赵敏", "planQty": 480, "doneQty": 0, "createTime": "2026-11-06 08:44" },
-    { "taskNo": "PT-20261106-005", "taskType": "发货", "taskStatus": "done", "owner": "云途电商", "operator": "陈刚", "planQty": 220, "doneQty": 220, "createTime": "2026-11-06 07:58" },
-    { "taskNo": "PT-20261106-006", "taskType": "移库", "taskStatus": "blocked", "owner": "海纳食品", "operator": "刘洋", "planQty": 96, "doneQty": 40, "createTime": "2026-11-06 09:03" },
-    { "taskNo": "PT-20261106-007", "taskType": "盘点", "taskStatus": "wait", "owner": "云途电商", "operator": "孙倩", "planQty": 320, "doneQty": 0, "createTime": "2026-11-06 09:15" },
-    { "taskNo": "PT-20261106-008", "taskType": "上架", "taskStatus": "done", "owner": "辰星日化", "operator": "周涛", "planQty": 540, "doneQty": 540, "createTime": "2026-11-06 07:20" },
-    { "taskNo": "PT-20261106-009", "taskType": "拣货", "taskStatus": "closed", "owner": "云途电商", "operator": "王磊", "planQty": 360, "doneQty": 120, "createTime": "2026-11-06 08:05" },
-    { "taskNo": "PT-20261106-010", "taskType": "收货", "taskStatus": "wait", "owner": "海纳食品", "operator": "张伟", "planQty": 800, "doneQty": 0, "createTime": "2026-11-06 09:32" }
+    { "taskNo": "PT-20261106-001", "taskType": "收货", "sourceDocNo": "RC20261106001", "taskStatus": "busy", "owner": "海纳食品", "operator": "张伟", "planQty": 1200, "doneQty": 760, "createTime": "2026-11-06 08:12" },
+    { "taskNo": "PT-20261106-002", "taskType": "上架", "sourceDocNo": "PA20261106001", "taskStatus": "wait", "owner": "海纳食品", "operator": "李静", "planQty": 600, "doneQty": 0, "createTime": "2026-11-06 08:26" },
+    { "taskNo": "PT-20261106-003", "taskType": "拣货", "sourceDocNo": "PK20261106001", "taskStatus": "busy", "owner": "辰星日化", "operator": "王磊", "planQty": 480, "doneQty": 320, "createTime": "2026-11-06 08:41" },
+    { "taskNo": "PT-20261106-004", "taskType": "复核", "sourceDocNo": "CK20261106001", "taskStatus": "wait", "owner": "辰星日化", "operator": "赵敏", "planQty": 480, "doneQty": 0, "createTime": "2026-11-06 08:44" },
+    { "taskNo": "PT-20261106-005", "taskType": "交接", "sourceDocNo": "HV20261106001", "taskStatus": "done", "owner": "云途电商", "operator": "陈刚", "planQty": 220, "doneQty": 220, "createTime": "2026-11-06 07:58" },
+    { "taskNo": "PT-20261106-006", "taskType": "移库", "sourceDocNo": "MV20261106001", "taskStatus": "blocked", "owner": "海纳食品", "operator": "刘洋", "planQty": 96, "doneQty": 40, "createTime": "2026-11-06 09:03" },
+    { "taskNo": "PT-20261106-007", "taskType": "盘点", "sourceDocNo": "CN20261106001", "taskStatus": "wait", "owner": "云途电商", "operator": "孙倩", "planQty": 320, "doneQty": 0, "createTime": "2026-11-06 09:15" },
+    { "taskNo": "PT-20261106-008", "taskType": "上架", "sourceDocNo": "PA20261106002", "taskStatus": "done", "owner": "辰星日化", "operator": "周涛", "planQty": 540, "doneQty": 540, "createTime": "2026-11-06 07:20" },
+    { "taskNo": "PT-20261106-009", "taskType": "拣货", "sourceDocNo": "PK20261106002", "taskStatus": "closed", "owner": "云途电商", "operator": "王磊", "planQty": 360, "doneQty": 120, "createTime": "2026-11-06 08:05" },
+    { "taskNo": "PT-20261106-010", "taskType": "收货", "sourceDocNo": "RC20261106002", "taskStatus": "wait", "owner": "海纳食品", "operator": "张伟", "planQty": 800, "doneQty": 0, "createTime": "2026-11-06 09:32" }
   ]
 }

@@ -1,0 +1,68 @@
+{
+  "config": {
+    "unit": "条",
+    "statusField": "agreementStatus",
+    "statusMeta": {
+      "draft": { "label": "草稿", "tone": "disabled" },
+      "pendingReview": { "label": "待审核", "tone": "pending" },
+      "approved": { "label": "已生效", "tone": "enabled" },
+      "rejected": { "label": "已驳回", "tone": "rejected" },
+      "terminated": { "label": "已终止", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "草稿", "value": "draft" },
+      { "label": "待审核", "value": "pendingReview" },
+      { "label": "已生效", "value": "approved" },
+      { "label": "已驳回", "value": "rejected" },
+      { "label": "已终止", "value": "terminated" }
+    ],
+    "columns": [
+      { "key": "agreementNo", "label": "协议编号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "owner", "label": "货主" },
+      { "key": "warehouseScope", "label": "服务仓库" },
+      { "key": "serviceItems", "label": "服务项目" },
+      { "key": "billingCycle", "label": "账期" },
+      { "key": "agreementStatus", "label": "协议状态", "type": "status" },
+      { "key": "submitTime", "label": "提交时间", "width": "157px" },
+      { "key": "action", "label": "操作", "type": "action", "button": "审核" }
+    ],
+    "filters": [
+      { "label": "货主", "key": "owner", "type": "select" },
+      { "label": "协议状态", "key": "agreementStatus", "type": "select" },
+      { "label": "协议编号", "key": "agreementNo", "type": "text", "placeholder": "请输入协议编号" }
+    ],
+    "keyField": "agreementNo",
+    "scopeNote": "审核结论回写货主侧协议状态，已生效的仓才可提交计划单",
+    "form": {
+      "title": "服务协议审核",
+      "note": "通过与驳回都会回写货主侧协议状态；驳回须填原因，货主改后重提。",
+      "groups": [
+        { "title": "协议信息", "fields": [
+          { "label": "协议编号", "key": "agreementNo", "readonly": true },
+          { "label": "货主", "key": "owner", "readonly": true },
+          { "label": "服务仓库", "key": "warehouseScope", "readonly": true },
+          { "label": "服务项目", "key": "serviceItems", "readonly": true },
+          { "label": "账期", "key": "billingCycle", "readonly": true }
+        ] },
+        { "title": "审核意见", "fields": [
+          { "label": "驳回原因", "key": "rejectReason", "type": "textarea" }
+        ] }
+      ],
+      "actions": [
+        { "label": "审核通过", "primary": true, "attrs": { "data-form-action": "approve" } },
+        { "label": "驳回", "ghost": true, "attrs": { "data-form-action": "reject" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": { "approve": "approved", "reject": "rejected" },
+    "emptyTitle": "暂无待审服务协议"
+  },
+  "rows": [
+    { "owner": "海纳食品", "agreementNo": "SA20261107001", "warehouseScope": "华东中心仓、华南前置仓", "serviceItems": "仓储、库内加工", "billingCycle": "月结", "agreementStatus": "approved", "submitTime": "2026-11-01 09:30" },
+    { "owner": "海纳食品", "agreementNo": "SA20261107002", "warehouseScope": "华北分拨仓", "serviceItems": "仓储", "billingCycle": "月结", "agreementStatus": "pendingReview", "submitTime": "2026-11-07 10:20" },
+    { "owner": "辰星日化", "agreementNo": "SA20261106003", "warehouseScope": "华东中心仓", "serviceItems": "仓储、配送", "billingCycle": "半月结", "agreementStatus": "approved", "submitTime": "2026-10-15 14:00" },
+    { "owner": "辰星日化", "agreementNo": "SA20261105004", "warehouseScope": "西南分拨仓", "serviceItems": "仓储", "billingCycle": "月结", "agreementStatus": "terminated", "submitTime": "2026-06-01 11:15" },
+    { "owner": "云途电商", "agreementNo": "SA20261107005", "warehouseScope": "华东中心仓、华北分拨仓", "serviceItems": "仓储", "billingCycle": "月结", "agreementStatus": "pendingReview", "submitTime": "2026-11-07 08:40" },
+    { "owner": "云途电商", "agreementNo": "SA20261104006", "warehouseScope": "华南前置仓", "serviceItems": "仓储、配送", "billingCycle": "票结", "agreementStatus": "rejected", "submitTime": "2026-11-04 16:25" }
+  ]
+}

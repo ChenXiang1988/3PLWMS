@@ -1,0 +1,67 @@
+{
+  "config": {
+    "unit": "个",
+    "statusField": "auditStatus",
+    "keyField": "appCode",
+    "statusMeta": {
+      "pending": { "label": "待提交", "tone": "pending" },
+      "reviewing": { "label": "审核中", "tone": "pending" },
+      "approved": { "label": "已通过", "tone": "enabled" },
+      "rejected": { "label": "已驳回", "tone": "rejected" },
+      "disabled": { "label": "已停用", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "待提交", "value": "pending" },
+      { "label": "审核中", "value": "reviewing" },
+      { "label": "已通过", "value": "approved" },
+      { "label": "已驳回", "value": "rejected" },
+      { "label": "已停用", "value": "disabled" }
+    ],
+    "columns": [
+      { "key": "platformName", "label": "平台", "width": "108px", "cls": "wx-col-strong" },
+      { "key": "appType", "label": "应用类型", "width": "120px" },
+      { "key": "appKeyMasked", "label": "App Key", "width": "160px" },
+      { "key": "authMode", "label": "授权方式", "width": "108px" },
+      { "key": "callbackUrl", "label": "回调地址", "width": "220px" },
+      { "key": "capabilities", "label": "能力范围", "width": "180px" },
+      { "key": "rateLimit", "label": "限流", "width": "120px" },
+      { "key": "auditStatus", "label": "审核状态", "width": "108px", "type": "status" },
+      { "key": "appVersion", "label": "应用版本", "width": "108px" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "查看" }
+    ],
+    "filters": [
+      { "label": "平台", "key": "platformName", "type": "select" }
+    ],
+    "scopeNote": "部署级平台应用，凭证由部署运维维护；货主只做店铺授权，看不到 App Secret",
+    "form": {
+      "title": "平台应用",
+      "note": "App Secret 不在页面展示；审核状态与能力范围由平台应用配置决定。",
+      "groups": [
+        { "title": "应用信息", "fields": [
+          { "label": "平台", "key": "platformName", "type": "text", "required": true },
+          { "label": "应用类型", "key": "appType", "type": "select", "options": ["自建应用", "合作伙伴应用"], "required": true },
+          { "label": "App Key", "key": "appKeyMasked", "type": "text", "readonly": true },
+          { "label": "授权方式", "key": "authMode", "type": "select", "options": ["OAuth", "API Key", "店铺授权"], "required": true },
+          { "label": "回调地址", "key": "callbackUrl", "type": "text" },
+          { "label": "能力范围", "key": "capabilities", "type": "text" },
+          { "label": "限流", "key": "rateLimit", "type": "text" },
+          { "label": "审核状态", "key": "auditStatus", "type": "select", "options": [{ "label": "待提交", "value": "pending" }, { "label": "审核中", "value": "reviewing" }, { "label": "已通过", "value": "approved" }, { "label": "已驳回", "value": "rejected" }, { "label": "已停用", "value": "disabled" }], "required": true },
+          { "label": "应用版本", "key": "appVersion", "type": "text" }
+        ] }
+      ],
+      "actions": [
+        { "label": "保存", "primary": true, "attrs": { "data-form-action": "confirm" } },
+        { "label": "测试连接", "ghost": true, "attrs": { "data-toast": "测试连接（原型示意）" } },
+        { "label": "停用", "ghost": true, "attrs": { "data-form-action": "withdraw" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": { "confirm": "approved", "withdraw": "disabled" },
+    "emptyTitle": "暂无平台应用"
+  },
+  "rows": [
+    { "appCode": "AP-AMZ-01", "platformName": "Amazon", "appType": "自建应用", "appKeyMasked": "amzn-****-7F2C", "authMode": "OAuth", "callbackUrl": "gw.hualing.local/oauth/amazon", "capabilities": "订单、履约、售后、物流", "rateLimit": "100 次/分钟", "auditStatus": "approved", "appVersion": "2026.10" },
+    { "appCode": "AP-TEMU-01", "platformName": "Temu", "appType": "合作伙伴应用", "appKeyMasked": "temu-****-9A1B", "authMode": "OAuth", "callbackUrl": "gw.hualing.local/oauth/temu", "capabilities": "订单、履约、售后", "rateLimit": "60 次/分钟", "auditStatus": "approved", "appVersion": "2026.11" },
+    { "appCode": "AP-AE-01", "platformName": "速卖通", "appType": "自建应用", "appKeyMasked": "ae-****-3C6D", "authMode": "OAuth", "callbackUrl": "gw.hualing.local/oauth/aliexpress", "capabilities": "订单、履约、售后", "rateLimit": "80 次/分钟", "auditStatus": "reviewing", "appVersion": "2026.11" }
+  ]
+}

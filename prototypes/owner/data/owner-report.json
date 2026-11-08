@@ -1,0 +1,22 @@
+{
+  "metrics": [
+    { "label": "周转库龄", "value": 32, "hint": "天", "tone": "default" },
+    { "label": "履约时效", "value": 18, "hint": "小时", "tone": "ok" },
+    { "label": "待确认账单", "value": 2, "hint": "张", "tone": "warn" },
+    { "label": "待处理异常", "value": 3, "hint": "条", "tone": "alert" }
+  ],
+  "rows": [
+    { "warehouse": "华东中心仓", "metricName": "入库趋势", "metricValue": 1260, "compareValue": 1100, "changeRate": "14.5%", "statPeriod": "月" },
+    { "warehouse": "华东中心仓", "metricName": "出库趋势", "metricValue": 980, "compareValue": 1050, "changeRate": "-6.7%", "statPeriod": "月" },
+    { "warehouse": "华南前置仓", "metricName": "周转库龄", "metricValue": 28, "compareValue": 31, "changeRate": "-9.7%", "statPeriod": "月" },
+    { "warehouse": "华南前置仓", "metricName": "履约时效", "metricValue": 16, "compareValue": 19, "changeRate": "-15.8%", "statPeriod": "月" },
+    { "warehouse": "华北中心仓", "metricName": "多仓对比", "metricValue": 420, "compareValue": 380, "changeRate": "10.5%", "statPeriod": "月" }
+  ],
+  "details": [
+    { "feeItem": "仓租", "amount": 12800, "shareRate": "42.7%", "statPeriod": "2026-10" },
+    { "feeItem": "仓储作业费", "amount": 7600, "shareRate": "25.3%", "statPeriod": "2026-10" },
+    { "feeItem": "入库操作费", "amount": 4200, "shareRate": "14.0%", "statPeriod": "2026-10" },
+    { "feeItem": "出库操作费", "amount": 3900, "shareRate": "13.0%", "statPeriod": "2026-10" },
+    { "feeItem": "增值服务费", "amount": 1500, "shareRate": "5.0%", "statPeriod": "2026-10" }
+  ]
+}

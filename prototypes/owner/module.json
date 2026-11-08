@@ -1,0 +1,13 @@
+{
+  "id": "owner",
+  "name": "货主业务",
+  "version": "0.8.0",
+  "owner": "产品组",
+  "tier": "core",
+  "deployed": true,
+  "dependsOn": ["shared"],
+  "scope": "货灵ERP订单中心与订单360、平台适配器、原单处理流水线（审单/拆单/去重/补拉）、履约决策、履约单、平台备货、自发货、平台售后、平台店铺、同步任务、商品查询、委托、调拨退货、异常对账、物流跟踪、报表、子账号、角色权限与操作日志",
+  "deliverables": ["pages/", "data/"],
+  "status": "delivered",
+  "note": "货灵ERP专属业务页面，全部归货灵ERP产物"
+}

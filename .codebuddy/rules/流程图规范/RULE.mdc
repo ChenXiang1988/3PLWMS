@@ -35,4 +35,4 @@ enabled: true
 - [ ] 每条正向推进都有对应的逆向回路或「不可逆」说明。
 - [ ] 所有分支都有触发条件、处理动作和归宿，没有悬空箭头。
 - [ ] 起点、正常终态、异常终态、逆向后的状态在图中可辨认。
-- [ ] 图中状态名与 `docs/数据字典/`、`.codebuddy/skills/3pl-wms-proto/references/core/glossary.md` 的枚举一致，不自行造状态名。
+- [ ] 图中状态名与 `docs/数据字典/`、`.codebuddy/skills/huoling-proto/references/core/glossary.md` 的枚举一致，不自行造状态名。

@@ -1,9 +1,3 @@
 {
-  "rows": [
-    { "applyNo": "AP20261105001", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "changeType": "新增", "owner": "海纳食品", "reviewStatus": "pendingReview", "submitTime": "2026-11-05 09:12", "applicant": "陈晓" },
-    { "applyNo": "AP20261105002", "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "changeType": "变更", "owner": "辰星日化", "reviewStatus": "pendingReview", "submitTime": "2026-11-05 09:35", "applicant": "周敏" },
-    { "applyNo": "AP20261104008", "skuCode": "SKU100198", "skuName": "云途收纳箱 45L", "changeType": "停用", "owner": "云途电商", "reviewStatus": "approved", "submitTime": "2026-11-04 15:48", "applicant": "吴迪" },
-    { "applyNo": "AP20261104006", "skuCode": "SKU100175", "skuName": "海纳酸奶 100g×12", "changeType": "变更", "owner": "海纳食品", "reviewStatus": "approved", "submitTime": "2026-11-04 11:20", "applicant": "陈晓" },
-    { "applyNo": "AP20261103011", "skuCode": "SKU100142", "skuName": "辰星洗洁精 500ml×20", "changeType": "新增", "owner": "辰星日化", "reviewStatus": "rejectedReview", "submitTime": "2026-11-03 16:05", "applicant": "周敏" }
-  ]
+  "ref": "applies"
 }

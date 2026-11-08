@@ -3,6 +3,8 @@
     "staffName": "张伟",
     "zone": "华东中心仓 / 存储区A",
     "shift": "早班",
+    "roleName": "收货员",
+    "warehouseScope": "华东中心仓",
     "device": "PDA-07",
     "doneToday": 12,
     "putawayCount": 5,

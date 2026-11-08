@@ -1,0 +1,67 @@
+{
+  "config": {
+    "unit": "条",
+    "statusField": "result",
+    "keyField": "logNo",
+    "statusMeta": {
+      "success": { "label": "成功", "tone": "enabled" },
+      "failed": { "label": "失败", "tone": "rejected" }
+    },
+    "tabs": [
+      { "label": "成功", "value": "success" },
+      { "label": "失败", "value": "failed" }
+    ],
+    "columns": [
+      { "key": "logTime", "label": "时间", "width": "157px" },
+      { "key": "operatorName", "label": "操作人", "width": "100px" },
+      { "key": "endName", "label": "所属端", "width": "120px" },
+      { "key": "moduleName", "label": "模块", "width": "120px" },
+      { "key": "actionName", "label": "动作", "width": "108px" },
+      { "key": "objectType", "label": "对象类型", "width": "108px" },
+      { "key": "objectNo", "label": "对象编号", "width": "160px" },
+      { "key": "result", "label": "结果", "width": "88px", "type": "status" },
+      { "key": "ip", "label": "IP", "width": "140px" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "查看" }
+    ],
+    "filters": [
+      { "label": "模块", "key": "moduleName", "type": "select" },
+      { "label": "动作", "key": "actionName", "type": "select" },
+      { "label": "时间", "key": "logTime", "type": "date" }
+    ],
+    "scopeNote": "只显示本货主账号的操作日志；日志只追加，不提供删除",
+    "noCreate": true,
+    "form": {
+      "title": "操作日志",
+      "note": "日志只读，不可修改或删除。",
+      "groups": [
+        { "title": "操作信息", "fields": [
+          { "label": "日志编号", "key": "logNo", "type": "text", "readonly": true },
+          { "label": "操作时间", "key": "logTime", "type": "text", "readonly": true },
+          { "label": "操作人", "key": "operatorName", "type": "text", "readonly": true },
+          { "label": "所属端", "key": "endName", "type": "text", "readonly": true },
+          { "label": "模块", "key": "moduleName", "type": "text", "readonly": true },
+          { "label": "动作", "key": "actionName", "type": "text", "readonly": true },
+          { "label": "对象", "key": "objectNo", "type": "text", "readonly": true },
+          { "label": "结果", "key": "result", "type": "text", "readonly": true },
+          { "label": "失败原因", "key": "failReason", "type": "textarea", "readonly": true },
+          { "label": "详情", "key": "detail", "type": "textarea", "readonly": true }
+        ] }
+      ],
+      "actions": [
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": {},
+    "emptyTitle": "暂无操作日志"
+  },
+  "rows": [
+    { "owner": "海纳食品", "logNo": "LG20261108011", "logTime": "2026-11-08 09:30", "operator": "ow.hn.admin", "operatorName": "陈晓", "endName": "货灵ERP", "moduleName": "履约", "actionName": "发货", "objectType": "自发货单", "objectNo": "SS20261108001", "result": "success", "ip": "172.16.8.12", "detail": "录入承运商与运单号" },
+    { "owner": "海纳食品", "logNo": "LG20261108012", "logTime": "2026-11-08 09:32", "operator": "ow.hn.admin", "operatorName": "陈晓", "endName": "货灵ERP", "moduleName": "报表与设置", "actionName": "权限变更", "objectType": "角色", "objectNo": "RO1002", "result": "success", "ip": "172.16.8.12", "detail": "货主查询角色增加库存菜单" },
+    { "owner": "海纳食品", "logNo": "LG20261108013", "logTime": "2026-11-08 09:36", "operator": "hn.query", "operatorName": "李雯", "endName": "货灵ERP", "moduleName": "库存", "actionName": "导出", "objectType": "库存查询", "objectNo": "STOCK-20261108", "result": "success", "ip": "172.16.8.15", "detail": "导出本货主库存 12480 件" },
+    { "owner": "海纳食品", "logNo": "LG20261108014", "logTime": "2026-11-08 09:38", "operator": "hn.query", "operatorName": "李雯", "endName": "货灵ERP", "moduleName": "订单", "actionName": "编辑", "objectType": "订单", "objectNo": "PO20261108003", "result": "failed", "ip": "172.16.8.15", "failReason": "角色无编辑动作权限", "detail": "尝试修改收货地址" },
+    { "owner": "海纳食品", "logNo": "LG20261108015", "logTime": "2026-11-08 09:40", "operator": "ow.hn.admin", "operatorName": "陈晓", "endName": "货灵ERP", "moduleName": "报表与设置", "actionName": "新增", "objectType": "账号", "objectNo": "hn.after", "result": "success", "ip": "172.16.8.12", "detail": "新增售后专员账号" },
+    { "owner": "辰星日化", "logNo": "LG20261108016", "logTime": "2026-11-08 09:35", "operator": "ow.cx.admin", "operatorName": "周敏", "endName": "货灵ERP", "moduleName": "售后", "actionName": "退款", "objectType": "平台售后单", "objectNo": "AS20261108001", "result": "failed", "ip": "172.16.8.21", "failReason": "售后单状态为待处理，不能直接退款", "detail": "尝试退款 1280 元" },
+    { "owner": "辰星日化", "logNo": "LG20261108017", "logTime": "2026-11-08 09:42", "operator": "ow.cx.admin", "operatorName": "周敏", "endName": "货灵ERP", "moduleName": "仓储委托", "actionName": "新增", "objectType": "调拨申请", "objectNo": "TR20261108002", "result": "success", "ip": "172.16.8.21", "detail": "华南前置仓调华东中心仓 120 件" },
+    { "owner": "辰星日化", "logNo": "LG20261108018", "logTime": "2026-11-08 09:45", "operator": "cx.query", "operatorName": "赵琳", "endName": "货灵ERP", "moduleName": "报表与设置", "actionName": "登录", "objectType": "账号", "objectNo": "cx.query", "result": "failed", "ip": "172.16.8.25", "failReason": "账号已冻结", "detail": "密码校验通过，账号状态拦截" }
+  ]
+}

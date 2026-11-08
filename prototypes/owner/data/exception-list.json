@@ -1,0 +1,62 @@
+{
+  "config": {
+    "unit": "条",
+    "statusField": "exceptionStatus",
+    "keyField": "exceptionNo",
+    "statusMeta": {
+      "pending": { "label": "待处理", "tone": "pending" },
+      "handling": { "label": "处理中", "tone": "enabled" },
+      "resolved": { "label": "已处理", "tone": "disabled" },
+      "rejected": { "label": "已驳回", "tone": "rejected" }
+    },
+    "tabs": [
+      { "label": "待处理", "value": "pending" },
+      { "label": "处理中", "value": "handling" },
+      { "label": "已处理", "value": "resolved" },
+      { "label": "已驳回", "value": "rejected" }
+    ],
+    "columns": [
+      { "key": "exceptionNo", "label": "异常单号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "exceptionType", "label": "异常类型", "type": "tag" },
+      { "key": "sourceDomain", "label": "来源域", "width": "96px" },
+      { "key": "sourceDocNo", "label": "来源单据" },
+      { "key": "diffQty", "label": "差异数量", "align": "right" },
+      { "key": "exceptionStatus", "label": "处理状态", "type": "status" },
+      { "key": "sla", "label": "处理时限", "width": "157px" },
+      { "key": "occurTime", "label": "发生时间", "width": "157px" },
+      { "key": "handler", "label": "处理人" },
+      { "key": "action", "label": "操作", "type": "action", "button": "协同" }
+    ],
+    "filters": [
+      { "label": "异常类型", "key": "exceptionType", "type": "select" },
+      { "label": "异常单号", "key": "exceptionNo", "type": "text", "placeholder": "请输入异常单号" }
+    ],
+    "form": {
+      "title": "差异与异常协同",
+      "note": "异常确认引发库存调整时走台账冲正，原流水保留。",
+      "groups": [
+        { "title": "协同", "fields": [
+          { "label": "异常描述", "key": "description", "type": "textarea", "readonly": true },
+          { "label": "处理结果", "key": "handleResult", "type": "text", "readonly": true },
+          { "label": "货主确认意见", "key": "ownerOpinion", "type": "textarea", "required": true }
+        ] }
+      ],
+      "actions": [
+        { "label": "异议申诉", "ghost": true, "attrs": { "data-form-action": "appeal" } },
+        { "label": "确认", "primary": true, "attrs": { "data-form-action": "confirm" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": { "confirm": "resolved", "appeal": "handling" },
+    "emptyTitle": "暂无异常"
+  },
+  "rows": [
+    { "owner": "海纳食品", "exceptionNo": "YC20261105001", "exceptionType": "收货差异", "sourceDomain": "仓储", "sourceDocNo": "ASN20261105003", "diffQty": -6, "exceptionStatus": "pending", "sla": "2026-11-09 12:00", "occurTime": "2026-11-05 14:20", "handler": "仓管员", "description": "实收比应收少 6 箱", "handleResult": "待货主确认", "ownerOpinion": "" },
+    { "owner": "海纳食品", "exceptionNo": "YC20261108002", "exceptionType": "平台同步失败", "sourceDomain": "平台同步", "sourceDocNo": "SHOP-HN-US", "diffQty": 0, "exceptionStatus": "pending", "sla": "2026-11-08 18:00", "occurTime": "2026-11-08 09:30", "handler": "运营中台", "description": "Amazon 店铺拉单连续 3 次失败，平台返回限流", "handleResult": "待重试", "ownerOpinion": "" },
+    { "owner": "海纳食品", "exceptionNo": "YC20261108003", "exceptionType": "地址变更", "sourceDomain": "订单", "sourceDocNo": "PO20261108003", "diffQty": 0, "exceptionStatus": "handling", "sla": "2026-11-08 18:00", "occurTime": "2026-11-08 09:35", "handler": "陈晓", "description": "订单已下发，买家要求改收货地址", "handleResult": "待仓库确认能否拦截", "ownerOpinion": "" },
+    { "owner": "辰星日化", "exceptionNo": "YC20261104002", "exceptionType": "破损丢失", "sourceDomain": "仓储", "sourceDocNo": "SO20261103007", "diffQty": -2, "exceptionStatus": "handling", "sla": "2026-11-09 12:00", "occurTime": "2026-11-04 10:15", "handler": "仓管员", "description": "外箱破损 2 件", "handleResult": "待理赔", "ownerOpinion": "同意补发" },
+    { "owner": "辰星日化", "exceptionNo": "YC20261108004", "exceptionType": "运单超时", "sourceDomain": "履约", "sourceDocNo": "CAINIAO20261107001", "diffQty": 0, "exceptionStatus": "pending", "sla": "2026-11-08 18:00", "occurTime": "2026-11-08 08:50", "handler": "周敏", "description": "运单 48 小时无轨迹更新", "handleResult": "待承运商回复", "ownerOpinion": "" },
+    { "owner": "辰星日化", "exceptionNo": "YC20261108005", "exceptionType": "售后超时", "sourceDomain": "售后", "sourceDocNo": "AS20261108001", "diffQty": 0, "exceptionStatus": "pending", "sla": "2026-11-08 18:00", "occurTime": "2026-11-08 09:25", "handler": "周敏", "description": "平台售后剩余 4 小时处理时限", "handleResult": "待处理", "ownerOpinion": "" },
+    { "owner": "云途电商", "exceptionNo": "YC20261102004", "exceptionType": "费用对账", "sourceDomain": "账单", "sourceDocNo": "BILL202610", "diffQty": 0, "exceptionStatus": "resolved", "sla": "2026-11-05 12:00", "occurTime": "2026-11-02 09:40", "handler": "结算员", "description": "作业费计费量异议", "handleResult": "已冲正", "ownerOpinion": "确认无误" }
+  ]
+}

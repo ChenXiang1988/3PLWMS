@@ -1,0 +1,65 @@
+{
+  "config": {
+    "unit": "条",
+    "statusField": "healthStatus",
+    "keyField": "shopCode",
+    "statusMeta": {
+      "normal": { "label": "正常", "tone": "enabled" },
+      "delayed": { "label": "延迟", "tone": "pending" },
+      "error": { "label": "异常", "tone": "rejected" },
+      "unauthorized": { "label": "未授权", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "正常", "value": "normal" },
+      { "label": "延迟", "value": "delayed" },
+      { "label": "异常", "value": "error" },
+      { "label": "未授权", "value": "unauthorized" }
+    ],
+    "columns": [
+      { "key": "ownerName", "label": "货主", "width": "120px" },
+      { "key": "shopName", "label": "店铺", "width": "180px", "cls": "wx-col-strong" },
+      { "key": "platformName", "label": "平台", "width": "108px" },
+      { "key": "lastSuccess", "label": "最近成功", "width": "157px" },
+      { "key": "backlog", "label": "积压", "width": "80px", "align": "right", "type": "num" },
+      { "key": "errorRate", "label": "错误率", "width": "96px", "align": "right" },
+      { "key": "authExpire", "label": "授权到期", "width": "120px" },
+      { "key": "healthStatus", "label": "状态", "width": "88px", "type": "status" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "查看" }
+    ],
+    "filters": [
+      { "label": "平台", "key": "platformName", "type": "select" }
+    ],
+    "scopeNote": "全店铺同步健康视图，不替代单店同步任务；异常店铺按授权、限流、失败原因排查",
+    "noCreate": true,
+    "form": {
+      "title": "同步健康",
+      "note": "只读视图，重试与告警设置不改变店铺授权状态。",
+      "groups": [
+        { "title": "店铺同步", "fields": [
+          { "label": "货主", "key": "ownerName", "type": "text", "readonly": true },
+          { "label": "店铺", "key": "shopName", "type": "text", "readonly": true },
+          { "label": "平台", "key": "platformName", "type": "text", "readonly": true },
+          { "label": "最近成功", "key": "lastSuccess", "type": "text", "readonly": true },
+          { "label": "积压", "key": "backlog", "type": "number", "readonly": true },
+          { "label": "错误率", "key": "errorRate", "type": "text", "readonly": true },
+          { "label": "授权到期", "key": "authExpire", "type": "text", "readonly": true },
+          { "label": "状态", "key": "healthStatus", "type": "text", "readonly": true }
+        ] }
+      ],
+      "actions": [
+        { "label": "重试", "primary": true, "attrs": { "data-toast": "重试（原型示意）" } },
+        { "label": "查看任务", "ghost": true, "attrs": { "data-toast": "查看同步任务（原型示意）" } },
+        { "label": "告警设置", "ghost": true, "attrs": { "data-toast": "告警设置（原型示意）" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "emptyTitle": "暂无同步数据"
+  },
+  "rows": [
+    { "ownerName": "海纳食品", "shopCode": "SH-HN-US", "shopName": "HN Foods US", "platformName": "Amazon", "lastSuccess": "2026-11-08 09:38", "backlog": 0, "errorRate": "0.0%", "authExpire": "2027-03-15", "healthStatus": "normal" },
+    { "ownerName": "海纳食品", "shopCode": "SH-HN-GL", "shopName": "HN Global Store", "platformName": "速卖通", "lastSuccess": "2026-11-08 09:20", "backlog": 36, "errorRate": "2.4%", "authExpire": "2026-12-01", "healthStatus": "delayed" },
+    { "ownerName": "海纳食品", "shopCode": "SH-HN-CN", "shopName": "海纳食品优选店", "platformName": "Temu", "lastSuccess": "2026-11-08 09:40", "backlog": 0, "errorRate": "0.0%", "authExpire": "2026-12-20", "healthStatus": "normal" },
+    { "ownerName": "辰星日化", "shopCode": "SH-CX-GL", "shopName": "辰星日化旗舰店", "platformName": "速卖通", "lastSuccess": "2026-11-07 22:10", "backlog": 128, "errorRate": "8.6%", "authExpire": "2026-11-12", "healthStatus": "error" },
+    { "ownerName": "云途电商", "shopCode": "SH-YT-US", "shopName": "云途优选", "platformName": "Amazon", "lastSuccess": "2026-10-28 11:16", "backlog": 0, "errorRate": "—", "authExpire": "2026-10-30", "healthStatus": "unauthorized" }
+  ]
+}

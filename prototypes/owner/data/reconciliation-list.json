@@ -1,0 +1,72 @@
+{
+  "config": {
+    "unit": "条",
+    "statusField": "reconcileStatus",
+    "keyField": "reconcileNo",
+    "statusMeta": {
+      "pending": { "label": "待处理", "tone": "pending" },
+      "handling": { "label": "处理中", "tone": "enabled" },
+      "resolved": { "label": "已处理", "tone": "disabled" },
+      "ignored": { "label": "已忽略", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "待处理", "value": "pending" },
+      { "label": "处理中", "value": "handling" },
+      { "label": "已处理", "value": "resolved" },
+      { "label": "已忽略", "value": "ignored" }
+    ],
+    "columns": [
+      { "key": "reconcileNo", "label": "对账编号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "reconcileType", "label": "对账类型", "width": "108px" },
+      { "key": "sourceNo", "label": "来源单号", "width": "160px" },
+      { "key": "relatedDocs", "label": "关联单据", "width": "260px" },
+      { "key": "diffType", "label": "差异类型", "width": "120px" },
+      { "key": "diffValue", "label": "差异值", "width": "100px" },
+      { "key": "reconcileStatus", "label": "对账状态", "width": "108px", "type": "status" },
+      { "key": "responsibleParty", "label": "责任方", "width": "96px" },
+      { "key": "deadline", "label": "处理时限", "width": "157px" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "处理" }
+    ],
+    "filters": [
+      { "label": "对账类型", "key": "reconcileType", "type": "select" },
+      { "label": "来源单号", "key": "sourceNo", "type": "text", "placeholder": "请输入来源单号" }
+    ],
+    "scopeNote": "四单对账：平台单、ERP 单、履约/运单、账单/售后；差异转异常后进入异常队列",
+    "form": {
+      "title": "对账差异处理",
+      "note": "对账差异只做匹配与处置，不改写来源单据；转异常后由异常队列继续处理。",
+      "groups": [
+        { "title": "差异信息", "fields": [
+          { "label": "对账编号", "key": "reconcileNo", "readonly": true },
+          { "label": "对账类型", "key": "reconcileType", "readonly": true },
+          { "label": "来源单号", "key": "sourceNo", "readonly": true },
+          { "label": "关联单据", "key": "relatedDocs", "readonly": true },
+          { "label": "差异类型", "key": "diffType", "readonly": true },
+          { "label": "差异值", "key": "diffValue", "readonly": true },
+          { "label": "责任方", "key": "responsibleParty", "readonly": true },
+          { "label": "处理时限", "key": "deadline", "readonly": true },
+          { "label": "差异说明", "key": "diffDesc", "type": "textarea", "readonly": true }
+        ] },
+        { "title": "处置", "fields": [
+          { "label": "处理意见", "key": "handleOpinion", "type": "textarea", "placeholder": "填写转异常、确认或忽略的原因" }
+        ] }
+      ],
+      "actions": [
+        { "label": "转异常", "primary": true, "attrs": { "data-form-action": "toException" } },
+        { "label": "确认", "ghost": true, "attrs": { "data-form-action": "confirm" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-form-action": "close" } },
+        { "label": "取消", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": { "toException": "handling", "confirm": "resolved", "close": "ignored" },
+    "emptyTitle": "暂无对账差异"
+  },
+  "rows": [
+    { "owner": "海纳食品", "reconcileNo": "RC20261108001", "reconcileType": "订单同步", "sourceNo": "PO20261108001", "relatedDocs": "平台单 PO20261108001 / ERP 单 PO20261108001", "diffType": "状态不一致", "diffValue": "平台已发货 / ERP 未下发", "reconcileStatus": "pending", "responsibleParty": "平台", "deadline": "2026-11-08 18:00", "diffDesc": "平台回传已发货，ERP 订单仍为未下发，可能漏拉回传。", "handleOpinion": "" },
+    { "owner": "海纳食品", "reconcileNo": "RC20261108002", "reconcileType": "履约", "sourceNo": "PO20261108003", "relatedDocs": "ERP 单 PO20261108003 / 履约单 FUL20261108001、FUL20261108002 / 运单 CAINIAO20261108001", "diffType": "数量不一致", "diffValue": "少 1 张履约单回写", "reconcileStatus": "pending", "responsibleParty": "仓库", "deadline": "2026-11-09 12:00", "diffDesc": "订单拆两张履约单，运单只回写第一张，第二张仍待发货。", "handleOpinion": "" },
+    { "owner": "海纳食品", "reconcileNo": "RC20261108003", "reconcileType": "售后", "sourceNo": "AS20261108001", "relatedDocs": "订单 PO20261108008 / 售后单 AS20261108001 / 退款 420 元", "diffType": "金额不一致", "diffValue": "退款 420 / 订单 420", "reconcileStatus": "handling", "responsibleParty": "货主", "deadline": "2026-11-09 18:00", "diffDesc": "退款金额与订单金额一致，但平台售后状态未回写完成。", "handleOpinion": "已联系平台重新回传" },
+    { "owner": "辰星日化", "reconcileNo": "RC20261108004", "reconcileType": "运单", "sourceNo": "CAINIAO20261107001", "relatedDocs": "履约单 FUL20261107001 / 运单 CAINIAO20261107001", "diffType": "状态不一致", "diffValue": "超 48 小时无轨迹", "reconcileStatus": "handling", "responsibleParty": "承运商", "deadline": "2026-11-08 18:00", "diffDesc": "运单显示已揽收，48 小时无后续节点，客户已催。", "handleOpinion": "已向承运商发起查件" },
+    { "owner": "辰星日化", "reconcileNo": "RC20261108005", "reconcileType": "账单", "sourceNo": "BILL202610002", "relatedDocs": "账单 BILL202610002 / 出库计划单 OP202610001", "diffType": "金额不一致", "diffValue": "计费量差 20 托", "reconcileStatus": "pending", "responsibleParty": "运营方", "deadline": "2026-11-10 12:00", "diffDesc": "账单计费量比出库计划单多 20 托，待运营方核对。", "handleOpinion": "" },
+    { "owner": "辰星日化", "reconcileNo": "RC20261108006", "reconcileType": "订单同步", "sourceNo": "PO20261108007", "relatedDocs": "平台单 PO20261108007 / ERP 单 PO20261108007", "diffType": "重复单", "diffValue": "重复 1 单", "reconcileStatus": "resolved", "responsibleParty": "平台", "deadline": "2026-11-08 12:00", "diffDesc": "平台重复推送同一订单，已按幂等键去重。", "handleOpinion": "平台已确认重复推送" }
+  ]
+}

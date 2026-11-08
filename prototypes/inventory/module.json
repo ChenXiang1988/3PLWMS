@@ -1,14 +1,14 @@
 {
   "id": "inventory",
   "name": "库存中心",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "owner": "产品组",
   "tier": "core",
   "deployed": true,
   "dependsOn": [
     "shared"
   ],
-  "scope": "实物账、流水、批次效期、总览与多端视图",
+  "scope": "实物账、流水、批次效期、总览、ATP 可承诺与多端视图",
   "deliverables": [
     "pages/",
     "data/"

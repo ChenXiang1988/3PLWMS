@@ -6,5 +6,104 @@
     { "owner": "云途电商", "processNo": "RC20261106005", "processStatus": "blocked", "sourcePlans": "IP20261106007", "targetZone": "存储区C", "rowCount": 5, "planQty": 3200, "doneQty": 900 },
     { "owner": "辰星日化", "processNo": "RC20261106006", "processStatus": "wait", "sourcePlans": "IP20261106005", "targetZone": "存储区A", "rowCount": 2, "planQty": 420, "doneQty": 0 },
     { "owner": "云途电商", "processNo": "RC20261105004", "processStatus": "done", "sourcePlans": "IP20261105008", "targetZone": "拣货区B", "rowCount": 3, "planQty": 1500, "doneQty": 1500 }
+  ],
+  "details": [
+    {
+      "processNo": "RC20261106001",
+      "processType": "收货",
+      "bizSide": "入库",
+      "warehouse": "华东中心仓",
+      "rows": [
+        { "taskNo": "RT20261106001", "executor": "张伟", "targetBin": "A-01-01", "planQty": 600, "doneQty": 420, "taskStatus": "busy" },
+        { "taskNo": "RT20261106002", "executor": "李娜", "targetBin": "A-01-02", "planQty": 540, "doneQty": 540, "taskStatus": "done" },
+        { "taskNo": "RT20261106003", "executor": "AGV-01", "targetBin": "A-02-01", "planQty": 400, "doneQty": 140, "taskStatus": "busy" },
+        { "taskNo": "RT20261106004", "executor": "王强", "targetBin": "A-02-02", "planQty": 260, "doneQty": 0, "taskStatus": "wait" },
+        { "taskNo": "RT20261106005", "executor": "赵敏", "targetBin": "A-02-03", "planQty": 0, "doneQty": 0, "taskStatus": "blocked" }
+      ],
+      "timeline": [
+        { "time": "2026-11-06 10:05", "text": "由计划单 IP20261106001、IP20261106002 生成收货单", "operator": "仓管员" },
+        { "time": "2026-11-06 10:20", "text": "按品类拆为 5 个任务，分派至人员与 AGV", "operator": "仓管员" },
+        { "time": "2026-11-06 10:32", "text": "任务 RT20261106005 目标库位不可用，转异常", "operator": "赵敏" }
+      ]
+    },
+    {
+      "processNo": "RC20261106002",
+      "processType": "收货",
+      "bizSide": "入库",
+      "warehouse": "华南前置仓",
+      "rows": [
+        { "taskNo": "RT20261106006", "executor": "王强", "targetBin": "B-01-01", "planQty": 400, "doneQty": 0, "taskStatus": "wait" },
+        { "taskNo": "RT20261106007", "executor": "李娜", "targetBin": "B-01-02", "planQty": 360, "doneQty": 0, "taskStatus": "wait" },
+        { "taskNo": "RT20261106008", "executor": "AGV-02", "targetBin": "B-02-01", "planQty": 200, "doneQty": 0, "taskStatus": "wait" }
+      ],
+      "timeline": [
+        { "time": "2026-11-06 09:40", "text": "由计划单 IP20261106004 生成收货单", "operator": "仓管员" },
+        { "time": "2026-11-06 09:52", "text": "按目标库区拆为 3 个任务，待指派", "operator": "仓管员" }
+      ]
+    },
+    {
+      "processNo": "RC20261106003",
+      "processType": "上架",
+      "bizSide": "入库",
+      "warehouse": "华东中心仓",
+      "rows": [
+        { "taskNo": "RT20261106009", "executor": "张伟", "targetBin": "A-03-01", "planQty": 300, "doneQty": 300, "taskStatus": "done" },
+        { "taskNo": "RT20261106010", "executor": "李娜", "targetBin": "A-03-02", "planQty": 300, "doneQty": 300, "taskStatus": "done" },
+        { "taskNo": "RT20261106011", "executor": "AGV-01", "targetBin": "A-03-03", "planQty": 200, "doneQty": 200, "taskStatus": "done" }
+      ],
+      "timeline": [
+        { "time": "2026-11-06 08:20", "text": "由计划单 IP20261105003 生成上架单", "operator": "仓管员" },
+        { "time": "2026-11-06 08:35", "text": "按目标库区拆为 3 个任务", "operator": "仓管员" },
+        { "time": "2026-11-06 11:02", "text": "任务全部完成，回写库存台账", "operator": "张伟" }
+      ]
+    },
+    {
+      "processNo": "RC20261106005",
+      "processType": "收货",
+      "bizSide": "入库",
+      "warehouse": "华北分拨仓",
+      "rows": [
+        { "taskNo": "RT20261106012", "executor": "王强", "targetBin": "C-01-01", "planQty": 800, "doneQty": 500, "taskStatus": "busy" },
+        { "taskNo": "RT20261106013", "executor": "李娜", "targetBin": "C-01-02", "planQty": 600, "doneQty": 400, "taskStatus": "busy" },
+        { "taskNo": "RT20261106014", "executor": "赵敏", "targetBin": "C-02-01", "planQty": 700, "doneQty": 0, "taskStatus": "wait" },
+        { "taskNo": "RT20261106015", "executor": "AGV-03", "targetBin": "C-02-02", "planQty": 600, "doneQty": 0, "taskStatus": "blocked" },
+        { "taskNo": "RT20261106016", "executor": "张伟", "targetBin": "C-02-03", "planQty": 500, "doneQty": 0, "taskStatus": "wait" }
+      ],
+      "timeline": [
+        { "time": "2026-11-06 10:05", "text": "由计划单 IP20261106007 生成收货单", "operator": "仓管员" },
+        { "time": "2026-11-06 10:20", "text": "按品类拆为 5 个任务，分派至人员与 AGV", "operator": "仓管员" },
+        { "time": "2026-11-06 10:48", "text": "任务 RT20261106015 执行单元离线，转异常", "operator": "赵敏" }
+      ]
+    },
+    {
+      "processNo": "RC20261106006",
+      "processType": "收货",
+      "bizSide": "入库",
+      "warehouse": "华南前置仓",
+      "rows": [
+        { "taskNo": "RT20261106017", "executor": "王强", "targetBin": "A-04-01", "planQty": 240, "doneQty": 0, "taskStatus": "wait" },
+        { "taskNo": "RT20261106018", "executor": "李娜", "targetBin": "A-04-02", "planQty": 180, "doneQty": 0, "taskStatus": "wait" }
+      ],
+      "timeline": [
+        { "time": "2026-11-06 09:18", "text": "由计划单 IP20261106005 生成收货单", "operator": "仓管员" },
+        { "time": "2026-11-06 09:30", "text": "按品类拆为 2 个任务，待指派", "operator": "仓管员" }
+      ]
+    },
+    {
+      "processNo": "RC20261105004",
+      "processType": "上架",
+      "bizSide": "入库",
+      "warehouse": "华北分拨仓",
+      "rows": [
+        { "taskNo": "RT20261105001", "executor": "张伟", "targetBin": "B-03-01", "planQty": 600, "doneQty": 600, "taskStatus": "done" },
+        { "taskNo": "RT20261105002", "executor": "李娜", "targetBin": "B-03-02", "planQty": 500, "doneQty": 500, "taskStatus": "done" },
+        { "taskNo": "RT20261105003", "executor": "AGV-03", "targetBin": "B-03-03", "planQty": 400, "doneQty": 400, "taskStatus": "done" }
+      ],
+      "timeline": [
+        { "time": "2026-11-05 15:10", "text": "由计划单 IP20261105008 生成上架单", "operator": "仓管员" },
+        { "time": "2026-11-05 15:26", "text": "按目标库区拆为 3 个任务", "operator": "仓管员" },
+        { "time": "2026-11-05 17:04", "text": "任务全部完成，回写库存台账", "operator": "张伟" }
+      ]
+    }
   ]
 }

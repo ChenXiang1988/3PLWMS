@@ -1,0 +1,67 @@
+{
+  "rows": [
+    { "planNo": "CP20261106001", "countType": "抽盘", "sourceType": "货主下发", "planStatus": "pending", "owner": "海纳食品", "planDate": "2026-11-09", "countMode": "明盘", "processCount": 0, "diffLineCount": 0, "createTime": "2026-11-06 09:20" },
+    { "planNo": "CP20261106002", "countType": "循环盘点", "sourceType": "日常盘点", "planStatus": "effective", "owner": "辰星日化", "planDate": "2026-11-07", "countMode": "盲盘", "processCount": 1, "diffLineCount": 2, "createTime": "2026-11-06 06:00" },
+    { "planNo": "CP20261106003", "countType": "全盘", "sourceType": "仓网下发", "planStatus": "accepted", "owner": "云途电商", "planDate": "2026-11-10", "countMode": "明盘", "processCount": 0, "diffLineCount": 0, "createTime": "2026-11-06 08:40" },
+    { "planNo": "CP20261105004", "countType": "专项盘点", "sourceType": "单仓自建", "planStatus": "completed", "owner": "云途电商", "planDate": "2026-11-06", "countMode": "明盘", "processCount": 2, "diffLineCount": 5, "createTime": "2026-11-05 10:05" },
+    { "planNo": "CP20261105005", "countType": "全盘", "sourceType": "仓网下发", "planStatus": "completed", "owner": "海纳食品", "planDate": "2026-11-05", "countMode": "明盘", "processCount": 3, "diffLineCount": 1, "createTime": "2026-11-04 16:30" },
+    { "planNo": "CP20261104006", "countType": "抽盘", "sourceType": "单仓自建", "planStatus": "cancelled", "owner": "辰星日化", "planDate": "2026-11-04", "countMode": "明盘", "processCount": 0, "diffLineCount": 0, "createTime": "2026-11-04 09:15" }
+  ],
+  "details": [
+    {
+      "planNo": "CP20261106001",
+      "processes": [],
+      "timeline": [
+        { "time": "2026-11-06 09:20", "text": "货主下发盘点计划，指定华东中心仓与 4 个商品", "operator": "海纳食品" }
+      ]
+    },
+    {
+      "planNo": "CP20261106002",
+      "processes": [
+        { "processNo": "CN20261107001", "countScope": "A 区-常温存储", "binCount": 96, "diffCount": 2 }
+      ],
+      "timeline": [
+        { "time": "2026-11-06 06:00", "text": "系统按循环盘点规则生成盘点计划", "operator": "系统" },
+        { "time": "2026-11-06 07:10", "text": "生成盘点单 CN20261107001，启用盲盘", "operator": "仓管员" }
+      ]
+    },
+    {
+      "planNo": "CP20261106003",
+      "processes": [],
+      "timeline": [
+        { "time": "2026-11-06 08:40", "text": "仓网管理端下发全盘计划", "operator": "仓网管理员" },
+        { "time": "2026-11-06 10:15", "text": "仓内受理，排期至 11-10 夜班", "operator": "仓管员" }
+      ]
+    },
+    {
+      "planNo": "CP20261105004",
+      "processes": [
+        { "processNo": "CN20261106003", "countScope": "C 区-暂存缓冲", "binCount": 48, "diffCount": 3 },
+        { "processNo": "CN20261106004", "countScope": "D 区-不良品", "binCount": 12, "diffCount": 2 }
+      ],
+      "timeline": [
+        { "time": "2026-11-05 10:05", "text": "仓内自建专项盘点计划", "operator": "仓管员" },
+        { "time": "2026-11-06 11:20", "text": "两张盘点单完成，差异 5 行待货主确认", "operator": "仓管员" }
+      ]
+    },
+    {
+      "planNo": "CP20261105005",
+      "processes": [
+        { "processNo": "CN20261105001", "countScope": "全仓", "binCount": 320, "diffCount": 1 }
+      ],
+      "timeline": [
+        { "time": "2026-11-04 16:30", "text": "仓网管理端下发全盘计划", "operator": "仓网管理员" },
+        { "time": "2026-11-05 08:00", "text": "仓内受理并生成盘点单", "operator": "仓管员" },
+        { "time": "2026-11-05 18:40", "text": "盘点完成，差异 1 行已确认并冲账", "operator": "仓管员" }
+      ]
+    },
+    {
+      "planNo": "CP20261104006",
+      "processes": [],
+      "timeline": [
+        { "time": "2026-11-04 09:15", "text": "仓内自建抽盘计划", "operator": "仓管员" },
+        { "time": "2026-11-04 11:00", "text": "库区临时封区，计划取消", "operator": "仓管员" }
+      ]
+    }
+  ]
+}

@@ -1,10 +1,373 @@
 {
   "rows": [
-    { "flowCode": "FLOW001", "warehouse": "华东中心仓", "docType": "入库通知单", "stepCount": 5, "version": "V2", "status": "enabled", "updateTime": "2026-11-05 14:00", "updateBy": "陈晓" },
-    { "flowCode": "FLOW002", "warehouse": "华东中心仓", "docType": "出库订单", "stepCount": 6, "version": "V3", "status": "enabled", "updateTime": "2026-11-04 09:30", "updateBy": "陈晓" },
-    { "flowCode": "FLOW003", "warehouse": "华东中心仓", "docType": "移库单", "stepCount": 3, "version": "V1", "status": "enabled", "updateTime": "2026-10-28 16:20", "updateBy": "周敏" },
-    { "flowCode": "FLOW004", "warehouse": "华南前置仓", "docType": "出库订单", "stepCount": 5, "version": "V2", "status": "enabled", "updateTime": "2026-11-02 10:15", "updateBy": "周敏" },
-    { "flowCode": "FLOW005", "warehouse": "华北分拨仓", "docType": "盘点单", "stepCount": 3, "version": "V1", "status": "disabled", "updateTime": "2026-10-20 11:40", "updateBy": "吴迪" },
-    { "flowCode": "FLOW006", "warehouse": "华南前置仓", "docType": "补货单", "stepCount": 2, "version": "V1", "status": "enabled", "updateTime": "2026-11-03 08:55", "updateBy": "周敏" }
+    { "flowCode": "FLOW001", "docType": "入库通知单", "owner": "海纳食品", "category": "食品", "version": "V2", "flowStatus": "published", "stepCount": 4, "updateTime": "2026-11-05 14:00", "updateBy": "陈晓" },
+    { "flowCode": "FLOW002", "docType": "出库订单", "owner": "海纳食品", "category": "食品", "version": "V3", "flowStatus": "published", "stepCount": 3, "updateTime": "2026-11-04 09:30", "updateBy": "陈晓" },
+    { "flowCode": "FLOW003", "docType": "移库单", "owner": "辰星日化", "category": "日化", "version": "V1", "flowStatus": "published", "stepCount": 2, "updateTime": "2026-10-28 16:20", "updateBy": "周敏" },
+    { "flowCode": "FLOW004", "docType": "出库订单", "owner": "云途电商", "category": "电商", "version": "V2", "flowStatus": "draft", "stepCount": 4, "updateTime": "2026-11-06 10:15", "updateBy": "周敏" },
+    { "flowCode": "FLOW005", "docType": "盘点单", "owner": "海纳食品", "category": "食品", "version": "V1", "flowStatus": "stopped", "stepCount": 2, "updateTime": "2026-10-20 11:40", "updateBy": "吴迪" },
+    { "flowCode": "FLOW006", "docType": "补货单", "owner": "辰星日化", "category": "日化", "version": "V1", "flowStatus": "published", "stepCount": 2, "updateTime": "2026-11-03 08:55", "updateBy": "周敏" }
+  ],
+  "details": [
+    {
+      "flowCode": "FLOW001",
+      "fields": [
+        { "label": "编排编号", "value": "FLOW001" },
+        { "label": "单据类型", "value": "入库通知单" },
+        { "label": "货主", "value": "海纳食品" },
+        { "label": "品类", "value": "食品" },
+        { "label": "版本号", "value": "V2" },
+        { "label": "编排状态", "value": "已发布" },
+        { "label": "发布人", "value": "陈晓" },
+        { "label": "发布时间", "value": "2026-11-05 14:00" }
+      ],
+      "nodes": [
+        {
+          "id": "n1", "label": "收货", "layer": 0, "gen": "自动", "subject": "人员", "cond": "无条件",
+          "props": [
+            { "label": "工序类型", "value": "收货" },
+            { "label": "前置节点", "value": "无" },
+            { "label": "分支类型", "value": "无条件" },
+            { "label": "条件", "value": "无条件" },
+            { "label": "合流规则", "value": "不适用" },
+            { "label": "分组依据", "value": "到货批次" },
+            { "label": "拆分维度", "value": "按品类" },
+            { "label": "执行主体", "value": "人员" },
+            { "label": "是否必过", "value": "是" },
+            { "label": "超时告警", "value": "4 小时" }
+          ]
+        },
+        {
+          "id": "n2", "label": "质检", "layer": 1, "gen": "人工确认", "subject": "人员", "cond": "是否效期管理 = 是",
+          "props": [
+            { "label": "工序类型", "value": "质检" },
+            { "label": "前置节点", "value": "收货" },
+            { "label": "分支类型", "value": "条件分支" },
+            { "label": "条件", "value": "是否效期管理 = 是" },
+            { "label": "合流规则", "value": "不适用" },
+            { "label": "分组依据", "value": "到货批次" },
+            { "label": "拆分维度", "value": "按货位段" },
+            { "label": "执行主体", "value": "人员" },
+            { "label": "是否必过", "value": "否" },
+            { "label": "超时告警", "value": "2 小时" }
+          ]
+        },
+        {
+          "id": "n3", "label": "贴标", "layer": 1, "gen": "人工确认", "subject": "人员", "cond": "品类 = 食品",
+          "props": [
+            { "label": "工序类型", "value": "贴标" },
+            { "label": "前置节点", "value": "收货" },
+            { "label": "分支类型", "value": "条件分支" },
+            { "label": "条件", "value": "品类 = 食品" },
+            { "label": "合流规则", "value": "不适用" },
+            { "label": "分组依据", "value": "到货批次" },
+            { "label": "拆分维度", "value": "按品类" },
+            { "label": "执行主体", "value": "人员" },
+            { "label": "是否必过", "value": "否" },
+            { "label": "超时告警", "value": "2 小时" }
+          ]
+        },
+        {
+          "id": "n4", "label": "上架", "layer": 2, "gen": "人工确认", "subject": "设备", "cond": "无条件",
+          "props": [
+            { "label": "工序类型", "value": "上架" },
+            { "label": "前置节点", "value": "质检、贴标" },
+            { "label": "分支类型", "value": "无条件" },
+            { "label": "条件", "value": "无条件" },
+            { "label": "合流规则", "value": "全部到齐" },
+            { "label": "分组依据", "value": "目标库区" },
+            { "label": "拆分维度", "value": "按库区" },
+            { "label": "执行主体", "value": "设备" },
+            { "label": "是否必过", "value": "是" },
+            { "label": "超时告警", "value": "6 小时" }
+          ]
+        }
+      ],
+      "edges": [
+        { "from": "n1", "to": "n2" },
+        { "from": "n1", "to": "n3" },
+        { "from": "n2", "to": "n4" },
+        { "from": "n3", "to": "n4" }
+      ]
+    },
+    {
+      "flowCode": "FLOW002",
+      "fields": [
+        { "label": "编排编号", "value": "FLOW002" },
+        { "label": "单据类型", "value": "出库订单" },
+        { "label": "货主", "value": "海纳食品" },
+        { "label": "品类", "value": "食品" },
+        { "label": "版本号", "value": "V3" },
+        { "label": "编排状态", "value": "已发布" },
+        { "label": "发布人", "value": "陈晓" },
+        { "label": "发布时间", "value": "2026-11-04 09:30" }
+      ],
+      "nodes": [
+        {
+          "id": "n1", "label": "拣货", "layer": 0, "gen": "自动", "subject": "人员", "cond": "无条件",
+          "props": [
+            { "label": "工序类型", "value": "拣货" },
+            { "label": "前置节点", "value": "无" },
+            { "label": "分支类型", "value": "无条件" },
+            { "label": "条件", "value": "无条件" },
+            { "label": "合流规则", "value": "不适用" },
+            { "label": "分组依据", "value": "作业时段" },
+            { "label": "拆分维度", "value": "按货位段" },
+            { "label": "执行主体", "value": "人员" },
+            { "label": "是否必过", "value": "是" },
+            { "label": "超时告警", "value": "3 小时" }
+          ]
+        },
+        {
+          "id": "n2", "label": "复核", "layer": 1, "gen": "人工确认", "subject": "人员", "cond": "无条件",
+          "props": [
+            { "label": "工序类型", "value": "复核" },
+            { "label": "前置节点", "value": "拣货" },
+            { "label": "分支类型", "value": "无条件" },
+            { "label": "条件", "value": "无条件" },
+            { "label": "合流规则", "value": "不适用" },
+            { "label": "分组依据", "value": "单据" },
+            { "label": "拆分维度", "value": "按货主" },
+            { "label": "执行主体", "value": "人员" },
+            { "label": "是否必过", "value": "是" },
+            { "label": "超时告警", "value": "2 小时" }
+          ]
+        },
+        {
+          "id": "n3", "label": "交接", "layer": 2, "gen": "人工确认", "subject": "人员", "cond": "无条件",
+          "props": [
+            { "label": "工序类型", "value": "交接" },
+            { "label": "前置节点", "value": "复核" },
+            { "label": "分支类型", "value": "无条件" },
+            { "label": "条件", "value": "无条件" },
+            { "label": "合流规则", "value": "不适用" },
+            { "label": "分组依据", "value": "承运商" },
+            { "label": "拆分维度", "value": "按货主" },
+            { "label": "执行主体", "value": "人员" },
+            { "label": "是否必过", "value": "是" },
+            { "label": "超时告警", "value": "4 小时" }
+          ]
+        }
+      ],
+      "edges": [{ "from": "n1", "to": "n2" }, { "from": "n2", "to": "n3" }]
+    },
+    {
+      "flowCode": "FLOW003",
+      "fields": [
+        { "label": "编排编号", "value": "FLOW003" },
+        { "label": "单据类型", "value": "移库单" },
+        { "label": "货主", "value": "辰星日化" },
+        { "label": "品类", "value": "日化" },
+        { "label": "版本号", "value": "V1" },
+        { "label": "编排状态", "value": "已发布" },
+        { "label": "发布人", "value": "周敏" },
+        { "label": "发布时间", "value": "2026-10-28 16:20" }
+      ],
+      "nodes": [
+        {
+          "id": "n1", "label": "移库", "layer": 0, "gen": "自动", "subject": "不限", "cond": "无条件",
+          "props": [
+            { "label": "工序类型", "value": "移库" },
+            { "label": "前置节点", "value": "无" },
+            { "label": "分支类型", "value": "无条件" },
+            { "label": "条件", "value": "无条件" },
+            { "label": "合流规则", "value": "不适用" },
+            { "label": "分组依据", "value": "目标库区" },
+            { "label": "拆分维度", "value": "按库区" },
+            { "label": "执行主体", "value": "不限" },
+            { "label": "是否必过", "value": "是" },
+            { "label": "超时告警", "value": "8 小时" }
+          ]
+        },
+        {
+          "id": "n2", "label": "上架", "layer": 1, "gen": "人工确认", "subject": "人员", "cond": "无条件",
+          "props": [
+            { "label": "工序类型", "value": "上架" },
+            { "label": "前置节点", "value": "移库" },
+            { "label": "分支类型", "value": "无条件" },
+            { "label": "条件", "value": "无条件" },
+            { "label": "合流规则", "value": "不适用" },
+            { "label": "分组依据", "value": "目标库区" },
+            { "label": "拆分维度", "value": "按库区" },
+            { "label": "执行主体", "value": "人员" },
+            { "label": "是否必过", "value": "是" },
+            { "label": "超时告警", "value": "4 小时" }
+          ]
+        }
+      ],
+      "edges": [{ "from": "n1", "to": "n2" }]
+    },
+    {
+      "flowCode": "FLOW004",
+      "fields": [
+        { "label": "编排编号", "value": "FLOW004" },
+        { "label": "单据类型", "value": "出库订单" },
+        { "label": "货主", "value": "云途电商" },
+        { "label": "品类", "value": "电商" },
+        { "label": "版本号", "value": "V2" },
+        { "label": "编排状态", "value": "草稿" },
+        { "label": "创建人", "value": "周敏" },
+        { "label": "更新时间", "value": "2026-11-06 10:15" }
+      ],
+      "nodes": [
+        {
+          "id": "n1", "label": "拣货", "layer": 0, "gen": "自动", "subject": "人员", "cond": "无条件",
+          "props": [
+            { "label": "工序类型", "value": "拣货" },
+            { "label": "前置节点", "value": "无" },
+            { "label": "分支类型", "value": "无条件" },
+            { "label": "条件", "value": "无条件" },
+            { "label": "合流规则", "value": "不适用" },
+            { "label": "分组依据", "value": "作业时段" },
+            { "label": "拆分维度", "value": "按货位段" },
+            { "label": "执行主体", "value": "人员" },
+            { "label": "是否必过", "value": "是" },
+            { "label": "超时告警", "value": "3 小时" }
+          ]
+        },
+        {
+          "id": "n2", "label": "贴标", "layer": 1, "gen": "人工确认", "subject": "人员", "cond": "需贴标商品",
+          "props": [
+            { "label": "工序类型", "value": "贴标" },
+            { "label": "前置节点", "value": "拣货" },
+            { "label": "分支类型", "value": "条件分支" },
+            { "label": "条件", "value": "需贴标商品 = 是" },
+            { "label": "合流规则", "value": "不适用" },
+            { "label": "分组依据", "value": "单据" },
+            { "label": "拆分维度", "value": "按品类" },
+            { "label": "执行主体", "value": "人员" },
+            { "label": "是否必过", "value": "否" },
+            { "label": "超时告警", "value": "2 小时" }
+          ]
+        },
+        {
+          "id": "n3", "label": "复核", "layer": 1, "gen": "人工确认", "subject": "人员", "cond": "无条件",
+          "props": [
+            { "label": "工序类型", "value": "复核" },
+            { "label": "前置节点", "value": "拣货" },
+            { "label": "分支类型", "value": "无条件" },
+            { "label": "条件", "value": "无条件" },
+            { "label": "合流规则", "value": "不适用" },
+            { "label": "分组依据", "value": "单据" },
+            { "label": "拆分维度", "value": "按货主" },
+            { "label": "执行主体", "value": "人员" },
+            { "label": "是否必过", "value": "是" },
+            { "label": "超时告警", "value": "2 小时" }
+          ]
+        },
+        {
+          "id": "n4", "label": "交接", "layer": 2, "gen": "人工确认", "subject": "人员", "cond": "无条件",
+          "props": [
+            { "label": "工序类型", "value": "交接" },
+            { "label": "前置节点", "value": "贴标、复核" },
+            { "label": "分支类型", "value": "无条件" },
+            { "label": "条件", "value": "无条件" },
+            { "label": "合流规则", "value": "任一完成" },
+            { "label": "分组依据", "value": "承运商" },
+            { "label": "拆分维度", "value": "按货主" },
+            { "label": "执行主体", "value": "人员" },
+            { "label": "是否必过", "value": "是" },
+            { "label": "超时告警", "value": "4 小时" }
+          ]
+        }
+      ],
+      "edges": [
+        { "from": "n1", "to": "n2" },
+        { "from": "n1", "to": "n3" },
+        { "from": "n2", "to": "n4" },
+        { "from": "n3", "to": "n4" }
+      ]
+    },
+    {
+      "flowCode": "FLOW005",
+      "fields": [
+        { "label": "编排编号", "value": "FLOW005" },
+        { "label": "单据类型", "value": "盘点单" },
+        { "label": "货主", "value": "海纳食品" },
+        { "label": "品类", "value": "食品" },
+        { "label": "版本号", "value": "V1" },
+        { "label": "编排状态", "value": "已停用" },
+        { "label": "停用人", "value": "吴迪" },
+        { "label": "停用时间", "value": "2026-10-20 11:40" }
+      ],
+      "nodes": [
+        {
+          "id": "n1", "label": "盘点", "layer": 0, "gen": "自动", "subject": "人员", "cond": "无条件",
+          "props": [
+            { "label": "工序类型", "value": "盘点" },
+            { "label": "前置节点", "value": "无" },
+            { "label": "分支类型", "value": "无条件" },
+            { "label": "条件", "value": "无条件" },
+            { "label": "合流规则", "value": "不适用" },
+            { "label": "分组依据", "value": "盘点计划" },
+            { "label": "拆分维度", "value": "按库区" },
+            { "label": "执行主体", "value": "人员" },
+            { "label": "是否必过", "value": "是" },
+            { "label": "超时告警", "value": "8 小时" }
+          ]
+        },
+        {
+          "id": "n2", "label": "移库", "layer": 1, "gen": "人工确认", "subject": "人员", "cond": "差异确认后",
+          "props": [
+            { "label": "工序类型", "value": "移库" },
+            { "label": "前置节点", "value": "盘点" },
+            { "label": "分支类型", "value": "条件分支" },
+            { "label": "条件", "value": "差异行数 > 0" },
+            { "label": "合流规则", "value": "不适用" },
+            { "label": "分组依据", "value": "目标库区" },
+            { "label": "拆分维度", "value": "按库区" },
+            { "label": "执行主体", "value": "人员" },
+            { "label": "是否必过", "value": "否" },
+            { "label": "超时告警", "value": "4 小时" }
+          ]
+        }
+      ],
+      "edges": [{ "from": "n1", "to": "n2" }]
+    },
+    {
+      "flowCode": "FLOW006",
+      "fields": [
+        { "label": "编排编号", "value": "FLOW006" },
+        { "label": "单据类型", "value": "补货单" },
+        { "label": "货主", "value": "辰星日化" },
+        { "label": "品类", "value": "日化" },
+        { "label": "版本号", "value": "V1" },
+        { "label": "编排状态", "value": "已发布" },
+        { "label": "发布人", "value": "周敏" },
+        { "label": "发布时间", "value": "2026-11-03 08:55" }
+      ],
+      "nodes": [
+        {
+          "id": "n1", "label": "补货", "layer": 0, "gen": "自动", "subject": "人员", "cond": "无条件",
+          "props": [
+            { "label": "工序类型", "value": "补货" },
+            { "label": "前置节点", "value": "无" },
+            { "label": "分支类型", "value": "无条件" },
+            { "label": "条件", "value": "无条件" },
+            { "label": "合流规则", "value": "不适用" },
+            { "label": "分组依据", "value": "补货区" },
+            { "label": "拆分维度", "value": "按库区" },
+            { "label": "执行主体", "value": "人员" },
+            { "label": "是否必过", "value": "是" },
+            { "label": "超时告警", "value": "2 小时" }
+          ]
+        },
+        {
+          "id": "n2", "label": "上架", "layer": 1, "gen": "自动", "subject": "人员", "cond": "无条件",
+          "props": [
+            { "label": "工序类型", "value": "上架" },
+            { "label": "前置节点", "value": "补货" },
+            { "label": "分支类型", "value": "无条件" },
+            { "label": "条件", "value": "无条件" },
+            { "label": "合流规则", "value": "不适用" },
+            { "label": "分组依据", "value": "目标库区" },
+            { "label": "拆分维度", "value": "按库区" },
+            { "label": "执行主体", "value": "人员" },
+            { "label": "是否必过", "value": "是" },
+            { "label": "超时告警", "value": "2 小时" }
+          ]
+        }
+      ],
+      "edges": [{ "from": "n1", "to": "n2" }]
+    }
   ]
 }

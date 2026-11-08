@@ -1,0 +1,85 @@
+{
+  "config": {
+    "unit": "单",
+    "statusField": "afterSaleStatus",
+    "keyField": "afterSaleNo",
+    "statusMeta": {
+      "pending": { "label": "待处理", "tone": "pending" },
+      "waitReturn": { "label": "待买家退货", "tone": "info" },
+      "waitReceive": { "label": "待收货", "tone": "info" },
+      "refunding": { "label": "退款中", "tone": "pending" },
+      "finished": { "label": "已完成", "tone": "enabled" },
+      "closed": { "label": "已关闭", "tone": "disabled" },
+      "platformIntervene": { "label": "平台介入", "tone": "rejected" }
+    },
+    "tabs": [
+      { "label": "待处理", "value": "pending" },
+      { "label": "待买家退货", "value": "waitReturn" },
+      { "label": "待收货", "value": "waitReceive" },
+      { "label": "退款中", "value": "refunding" },
+      { "label": "已完成", "value": "finished" },
+      { "label": "已关闭", "value": "closed" },
+      { "label": "平台介入", "value": "platformIntervene" }
+    ],
+    "columns": [
+      { "key": "afterSaleNo", "label": "售后单号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "platformAfterSaleNo", "label": "平台售后号", "width": "160px" },
+      { "key": "orderNo", "label": "原订单", "width": "160px" },
+      { "key": "afterSaleType", "label": "售后类型", "width": "108px" },
+      { "key": "afterSaleStatus", "label": "售后状态", "width": "108px", "type": "status" },
+      { "key": "refundAmount", "label": "退款金额", "width": "108px", "type": "money" },
+      { "key": "returnWaybillNo", "label": "退货物流", "width": "160px" },
+      { "key": "deadline", "label": "处理时限", "width": "157px" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "处理" }
+    ],
+    "filters": [
+      { "label": "平台", "key": "platformCode", "type": "select" },
+      { "label": "店铺", "key": "shopName", "type": "select" },
+      { "label": "售后类型", "key": "afterSaleType", "type": "select" }
+    ],
+    "scopeNote": "仓发货退货生成售后入库计划单，自发货 ERP 内闭环，平台备货只读；原订单状态不改写",
+    "form": {
+      "title": "平台售后处理",
+      "note": "退款金额与原订单金额对账；处理结论回传平台，失败进同步任务重试。",
+      "groups": [
+        { "title": "售后信息", "fields": [
+          { "label": "售后单号", "key": "afterSaleNo", "readonly": true },
+          { "label": "平台售后号", "key": "platformAfterSaleNo", "readonly": true },
+          { "label": "原订单", "key": "orderNo", "readonly": true },
+          { "label": "售后类型", "key": "afterSaleType", "readonly": true },
+          { "label": "退款金额", "key": "refundAmount", "readonly": true },
+          { "label": "售后原因", "key": "reason", "type": "textarea", "readonly": true }
+        ] },
+        { "title": "处理", "fields": [
+          { "label": "处理结果", "key": "handleResult", "type": "select", "options": ["同意退款", "拒绝退款", "同意换货", "拒绝换货"] },
+          { "label": "退货运单号", "key": "returnWaybillNo", "type": "text" }
+        ] }
+      ],
+      "actions": [
+        { "label": "同意", "primary": true, "attrs": { "data-form-action": "agree" } },
+        { "label": "拒绝", "ghost": true, "attrs": { "data-form-action": "refuse" } },
+        { "label": "确认收货", "ghost": true, "attrs": { "data-form-action": "receive" } },
+        { "label": "退款", "ghost": true, "attrs": { "data-form-action": "refund" } },
+        { "label": "生成售后入库计划单", "ghost": true, "attrs": { "data-form-action": "createInbound" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": {
+      "agree": "refunding",
+      "refuse": "closed",
+      "receive": "refunding",
+      "refund": "finished",
+      "createInbound": "waitReceive"
+    },
+    "emptyTitle": "暂无平台售后单"
+  },
+  "rows": [
+    { "owner": "海纳食品", "afterSaleNo": "AS20261108001", "platformAfterSaleNo": "TM-AS-26110801", "platformCode": "Temu", "shopName": "海纳食品优选店", "orderNo": "PO20261108001", "afterSaleType": "退货退款", "refundAmount": 1280.00, "afterSaleStatus": "pending", "returnWaybillNo": "", "deadline": "2026-11-10 12:00", "reason": "买家申请退货，商品完好" },
+    { "owner": "海纳食品", "afterSaleNo": "AS20261108002", "platformAfterSaleNo": "AMZ-AS-26110802", "platformCode": "Amazon", "shopName": "HN Foods US", "orderNo": "PO20261108002", "afterSaleType": "仅退款", "refundAmount": 420.00, "afterSaleStatus": "waitReceive", "returnWaybillNo": "YT261108772", "deadline": "2026-11-09 18:00", "reason": "买家未收到货申请退款" },
+    { "owner": "海纳食品", "afterSaleNo": "AS20261108003", "platformAfterSaleNo": "AE-AS-26110803", "platformCode": "速卖通", "shopName": "HN Global Store", "orderNo": "PO20261108003", "afterSaleType": "换货", "refundAmount": 0.00, "afterSaleStatus": "waitReturn", "returnWaybillNo": "", "deadline": "2026-11-11 12:00", "reason": "尺码不符申请换货" },
+    { "owner": "海纳食品", "afterSaleNo": "AS20261108004", "platformAfterSaleNo": "AMZ-AS-26110804", "platformCode": "Amazon", "shopName": "HN Foods US", "orderNo": "PO20261108005", "afterSaleType": "平台介入", "refundAmount": 2100.00, "afterSaleStatus": "platformIntervene", "returnWaybillNo": "", "deadline": "2026-11-12 12:00", "reason": "平台介入处理货损争议" },
+    { "owner": "辰星日化", "afterSaleNo": "AS20261108005", "platformAfterSaleNo": "SHP-AS-26110805", "platformCode": "Shopee", "shopName": "辰星日化 SG", "orderNo": "PO20261108006", "afterSaleType": "退货退款", "refundAmount": 980.00, "afterSaleStatus": "waitReceive", "returnWaybillNo": "JD261108556", "deadline": "2026-11-10 18:00", "reason": "买家申请退货退款" },
+    { "owner": "辰星日化", "afterSaleNo": "AS20261108006", "platformAfterSaleNo": "AMZ-AS-26110806", "platformCode": "Amazon", "shopName": "CX Daily US", "orderNo": "PO20261108008", "afterSaleType": "仅退款", "refundAmount": 420.00, "afterSaleStatus": "refunding", "returnWaybillNo": "", "deadline": "2026-11-09 12:00", "reason": "商品破损，已同意退款" },
+    { "owner": "辰星日化", "afterSaleNo": "AS20261108007", "platformAfterSaleNo": "TM-AS-26110807", "platformCode": "Temu", "shopName": "辰星日化官方店", "orderNo": "PO20261108007", "afterSaleType": "索赔", "refundAmount": 1750.00, "afterSaleStatus": "closed", "returnWaybillNo": "", "deadline": "2026-11-08 12:00", "reason": "索赔材料不足，已关闭" }
+  ]
+}

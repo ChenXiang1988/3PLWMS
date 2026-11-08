@@ -1,0 +1,8 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "certNo": "EC20261105001", "enterpriseName": "海纳食品有限公司", "licenseNo": "91310000MA1FL0A23X", "certStatus": "approved", "submitTime": "2026-11-05 09:20", "reviewer": "仓网审核员" },
+    { "owner": "辰星日化", "certNo": "EC20261106002", "enterpriseName": "辰星日化有限公司", "licenseNo": "91310000MA1FL0B47Y", "certStatus": "pendingReview", "submitTime": "2026-11-06 10:15", "reviewer": "" },
+    { "owner": "云途电商", "certNo": "EC20261104003", "enterpriseName": "云途电子商务有限公司", "licenseNo": "91310000MA1FL0C61Z", "certStatus": "rejectedReview", "submitTime": "2026-11-04 15:30", "reviewer": "仓网审核员" },
+    { "owner": "云途电商", "certNo": "EC20261103004", "enterpriseName": "云途电子商务有限公司", "licenseNo": "91310000MA1FL0C61Z", "certStatus": "withdrawn", "submitTime": "", "reviewer": "" }
+  ]
+}

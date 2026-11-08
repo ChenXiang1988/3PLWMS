@@ -1,0 +1,60 @@
+{
+  "config": {
+    "unit": "个",
+    "statusField": "moduleStatus",
+    "keyField": "moduleCode",
+    "statusMeta": {
+      "active": { "label": "启用", "tone": "enabled" },
+      "disabled": { "label": "停用", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "启用", "value": "active" },
+      { "label": "停用", "value": "disabled" }
+    ],
+    "columns": [
+      { "key": "moduleName", "label": "模块", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "moduleCode", "label": "模块编码", "width": "120px" },
+      { "key": "currentVersion", "label": "当前版本", "width": "108px" },
+      { "key": "applicableApp", "label": "适用端", "width": "180px" },
+      { "key": "ownerCount", "label": "已开通货主数", "width": "120px", "align": "right", "type": "num" },
+      { "key": "moduleStatus", "label": "状态", "width": "88px", "type": "status" },
+      { "key": "updateTime", "label": "更新时间", "width": "157px" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "配置" }
+    ],
+    "filters": [
+      { "label": "适用端", "key": "applicableApp", "type": "select" }
+    ],
+    "scopeNote": "模块与版本是软件版本配置，不是商业套餐；停用模块前先确认已开通货主",
+    "form": {
+      "title": "模块与版本",
+      "note": "版本随软件发布更新；停用只影响新开通，不影响已有数据。",
+      "groups": [
+        { "title": "模块信息", "fields": [
+          { "label": "模块名称", "key": "moduleName", "type": "text", "required": true },
+          { "label": "模块编码", "key": "moduleCode", "type": "text", "readonly": true },
+          { "label": "当前版本", "key": "currentVersion", "type": "text", "required": true },
+          { "label": "适用端", "key": "applicableApp", "type": "select", "options": ["货灵ERP", "货灵运营中台管理端", "货灵WMS", "货灵商城"], "required": true },
+          { "label": "状态", "key": "moduleStatus", "type": "select", "options": [{ "label": "启用", "value": "active" }, { "label": "停用", "value": "disabled" }], "required": true }
+        ] }
+      ],
+      "actions": [
+        { "label": "保存", "primary": true, "attrs": { "data-form-action": "confirm" } },
+        { "label": "停用", "ghost": true, "attrs": { "data-form-action": "withdraw" } },
+        { "label": "查看开通明细", "ghost": true, "attrs": { "data-toast": "查看开通明细（原型示意）" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": { "confirm": "active", "withdraw": "disabled" },
+    "emptyTitle": "暂无模块"
+  },
+  "rows": [
+    { "moduleCode": "EO-ORD", "moduleName": "订单", "currentVersion": "2026.11", "applicableApp": "货灵ERP", "ownerCount": 2, "moduleStatus": "active", "updateTime": "2026-11-08 09:00" },
+    { "moduleCode": "EO-FUL", "moduleName": "履约", "currentVersion": "2026.11", "applicableApp": "货灵ERP", "ownerCount": 2, "moduleStatus": "active", "updateTime": "2026-11-08 09:00" },
+    { "moduleCode": "EO-AFS", "moduleName": "售后", "currentVersion": "2026.11", "applicableApp": "货灵ERP", "ownerCount": 2, "moduleStatus": "active", "updateTime": "2026-11-08 09:00" },
+    { "moduleCode": "EO-WH", "moduleName": "仓储委托", "currentVersion": "2026.11", "applicableApp": "货灵ERP", "ownerCount": 1, "moduleStatus": "active", "updateTime": "2026-11-08 09:00" },
+    { "moduleCode": "EO-INV", "moduleName": "库存", "currentVersion": "2026.11", "applicableApp": "货灵ERP", "ownerCount": 2, "moduleStatus": "active", "updateTime": "2026-11-08 09:00" },
+    { "moduleCode": "EO-SKU", "moduleName": "商品", "currentVersion": "2026.11", "applicableApp": "货灵ERP", "ownerCount": 2, "moduleStatus": "active", "updateTime": "2026-11-08 09:00" },
+    { "moduleCode": "EO-PLT", "moduleName": "平台接入", "currentVersion": "2026.11", "applicableApp": "货灵ERP", "ownerCount": 1, "moduleStatus": "active", "updateTime": "2026-11-08 09:00" },
+    { "moduleCode": "EO-BIL", "moduleName": "账单与服务", "currentVersion": "2026.10", "applicableApp": "货灵ERP", "ownerCount": 2, "moduleStatus": "disabled", "updateTime": "2026-11-06 16:20" }
+  ]
+}

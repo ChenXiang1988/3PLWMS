@@ -7,7 +7,8 @@ export const STATUS_META = {
 
 const labelOf = (s) => (STATUS_META[s] || {}).label || '—';
 const toneOf = (s) => (STATUS_META[s] || {}).type || 'info';
-const hours = (v) => (v == null || v === '' ? '—' : `${n(v)} 小时`);
+const hours = (v) => (v == null || v === '' ? dash(v) : `${n(v)} 小时`);
+const percent = (v) => (v == null || v === '' ? dash(v) : `${v}%`);
 
 export function renderPage(data, ctx) {
   const { rows = [] } = data[ctx.pageKey] || {};
@@ -39,7 +40,7 @@ export function renderPage(data, ctx) {
       { key: 'bizType', label: '业务类型', width: '120px', render: (r) => dash(r.bizType) },
       { key: 'slaHours', label: '作业时效', width: '120px', align: 'right', render: (r) => hours(r.slaHours) },
       { key: 'cutoffTime', label: '截单时间', width: '120px', render: (r) => dash(r.cutoffTime) },
-      { key: 'accuracyRate', label: '准确率目标', width: '120px', align: 'right', render: (r) => (r.accuracyRate == null ? '—' : `${r.accuracyRate}%`) },
+      { key: 'accuracyRate', label: '准确率目标', width: '120px', align: 'right', render: (r) => percent(r.accuracyRate) },
       { key: 'slaStatus', label: '协议状态', width: '108px', render: (r) => StatusTag(labelOf(r.slaStatus), toneOf(r.slaStatus)) },
       { key: 'effectDate', label: '生效日期', width: '120px', render: (r) => dash(r.effectDate) },
       { key: 'updateTime', label: '更新时间', width: '157px', render: (r) => dash(r.updateTime) },

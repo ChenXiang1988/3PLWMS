@@ -12,7 +12,8 @@ enabled: true
 
 | 任务 | 必须先读 |
 | --- | --- |
-| `prototypes/` 原型新增与修改 | `.codebuddy/skills/3pl-wms-proto/SKILL.md` 的「五层」「开工前」「硬约束」「流程」，再按流程第 0 步挑卷：改页面看 `references/shells/`（admin / mall / pda 对应外壳）与 `references/implementation.md`；加端或模块看 `references/registry.md`、`references/core/output-format.md`；查文案看 `references/core/glossary.md`；构建交付看 `references/core/output-format.md`、`references/core/acceptance.md`；报错看 `references/core/anti-patterns.md` |
+| `prototypes/` 原型新增与修改 | 「界面文案纪律」规则 + `.codebuddy/skills/huoling-proto/SKILL.md` 的「五层」「开工前」「硬约束」「流程」，再按流程第 0 步挑卷：改页面看 `references/shells/`（admin / mall / pda 对应外壳）与 `references/implementation.md`；加端或模块看 `references/registry.md`、`references/core/output-format.md`；查文案看 `references/core/glossary.md`；构建交付看 `references/core/output-format.md`、`references/core/acceptance.md`；报错看 `references/core/anti-patterns.md` |
+| 改任一端原型（页面、数据、`shared/`、`modules.json`、`module.json`） | 先按「跨端联动确认」规则出评估清单：受影响端、落点、联动点、`必须同改 / 无需改` 的结论，经确认后才改 |
 | `docs/` 文档增删改 | `docs/index.md` 的「使用规则」「日志管理」及目标文档的「使用规则」 |
 | `docs/数据字典/` 实体与字段 | `docs/数据字典/index.md` 的「使用规则」+ 对应实体文档；改完跑 `node docs/数据字典/check.mjs` |
 | 绘制流程图 / 状态流转 / 时序图 | 「流程图规范」规则（异常场景与逆向场景）+ `docs/index.md` 的「使用规则」：流程图文档归入 `docs/产品需求/` 或 `docs/架构设计/`，须登记索引并在 `docs/log.md` 留痕 |

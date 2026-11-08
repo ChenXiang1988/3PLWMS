@@ -43,7 +43,6 @@ export function renderPage(data, ctx) {
       { label: '导出', ghost: true, toast: '导出（原型示意）' },
     ],
     showCount: true,
-    scopeNote: `本模块：${ctx.moduleName}`,
     columns: [
       { key: 'owner', label: '货主', width: '120px', render: (r) => dash(r.owner) },
       { key: 'skuCode', label: '商品编码', width: '160px', cls: 'wx-col-strong' },

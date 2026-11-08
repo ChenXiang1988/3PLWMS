@@ -1,0 +1,61 @@
+{
+  "config": {
+    "unit": "条",
+    "statusField": "delegationStatus",
+    "keyField": "delegationNo",
+    "statusMeta": {
+      "draft": { "label": "草稿", "tone": "disabled" },
+      "pending": { "label": "待处理", "tone": "pending" },
+      "processing": { "label": "处理中", "tone": "enabled" },
+      "finished": { "label": "已完成", "tone": "disabled" },
+      "cancelled": { "label": "已取消", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "草稿", "value": "draft" },
+      { "label": "待处理", "value": "pending" },
+      { "label": "处理中", "value": "processing" },
+      { "label": "已完成", "value": "finished" },
+      { "label": "已取消", "value": "cancelled" }
+    ],
+    "columns": [
+      { "key": "delegationNo", "label": "委托单号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "bizType", "label": "委托类型", "type": "tag" },
+      { "key": "warehouseName", "label": "目标仓库" },
+      { "key": "skuCount", "label": "品类数", "align": "right" },
+      { "key": "planQty", "label": "计划数量", "align": "right" },
+      { "key": "delegationStatus", "label": "委托状态", "type": "status" },
+      { "key": "submitTime", "label": "提交时间", "width": "157px" },
+      { "key": "applicant", "label": "申请人" },
+      { "key": "action", "label": "操作", "type": "action", "button": "查看" }
+    ],
+    "filters": [
+      { "label": "委托类型", "key": "bizType", "type": "select" },
+      { "label": "委托单号", "key": "delegationNo", "type": "text", "placeholder": "请输入委托单号" }
+    ],
+    "form": {
+      "title": "委托单据中心",
+      "note": "统一视图只跟踪来源单据状态，不改写来源单据。",
+      "groups": [
+        { "title": "变更取消", "fields": [
+          { "label": "委托单号", "key": "delegationNo", "type": "text", "readonly": true },
+          { "label": "委托类型", "key": "bizType", "type": "text", "readonly": true },
+          { "label": "确认结果", "key": "confirmResult", "type": "text", "readonly": true },
+          { "label": "变更取消原因", "key": "cancelReason", "type": "textarea", "required": true }
+        ] }
+      ],
+      "actions": [
+        { "label": "变更取消", "primary": true, "attrs": { "data-form-action": "cancel" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": { "cancel": "cancelled" },
+    "emptyTitle": "暂无委托"
+  },
+  "rows": [
+    { "owner": "海纳食品", "delegationNo": "WT20261105001", "bizType": "入库", "warehouseName": "华东中心仓", "skuCount": 4, "planQty": 1200, "delegationStatus": "pending", "submitTime": "2026-11-05 09:12", "applicant": "陈晓", "confirmResult": "待仓网端确认" },
+    { "owner": "海纳食品", "delegationNo": "WT20261104003", "bizType": "商品资料变更", "warehouseName": "华东中心仓", "skuCount": 1, "planQty": 0, "delegationStatus": "processing", "submitTime": "2026-11-04 11:20", "applicant": "陈晓", "confirmResult": "审核中" },
+    { "owner": "辰星日化", "delegationNo": "WT20261105002", "bizType": "出库", "warehouseName": "华南前置仓", "skuCount": 3, "planQty": 480, "delegationStatus": "finished", "submitTime": "2026-11-05 09:35", "applicant": "周敏", "confirmResult": "已确认并下发" },
+    { "owner": "辰星日化", "delegationNo": "WT20261103006", "bizType": "调拨", "warehouseName": "华南前置仓", "skuCount": 2, "planQty": 200, "delegationStatus": "cancelled", "submitTime": "2026-11-03 16:05", "applicant": "周敏", "confirmResult": "货主取消" },
+    { "owner": "云途电商", "delegationNo": "WT20261104008", "bizType": "退货", "warehouseName": "华东中心仓", "skuCount": 1, "planQty": 30, "delegationStatus": "draft", "submitTime": "", "applicant": "吴迪", "confirmResult": "未提交" }
+  ]
+}

@@ -1,0 +1,1662 @@
+{
+  "config": {
+    "unit": "条",
+    "statusField": "releaseStatus",
+    "keyField": "adapterCode",
+    "statusMeta": {
+      "released": {
+        "label": "已发布",
+        "tone": "enabled"
+      },
+      "draft": {
+        "label": "草稿",
+        "tone": "pending"
+      },
+      "disabled": {
+        "label": "已停用",
+        "tone": "disabled"
+      }
+    },
+    "tabs": [
+      {
+        "label": "已发布",
+        "value": "released"
+      },
+      {
+        "label": "草稿",
+        "value": "draft"
+      },
+      {
+        "label": "已停用",
+        "value": "disabled"
+      }
+    ],
+    "columns": [
+      {
+        "key": "adapterCode",
+        "label": "适配器编码",
+        "width": "160px",
+        "cls": "wx-col-strong"
+      },
+      {
+        "key": "platform",
+        "label": "平台",
+        "width": "108px"
+      },
+      {
+        "key": "platformMode",
+        "label": "平台模式",
+        "width": "108px"
+      },
+      {
+        "key": "authMode",
+        "label": "授权方式",
+        "width": "140px"
+      },
+      {
+        "key": "rawOrder",
+        "label": "原单有无",
+        "width": "140px"
+      },
+      {
+        "key": "labelSource",
+        "label": "面单来源",
+        "width": "120px"
+      },
+      {
+        "key": "fulfillDuty",
+        "label": "履约责任",
+        "width": "96px"
+      },
+      {
+        "key": "rateLimit",
+        "label": "限流",
+        "width": "120px"
+      },
+      {
+        "key": "releaseStatus",
+        "label": "发布状态",
+        "width": "108px",
+        "type": "status"
+      },
+      {
+        "key": "adapterVersion",
+        "label": "适配器版本",
+        "width": "120px"
+      },
+      {
+        "key": "action",
+        "label": "操作",
+        "width": "180px",
+        "type": "action",
+        "button": "发布",
+        "detailButton": "查看适配配置"
+      }
+    ],
+    "filters": [
+      {
+        "label": "平台",
+        "key": "platform",
+        "type": "select"
+      },
+      {
+        "label": "平台模式",
+        "key": "platformMode",
+        "type": "select"
+      }
+    ],
+    "form": {
+      "title": "平台适配器",
+      "note": "停用后该平台模式停止拉单与回传，已生成的单据不受影响；发布后新配置对下一次拉单生效。",
+      "groups": [
+        {
+          "title": "适配配置",
+          "fields": [
+            {
+              "label": "适配器编码",
+              "key": "adapterCode",
+              "readonly": true
+            },
+            {
+              "label": "平台",
+              "key": "platform",
+              "readonly": true
+            },
+            {
+              "label": "平台模式",
+              "key": "platformMode",
+              "readonly": true
+            },
+            {
+              "label": "授权方式",
+              "key": "authMode",
+              "readonly": true
+            },
+            {
+              "label": "原单有无",
+              "key": "rawOrder",
+              "readonly": true
+            },
+            {
+              "label": "面单来源",
+              "key": "labelSource",
+              "readonly": true
+            },
+            {
+              "label": "履约责任",
+              "key": "fulfillDuty",
+              "readonly": true
+            },
+            {
+              "label": "限流",
+              "key": "rateLimit",
+              "readonly": true
+            },
+            {
+              "label": "适配器版本",
+              "key": "adapterVersion",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "label": "发布",
+          "primary": true,
+          "attrs": {
+            "data-form-action": "publishAdapter"
+          }
+        },
+        {
+          "label": "停用",
+          "ghost": true,
+          "attrs": {
+            "data-form-action": "disableAdapter"
+          }
+        },
+        {
+          "label": "关闭",
+          "ghost": true,
+          "attrs": {
+            "data-drawer-close": ""
+          }
+        }
+      ]
+    },
+    "actionStatus": {
+      "publishAdapter": "released",
+      "disableAdapter": "disabled"
+    },
+    "emptyTitle": "暂无平台适配器",
+    "adapterDetails": {
+      "ADP-TEMU-FULL": {
+        "fieldMapCount": 4,
+        "statusMapCount": 3,
+        "capabilityCount": 7,
+        "mappings": [
+          {
+            "mapType": "字段映射",
+            "platformSide": "purchase_order_id",
+            "erpSide": "平台备货单号",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "sku_id",
+            "erpSide": "平台商品编码",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "quantity",
+            "erpSide": "备货数量",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "warehouse_code",
+            "erpSide": "平台仓",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "WAIT_DELIVERY",
+            "erpSide": "待备货",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "DELIVERED",
+            "erpSide": "平台收货",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "CANCELLED",
+            "erpSide": "已取消",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "拉单",
+            "erpSide": "备货单",
+            "support": "平台侧",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "回传",
+            "erpSide": "预约与发货回传",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "申请面单",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "取消订单",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "改地址",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "售后",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "库存推送",
+            "erpSide": "备货库存同步",
+            "support": "支持",
+            "appVersion": "2026.11"
+          }
+        ],
+        "timeline": [
+          {
+            "time": "2026-11-02 10:00",
+            "text": "草稿 2026.11 建立：补平台仓字段映射",
+            "operator": "产品组"
+          },
+          {
+            "time": "2026-11-03 09:30",
+            "text": "发布 2026.11",
+            "operator": "产品组"
+          }
+        ]
+      },
+      "ADP-TEMU-HALF": {
+        "fieldMapCount": 5,
+        "statusMapCount": 4,
+        "capabilityCount": 7,
+        "mappings": [
+          {
+            "mapType": "字段映射",
+            "platformSide": "order_id",
+            "erpSide": "平台订单号",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "order_status",
+            "erpSide": "平台原始状态",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "sku_id",
+            "erpSide": "平台商品编码",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "receiver_address",
+            "erpSide": "收货地址",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "tracking_no",
+            "erpSide": "运单号",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "PAID",
+            "erpSide": "待审单",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "AWAITING_SHIPMENT",
+            "erpSide": "待下发",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "SHIPPED",
+            "erpSide": "已下发",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "CANCELLED",
+            "erpSide": "同步异常",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "拉单",
+            "erpSide": "平台订单",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "回传",
+            "erpSide": "运单号回传",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "申请面单",
+            "erpSide": "平台面单",
+            "support": "平台侧",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "取消订单",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "改地址",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "售后",
+            "erpSide": "平台售后单",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "库存推送",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.11"
+          }
+        ],
+        "timeline": [
+          {
+            "time": "2026-11-04 14:20",
+            "text": "草稿 2026.11 建立：补平台面单映射",
+            "operator": "产品组"
+          },
+          {
+            "time": "2026-11-05 09:00",
+            "text": "发布 2026.11",
+            "operator": "产品组"
+          }
+        ]
+      },
+      "ADP-LZD-POP": {
+        "fieldMapCount": 5,
+        "statusMapCount": 4,
+        "capabilityCount": 7,
+        "mappings": [
+          {
+            "mapType": "字段映射",
+            "platformSide": "order_id",
+            "erpSide": "平台订单号",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "status",
+            "erpSide": "平台原始状态",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "sku",
+            "erpSide": "平台商品编码",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "shipping_address",
+            "erpSide": "收货地址",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "tracking_number",
+            "erpSide": "运单号",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "pending",
+            "erpSide": "待审单",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "ready_to_ship",
+            "erpSide": "待下发",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "shipped",
+            "erpSide": "已下发",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "canceled",
+            "erpSide": "同步异常",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "拉单",
+            "erpSide": "平台订单",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "回传",
+            "erpSide": "运单号回传",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "申请面单",
+            "erpSide": "承运商面单",
+            "support": "卖家侧",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "取消订单",
+            "erpSide": "取消回传",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "改地址",
+            "erpSide": "重新同步覆盖",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "售后",
+            "erpSide": "平台售后单",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "库存推送",
+            "erpSide": "店铺库存同步",
+            "support": "支持",
+            "appVersion": "2026.10"
+          }
+        ],
+        "timeline": [
+          {
+            "time": "2026-10-18 11:00",
+            "text": "发布 2026.10",
+            "operator": "产品组"
+          }
+        ]
+      },
+      "ADP-LZD-HALF": {
+        "fieldMapCount": 4,
+        "statusMapCount": 3,
+        "capabilityCount": 7,
+        "mappings": [
+          {
+            "mapType": "字段映射",
+            "platformSide": "order_id",
+            "erpSide": "平台订单号",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "status",
+            "erpSide": "平台原始状态",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "sku",
+            "erpSide": "平台商品编码",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "tracking_number",
+            "erpSide": "运单号",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "pending",
+            "erpSide": "待审单",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "ready_to_ship",
+            "erpSide": "待下发",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "shipped",
+            "erpSide": "已下发",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "拉单",
+            "erpSide": "平台订单",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "回传",
+            "erpSide": "运单号回传",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "申请面单",
+            "erpSide": "平台面单",
+            "support": "平台侧",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "取消订单",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "改地址",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "售后",
+            "erpSide": "平台售后单",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "库存推送",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.11"
+          }
+        ],
+        "timeline": [
+          {
+            "time": "2026-11-07 15:40",
+            "text": "草稿 2026.11 建立：半托管状态映射待试算",
+            "operator": "产品组"
+          }
+        ]
+      },
+      "ADP-TTS-CROSS": {
+        "fieldMapCount": 5,
+        "statusMapCount": 4,
+        "capabilityCount": 7,
+        "mappings": [
+          {
+            "mapType": "字段映射",
+            "platformSide": "order_id",
+            "erpSide": "平台订单号",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "order_status",
+            "erpSide": "平台原始状态",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "sku_id",
+            "erpSide": "平台商品编码",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "recipient_address",
+            "erpSide": "收货地址",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "tracking_no",
+            "erpSide": "运单号",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "UNPAID",
+            "erpSide": "待审单",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "AWAITING_SHIPMENT",
+            "erpSide": "待下发",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "AWAITING_COLLECTION",
+            "erpSide": "已下发",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "CANCELLED",
+            "erpSide": "同步异常",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "拉单",
+            "erpSide": "平台订单",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "回传",
+            "erpSide": "运单号回传",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "申请面单",
+            "erpSide": "平台面单",
+            "support": "平台侧",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "取消订单",
+            "erpSide": "取消回传",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "改地址",
+            "erpSide": "重新同步覆盖",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "售后",
+            "erpSide": "平台售后单",
+            "support": "支持",
+            "appVersion": "2026.11"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "库存推送",
+            "erpSide": "店铺库存同步",
+            "support": "支持",
+            "appVersion": "2026.11"
+          }
+        ],
+        "timeline": [
+          {
+            "time": "2026-11-06 10:30",
+            "text": "发布 2026.11",
+            "operator": "产品组"
+          }
+        ]
+      },
+      "ADP-AMZ-FBA": {
+        "fieldMapCount": 4,
+        "statusMapCount": 3,
+        "capabilityCount": 7,
+        "mappings": [
+          {
+            "mapType": "字段映射",
+            "platformSide": "shipment_id",
+            "erpSide": "平台备货单号",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "seller_sku",
+            "erpSide": "平台商品编码",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "quantity",
+            "erpSide": "备货数量",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "fulfillment_center_id",
+            "erpSide": "平台仓",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "WORKING",
+            "erpSide": "待备货",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "SHIPPED",
+            "erpSide": "已下发",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "RECEIVED",
+            "erpSide": "平台收货",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "拉单",
+            "erpSide": "FBA 货件",
+            "support": "平台侧",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "回传",
+            "erpSide": "发货单回传",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "申请面单",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "取消订单",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "改地址",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "售后",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "库存推送",
+            "erpSide": "FBA 库存同步",
+            "support": "支持",
+            "appVersion": "2026.10"
+          }
+        ],
+        "timeline": [
+          {
+            "time": "2026-10-20 09:10",
+            "text": "发布 2026.10",
+            "operator": "产品组"
+          }
+        ]
+      },
+      "ADP-AMZ-FBM": {
+        "fieldMapCount": 5,
+        "statusMapCount": 4,
+        "capabilityCount": 7,
+        "mappings": [
+          {
+            "mapType": "字段映射",
+            "platformSide": "amazon_order_id",
+            "erpSide": "平台订单号",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "order_status",
+            "erpSide": "平台原始状态",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "seller_sku",
+            "erpSide": "平台商品编码",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "shipping_address",
+            "erpSide": "收货地址",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "tracking_number",
+            "erpSide": "运单号",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "Pending",
+            "erpSide": "待审单",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "Unshipped",
+            "erpSide": "待下发",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "Shipped",
+            "erpSide": "已下发",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "Canceled",
+            "erpSide": "同步异常",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "拉单",
+            "erpSide": "平台订单",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "回传",
+            "erpSide": "运单号回传",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "申请面单",
+            "erpSide": "承运商面单",
+            "support": "卖家侧",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "取消订单",
+            "erpSide": "取消回传",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "改地址",
+            "erpSide": "重新同步覆盖",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "售后",
+            "erpSide": "平台售后单",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "库存推送",
+            "erpSide": "店铺库存同步",
+            "support": "支持",
+            "appVersion": "2026.10"
+          }
+        ],
+        "timeline": [
+          {
+            "time": "2026-10-20 09:10",
+            "text": "发布 2026.10",
+            "operator": "产品组"
+          }
+        ]
+      },
+      "ADP-AE-HALF": {
+        "fieldMapCount": 4,
+        "statusMapCount": 3,
+        "capabilityCount": 7,
+        "mappings": [
+          {
+            "mapType": "字段映射",
+            "platformSide": "order_id",
+            "erpSide": "平台订单号",
+            "support": "支持",
+            "appVersion": "2026.09"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "order_status",
+            "erpSide": "平台原始状态",
+            "support": "支持",
+            "appVersion": "2026.09"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "sku",
+            "erpSide": "平台商品编码",
+            "support": "支持",
+            "appVersion": "2026.09"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "tracking_no",
+            "erpSide": "运单号",
+            "support": "支持",
+            "appVersion": "2026.09"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "WAIT_PAY",
+            "erpSide": "待审单",
+            "support": "支持",
+            "appVersion": "2026.09"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "WAIT_SELLER_SEND",
+            "erpSide": "待下发",
+            "support": "支持",
+            "appVersion": "2026.09"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "SELLER_SENDED",
+            "erpSide": "已下发",
+            "support": "支持",
+            "appVersion": "2026.09"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "拉单",
+            "erpSide": "平台订单",
+            "support": "支持",
+            "appVersion": "2026.09"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "回传",
+            "erpSide": "运单号回传",
+            "support": "支持",
+            "appVersion": "2026.09"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "申请面单",
+            "erpSide": "平台面单",
+            "support": "平台侧",
+            "appVersion": "2026.09"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "取消订单",
+            "erpSide": "取消回传",
+            "support": "支持",
+            "appVersion": "2026.09"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "改地址",
+            "erpSide": "重新同步覆盖",
+            "support": "支持",
+            "appVersion": "2026.09"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "售后",
+            "erpSide": "平台售后单",
+            "support": "支持",
+            "appVersion": "2026.09"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "库存推送",
+            "erpSide": "店铺库存同步",
+            "support": "支持",
+            "appVersion": "2026.09"
+          }
+        ],
+        "timeline": [
+          {
+            "time": "2026-09-12 10:00",
+            "text": "发布 2026.09",
+            "operator": "产品组"
+          },
+          {
+            "time": "2026-11-01 16:00",
+            "text": "停用：平台接口版本升级，待重新适配",
+            "operator": "产品组"
+          }
+        ]
+      },
+      "ADP-AE-FULL": {
+        "fieldMapCount": 4,
+        "statusMapCount": 3,
+        "capabilityCount": 7,
+        "mappings": [
+          {
+            "mapType": "字段映射",
+            "platformSide": "jit_order_id",
+            "erpSide": "平台备货单号",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "sku",
+            "erpSide": "平台商品编码",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "quantity",
+            "erpSide": "备货数量",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "warehouse_code",
+            "erpSide": "平台仓",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "WAIT_DELIVERY",
+            "erpSide": "待备货",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "DELIVERED",
+            "erpSide": "平台收货",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "CANCELLED",
+            "erpSide": "已取消",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "拉单",
+            "erpSide": "JIT 备货单",
+            "support": "平台侧",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "回传",
+            "erpSide": "预约与发货回传",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "申请面单",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "取消订单",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "改地址",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "售后",
+            "erpSide": "—",
+            "support": "不支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "库存推送",
+            "erpSide": "JIT 备货库存同步",
+            "support": "支持",
+            "appVersion": "2026.10"
+          }
+        ],
+        "timeline": [
+          {
+            "time": "2026-10-22 09:00",
+            "text": "发布 2026.10",
+            "operator": "产品组"
+          }
+        ]
+      },
+      "ADP-SHP-SELF": {
+        "fieldMapCount": 5,
+        "statusMapCount": 4,
+        "capabilityCount": 7,
+        "mappings": [
+          {
+            "mapType": "字段映射",
+            "platformSide": "order_sn",
+            "erpSide": "平台订单号",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "order_status",
+            "erpSide": "平台原始状态",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "item_sku",
+            "erpSide": "平台商品编码",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "recipient_address",
+            "erpSide": "收货地址",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "字段映射",
+            "platformSide": "tracking_no",
+            "erpSide": "运单号",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "UNPAID",
+            "erpSide": "待审单",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "READY_TO_SHIP",
+            "erpSide": "待下发",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "SHIPPED",
+            "erpSide": "已下发",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "状态映射",
+            "platformSide": "CANCELLED",
+            "erpSide": "同步异常",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "拉单",
+            "erpSide": "平台订单",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "回传",
+            "erpSide": "运单号回传",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "申请面单",
+            "erpSide": "平台面单",
+            "support": "平台侧",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "取消订单",
+            "erpSide": "取消回传",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "改地址",
+            "erpSide": "重新同步覆盖",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "售后",
+            "erpSide": "平台售后单",
+            "support": "支持",
+            "appVersion": "2026.10"
+          },
+          {
+            "mapType": "能力",
+            "platformSide": "库存推送",
+            "erpSide": "店铺库存同步",
+            "support": "支持",
+            "appVersion": "2026.10"
+          }
+        ],
+        "timeline": [
+          {
+            "time": "2026-10-25 14:00",
+            "text": "发布 2026.10",
+            "operator": "产品组"
+          }
+        ]
+      }
+    }
+  },
+  "rows": [
+    {
+      "owner": "海纳食品",
+      "adapterCode": "ADP-TEMU-FULL",
+      "platform": "Temu",
+      "platformMode": "全托管",
+      "authMode": "产品库存 Token",
+      "rawOrder": "无原单（备货单）",
+      "labelSource": "无面单",
+      "fulfillDuty": "平台",
+      "rateLimit": "60 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.11"
+    },
+    {
+      "owner": "海纳食品",
+      "adapterCode": "ADP-TEMU-HALF",
+      "platform": "Temu",
+      "platformMode": "半托管",
+      "authMode": "订单发货 Token",
+      "rawOrder": "有原单",
+      "labelSource": "平台面单",
+      "fulfillDuty": "卖家",
+      "rateLimit": "60 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.11"
+    },
+    {
+      "owner": "海纳食品",
+      "adapterCode": "ADP-LZD-POP",
+      "platform": "Lazada",
+      "platformMode": "POP",
+      "authMode": "站点市场服务",
+      "rawOrder": "有原单",
+      "labelSource": "卖家自备",
+      "fulfillDuty": "卖家",
+      "rateLimit": "80 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.10"
+    },
+    {
+      "owner": "海纳食品",
+      "adapterCode": "ADP-LZD-HALF",
+      "platform": "Lazada",
+      "platformMode": "半托管",
+      "authMode": "站点市场服务",
+      "rawOrder": "有原单",
+      "labelSource": "平台面单",
+      "fulfillDuty": "卖家",
+      "rateLimit": "80 次/分钟",
+      "releaseStatus": "draft",
+      "adapterVersion": "2026.11"
+    },
+    {
+      "owner": "海纳食品",
+      "adapterCode": "ADP-TTS-CROSS",
+      "platform": "TikTok Shop",
+      "platformMode": "跨境店",
+      "authMode": "OAuth",
+      "rawOrder": "有原单",
+      "labelSource": "平台面单",
+      "fulfillDuty": "卖家",
+      "rateLimit": "100 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.11"
+    },
+    {
+      "owner": "海纳食品",
+      "adapterCode": "ADP-AMZ-FBA",
+      "platform": "Amazon",
+      "platformMode": "FBA",
+      "authMode": "区域授权",
+      "rawOrder": "无原单（备货单）",
+      "labelSource": "无面单",
+      "fulfillDuty": "平台",
+      "rateLimit": "100 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.10"
+    },
+    {
+      "owner": "海纳食品",
+      "adapterCode": "ADP-AMZ-FBM",
+      "platform": "Amazon",
+      "platformMode": "FBM",
+      "authMode": "区域授权",
+      "rawOrder": "有原单",
+      "labelSource": "承运商面单",
+      "fulfillDuty": "卖家",
+      "rateLimit": "100 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.10"
+    },
+    {
+      "owner": "海纳食品",
+      "adapterCode": "ADP-AE-HALF",
+      "platform": "速卖通",
+      "platformMode": "半托管",
+      "authMode": "合规 API Token",
+      "rawOrder": "有原单",
+      "labelSource": "平台面单",
+      "fulfillDuty": "卖家",
+      "rateLimit": "80 次/分钟",
+      "releaseStatus": "disabled",
+      "adapterVersion": "2026.09"
+    },
+    {
+      "owner": "海纳食品",
+      "adapterCode": "ADP-AE-FULL",
+      "platform": "速卖通",
+      "platformMode": "全托管",
+      "authMode": "OAuth",
+      "rawOrder": "无原单（备货单）",
+      "labelSource": "无面单",
+      "fulfillDuty": "平台",
+      "rateLimit": "80 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.10"
+    },
+    {
+      "owner": "海纳食品",
+      "adapterCode": "ADP-SHP-SELF",
+      "platform": "Shopee",
+      "platformMode": "自营",
+      "authMode": "OAuth",
+      "rawOrder": "有原单",
+      "labelSource": "平台面单",
+      "fulfillDuty": "卖家",
+      "rateLimit": "100 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.10"
+    },
+    {
+      "owner": "辰星日化",
+      "adapterCode": "ADP-TEMU-FULL",
+      "platform": "Temu",
+      "platformMode": "全托管",
+      "authMode": "产品库存 Token",
+      "rawOrder": "无原单（备货单）",
+      "labelSource": "无面单",
+      "fulfillDuty": "平台",
+      "rateLimit": "60 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.11"
+    },
+    {
+      "owner": "辰星日化",
+      "adapterCode": "ADP-TEMU-HALF",
+      "platform": "Temu",
+      "platformMode": "半托管",
+      "authMode": "订单发货 Token",
+      "rawOrder": "有原单",
+      "labelSource": "平台面单",
+      "fulfillDuty": "卖家",
+      "rateLimit": "60 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.11"
+    },
+    {
+      "owner": "辰星日化",
+      "adapterCode": "ADP-LZD-POP",
+      "platform": "Lazada",
+      "platformMode": "POP",
+      "authMode": "站点市场服务",
+      "rawOrder": "有原单",
+      "labelSource": "卖家自备",
+      "fulfillDuty": "卖家",
+      "rateLimit": "80 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.10"
+    },
+    {
+      "owner": "辰星日化",
+      "adapterCode": "ADP-LZD-HALF",
+      "platform": "Lazada",
+      "platformMode": "半托管",
+      "authMode": "站点市场服务",
+      "rawOrder": "有原单",
+      "labelSource": "平台面单",
+      "fulfillDuty": "卖家",
+      "rateLimit": "80 次/分钟",
+      "releaseStatus": "draft",
+      "adapterVersion": "2026.11"
+    },
+    {
+      "owner": "辰星日化",
+      "adapterCode": "ADP-TTS-CROSS",
+      "platform": "TikTok Shop",
+      "platformMode": "跨境店",
+      "authMode": "OAuth",
+      "rawOrder": "有原单",
+      "labelSource": "平台面单",
+      "fulfillDuty": "卖家",
+      "rateLimit": "100 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.11"
+    },
+    {
+      "owner": "辰星日化",
+      "adapterCode": "ADP-AMZ-FBA",
+      "platform": "Amazon",
+      "platformMode": "FBA",
+      "authMode": "区域授权",
+      "rawOrder": "无原单（备货单）",
+      "labelSource": "无面单",
+      "fulfillDuty": "平台",
+      "rateLimit": "100 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.10"
+    },
+    {
+      "owner": "辰星日化",
+      "adapterCode": "ADP-AMZ-FBM",
+      "platform": "Amazon",
+      "platformMode": "FBM",
+      "authMode": "区域授权",
+      "rawOrder": "有原单",
+      "labelSource": "承运商面单",
+      "fulfillDuty": "卖家",
+      "rateLimit": "100 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.10"
+    },
+    {
+      "owner": "辰星日化",
+      "adapterCode": "ADP-AE-HALF",
+      "platform": "速卖通",
+      "platformMode": "半托管",
+      "authMode": "合规 API Token",
+      "rawOrder": "有原单",
+      "labelSource": "平台面单",
+      "fulfillDuty": "卖家",
+      "rateLimit": "80 次/分钟",
+      "releaseStatus": "disabled",
+      "adapterVersion": "2026.09"
+    },
+    {
+      "owner": "辰星日化",
+      "adapterCode": "ADP-AE-FULL",
+      "platform": "速卖通",
+      "platformMode": "全托管",
+      "authMode": "OAuth",
+      "rawOrder": "无原单（备货单）",
+      "labelSource": "无面单",
+      "fulfillDuty": "平台",
+      "rateLimit": "80 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.10"
+    },
+    {
+      "owner": "辰星日化",
+      "adapterCode": "ADP-SHP-SELF",
+      "platform": "Shopee",
+      "platformMode": "自营",
+      "authMode": "OAuth",
+      "rawOrder": "有原单",
+      "labelSource": "平台面单",
+      "fulfillDuty": "卖家",
+      "rateLimit": "100 次/分钟",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.10"
+    }
+  ]
+}

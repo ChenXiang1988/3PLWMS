@@ -1,0 +1,76 @@
+{
+  "config": {
+    "unit": "单",
+    "statusField": "selfShipStatus",
+    "keyField": "selfShipNo",
+    "statusMeta": {
+      "pendingShip": { "label": "待发货", "tone": "pending" },
+      "shipped": { "label": "已发货", "tone": "enabled" },
+      "signed": { "label": "已签收", "tone": "info" },
+      "cancelled": { "label": "已取消", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "待发货", "value": "pendingShip" },
+      { "label": "已发货", "value": "shipped" },
+      { "label": "已签收", "value": "signed" },
+      { "label": "已取消", "value": "cancelled" }
+    ],
+    "columns": [
+      { "key": "selfShipNo", "label": "自发货单号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "sourceDocNo", "label": "来源订单", "width": "160px" },
+      { "key": "receiverName", "label": "收货方", "width": "120px" },
+      { "key": "selfShipStatus", "label": "自发货状态", "width": "108px", "type": "status" },
+      { "key": "carrierName", "label": "承运商", "width": "108px" },
+      { "key": "waybillNo", "label": "运单号", "width": "160px" },
+      { "key": "packageCount", "label": "包裹数", "width": "80px", "align": "right", "type": "num" },
+      { "key": "shipTime", "label": "发货时间", "width": "157px" },
+      { "key": "waybillFile", "label": "面单文件", "width": "160px" },
+      { "key": "labelFile", "label": "标签文件", "width": "160px" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "发货" }
+    ],
+    "filters": [
+      { "label": "来源订单", "key": "sourceDocNo", "type": "text", "placeholder": "请输入来源订单" },
+      { "label": "承运商", "key": "carrierName", "type": "select" }
+    ],
+    "scopeNote": "货主自有仓或供应商直发，不锁 3PL 库存；发货后回写订单并回传平台",
+    "form": {
+      "title": "自发货",
+      "note": "发货前可取消；已发货只能走平台售后，不生成 3PL 退货入库单。",
+      "groups": [
+        { "title": "发货信息", "fields": [
+          { "label": "自发货单号", "key": "selfShipNo", "readonly": true },
+          { "label": "来源订单", "key": "sourceDocNo", "readonly": true },
+          { "label": "收货方", "key": "receiverName", "readonly": true },
+          { "label": "承运商", "key": "carrierName", "type": "text" },
+          { "label": "运单号来源", "key": "waybillSource", "type": "select", "options": ["平台面单", "承运商面单", "手工录入"] },
+          { "label": "运单号", "key": "waybillNo", "type": "text" },
+          { "label": "包裹数", "key": "packageCount", "type": "number" },
+          { "label": "发货时间", "key": "shipTime", "type": "text", "placeholder": "2026-11-08 09:00" }
+        ] },
+        { "title": "面单与标签", "fields": [
+          { "label": "面单文件", "key": "waybillFile", "type": "text" },
+          { "label": "标签文件", "key": "labelFile", "type": "text" }
+        ] }
+      ],
+      "actions": [
+        { "label": "发货", "primary": true, "attrs": { "data-form-action": "ship" } },
+        { "label": "申请运单号", "ghost": true, "attrs": { "data-form-action": "applyWaybill" } },
+        { "label": "打印面单", "ghost": true, "attrs": { "data-form-action": "printWaybill" } },
+        { "label": "打印标签", "ghost": true, "attrs": { "data-form-action": "printLabel" } },
+        { "label": "签收", "ghost": true, "attrs": { "data-form-action": "sign" } },
+        { "label": "取消", "ghost": true, "attrs": { "data-form-action": "cancel" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": { "ship": "shipped", "sign": "signed", "cancel": "cancelled" },
+    "emptyTitle": "暂无自发货单"
+  },
+  "rows": [
+    { "owner": "海纳食品", "selfShipNo": "SS20261108001", "sourceDocNo": "PO20261108002", "receiverName": "王女士", "carrierName": "云途物流", "waybillNo": "YT261108001", "packageCount": 1, "selfShipStatus": "pendingShip", "shipTime": "", "waybillSource": "平台面单", "waybillFile": "", "labelFile": "" },
+    { "owner": "海纳食品", "selfShipNo": "SS20261107002", "sourceDocNo": "PO20261107011", "receiverName": "张先生", "carrierName": "顺丰速运", "waybillNo": "SF261107001", "packageCount": 2, "selfShipStatus": "shipped", "shipTime": "2026-11-07 14:20", "waybillSource": "承运商面单", "waybillFile": "面单-SS20261107002.pdf", "labelFile": "标签-SS20261107002.pdf" },
+    { "owner": "海纳食品", "selfShipNo": "SS20261106003", "sourceDocNo": "PO20261106009", "receiverName": "刘女士", "carrierName": "京东物流", "waybillNo": "JD261106889", "packageCount": 1, "selfShipStatus": "signed", "shipTime": "2026-11-06 10:05", "waybillSource": "承运商面单", "waybillFile": "面单-SS20261106003.pdf", "labelFile": "标签-SS20261106003.pdf" },
+    { "owner": "海纳食品", "selfShipNo": "SS20261105004", "sourceDocNo": "PO20261105008", "receiverName": "赵先生", "carrierName": "云途物流", "waybillNo": "", "packageCount": 1, "selfShipStatus": "cancelled", "shipTime": "", "waybillSource": "手工录入", "waybillFile": "", "labelFile": "" },
+    { "owner": "辰星日化", "selfShipNo": "SS20261108005", "sourceDocNo": "PO20261108008", "receiverName": "Linda", "carrierName": "云途物流", "waybillNo": "YT261107002", "packageCount": 1, "selfShipStatus": "shipped", "shipTime": "2026-11-07 10:00", "waybillSource": "平台面单", "waybillFile": "面单-SS20261108005.pdf", "labelFile": "标签-SS20261108005.pdf" },
+    { "owner": "辰星日化", "selfShipNo": "SS20261107006", "sourceDocNo": "PO20261107012", "receiverName": "Mary", "carrierName": "顺丰速运", "waybillNo": "SF261107330", "packageCount": 1, "selfShipStatus": "pendingShip", "shipTime": "", "waybillSource": "承运商面单", "waybillFile": "", "labelFile": "" }
+  ]
+}

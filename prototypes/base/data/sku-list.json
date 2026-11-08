@@ -22,5 +22,143 @@
     "nearExpiryDays",
     "skuStatus",
     "createdAt"
+  ],
+  "details": [
+    {
+      "skuCode": "SKU100231",
+      "version": 3,
+      "rows": [
+        { "policyItem": "是否效期管理", "policyValue": "是" },
+        { "policyItem": "保质期天数", "policyValue": 180 },
+        { "policyItem": "生产日期必填", "policyValue": "是" },
+        { "policyItem": "失效日期来源", "policyValue": "生产日期推算" },
+        { "policyItem": "临期预警天数", "policyValue": 30 },
+        { "policyItem": "禁售天数", "policyValue": 7 },
+        { "policyItem": "是否批次管理", "policyValue": "是" },
+        { "policyItem": "批次编码规则", "policyValue": "生产日期加流水" },
+        { "policyItem": "混批存放", "policyValue": "否" },
+        { "policyItem": "出库分配规则", "policyValue": "FEFO" },
+        { "policyItem": "温区", "policyValue": "冷藏" },
+        { "policyItem": "质检要求", "policyValue": "是" }
+      ],
+      "timeline": [
+        { "time": "2026-11-05 09:12", "text": "提交审核", "operator": "陈晓" },
+        { "time": "2026-11-05 10:30", "text": "审核通过", "operator": "李曼" },
+        { "time": "2026-11-05 10:31", "text": "发布", "operator": "李曼" }
+      ]
+    },
+    {
+      "skuCode": "SKU100175",
+      "version": 2,
+      "rows": [
+        { "policyItem": "是否效期管理", "policyValue": "是" },
+        { "policyItem": "保质期天数", "policyValue": 21 },
+        { "policyItem": "生产日期必填", "policyValue": "是" },
+        { "policyItem": "失效日期来源", "policyValue": "生产日期推算" },
+        { "policyItem": "临期预警天数", "policyValue": 7 },
+        { "policyItem": "禁售天数", "policyValue": 3 },
+        { "policyItem": "是否批次管理", "policyValue": "是" },
+        { "policyItem": "出库分配规则", "policyValue": "FEFO" },
+        { "policyItem": "温区", "policyValue": "冷藏" },
+        { "policyItem": "质检要求", "policyValue": "是" }
+      ],
+      "timeline": [
+        { "time": "2026-11-05 09:30", "text": "提交审核", "operator": "陈晓" },
+        { "time": "2026-11-05 10:12", "text": "审核通过", "operator": "李曼" },
+        { "time": "2026-11-05 10:14", "text": "发布", "operator": "李曼" }
+      ]
+    },
+    {
+      "skuCode": "SKU100232",
+      "version": 1,
+      "rows": [
+        { "policyItem": "是否效期管理", "policyValue": "否" },
+        { "policyItem": "是否批次管理", "policyValue": "是" },
+        { "policyItem": "批次编码规则", "policyValue": "到货日期加流水" },
+        { "policyItem": "混批存放", "policyValue": "是" },
+        { "policyItem": "出库分配规则", "policyValue": "FIFO" },
+        { "policyItem": "温区", "policyValue": "常温" },
+        { "policyItem": "质检要求", "policyValue": "否" }
+      ],
+      "timeline": [
+        { "time": "2026-10-02 09:45", "text": "提交审核", "operator": "陈晓" },
+        { "time": "2026-10-02 10:20", "text": "审核通过", "operator": "李曼" },
+        { "time": "2026-10-02 10:22", "text": "发布", "operator": "李曼" }
+      ]
+    },
+    {
+      "skuCode": "SKU100142",
+      "version": 1,
+      "rows": [
+        { "policyItem": "是否效期管理", "policyValue": "否" },
+        { "policyItem": "是否批次管理", "policyValue": "否" },
+        { "policyItem": "混批存放", "policyValue": "是" },
+        { "policyItem": "出库分配规则", "policyValue": "FIFO" },
+        { "policyItem": "温区", "policyValue": "常温" },
+        { "policyItem": "质检要求", "policyValue": "否" }
+      ],
+      "timeline": [
+        { "time": "2026-08-21 16:50", "text": "提交审核", "operator": "陈晓" },
+        { "time": "2026-08-21 17:12", "text": "审核通过", "operator": "李曼" },
+        { "time": "2026-10-30 09:06", "text": "停用", "operator": "李曼" }
+      ]
+    },
+    {
+      "skuCode": "SKU100198",
+      "version": 2,
+      "rows": [
+        { "policyItem": "是否效期管理", "policyValue": "否" },
+        { "policyItem": "是否批次管理", "policyValue": "否" },
+        { "policyItem": "混批存放", "policyValue": "是" },
+        { "policyItem": "出库分配规则", "policyValue": "FIFO" },
+        { "policyItem": "温区", "policyValue": "常温" },
+        { "policyItem": "质检要求", "policyValue": "否" }
+      ],
+      "timeline": [
+        { "time": "2026-10-11 11:20", "text": "提交审核", "operator": "陈晓" },
+        { "time": "2026-10-11 14:05", "text": "审核通过", "operator": "李曼" },
+        { "time": "2026-10-24 09:32", "text": "发布新版本", "operator": "李曼" }
+      ]
+    },
+    {
+      "skuCode": "SKU100206",
+      "version": 1,
+      "rows": [
+        { "policyItem": "是否效期管理", "policyValue": "否" },
+        { "policyItem": "是否批次管理", "policyValue": "是" },
+        { "policyItem": "批次编码规则", "policyValue": "到货日期加流水" },
+        { "policyItem": "混批存放", "policyValue": "否" },
+        { "policyItem": "出库分配规则", "policyValue": "FIFO" },
+        { "policyItem": "温区", "policyValue": "常温" },
+        { "policyItem": "质检要求", "policyValue": "是" }
+      ],
+      "timeline": [
+        { "time": "2026-10-25 09:04", "text": "提交审核", "operator": "陈晓" },
+        { "time": "2026-10-25 10:18", "text": "审核通过", "operator": "李曼" },
+        { "time": "2026-10-25 10:20", "text": "发布", "operator": "李曼" }
+      ]
+    },
+    {
+      "skuCode": "SKU100311",
+      "version": 1,
+      "rows": [
+        { "policyItem": "是否效期管理", "policyValue": "是" },
+        { "policyItem": "保质期天数", "policyValue": 180 },
+        { "policyItem": "生产日期必填", "policyValue": "是" },
+        { "policyItem": "失效日期来源", "policyValue": "生产日期推算" },
+        { "policyItem": "临期预警天数", "policyValue": 30 },
+        { "policyItem": "禁售天数", "policyValue": 7 },
+        { "policyItem": "是否批次管理", "policyValue": "是" },
+        { "policyItem": "混批存放", "policyValue": "否" },
+        { "policyItem": "出库分配规则", "policyValue": "FEFO" },
+        { "policyItem": "温区", "policyValue": "冷藏" },
+        { "policyItem": "质检要求", "policyValue": "是" }
+      ],
+      "timeline": [
+        { "time": "2026-10-28 09:30", "text": "提交审核", "operator": "陈晓" },
+        { "time": "2026-10-28 10:15", "text": "审核通过", "operator": "李曼" },
+        { "time": "2026-10-28 10:18", "text": "发布", "operator": "李曼" }
+      ]
+    }
   ]
 }

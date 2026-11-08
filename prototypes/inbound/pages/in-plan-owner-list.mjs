@@ -38,6 +38,7 @@ export function renderPage(data, ctx) {
       { label: '导出', ghost: true, toast: '导出（原型示意）' },
     ],
     showCount: true,
+    scopeNote: '未签约的账号不能用仓储服务，提交前先签仓储服务协议',
     columns: [
       { key: 'planNo', label: '计划单号', width: '160px', cls: 'wx-col-strong' },
       { key: 'planStatus', label: '计划单状态', width: '108px', render: (r) => StatusTag(labelOf(r.planStatus), toneOf(r.planStatus)) },

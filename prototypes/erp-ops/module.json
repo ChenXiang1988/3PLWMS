@@ -1,0 +1,18 @@
+{
+  "id": "erp-ops",
+  "name": "ERP 运营",
+  "version": "0.1.0",
+  "owner": "产品组",
+  "tier": "ext",
+  "deployed": true,
+  "dependsOn": [
+    "shared"
+  ],
+  "scope": "货主开通、模块与版本、平台应用、同步健康与全局审计",
+  "deliverables": [
+    "pages/",
+    "data/"
+  ],
+  "status": "review",
+  "note": "货灵运营中台管理端的 ERP 运营五页，不管理货主账号与角色"
+}

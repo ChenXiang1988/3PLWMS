@@ -1,4 +1,4 @@
-import { StatRow, Block, esc } from '../../shared/ui.mjs';
+import { StatRow, Block, ReportPage, esc } from '../../shared/ui.mjs';
 
 export function renderPage(data, ctx) {
   const { doc = {} } = data[ctx.pageKey] || {};
@@ -15,9 +15,14 @@ export function renderPage(data, ctx) {
     + `<span class="wx-pda-mine-avatar">${esc(String(doc.staffName || '·').slice(0, 1))}</span>`
     + `<span class="wx-pda-mine-info"><b>${esc(doc.staffName)}</b>`
     + `<small>${esc(doc.zone)} · ${esc(doc.shift)}</small>`
+    + `<small>${esc(doc.roleName)} · ${esc(doc.warehouseScope)}</small>`
     + `<small>设备 ${esc(doc.device)}</small></span></div>`;
 
   const entries = `<div class="wx-pda-stack">`
+    + `<button type="button" class="wx-pda-entry" data-toast="我的权限（原型示意）">`
+    + `<span class="wx-pda-entry-icon">◈</span>`
+    + `<span class="wx-pda-entry-body"><b>我的权限</b><small>${esc(doc.roleName)} · ${esc(doc.warehouseScope)}</small></span>`
+    + `<span class="wx-pda-entry-arrow">›</span></button>`
     + `<button type="button" class="wx-pda-entry" data-toast="我的设备（原型示意）">`
     + `<span class="wx-pda-entry-icon">▣</span>`
     + `<span class="wx-pda-entry-body"><b>我的设备</b><small>${esc(doc.device)} · 序列号与换机</small></span>`
@@ -29,7 +34,7 @@ export function renderPage(data, ctx) {
     + `<button type="button" class="wx-btn wx-btn--ghost" data-toast="退出登录（原型示意）">退出登录</button>`
     + `</div>`;
 
-  return `<div class="wx-report">${head}${stats}${Block({ title: '明细', note: '', body: entries })}</div>`;
+  return ReportPage({ hero: head, stats, blocks: [Block({ title: '明细', note: '', body: entries })] });
 }
 
 export const PAGE_CSS = `

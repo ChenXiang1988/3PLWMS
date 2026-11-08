@@ -1,0 +1,464 @@
+{
+  "config": {
+    "unit": "单",
+    "statusField": "fulfillStatus",
+    "keyField": "orderNo",
+    "statusMeta": {
+      "notDispatched": { "label": "未下发", "tone": "pending" },
+      "pendingShip": { "label": "待发货", "tone": "info" },
+      "partialShipped": { "label": "部分发货", "tone": "pending" },
+      "shipped": { "label": "已发货", "tone": "enabled" },
+      "signed": { "label": "已签收", "tone": "info" },
+      "afterSale": { "label": "售后中", "tone": "rejected" },
+      "cancelled": { "label": "已取消", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "未下发", "value": "notDispatched" },
+      { "label": "待发货", "value": "pendingShip" },
+      { "label": "部分发货", "value": "partialShipped" },
+      { "label": "已发货", "value": "shipped" },
+      { "label": "已签收", "value": "signed" },
+      { "label": "售后中", "value": "afterSale" },
+      { "label": "已取消", "value": "cancelled" }
+    ],
+    "columns": [
+      { "key": "orderNo", "label": "订单编号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "platformCode", "label": "平台", "width": "96px" },
+      { "key": "shopName", "label": "店铺", "width": "168px" },
+      { "key": "orderType", "label": "订单类型", "width": "96px" },
+      { "key": "fulfillMode", "label": "履约方式", "width": "96px" },
+      { "key": "fulfillStatus", "label": "履约状态", "width": "108px", "type": "status" },
+      { "key": "promiseShipTime", "label": "最晚发货", "width": "157px" },
+      { "key": "riskLevel", "label": "履约风险", "width": "96px" },
+      { "key": "orderAmount", "label": "订单金额", "width": "120px", "type": "money" },
+      { "key": "createTime", "label": "下单时间", "width": "157px" },
+      { "key": "action", "label": "操作", "width": "140px", "type": "action", "button": "处理", "detailButton": "360" }
+    ],
+    "filters": [
+      { "label": "平台", "key": "platformCode", "type": "select" },
+      { "label": "店铺", "key": "shopName", "type": "select" },
+      { "label": "订单类型", "key": "orderType", "type": "select" },
+      { "label": "履约方式", "key": "fulfillMode", "type": "select" }
+    ],
+    "scopeNote": "订单中心聚合平台订单，下单不拆单；一单可多次发货，部分发货按履约单聚合；360 抽屉看渠道、决策、单据、ATP 与时间线",
+    "form": {
+      "title": "订单处理",
+      "note": "下单只定履约方式，不拆单；收货地址与商品由平台订单带入，已下发后改地址转异常。",
+      "groups": [
+        { "title": "订单信息", "fields": [
+          { "label": "订单编号", "key": "orderNo", "readonly": true },
+          { "label": "平台", "key": "platformCode", "readonly": true },
+          { "label": "店铺", "key": "shopName", "readonly": true },
+          { "label": "订单类型", "key": "orderType", "readonly": true },
+          { "label": "订单金额", "key": "orderAmount", "readonly": true },
+          { "label": "收货方", "key": "receiverName", "readonly": true },
+          { "label": "商品明细", "key": "skuSummary", "type": "textarea", "readonly": true }
+        ] },
+        { "title": "履约决策", "fields": [
+          { "label": "履约方式", "key": "fulfillMode", "type": "select", "options": ["仓发货", "自发货", "平台备货"] },
+          { "label": "目标仓库", "key": "targetWarehouse", "type": "select", "options": ["华东中心仓", "华南前置仓", "华北分拨仓", "自有仓", "Temu 华东集货仓", "Temu 华南集货仓", "Amazon ONT8"] },
+          { "label": "承运商", "key": "carrierName", "type": "select", "options": ["顺丰速运", "京东物流", "菜鸟", "FedEx", "平台面单"] },
+          { "label": "承诺发货", "key": "promiseShipTime", "type": "text", "placeholder": "如 2026-11-10 18:00" },
+          { "label": "拆分原因", "key": "decisionReason", "type": "textarea", "placeholder": "多履约单时填写，如库存不足、多仓、多包裹" },
+          { "label": "规则版本", "key": "ruleVersion", "readonly": true }
+        ] }
+      ],
+      "actions": [
+        { "label": "下发 3PL", "primary": true, "attrs": { "data-form-action": "dispatch" } },
+        { "label": "自发货", "ghost": true, "attrs": { "data-form-action": "selfship" } },
+        { "label": "备货到平台仓", "ghost": true, "attrs": { "data-form-action": "replenish" } },
+        { "label": "取消", "ghost": true, "attrs": { "data-form-action": "cancel" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": {
+      "dispatch": "pendingShip",
+      "selfship": "pendingShip",
+      "replenish": "pendingShip",
+      "cancel": "cancelled"
+    },
+    "emptyTitle": "暂无订单"
+  },
+  "rows": [
+    {
+      "owner": "海纳食品",
+      "orderNo": "PO20261108001",
+      "platformCode": "Temu",
+      "shopName": "海纳食品优选店",
+      "platformStatus": "WAIT_DELIVERY",
+      "idempotencyKey": "SH-TEMU-HN-01/TM2026110800123",
+      "hitRule": "平台默认规则",
+      "exceptionTags": "",
+      "processStatus": "待审单",
+      "orderType": "全托管",
+      "fulfillMode": "平台备货",
+      "fulfillStatus": "notDispatched",
+      "orderAmount": 1280.00,
+      "createTime": "2026-11-08 09:12",
+      "receiverName": "Temu 华东集货仓",
+      "skuSummary": "SKU100232×120；SKU100205×60",
+      "fulfillmentCount": 0,
+      "planNo": "",
+      "promiseShipTime": "2026-11-09 18:00",
+      "riskLevel": "dueSoon",
+      "targetWarehouse": "Temu 华东集货仓",
+      "carrierName": "平台面单",
+      "decisionNo": "FD20261108001",
+      "decisionBy": "陈晓",
+      "decisionTime": "2026-11-08 09:20",
+      "decisionReason": "全托管备货到平台仓，等待平台预约",
+      "ruleVersion": "PLATFORM-TEMU-01",
+      "atpRows": [
+        { "skuName": "SKU100232 海苔脆片", "demandQty": 120, "availableQty": 480, "atpQty": 460, "gapQty": 0, "warehouse": "华东中心仓" },
+        { "skuName": "SKU100205 海苔薄饼", "demandQty": 60, "availableQty": 220, "atpQty": 200, "gapQty": 0, "warehouse": "华东中心仓" }
+      ],
+      "relatedDocs": [
+        { "docType": "平台订单", "docNo": "PO20261108001", "status": "已同步", "time": "2026-11-08 09:12" }
+      ],
+      "timeline": [
+        { "time": "2026-11-08 09:12", "text": "Temu 全托管备货单拉回，WAIT_DELIVERY", "operator": "同步任务" },
+        { "time": "2026-11-08 09:12", "text": "字段映射：purchase_order_id → 平台备货单号", "operator": "平台适配器 ADP-TEMU-FULL" },
+        { "time": "2026-11-08 09:14", "text": "状态映射：WAIT_DELIVERY → 待备货", "operator": "平台适配器 ADP-TEMU-FULL" },
+        { "time": "2026-11-08 09:20", "text": "完成履约决策：平台备货 / Temu 华东集货仓", "operator": "陈晓" }
+      ]
+    },
+    {
+      "owner": "海纳食品",
+      "orderNo": "PO20261108002",
+      "platformCode": "Amazon",
+      "shopName": "HN Foods US",
+      "orderType": "FBM",
+      "fulfillMode": "自发货",
+      "fulfillStatus": "pendingShip",
+      "orderAmount": 860.40,
+      "createTime": "2026-11-08 08:40",
+      "receiverName": "王女士",
+      "skuSummary": "SKU100198×4；SKU100175×2",
+      "fulfillmentCount": 1,
+      "planNo": "SS20261108001",
+      "promiseShipTime": "2026-11-09 12:00",
+      "riskLevel": "dueSoon",
+      "targetWarehouse": "自有仓",
+      "carrierName": "FedEx",
+      "decisionNo": "FD20261108002",
+      "decisionBy": "陈晓",
+      "decisionTime": "2026-11-08 08:45",
+      "decisionReason": "FBM 订单，自有仓直发，平台要求 24 小时内上网",
+      "ruleVersion": "PLATFORM-AMZ-FBM",
+      "atpRows": [
+        { "skuName": "SKU100198 海苔夹心脆", "demandQty": 4, "availableQty": 180, "atpQty": 176, "gapQty": 0, "warehouse": "华东中心仓" },
+        { "skuName": "SKU100175 海苔礼盒装", "demandQty": 2, "availableQty": 120, "atpQty": 118, "gapQty": 0, "warehouse": "华东中心仓" }
+      ],
+      "relatedDocs": [
+        { "docType": "自发货单", "docNo": "SS20261108001", "status": "待发货", "time": "2026-11-08 08:45" },
+        { "docType": "物流运单", "docNo": "SF20261108001", "status": "待揽收", "time": "2026-11-08 08:46" }
+      ],
+      "timeline": [
+        { "time": "2026-11-08 08:40", "text": "Amazon FBM 订单拉回", "operator": "同步任务" },
+        { "time": "2026-11-08 08:45", "text": "决策自发货，生成自发货单", "operator": "陈晓" },
+        { "time": "2026-11-08 08:46", "text": "登记 FedEx 运单，等待揽收", "operator": "陈晓" }
+      ]
+    },
+    {
+      "owner": "海纳食品",
+      "orderNo": "PO20261108003",
+      "platformCode": "速卖通",
+      "shopName": "HN Global Store",
+      "platformStatus": "WAIT_SELLER_SEND",
+      "idempotencyKey": "SH-AE-HN-01/AE261107778",
+      "hitRule": "缺货拦截",
+      "exceptionTags": "缺货",
+      "processStatus": "已拆单",
+      "orderType": "半托管",
+      "fulfillMode": "仓发货",
+      "fulfillStatus": "partialShipped",
+      "orderAmount": 1520.00,
+      "createTime": "2026-11-07 18:20",
+      "receiverName": "李先生",
+      "skuSummary": "SKU100232×60；SKU100205×40；SKU100198×20",
+      "fulfillmentCount": 2,
+      "planNo": "OP20261108001",
+      "promiseShipTime": "2026-11-08 18:00",
+      "riskLevel": "overdue",
+      "targetWarehouse": "华东中心仓",
+      "carrierName": "菜鸟",
+      "decisionNo": "FD20261108003",
+      "decisionBy": "陈晓",
+      "decisionTime": "2026-11-07 18:30",
+      "decisionReason": "华东中心仓库存不足，拆华南前置仓补发 20 件；两包裹分开发货",
+      "ruleVersion": "STOCK-SPLIT-01",
+      "atpRows": [
+        { "skuName": "SKU100232 海苔脆片", "demandQty": 60, "availableQty": 60, "atpQty": 0, "gapQty": 0, "warehouse": "华东中心仓" },
+        { "skuName": "SKU100205 海苔薄饼", "demandQty": 40, "availableQty": 40, "atpQty": 0, "gapQty": 0, "warehouse": "华东中心仓" },
+        { "skuName": "SKU100198 海苔夹心脆", "demandQty": 20, "availableQty": 0, "atpQty": 0, "gapQty": 20, "warehouse": "华南前置仓" }
+      ],
+      "relatedDocs": [
+        { "docType": "履约单", "docNo": "FUL20261108001", "status": "已发货", "time": "2026-11-08 10:20" },
+        { "docType": "履约单", "docNo": "FUL20261108002", "status": "待发货", "time": "2026-11-08 10:20" },
+        { "docType": "出库计划单", "docNo": "OP20261108001", "status": "已确认", "time": "2026-11-07 18:40" },
+        { "docType": "物流运单", "docNo": "CAINIAO20261108001", "status": "运输中", "time": "2026-11-08 10:30" }
+      ],
+      "timeline": [
+        { "time": "2026-11-07 18:20", "text": "速卖通半托管订单拉回，WAIT_SELLER_SEND", "operator": "同步任务" },
+        { "time": "2026-11-07 18:20", "text": "字段映射：order_id → 平台订单号；status → 平台原始状态", "operator": "平台适配器 ADP-AE-HALF" },
+        { "time": "2026-11-07 18:22", "text": "审单命中缺货拦截，异常标签：缺货", "operator": "陈晓" },
+        { "time": "2026-11-07 18:30", "text": "决策仓发货，拆两张履约单：两仓两包裹", "operator": "陈晓" },
+        { "time": "2026-11-07 18:40", "text": "出库计划单确认生效", "operator": "仓网调度" },
+        { "time": "2026-11-08 10:20", "text": "第一张履约单已发货，第二张待发货", "operator": "华东中心仓" },
+        { "time": "2026-11-08 10:20", "text": "部分发货状态回传平台成功", "operator": "同步任务" }
+      ]
+    },
+    {
+      "owner": "海纳食品",
+      "orderNo": "PO20261108004",
+      "platformCode": "速卖通",
+      "shopName": "HN Global Store",
+      "orderType": "半托管",
+      "fulfillMode": "仓发货",
+      "fulfillStatus": "shipped",
+      "orderAmount": 640.00,
+      "createTime": "2026-11-07 15:10",
+      "receiverName": "赵女士",
+      "skuSummary": "SKU100175×8",
+      "fulfillmentCount": 1,
+      "planNo": "OP20261108002",
+      "promiseShipTime": "2026-11-08 12:00",
+      "riskLevel": "normal",
+      "targetWarehouse": "华东中心仓",
+      "carrierName": "菜鸟",
+      "decisionNo": "FD20261108004",
+      "decisionBy": "陈晓",
+      "decisionTime": "2026-11-07 15:18",
+      "decisionReason": "单仓库存充足，单包裹发货",
+      "ruleVersion": "STOCK-SINGLE-01",
+      "atpRows": [
+        { "skuName": "SKU100175 海苔礼盒装", "demandQty": 8, "availableQty": 120, "atpQty": 112, "gapQty": 0, "warehouse": "华东中心仓" }
+      ],
+      "relatedDocs": [
+        { "docType": "履约单", "docNo": "FUL20261108003", "status": "已发货", "time": "2026-11-08 10:05" },
+        { "docType": "出库计划单", "docNo": "OP20261108002", "status": "已确认", "time": "2026-11-07 15:30" },
+        { "docType": "物流运单", "docNo": "CAINIAO20261108002", "status": "运输中", "time": "2026-11-08 10:10" }
+      ],
+      "timeline": [
+        { "time": "2026-11-07 15:10", "text": "订单拉回", "operator": "同步任务" },
+        { "time": "2026-11-07 15:18", "text": "决策仓发货，单包裹", "operator": "陈晓" },
+        { "time": "2026-11-08 10:05", "text": "仓内交接完成，运单上网", "operator": "华东中心仓" }
+      ]
+    },
+    {
+      "owner": "海纳食品",
+      "orderNo": "PO20261108005",
+      "platformCode": "Amazon",
+      "shopName": "HN Foods US",
+      "orderType": "FBA",
+      "fulfillMode": "平台备货",
+      "fulfillStatus": "pendingShip",
+      "orderAmount": 2100.00,
+      "createTime": "2026-11-07 11:30",
+      "receiverName": "Amazon ONT8",
+      "skuSummary": "SKU100232×200",
+      "fulfillmentCount": 1,
+      "planNo": "RP20261108001",
+      "promiseShipTime": "2026-11-12 18:00",
+      "riskLevel": "normal",
+      "targetWarehouse": "Amazon ONT8",
+      "carrierName": "平台面单",
+      "decisionNo": "FD20261108005",
+      "decisionBy": "陈晓",
+      "decisionTime": "2026-11-07 11:40",
+      "decisionReason": "FBA 补货，整批发平台仓，等待预约入仓",
+      "ruleVersion": "PLATFORM-AMZ-FBA",
+      "atpRows": [
+        { "skuName": "SKU100232 海苔脆片", "demandQty": 200, "availableQty": 480, "atpQty": 280, "gapQty": 0, "warehouse": "华东中心仓" }
+      ],
+      "relatedDocs": [
+        { "docType": "平台备货单", "docNo": "RP20261108001", "status": "待预约", "time": "2026-11-07 11:40" },
+        { "docType": "出库计划单", "docNo": "OP20261108008", "status": "待确认", "time": "2026-11-08 09:30" }
+      ],
+      "timeline": [
+        { "time": "2026-11-07 11:30", "text": "FBA 补货需求进入订单中心", "operator": "同步任务" },
+        { "time": "2026-11-07 11:40", "text": "决策平台备货，生成平台备货单", "operator": "陈晓" },
+        { "time": "2026-11-08 09:30", "text": "生成出库计划单，等待入仓预约", "operator": "仓网调度" }
+      ]
+    },
+    {
+      "owner": "辰星日化",
+      "orderNo": "PO20261108006",
+      "platformCode": "Shopee",
+      "shopName": "辰星日化 SG",
+      "orderType": "自营",
+      "fulfillMode": "仓发货",
+      "fulfillStatus": "pendingShip",
+      "orderAmount": 980.00,
+      "createTime": "2026-11-08 09:05",
+      "receiverName": "陈先生",
+      "skuSummary": "SKU100205×24",
+      "fulfillmentCount": 1,
+      "planNo": "OP20261108003",
+      "promiseShipTime": "2026-11-09 12:00",
+      "riskLevel": "dueSoon",
+      "targetWarehouse": "华南前置仓",
+      "carrierName": "顺丰速运",
+      "decisionNo": "FD20261108006",
+      "decisionBy": "周敏",
+      "decisionTime": "2026-11-08 09:12",
+      "decisionReason": "华南前置仓有现货，单包裹发货",
+      "ruleVersion": "STOCK-SINGLE-01",
+      "atpRows": [
+        { "skuName": "SKU100205 海苔薄饼", "demandQty": 24, "availableQty": 240, "atpQty": 216, "gapQty": 0, "warehouse": "华南前置仓" }
+      ],
+      "relatedDocs": [
+        { "docType": "履约单", "docNo": "FUL20261108004", "status": "待发货", "time": "2026-11-08 09:12" },
+        { "docType": "出库计划单", "docNo": "OP20261108003", "status": "已确认", "time": "2026-11-08 09:20" }
+      ],
+      "timeline": [
+        { "time": "2026-11-08 09:05", "text": "Shopee 订单拉回", "operator": "同步任务" },
+        { "time": "2026-11-08 09:12", "text": "决策仓发货，华南前置仓", "operator": "周敏" },
+        { "time": "2026-11-08 09:20", "text": "出库计划单确认", "operator": "仓网调度" }
+      ]
+    },
+    {
+      "owner": "辰星日化",
+      "orderNo": "PO20261108007",
+      "platformCode": "Temu",
+      "shopName": "辰星日化官方店",
+      "orderType": "全托管",
+      "fulfillMode": "平台备货",
+      "fulfillStatus": "notDispatched",
+      "orderAmount": 1750.00,
+      "createTime": "2026-11-08 08:30",
+      "receiverName": "Temu 华南集货仓",
+      "skuSummary": "SKU100198×150；SKU100175×50",
+      "fulfillmentCount": 0,
+      "planNo": "",
+      "promiseShipTime": "2026-11-10 18:00",
+      "riskLevel": "normal",
+      "targetWarehouse": "Temu 华南集货仓",
+      "carrierName": "平台面单",
+      "decisionNo": "",
+      "decisionBy": "",
+      "decisionTime": "",
+      "decisionReason": "",
+      "ruleVersion": "",
+      "atpRows": [
+        { "skuName": "SKU100198 海苔夹心脆", "demandQty": 150, "availableQty": 180, "atpQty": 30, "gapQty": 0, "warehouse": "华东中心仓" },
+        { "skuName": "SKU100175 海苔礼盒装", "demandQty": 50, "availableQty": 120, "atpQty": 70, "gapQty": 0, "warehouse": "华东中心仓" }
+      ],
+      "relatedDocs": [
+        { "docType": "平台订单", "docNo": "PO20261108007", "status": "已同步", "time": "2026-11-08 08:30" }
+      ],
+      "timeline": [
+        { "time": "2026-11-08 08:30", "text": "Temu 全托管备货单拉回", "operator": "同步任务" }
+      ]
+    },
+    {
+      "owner": "辰星日化",
+      "orderNo": "PO20261108008",
+      "platformCode": "Amazon",
+      "shopName": "CX Daily US",
+      "orderType": "FBM",
+      "fulfillMode": "自发货",
+      "fulfillStatus": "afterSale",
+      "orderAmount": 420.00,
+      "createTime": "2026-11-06 16:20",
+      "receiverName": "Linda",
+      "skuSummary": "SKU100232×6",
+      "fulfillmentCount": 1,
+      "planNo": "SS20261107002",
+      "promiseShipTime": "2026-11-07 12:00",
+      "riskLevel": "overdue",
+      "targetWarehouse": "自有仓",
+      "carrierName": "FedEx",
+      "decisionNo": "FD20261106008",
+      "decisionBy": "周敏",
+      "decisionTime": "2026-11-06 16:30",
+      "decisionReason": "自有仓直发，已签收后买家发起退货退款",
+      "ruleVersion": "PLATFORM-AMZ-FBM",
+      "atpRows": [
+        { "skuName": "SKU100232 海苔脆片", "demandQty": 6, "availableQty": 860, "atpQty": 854, "gapQty": 0, "warehouse": "华南前置仓" }
+      ],
+      "relatedDocs": [
+        { "docType": "自发货单", "docNo": "SS20261107002", "status": "已签收", "time": "2026-11-07 11:20" },
+        { "docType": "平台售后单", "docNo": "AS20261108001", "status": "待处理", "time": "2026-11-08 09:25" }
+      ],
+      "timeline": [
+        { "time": "2026-11-06 16:20", "text": "FBM 订单拉回", "operator": "同步任务" },
+        { "time": "2026-11-06 16:30", "text": "决策自发货", "operator": "周敏" },
+        { "time": "2026-11-07 11:20", "text": "运单签收", "operator": "FedEx" },
+        { "time": "2026-11-08 09:25", "text": "买家发起退货退款，进入售后", "operator": "平台售后" }
+      ]
+    },
+    {
+      "owner": "辰星日化",
+      "orderNo": "PO20261108009",
+      "platformCode": "Lazada",
+      "shopName": "辰星日化 MY",
+      "orderType": "自营",
+      "fulfillMode": "仓发货",
+      "fulfillStatus": "signed",
+      "orderAmount": 730.00,
+      "createTime": "2026-11-05 10:10",
+      "receiverName": "Ahmad",
+      "skuSummary": "SKU100205×12",
+      "fulfillmentCount": 1,
+      "planNo": "OP20261107004",
+      "promiseShipTime": "2026-11-07 18:00",
+      "riskLevel": "normal",
+      "targetWarehouse": "华南前置仓",
+      "carrierName": "菜鸟",
+      "decisionNo": "FD20261105009",
+      "decisionBy": "周敏",
+      "decisionTime": "2026-11-05 10:18",
+      "decisionReason": "单仓现货，单包裹发货",
+      "ruleVersion": "STOCK-SINGLE-01",
+      "atpRows": [
+        { "skuName": "SKU100205 海苔薄饼", "demandQty": 12, "availableQty": 240, "atpQty": 228, "gapQty": 0, "warehouse": "华南前置仓" }
+      ],
+      "relatedDocs": [
+        { "docType": "履约单", "docNo": "FUL20261107001", "status": "已签收", "time": "2026-11-07 16:40" },
+        { "docType": "物流运单", "docNo": "CAINIAO20261107001", "status": "已签收", "time": "2026-11-07 16:40" }
+      ],
+      "timeline": [
+        { "time": "2026-11-05 10:10", "text": "订单拉回", "operator": "同步任务" },
+        { "time": "2026-11-05 10:18", "text": "决策仓发货", "operator": "周敏" },
+        { "time": "2026-11-07 16:40", "text": "运单签收", "operator": "菜鸟" }
+      ]
+    },
+    {
+      "owner": "海纳食品",
+      "orderNo": "PO20261108010",
+      "platformCode": "Temu",
+      "shopName": "海纳食品优选店",
+      "orderType": "全托管",
+      "fulfillMode": "平台备货",
+      "fulfillStatus": "signed",
+      "orderAmount": 3000.00,
+      "createTime": "2026-11-04 09:40",
+      "receiverName": "Temu 华东集货仓",
+      "skuSummary": "SKU100232×260",
+      "fulfillmentCount": 1,
+      "planNo": "RP20261106002",
+      "promiseShipTime": "2026-11-06 18:00",
+      "riskLevel": "normal",
+      "targetWarehouse": "Temu 华东集货仓",
+      "carrierName": "平台面单",
+      "decisionNo": "FD20261104010",
+      "decisionBy": "陈晓",
+      "decisionTime": "2026-11-04 09:50",
+      "decisionReason": "全托管整批备货，平台仓已签收",
+      "ruleVersion": "PLATFORM-TEMU-01",
+      "atpRows": [
+        { "skuName": "SKU100232 海苔脆片", "demandQty": 260, "availableQty": 480, "atpQty": 220, "gapQty": 0, "warehouse": "华东中心仓" }
+      ],
+      "relatedDocs": [
+        { "docType": "平台备货单", "docNo": "RP20261106002", "status": "已签收", "time": "2026-11-06 15:20" },
+        { "docType": "出库计划单", "docNo": "OP20261106002", "status": "已确认", "time": "2026-11-04 10:10" }
+      ],
+      "timeline": [
+        { "time": "2026-11-04 09:40", "text": "Temu 备货需求拉回", "operator": "同步任务" },
+        { "time": "2026-11-04 09:50", "text": "决策平台备货", "operator": "陈晓" },
+        { "time": "2026-11-06 15:20", "text": "平台仓签收", "operator": "Temu 华东集货仓" }
+      ]
+    }
+  ]
+}

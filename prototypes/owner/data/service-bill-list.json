@@ -1,0 +1,61 @@
+{
+  "config": {
+    "unit": "条",
+    "statusField": "billStatus",
+    "statusMeta": {
+      "pending": { "label": "待确认", "tone": "pending" },
+      "confirmed": { "label": "已确认", "tone": "enabled" },
+      "invoiced": { "label": "已开票", "tone": "info" },
+      "paid": { "label": "已付款", "tone": "disabled" },
+      "cancelled": { "label": "已取消", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "待确认", "value": "pending" },
+      { "label": "已确认", "value": "confirmed" },
+      { "label": "已开票", "value": "invoiced" },
+      { "label": "已付款", "value": "paid" },
+      { "label": "已取消", "value": "cancelled" }
+    ],
+    "columns": [
+      { "key": "billNo", "label": "账单编号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "billMonth", "label": "账单月份" },
+      { "key": "chargeItem", "label": "计费项目" },
+      { "key": "billAmount", "label": "账单金额", "align": "right" },
+      { "key": "billStatus", "label": "账单状态", "type": "status" },
+      { "key": "invoiceTime", "label": "开票时间", "width": "157px" },
+      { "key": "action", "label": "操作", "type": "action", "button": "查看" }
+    ],
+    "filters": [
+      { "label": "计费项目", "key": "chargeItem", "type": "select" },
+      { "label": "账单月份", "key": "billMonth", "type": "text", "placeholder": "如 2026-10" }
+    ],
+    "keyField": "billNo",
+    "scopeNote": "软件服务费与仓储费用分账，不做合并对账入口",
+    "form": {
+      "title": "服务费账单",
+      "note": "确认后进入开票流程；账单只读，调整须由服务方出具计费说明。",
+      "groups": [
+        { "title": "账单信息", "fields": [
+          { "label": "账单编号", "key": "billNo", "readonly": true },
+          { "label": "账单月份", "key": "billMonth", "readonly": true },
+          { "label": "计费项目", "key": "chargeItem", "readonly": true },
+          { "label": "账单金额", "key": "billAmount", "readonly": true }
+        ] }
+      ],
+      "actions": [
+        { "label": "确认账单", "primary": true, "attrs": { "data-form-action": "confirmBill" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": { "confirmBill": "confirmed" },
+    "emptyTitle": "暂无服务费账单"
+  },
+  "rows": [
+    { "owner": "海纳食品", "billNo": "EB2026100001", "billMonth": "2026-10", "chargeItem": "账号数", "billAmount": 600.00, "billStatus": "paid", "invoiceTime": "2026-11-02 10:15" },
+    { "owner": "海纳食品", "billNo": "EB2026100002", "billMonth": "2026-10", "chargeItem": "订单量", "billAmount": 1280.00, "billStatus": "invoiced", "invoiceTime": "2026-11-03 09:30" },
+    { "owner": "海纳食品", "billNo": "EB2026110003", "billMonth": "2026-11", "chargeItem": "账号数", "billAmount": 600.00, "billStatus": "pending", "invoiceTime": "" },
+    { "owner": "辰星日化", "billNo": "EB2026100004", "billMonth": "2026-10", "chargeItem": "账号数", "billAmount": 400.00, "billStatus": "confirmed", "invoiceTime": "" },
+    { "owner": "辰星日化", "billNo": "EB2026100005", "billMonth": "2026-10", "chargeItem": "功能模块", "billAmount": 980.00, "billStatus": "paid", "invoiceTime": "2026-11-01 16:40" },
+    { "owner": "辰星日化", "billNo": "EB2026100006", "billMonth": "2026-10", "chargeItem": "订单量", "billAmount": 860.00, "billStatus": "cancelled", "invoiceTime": "" }
+  ]
+}

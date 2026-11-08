@@ -1,0 +1,82 @@
+{
+  "config": {
+    "unit": "条",
+    "statusField": "dropshipStatus",
+    "statusMeta": {
+      "draft": { "label": "草稿", "tone": "disabled" },
+      "pendingConfirm": { "label": "待确认", "tone": "pending" },
+      "confirmed": { "label": "已确认", "tone": "enabled" },
+      "dispatched": { "label": "已下发", "tone": "info" },
+      "finished": { "label": "已完成", "tone": "disabled" },
+      "cancelled": { "label": "已取消", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "草稿", "value": "draft" },
+      { "label": "待确认", "value": "pendingConfirm" },
+      { "label": "已确认", "value": "confirmed" },
+      { "label": "已下发", "value": "dispatched" },
+      { "label": "已完成", "value": "finished" },
+      { "label": "已取消", "value": "cancelled" }
+    ],
+    "columns": [
+      { "key": "dropshipNo", "label": "代发单号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "counterpartyCode", "label": "对方编码" },
+      { "key": "skuCode", "label": "商品编码" },
+      { "key": "qty", "label": "采购数量", "align": "right" },
+      { "key": "amount", "label": "采购金额", "align": "right" },
+      { "key": "dropshipStatus", "label": "代发状态", "type": "status" },
+      { "key": "settleStatus", "label": "结算状态" },
+      { "key": "createTime", "label": "创建时间", "width": "157px" },
+      { "key": "action", "label": "操作", "type": "action", "button": "处理" }
+    ],
+    "filters": [
+      { "label": "代发状态", "key": "dropshipStatus", "type": "select" },
+      { "label": "结算状态", "key": "settleStatus", "type": "select" }
+    ],
+    "keyField": "dropshipNo",
+    "scopeNote": "同一张单在买卖两侧各一条记录，按登录主体各看各的",
+    "form": {
+      "title": "代发采购单",
+      "note": "卖家侧用提交、撤回与取消；货源侧用确认与驳回。两侧看到的是同一张单的两个视角。",
+      "groups": [
+        { "title": "采购信息", "fields": [
+          { "label": "代发单号", "key": "dropshipNo", "readonly": true },
+          { "label": "对方编码", "key": "counterpartyCode", "readonly": true },
+          { "label": "商品编码", "key": "skuCode", "readonly": true },
+          { "label": "采购数量", "key": "qty", "readonly": true },
+          { "label": "采购金额", "key": "amount", "readonly": true }
+        ] },
+        { "title": "处理意见", "fields": [
+          { "label": "驳回原因", "key": "rejectReason", "type": "textarea" },
+          { "label": "取消原因", "key": "cancelReason", "type": "textarea" }
+        ] }
+      ],
+      "actions": [
+        { "label": "提交", "primary": true, "attrs": { "data-form-action": "submit" } },
+        { "label": "撤回", "ghost": true, "attrs": { "data-form-action": "withdraw" } },
+        { "label": "确认", "ghost": true, "attrs": { "data-form-action": "confirm" } },
+        { "label": "驳回", "ghost": true, "attrs": { "data-form-action": "reject" } },
+        { "label": "取消代发", "ghost": true, "attrs": { "data-form-action": "cancelDropship" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": {
+      "submit": "pendingConfirm",
+      "withdraw": "draft",
+      "confirm": "confirmed",
+      "reject": "pendingConfirm",
+      "cancelDropship": "cancelled"
+    },
+    "emptyTitle": "暂无代发采购单"
+  },
+  "rows": [
+    { "owner": "海纳食品", "rowId": "DS20261107001-S", "dropshipNo": "DS20261107001", "viewSide": "seller", "counterpartyCode": "SUP-0102", "skuCode": "SKU100232", "qty": 60, "amount": 1800.00, "dropshipStatus": "pendingConfirm", "settleStatus": "待结算", "createTime": "2026-11-07 09:20" },
+    { "owner": "海纳食品", "rowId": "DS20261106002-S", "dropshipNo": "DS20261106002", "viewSide": "seller", "counterpartyCode": "SUP-0102", "skuCode": "SKU100205", "qty": 40, "amount": 960.00, "dropshipStatus": "confirmed", "settleStatus": "待结算", "createTime": "2026-11-06 14:05" },
+    { "owner": "海纳食品", "rowId": "DS20261105003-P", "dropshipNo": "DS20261105003", "viewSide": "supply", "counterpartyCode": "SELL-0201", "skuCode": "SKU100198", "qty": 120, "amount": 2400.00, "dropshipStatus": "pendingConfirm", "settleStatus": "待结算", "createTime": "2026-11-05 10:12" },
+    { "owner": "海纳食品", "rowId": "DS20261104004-P", "dropshipNo": "DS20261104004", "viewSide": "supply", "counterpartyCode": "SELL-0201", "skuCode": "SKU100175", "qty": 50, "amount": 1350.00, "dropshipStatus": "finished", "settleStatus": "已结算", "createTime": "2026-11-04 09:40" },
+    { "owner": "辰星日化", "rowId": "DS20261107001-P", "dropshipNo": "DS20261107001", "viewSide": "supply", "counterpartyCode": "SELL-0101", "skuCode": "SKU100232", "qty": 60, "amount": 1800.00, "dropshipStatus": "pendingConfirm", "settleStatus": "待结算", "createTime": "2026-11-07 09:20" },
+    { "owner": "辰星日化", "rowId": "DS20261106002-P", "dropshipNo": "DS20261106002", "viewSide": "supply", "counterpartyCode": "SELL-0101", "skuCode": "SKU100205", "qty": 40, "amount": 960.00, "dropshipStatus": "confirmed", "settleStatus": "待结算", "createTime": "2026-11-06 14:05" },
+    { "owner": "辰星日化", "rowId": "DS20261105003-S", "dropshipNo": "DS20261105003", "viewSide": "seller", "counterpartyCode": "SUP-0203", "skuCode": "SKU100198", "qty": 120, "amount": 2400.00, "dropshipStatus": "pendingConfirm", "settleStatus": "待结算", "createTime": "2026-11-05 10:12" },
+    { "owner": "辰星日化", "rowId": "DS20261104004-S", "dropshipNo": "DS20261104004", "viewSide": "seller", "counterpartyCode": "SUP-0203", "skuCode": "SKU100175", "qty": 50, "amount": 1350.00, "dropshipStatus": "finished", "settleStatus": "已结算", "createTime": "2026-11-04 09:40" }
+  ]
+}

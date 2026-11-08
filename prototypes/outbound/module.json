@@ -1,7 +1,7 @@
 {
   "id": "outbound",
   "name": "出库管理",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "owner": "产品组",
   "tier": "core",
   "deployed": true,
@@ -13,6 +13,6 @@
     "pages/",
     "data/"
   ],
-  "status": "review",
-  "note": "出库计划单、拣货单、复核单、交接单与波次，含货主端出库计划单两页；拣货作业归 PDA 端"
+  "status": "delivered",
+  "note": "出库计划单、拣货单、复核单、交接单与波次，含货灵ERP出库计划单两页与平台备货出库、收货信息；拣货作业归 PDA 端"
 }

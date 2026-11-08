@@ -1,4 +1,4 @@
-# 3PL 云仓原型产物不入库（3pl-wms-proto）
+# 货灵供应链运营平台原型产物不入库（huoling-proto）
 prototypes/dist/
 prototypes/*/dist/
 .DS_Store

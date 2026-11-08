@@ -1,0 +1,9 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "skuCode": "SKU100231", "skuName": "海纳原味麦片 500g", "category": "食品饮料", "saleStatus": "在售", "stockQty": 860, "listTime": "2026-11-06 09:40" },
+    { "owner": "海纳食品", "skuCode": "SKU100232", "skuName": "海纳坚果燕麦 400g", "category": "食品饮料", "saleStatus": "在售", "stockQty": 420, "listTime": "2026-11-06 09:42" },
+    { "owner": "海纳食品", "skuCode": "SKU100233", "skuName": "海纳全麦饼干 300g", "category": "食品饮料", "saleStatus": "已下架", "stockQty": 0, "listTime": "2026-11-05 14:10" },
+    { "owner": "辰星日化", "skuCode": "SKU100241", "skuName": "辰星抑菌洗手液 500ml", "category": "日化清洁", "saleStatus": "在售", "stockQty": 610, "listTime": "2026-11-06 10:02" },
+    { "owner": "辰星日化", "skuCode": "SKU100242", "skuName": "辰星衣物柔顺剂 2L", "category": "日化清洁", "saleStatus": "在售", "stockQty": 350, "listTime": "2026-11-06 10:05" }
+  ]
+}

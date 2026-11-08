@@ -1,0 +1,72 @@
+{
+  "config": {
+    "unit": "个",
+    "statusField": "accountStatus",
+    "keyField": "accountId",
+    "statusMeta": {
+      "pending": { "label": "待启用", "tone": "pending" },
+      "active": { "label": "启用", "tone": "enabled" },
+      "frozen": { "label": "冻结", "tone": "pending" },
+      "disabled": { "label": "停用", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "待启用", "value": "pending" },
+      { "label": "启用", "value": "active" },
+      { "label": "冻结", "value": "frozen" },
+      { "label": "停用", "value": "disabled" }
+    ],
+    "columns": [
+      { "key": "accountId", "label": "账号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "staffName", "label": "姓名", "width": "100px" },
+      { "key": "accountType", "label": "账号类型", "width": "108px" },
+      { "key": "orgName", "label": "所属组织", "width": "160px" },
+      { "key": "roleName", "label": "角色", "width": "120px" },
+      { "key": "dataScope", "label": "数据范围", "width": "220px" },
+      { "key": "accountStatus", "label": "账号状态", "width": "108px", "type": "status" },
+      { "key": "lastLoginTime", "label": "最近登录", "width": "157px" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "编辑" }
+    ],
+    "filters": [
+      { "label": "账号类型", "key": "accountType", "type": "select" },
+      { "label": "角色", "key": "roleName", "type": "select" },
+      { "label": "账号", "key": "accountId", "type": "text", "placeholder": "请输入账号" }
+    ],
+    "scopeNote": "运营方与仓内账号统一在本页维护；货主账号在货灵ERP维护",
+    "form": {
+      "title": "账号管理",
+      "note": "账号停用后不物理删除；角色停用前先改派账号。",
+      "groups": [
+        { "title": "账号信息", "fields": [
+          { "label": "账号", "key": "accountId", "type": "text", "required": true },
+          { "label": "姓名", "key": "staffName", "type": "text", "required": true },
+          { "label": "账号类型", "key": "accountType", "type": "select", "options": ["运营方账号", "仓内账号"], "required": true },
+          { "label": "所属组织", "key": "orgName", "type": "text" },
+          { "label": "角色", "key": "roleName", "type": "select", "options": ["运营管理员", "仓网调度", "财务", "客服", "仓库主管", "收货员", "上架员", "拣货员", "复核员", "盘点员"], "required": true },
+          { "label": "账号状态", "key": "accountStatus", "type": "select", "options": [{ "label": "待启用", "value": "pending" }, { "label": "启用", "value": "active" }, { "label": "冻结", "value": "frozen" }, { "label": "停用", "value": "disabled" }], "required": true }
+        ] },
+        { "title": "数据范围", "fields": [
+          { "label": "数据范围", "key": "dataScope", "type": "text", "required": true, "placeholder": "如 全部货主、全部仓库、全部业务" },
+          { "label": "可见仓库", "key": "visibleWarehouses", "type": "text", "placeholder": "指定仓库时填写，如 华东中心仓" }
+        ] }
+      ],
+      "actions": [
+        { "label": "保存", "primary": true, "attrs": { "data-form-action": "confirm" } },
+        { "label": "停用", "ghost": true, "attrs": { "data-form-action": "withdraw" } },
+        { "label": "重置密码", "ghost": true, "attrs": { "data-form-action": "resetPwd" } },
+        { "label": "查看日志", "ghost": true, "attrs": { "data-toast": "查看操作日志（原型示意）" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": { "confirm": "active", "withdraw": "disabled" },
+    "emptyTitle": "暂无账号"
+  },
+  "rows": [
+    { "accountId": "op.admin", "staffName": "林致远", "accountType": "运营方账号", "orgName": "华运仓储运营中心", "roleName": "运营管理员", "dataScope": "全部货主、全部仓库、全部业务", "accountStatus": "active", "lastLoginTime": "2026-11-08 08:20" },
+    { "accountId": "op.sched", "staffName": "许宁", "accountType": "运营方账号", "orgName": "仓网调度组", "roleName": "仓网调度", "dataScope": "全部货主、全部仓库、指定业务", "accountStatus": "active", "lastLoginTime": "2026-11-08 08:05" },
+    { "accountId": "op.fin", "staffName": "周岚", "accountType": "运营方账号", "orgName": "财务组", "roleName": "财务", "dataScope": "全部货主、全部仓库、账单与服务", "accountStatus": "frozen", "lastLoginTime": "2026-11-07 17:40" },
+    { "accountId": "op.cs", "staffName": "何悦", "accountType": "运营方账号", "orgName": "客服组", "roleName": "客服", "dataScope": "全部货主、全部仓库、售后与物流", "accountStatus": "active", "lastLoginTime": "2026-11-08 09:10" },
+    { "accountId": "wh.zhang", "staffName": "张伟", "accountType": "仓内账号", "orgName": "华东中心仓 · 收货一组", "roleName": "收货员", "dataScope": "华东中心仓、收货作业", "accountStatus": "active", "lastLoginTime": "2026-11-08 07:55" },
+    { "accountId": "wh.li", "staffName": "李静", "accountType": "仓内账号", "orgName": "华东中心仓 · 上架一组", "roleName": "上架员", "dataScope": "华东中心仓、上架作业", "accountStatus": "frozen", "lastLoginTime": "2026-11-07 16:20" },
+    { "accountId": "wh.wang", "staffName": "王磊", "accountType": "仓内账号", "orgName": "华东中心仓 · 拣货一组", "roleName": "拣货员", "dataScope": "华东中心仓、拣货作业", "accountStatus": "pending", "lastLoginTime": "" }
+  ]
+}

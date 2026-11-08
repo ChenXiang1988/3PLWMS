@@ -1,0 +1,87 @@
+{
+  "ref": "platformShops",
+  "target": "rows",
+  "config": {
+    "unit": "个",
+    "statusField": "authStatus",
+    "keyField": "shopCode",
+    "statusMeta": {
+      "pendingAuth": { "label": "待授权", "tone": "pending" },
+      "authorized": { "label": "已授权", "tone": "enabled" },
+      "expiring": { "label": "即将过期", "tone": "pending" },
+      "expired": { "label": "已过期", "tone": "rejected" },
+      "revoked": { "label": "已撤销", "tone": "disabled" },
+      "authFailed": { "label": "授权失败", "tone": "rejected" }
+    },
+    "tabs": [
+      { "label": "待授权", "value": "pendingAuth" },
+      { "label": "已授权", "value": "authorized" },
+      { "label": "即将过期", "value": "expiring" },
+      { "label": "已过期", "value": "expired" },
+      { "label": "已撤销", "value": "revoked" },
+      { "label": "授权失败", "value": "authFailed" }
+    ],
+    "columns": [
+      { "key": "platformCode", "label": "平台", "width": "108px" },
+      { "key": "shopName", "label": "店铺", "width": "180px", "cls": "wx-col-strong" },
+      { "key": "region", "label": "站点", "width": "88px" },
+      { "key": "shopType", "label": "店铺类型", "width": "108px" },
+      { "key": "shipFrom", "label": "发货地", "width": "88px" },
+      { "key": "authMode", "label": "授权方式", "width": "140px" },
+      { "key": "authStatus", "label": "授权状态", "width": "108px", "type": "status" },
+      { "key": "expireTime", "label": "凭证到期", "width": "157px" },
+      { "key": "lastSyncTime", "label": "最近同步时间", "width": "157px" },
+      { "key": "adapterCode", "label": "适配配置", "width": "160px" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "授权" }
+    ],
+    "filters": [
+      { "label": "平台", "key": "platformCode", "type": "select" },
+      { "label": "店铺类型", "key": "shopType", "type": "select" },
+      { "label": "发货地", "key": "shipFrom", "type": "select" },
+      { "label": "授权方式", "key": "authMode", "type": "select" }
+    ],
+    "scopeNote": "只支持中国地区发货；页面不展示 App Secret 与 Token 值",
+    "form": {
+      "title": "平台店铺",
+      "note": "保存后为待授权；授权成功后店铺类型不可修改，需删除店铺重新授权。重新授权追加记录，不覆盖历史。",
+      "groups": [
+        { "title": "店铺信息", "fields": [
+          { "label": "店铺编码", "key": "shopCode", "type": "text", "required": true },
+          { "label": "店铺名称", "key": "shopName", "type": "text", "required": true },
+          { "label": "平台", "key": "platformCode", "type": "select", "required": true, "options": ["Temu", "Lazada", "TikTok Shop", "Amazon", "速卖通", "Shopee", "美客多", "其他"] },
+          { "label": "卖家 ID", "key": "sellerId", "type": "text" },
+          { "label": "站点", "key": "region", "type": "text" },
+          { "label": "店铺类型", "key": "shopType", "type": "select", "required": true, "options": ["全托管", "半托管", "POP", "跨境店", "自发货"] },
+          { "label": "发货地", "key": "shipFrom", "type": "select", "required": true, "options": ["中国"] },
+          { "label": "授权方式", "key": "authMode", "type": "select", "required": true, "options": ["产品库存 Token", "订单发货 Token", "合规 API Token", "站点市场服务", "OAuth", "区域授权", "supplier_id"] }
+        ] },
+        { "title": "授权操作", "fields": [
+          { "label": "授权范围", "key": "authScope", "type": "text", "placeholder": "商品/订单/售后/物流" },
+          { "label": "凭证到期", "key": "expireTime", "type": "text" },
+          { "label": "授权编号", "key": "authNo", "type": "text" },
+          { "label": "失败原因", "key": "failReason", "type": "textarea" }
+        ] },
+        { "title": "适配要点", "fields": [
+          { "label": "原单有无", "key": "rawOrder", "readonly": true },
+          { "label": "面单来源", "key": "labelSource", "readonly": true },
+          { "label": "履约责任", "key": "fulfillDuty", "readonly": true },
+          { "label": "适配配置", "key": "adapterCode", "readonly": true }
+        ] }
+      ],
+      "actions": [
+        { "label": "保存店铺", "primary": true, "attrs": { "data-form-action": "saveShop" } },
+        { "label": "授权", "ghost": true, "attrs": { "data-form-action": "authorize" } },
+        { "label": "重新授权", "ghost": true, "attrs": { "data-form-action": "reauthorize" } },
+        { "label": "解除授权", "ghost": true, "attrs": { "data-form-action": "revoke" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": {
+      "saveShop": "pendingAuth",
+      "authorize": "authorized",
+      "reauthorize": "authorized",
+      "revoke": "revoked"
+    },
+    "emptyTitle": "暂无平台店铺"
+  }
+}

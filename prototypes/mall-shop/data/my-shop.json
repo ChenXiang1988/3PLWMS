@@ -1,0 +1,6 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "shopCode": "SH0001", "shopName": "海纳优品", "mainCategory": "食品饮料", "shopScore": 4.8, "shopStatus": "营业中", "onSaleCount": 6, "certStatus": "approved", "createTime": "2026-11-06 09:30" },
+    { "owner": "辰星日化", "shopCode": "", "shopName": "", "mainCategory": "", "shopScore": 0, "shopStatus": "", "onSaleCount": 0, "certStatus": "unverified", "createTime": "" }
+  ]
+}

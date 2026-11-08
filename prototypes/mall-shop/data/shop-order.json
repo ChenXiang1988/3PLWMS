@@ -1,0 +1,9 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "orderNo": "MO20261106001", "buyerOwner": "云途电商", "orderAmount": 1280.0, "obNo": "SO20261106001", "orderStatus": "shipped", "createTime": "2026-11-06 09:12" },
+    { "owner": "海纳食品", "orderNo": "MO20261106003", "buyerOwner": "云途电商", "orderAmount": 2150.0, "obNo": "SO20261106007", "orderStatus": "shipped", "createTime": "2026-11-06 10:05" },
+    { "owner": "海纳食品", "orderNo": "MO20261105005", "buyerOwner": "云途电商", "orderAmount": 980.0, "obNo": "SO20261105004", "orderStatus": "finished", "createTime": "2026-11-05 14:20" },
+    { "owner": "辰星日化", "orderNo": "MO20261106002", "buyerOwner": "云途电商", "orderAmount": 860.0, "obNo": "", "orderStatus": "unshipped", "createTime": "2026-11-06 09:40" },
+    { "owner": "辰星日化", "orderNo": "MO20261104007", "buyerOwner": "云途电商", "orderAmount": 450.0, "obNo": "", "orderStatus": "cancelled", "createTime": "2026-11-04 11:35" }
+  ]
+}

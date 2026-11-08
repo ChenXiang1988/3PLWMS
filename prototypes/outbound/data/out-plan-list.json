@@ -1,12 +1,153 @@
 {
   "rows": [
-    { "owner": "海纳食品", "planNo": "OP20261106001", "planStatus": "dispatched", "targetWarehouse": "华东中心仓", "expectedDate": "2026-11-07", "skuCount": 4, "planQty": 1800, "lockStatus": "locked", "createTime": "2026-11-06 09:30" },
-    { "owner": "海纳食品", "planNo": "OP20261106002", "planStatus": "dispatched", "targetWarehouse": "华东中心仓", "expectedDate": "2026-11-06", "skuCount": 2, "planQty": 600, "lockStatus": "locked", "createTime": "2026-11-05 14:20" },
-    { "owner": "海纳食品", "planNo": "OP20261105003", "planStatus": "confirmed", "targetWarehouse": "华东中心仓", "expectedDate": "2026-11-08", "skuCount": 3, "planQty": 900, "lockStatus": "locked", "createTime": "2026-11-05 11:00" },
-    { "owner": "辰星日化", "planNo": "OP20261106004", "planStatus": "pending", "targetWarehouse": "华南前置仓", "expectedDate": "2026-11-07", "skuCount": 3, "planQty": 1200, "lockStatus": "locked", "createTime": "2026-11-06 08:50" },
-    { "owner": "辰星日化", "planNo": "OP20261106005", "planStatus": "draft", "targetWarehouse": "华南前置仓", "expectedDate": "2026-11-09", "skuCount": 2, "planQty": 480, "lockStatus": "unlocked", "createTime": "2026-11-06 10:15" },
-    { "owner": "辰星日化", "planNo": "OP20261104006", "planStatus": "closed", "targetWarehouse": "华南前置仓", "expectedDate": "2026-11-05", "skuCount": 1, "planQty": 180, "lockStatus": "released", "createTime": "2026-11-04 10:40" },
-    { "owner": "云途电商", "planNo": "OP20261106007", "planStatus": "dispatched", "targetWarehouse": "华北分拨仓", "expectedDate": "2026-11-06", "skuCount": 5, "planQty": 3200, "lockStatus": "locked", "createTime": "2026-11-06 09:15" },
-    { "owner": "云途电商", "planNo": "OP20261105008", "planStatus": "confirmed", "targetWarehouse": "华北分拨仓", "expectedDate": "2026-11-08", "skuCount": 3, "planQty": 1500, "lockStatus": "locked", "createTime": "2026-11-05 15:26" }
+    { "owner": "海纳食品", "planNo": "OP20261106001", "docStatus": "doing", "bizType": "销售出库", "sourceDocType": "平台订单", "receiverName": "李先生", "receiverAddress": "上海市浦东新区张江路 88 号", "targetWarehouse": "华东中心仓", "expectedDate": "2026-11-07", "skuCount": 4, "planQty": 1800, "lockStatus": "locked", "processCount": 2, "createTime": "2026-11-06 09:30" },
+    { "owner": "海纳食品", "planNo": "OP20261106002", "docStatus": "doing", "bizType": "销售出库", "sourceDocType": "平台订单", "receiverName": "王女士", "receiverAddress": "苏州市工业园区星湖街 328 号", "targetWarehouse": "华东中心仓", "expectedDate": "2026-11-06", "skuCount": 2, "planQty": 600, "lockStatus": "locked", "processCount": 1, "createTime": "2026-11-05 14:20" },
+    { "owner": "海纳食品", "planNo": "OP20261105003", "docStatus": "pending", "bizType": "调拨出库", "sourceDocType": "调拨单", "receiverName": "华北分拨仓", "receiverAddress": "天津市武清区物流园 12 号", "targetWarehouse": "华东中心仓", "expectedDate": "2026-11-08", "skuCount": 3, "planQty": 900, "lockStatus": "locked", "processCount": 0, "createTime": "2026-11-05 11:00" },
+    { "owner": "海纳食品", "planNo": "OP20261108007", "docStatus": "pending", "bizType": "平台备货出库", "sourceDocType": "平台备货单", "receiverName": "Temu 华东集货仓", "receiverAddress": "浙江省嘉兴市秀洲区集货园 3 号库", "targetWarehouse": "华东中心仓", "expectedDate": "2026-11-12", "skuCount": 2, "planQty": 200, "lockStatus": "locked", "processCount": 0, "createTime": "2026-11-08 10:10", "appointmentNo": "APT-TEMU-1108", "cartonMarkNo": "CM-TEMU-26110803", "packingListNo": "PL-TEMU-26110803" },
+    { "owner": "海纳食品", "planNo": "OP20261108008", "docStatus": "doing", "bizType": "平台备货出库", "sourceDocType": "平台备货单", "receiverName": "Amazon LAX9", "receiverAddress": "美国加州安大略市物流中心", "targetWarehouse": "华南前置仓", "expectedDate": "2026-11-10", "skuCount": 3, "planQty": 300, "lockStatus": "locked", "processCount": 1, "createTime": "2026-11-08 09:30", "appointmentNo": "APT-LAX9-1108", "cartonMarkNo": "CM-AMZ-26110802", "packingListNo": "PL-AMZ-26110802" },
+    { "owner": "辰星日化", "planNo": "OP20261106004", "docStatus": "exception", "bizType": "销售出库", "sourceDocType": "商城订单", "receiverName": "陈先生", "receiverAddress": "广州市白云区机场路 1600 号", "targetWarehouse": "华东中心仓", "expectedDate": "2026-11-07", "skuCount": 3, "planQty": 1200, "lockStatus": "locked", "processCount": 1, "createTime": "2026-11-06 08:50" },
+    { "owner": "辰星日化", "planNo": "OP20261106005", "docStatus": "pending", "bizType": "销售出库", "sourceDocType": "平台订单", "receiverName": "刘女士", "receiverAddress": "深圳市南山区科技园 18 号", "targetWarehouse": "华东中心仓", "expectedDate": "2026-11-09", "skuCount": 2, "planQty": 480, "lockStatus": "locked", "processCount": 0, "createTime": "2026-11-06 10:15" },
+    { "owner": "辰星日化", "planNo": "OP20261104006", "docStatus": "cancelled", "bizType": "销售出库", "sourceDocType": "退货单", "receiverName": "华南前置仓", "receiverAddress": "广州市黄埔区保税仓 2 号", "targetWarehouse": "华东中心仓", "expectedDate": "2026-11-05", "skuCount": 1, "planQty": 180, "lockStatus": "released", "processCount": 1, "createTime": "2026-11-04 10:40" },
+    { "owner": "云途电商", "planNo": "OP20261106007", "docStatus": "doing", "bizType": "销售出库", "sourceDocType": "平台订单", "receiverName": "张先生", "receiverAddress": "杭州市西湖区文三路 90 号", "targetWarehouse": "华东中心仓", "expectedDate": "2026-11-06", "skuCount": 5, "planQty": 3200, "lockStatus": "locked", "processCount": 1, "createTime": "2026-11-06 09:15" },
+    { "owner": "云途电商", "planNo": "OP20261105008", "docStatus": "completed", "bizType": "销售出库", "sourceDocType": "平台订单", "receiverName": "周女士", "receiverAddress": "南京市建邺区江东中路 88 号", "targetWarehouse": "华东中心仓", "expectedDate": "2026-11-08", "skuCount": 3, "planQty": 1500, "lockStatus": "locked", "processCount": 2, "createTime": "2026-11-05 15:26" },
+    { "owner": "辰星日化", "planNo": "OP20261108009", "docStatus": "pending", "bizType": "平台备货出库", "sourceDocType": "平台备货单", "receiverName": "Temu 华南集货仓", "receiverAddress": "广东省佛山市南海区集货园 1 号库", "targetWarehouse": "华南前置仓", "expectedDate": "2026-11-13", "skuCount": 2, "planQty": 150, "lockStatus": "locked", "processCount": 0, "createTime": "2026-11-08 10:20" }
+  ],
+  "details": [
+    {
+      "planNo": "OP20261106001",
+      "rows": [
+        { "skuCode": "SKU000101", "skuName": "海苔脆片 50g", "batchNo": "B20261020", "planQty": 600 },
+        { "skuCode": "SKU000102", "skuName": "海苔脆片 100g", "batchNo": "B20261020", "planQty": 500 },
+        { "skuCode": "SKU000103", "skuName": "海苔薄饼 200g", "batchNo": "B20261021", "planQty": 400 },
+        { "skuCode": "SKU000104", "skuName": "海苔礼盒装", "batchNo": "B20261022", "planQty": 300 }
+      ],
+      "timeline": [
+        { "time": "2026-11-06 09:30", "text": "货主提交计划单", "operator": "海纳食品" },
+        { "time": "2026-11-06 09:52", "text": "仓网端确认生效并推送至华东中心仓", "operator": "仓网管理员" },
+        { "time": "2026-11-06 10:08", "text": "按 FEFO 锁定批次库存", "operator": "仓管员" },
+        { "time": "2026-11-06 10:20", "text": "排入波次 WV20261106001", "operator": "仓管员" }
+      ]
+    },
+    {
+      "planNo": "OP20261106002",
+      "rows": [
+        { "skuCode": "SKU000101", "skuName": "海苔脆片 50g", "batchNo": "B20261020", "planQty": 400 },
+        { "skuCode": "SKU000102", "skuName": "海苔脆片 100g", "batchNo": "B20261020", "planQty": 200 }
+      ],
+      "timeline": [
+        { "time": "2026-11-05 14:20", "text": "货主提交计划单", "operator": "海纳食品" },
+        { "time": "2026-11-05 14:48", "text": "仓网端确认生效并推送至华东中心仓", "operator": "仓网管理员" },
+        { "time": "2026-11-05 15:06", "text": "按 FEFO 锁定批次库存", "operator": "仓管员" }
+      ]
+    },
+    {
+      "planNo": "OP20261105003",
+      "rows": [
+        { "skuCode": "SKU000103", "skuName": "海苔薄饼 200g", "batchNo": "B20261021", "planQty": 400 },
+        { "skuCode": "SKU000104", "skuName": "海苔礼盒装", "batchNo": "B20261022", "planQty": 300 },
+        { "skuCode": "SKU000105", "skuName": "海苔夹心脆 120g", "batchNo": "B20261022", "planQty": 200 }
+      ],
+      "timeline": [
+        { "time": "2026-11-05 11:00", "text": "货主提交计划单", "operator": "海纳食品" },
+        { "time": "2026-11-05 11:32", "text": "仓网端确认生效", "operator": "仓网管理员" },
+        { "time": "2026-11-05 11:40", "text": "按 FEFO 锁定批次库存", "operator": "仓管员" }
+      ]
+    },
+    {
+      "planNo": "OP20261106004",
+      "rows": [
+        { "skuCode": "SKU000201", "skuName": "辰星洗衣液 2kg×6", "batchNo": "B20260920", "planQty": 500 },
+        { "skuCode": "SKU000202", "skuName": "辰星洗洁精 500ml×20", "batchNo": "B20261008", "planQty": 400 },
+        { "skuCode": "SKU000203", "skuName": "辰星柔顺剂 1kg×12", "batchNo": "B20261019", "planQty": 300 }
+      ],
+      "timeline": [
+        { "time": "2026-11-06 08:50", "text": "货主提交计划单", "operator": "辰星日化" }
+      ]
+    },
+    {
+      "planNo": "OP20261106005",
+      "rows": [
+        { "skuCode": "SKU000202", "skuName": "辰星洗洁精 500ml×20", "batchNo": "B20261008", "planQty": 280 },
+        { "skuCode": "SKU000203", "skuName": "辰星柔顺剂 1kg×12", "batchNo": "B20261019", "planQty": 200 }
+      ],
+      "timeline": [
+        { "time": "2026-11-06 10:15", "text": "货主保存草稿", "operator": "辰星日化" }
+      ]
+    },
+    {
+      "planNo": "OP20261104006",
+      "rows": [
+        { "skuCode": "SKU000201", "skuName": "辰星洗衣液 2kg×6", "batchNo": "B20260920", "planQty": 180 }
+      ],
+      "timeline": [
+        { "time": "2026-11-04 10:40", "text": "货主提交计划单", "operator": "辰星日化" },
+        { "time": "2026-11-04 11:12", "text": "仓网端确认生效并推送至华南前置仓", "operator": "仓网管理员" },
+        { "time": "2026-11-05 09:02", "text": "货主撤回，释放锁库并关闭计划单", "operator": "辰星日化" }
+      ]
+    },
+    {
+      "planNo": "OP20261106007",
+      "rows": [
+        { "skuCode": "SKU000301", "skuName": "云途收纳箱 45L", "batchNo": "B20260915", "planQty": 800 },
+        { "skuCode": "SKU000302", "skuName": "云途蓝牙耳机 二代", "batchNo": "B20261022", "planQty": 700 },
+        { "skuCode": "SKU000303", "skuName": "云途全脂牛奶 250ml×24", "batchNo": "B20261005", "planQty": 600 },
+        { "skuCode": "SKU000304", "skuName": "云途折叠收纳凳", "batchNo": "B20260928", "planQty": 600 },
+        { "skuCode": "SKU000305", "skuName": "云途抽纸 3层×24", "batchNo": "B20261018", "planQty": 500 }
+      ],
+      "timeline": [
+        { "time": "2026-11-06 09:15", "text": "货主提交计划单", "operator": "云途电商" },
+        { "time": "2026-11-06 09:36", "text": "仓网端确认生效并推送至华北分拨仓", "operator": "仓网管理员" },
+        { "time": "2026-11-06 09:52", "text": "按 FEFO 锁定批次库存", "operator": "仓管员" },
+        { "time": "2026-11-06 10:10", "text": "排入波次 WV20261106002", "operator": "仓管员" }
+      ]
+    },
+    {
+      "planNo": "OP20261105008",
+      "rows": [
+        { "skuCode": "SKU000301", "skuName": "云途收纳箱 45L", "batchNo": "B20260915", "planQty": 600 },
+        { "skuCode": "SKU000302", "skuName": "云途蓝牙耳机 二代", "batchNo": "B20261022", "planQty": 500 },
+        { "skuCode": "SKU000304", "skuName": "云途折叠收纳凳", "batchNo": "B20260928", "planQty": 400 }
+      ],
+      "timeline": [
+        { "time": "2026-11-05 15:26", "text": "货主提交计划单", "operator": "云途电商" },
+        { "time": "2026-11-05 15:58", "text": "仓网端确认生效", "operator": "仓网管理员" },
+        { "time": "2026-11-05 16:10", "text": "按 FEFO 锁定批次库存", "operator": "仓管员" }
+      ]
+    },
+    {
+      "planNo": "OP20261108007",
+      "rows": [
+        { "skuCode": "SKU100232", "skuName": "海苔脆片 50g", "batchNo": "B20261020", "planQty": 120 },
+        { "skuCode": "SKU100205", "skuName": "海苔薄饼 200g", "batchNo": "B20261021", "planQty": 80 }
+      ],
+      "timeline": [
+        { "time": "2026-11-08 10:10", "text": "平台备货单生成出库计划单", "operator": "海纳食品" },
+        { "time": "2026-11-08 10:18", "text": "按 FEFO 锁定批次库存", "operator": "仓管员" }
+      ]
+    },
+    {
+      "planNo": "OP20261108008",
+      "rows": [
+        { "skuCode": "SKU100232", "skuName": "海苔脆片 50g", "batchNo": "B20261020", "planQty": 200 },
+        { "skuCode": "SKU100205", "skuName": "海苔薄饼 200g", "batchNo": "B20261021", "planQty": 70 },
+        { "skuCode": "SKU100198", "skuName": "海苔夹心脆 120g", "batchNo": "B20261022", "planQty": 30 }
+      ],
+      "timeline": [
+        { "time": "2026-11-08 09:30", "text": "平台备货单生成出库计划单", "operator": "海纳食品" },
+        { "time": "2026-11-08 09:42", "text": "仓网端确认生效并推送至华南前置仓", "operator": "仓网管理员" },
+        { "time": "2026-11-08 09:55", "text": "按 FEFO 锁定批次库存", "operator": "仓管员" }
+      ]
+    },
+    {
+      "planNo": "OP20261108009",
+      "rows": [
+        { "skuCode": "SKU100198", "skuName": "海苔夹心脆 120g", "batchNo": "B20261022", "planQty": 90 },
+        { "skuCode": "SKU100175", "skuName": "海苔礼盒装", "batchNo": "B20261022", "planQty": 60 }
+      ],
+      "timeline": [
+        { "time": "2026-11-08 10:20", "text": "平台备货单生成出库计划单", "operator": "辰星日化" },
+        { "time": "2026-11-08 10:28", "text": "按 FEFO 锁定批次库存", "operator": "仓管员" }
+      ]
+    }
   ]
 }

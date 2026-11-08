@@ -1,0 +1,90 @@
+{
+  "config": {
+    "unit": "个",
+    "statusField": "roleStatus",
+    "keyField": "roleCode",
+    "statusMeta": {
+      "active": { "label": "启用", "tone": "enabled" },
+      "disabled": { "label": "停用", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "启用", "value": "active" },
+      { "label": "停用", "value": "disabled" }
+    ],
+    "columns": [
+      { "key": "roleName", "label": "角色名称", "width": "140px", "cls": "wx-col-strong" },
+      { "key": "roleCode", "label": "角色编码", "width": "120px" },
+      { "key": "roleType", "label": "角色类型", "width": "108px" },
+      { "key": "roleScope", "label": "角色归属", "width": "108px" },
+      { "key": "accountCount", "label": "账号数", "width": "80px", "align": "right", "type": "num" },
+      { "key": "permissionCount", "label": "权限数", "width": "80px", "align": "right", "type": "num" },
+      { "key": "dataScope", "label": "数据范围", "width": "220px" },
+      { "key": "roleStatus", "label": "状态", "width": "88px", "type": "status" },
+      { "key": "updateTime", "label": "更新时间", "width": "157px" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "配置" }
+    ],
+    "filters": [
+      { "label": "角色类型", "key": "roleType", "type": "select" },
+      { "label": "角色归属", "key": "roleScope", "type": "select" }
+    ],
+    "scopeNote": "运营方与仓内角色在本页维护；货主角色在货灵ERP维护",
+    "form": {
+      "title": "角色权限",
+      "note": "一个账号一个主角色；角色停用前先改派所有启用账号。",
+      "groups": [
+        { "title": "角色信息", "fields": [
+          { "label": "角色名称", "key": "roleName", "type": "text", "required": true },
+          { "label": "角色编码", "key": "roleCode", "type": "text", "required": true },
+          { "label": "角色类型", "key": "roleType", "type": "select", "options": ["系统内置", "自定义"], "required": true },
+          { "label": "角色归属", "key": "roleScope", "type": "select", "options": ["运营方", "仓内"], "required": true },
+          { "label": "状态", "key": "roleStatus", "type": "select", "options": [{ "label": "启用", "value": "active" }, { "label": "停用", "value": "disabled" }], "required": true }
+        ] },
+        { "title": "菜单权限", "fields": [
+          { "label": "可见菜单", "key": "menuScope", "type": "checks", "required": true, "options": [
+            { "group": "运营方菜单", "label": "总览", "value": "总览" },
+            { "group": "运营方菜单", "label": "仓网档案", "value": "仓网档案" },
+            { "group": "运营方菜单", "label": "仓网调度", "value": "仓网调度" },
+            { "group": "运营方菜单", "label": "库存", "value": "库存" },
+            { "group": "运营方菜单", "label": "商品", "value": "商品" },
+            { "group": "运营方菜单", "label": "作业资源", "value": "作业资源" },
+            { "group": "运营方菜单", "label": "商城", "value": "商城" },
+            { "group": "运营方菜单", "label": "ERP 运营", "value": "ERP 运营" },
+            { "group": "运营方菜单", "label": "账号与权限", "value": "账号与权限" },
+            { "group": "运营方菜单", "label": "服务与设置", "value": "服务与设置" }
+          ] }
+        ] },
+        { "title": "动作权限", "fields": [
+          { "label": "可执行动作", "key": "actionScope", "type": "checks", "options": ["查看", "新增", "编辑", "停用", "导出", "审核", "发货", "退款", "代维"] }
+        ] },
+        { "title": "数据范围", "fields": [
+          { "label": "数据范围", "key": "dataScope", "type": "checks", "required": true, "options": [
+            { "group": "货主", "label": "全部货主", "value": "全部货主" },
+            { "group": "货主", "label": "指定货主", "value": "指定货主" },
+            { "group": "仓库", "label": "全部仓库", "value": "全部仓库" },
+            { "group": "仓库", "label": "指定仓库", "value": "指定仓库" },
+            { "group": "业务", "label": "全部业务", "value": "全部业务" },
+            { "group": "业务", "label": "指定业务", "value": "指定业务" }
+          ] }
+        ] }
+      ],
+      "actions": [
+        { "label": "保存", "primary": true, "attrs": { "data-form-action": "confirm" } },
+        { "label": "停用", "ghost": true, "attrs": { "data-form-action": "withdraw" } },
+        { "label": "复制角色", "ghost": true, "attrs": { "data-toast": "复制角色（原型示意）" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": { "confirm": "active", "withdraw": "disabled" },
+    "emptyTitle": "暂无角色"
+  },
+  "rows": [
+    { "roleCode": "RO0001", "roleName": "运营管理员", "roleType": "系统内置", "roleScope": "运营方", "accountCount": 1, "permissionCount": 19, "dataScope": "全部货主、全部仓库、全部业务", "roleStatus": "active", "updateTime": "2026-11-08 09:00", "menuScope": "总览、仓网档案、仓网调度、库存、商品、作业资源、商城、ERP 运营、账号与权限、服务与设置", "actionScope": "查看、新增、编辑、停用、导出、审核、代维" },
+    { "roleCode": "RO0002", "roleName": "仓网调度", "roleType": "系统内置", "roleScope": "运营方", "accountCount": 2, "permissionCount": 12, "dataScope": "全部货主、全部仓库、指定业务", "roleStatus": "active", "updateTime": "2026-11-06 10:24", "menuScope": "总览、仓网档案、仓网调度、库存、商品", "actionScope": "查看、新增、编辑、审核" },
+    { "roleCode": "RO0003", "roleName": "财务", "roleType": "系统内置", "roleScope": "运营方", "accountCount": 1, "permissionCount": 8, "dataScope": "全部货主、全部仓库、指定业务", "roleStatus": "active", "updateTime": "2026-11-06 10:30", "menuScope": "总览、账单与服务、服务与设置", "actionScope": "查看、审核、导出" },
+    { "roleCode": "RO0004", "roleName": "客服", "roleType": "系统内置", "roleScope": "运营方", "accountCount": 1, "permissionCount": 9, "dataScope": "全部货主、全部仓库、指定业务", "roleStatus": "active", "updateTime": "2026-11-06 10:36", "menuScope": "总览、仓网调度、商城、账号与权限", "actionScope": "查看、编辑、审核" },
+    { "roleCode": "RO0005", "roleName": "仓库主管", "roleType": "系统内置", "roleScope": "仓内", "accountCount": 1, "permissionCount": 10, "dataScope": "指定仓库、全部业务", "roleStatus": "active", "updateTime": "2026-11-06 11:02", "menuScope": "总览、仓网调度、库存、商品、作业资源", "actionScope": "查看、新增、编辑、审核、导出" },
+    { "roleCode": "RO0006", "roleName": "收货员", "roleType": "系统内置", "roleScope": "仓内", "accountCount": 3, "permissionCount": 5, "dataScope": "指定仓库、指定业务", "roleStatus": "active", "updateTime": "2026-11-06 11:06", "menuScope": "总览、仓网调度、库存", "actionScope": "查看、编辑" },
+    { "roleCode": "RO0007", "roleName": "上架员", "roleType": "系统内置", "roleScope": "仓内", "accountCount": 2, "permissionCount": 5, "dataScope": "指定仓库、指定业务", "roleStatus": "active", "updateTime": "2026-11-06 11:08", "menuScope": "总览、仓网调度、库存", "actionScope": "查看、编辑" },
+    { "roleCode": "RO0008", "roleName": "复核员", "roleType": "系统内置", "roleScope": "仓内", "accountCount": 2, "permissionCount": 5, "dataScope": "指定仓库、指定业务", "roleStatus": "disabled", "updateTime": "2026-11-07 15:20", "menuScope": "总览、仓网调度、库存", "actionScope": "查看、编辑" }
+  ]
+}

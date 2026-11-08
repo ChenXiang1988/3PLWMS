@@ -1,18 +1,18 @@
 {
   "id": "network",
   "name": "仓网管理",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "owner": "产品组",
   "tier": "core",
   "deployed": true,
   "dependsOn": [
     "shared"
   ],
-  "scope": "仓网总览与跨仓调拨",
+  "scope": "仓网总览、跨仓调拨、服务协议审核与软件服务费",
   "deliverables": [
     "pages/",
     "data/"
   ],
   "status": "review",
-  "note": "仓网总览、跨仓调拨两页"
+  "note": "仓网总览、跨仓调拨、服务协议审核、软件服务费四页"
 }

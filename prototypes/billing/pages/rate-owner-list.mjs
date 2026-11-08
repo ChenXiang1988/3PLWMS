@@ -1,4 +1,4 @@
-import { ListPage, StatusTag, dash, uniq } from '../../shared/ui.mjs';
+import { ListPage, StatusTag, dash, uniq, moneyOrDash as money } from '../../shared/ui.mjs';
 
 export const STATUS_META = {
   active: { label: '启用', type: 'enabled' },
@@ -7,7 +7,6 @@ export const STATUS_META = {
 
 const labelOf = (s) => (STATUS_META[s] || {}).label || '—';
 const toneOf = (s) => (STATUS_META[s] || {}).type || 'info';
-const money = (v) => (v == null || v === '' ? '—' : `￥${Number(v).toFixed(2)}`);
 
 export function renderPage(data, ctx) {
   const { rows = [] } = data[ctx.pageKey] || {};

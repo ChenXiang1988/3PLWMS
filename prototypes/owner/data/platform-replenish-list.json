@@ -1,0 +1,93 @@
+{
+  "config": {
+    "unit": "单",
+    "statusField": "replenishStatus",
+    "keyField": "replenishNo",
+    "statusMeta": {
+      "pendingStock": { "label": "待备货", "tone": "pending" },
+      "pendingBook": { "label": "待预约", "tone": "pending" },
+      "booked": { "label": "已预约", "tone": "info" },
+      "shipped": { "label": "已发货", "tone": "enabled" },
+      "platformReceived": { "label": "平台收货", "tone": "info" },
+      "finished": { "label": "已完成", "tone": "disabled" },
+      "cancelled": { "label": "已取消", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "待备货", "value": "pendingStock" },
+      { "label": "待预约", "value": "pendingBook" },
+      { "label": "已预约", "value": "booked" },
+      { "label": "已发货", "value": "shipped" },
+      { "label": "平台收货", "value": "platformReceived" },
+      { "label": "已完成", "value": "finished" },
+      { "label": "已取消", "value": "cancelled" }
+    ],
+    "columns": [
+      { "key": "replenishNo", "label": "备货单号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "platformCode", "label": "平台", "width": "96px" },
+      { "key": "shopName", "label": "店铺", "width": "168px" },
+      { "key": "platformWarehouse", "label": "平台仓", "width": "168px" },
+      { "key": "replenishStatus", "label": "备货单状态", "width": "108px", "type": "status" },
+      { "key": "boxCount", "label": "箱数", "width": "72px", "align": "right", "type": "num" },
+      { "key": "skuCount", "label": "品类数", "width": "80px", "align": "right", "type": "num" },
+      { "key": "totalQty", "label": "备货数量", "width": "96px", "align": "right", "type": "num" },
+      { "key": "appointmentNo", "label": "预约号", "width": "140px" },
+      { "key": "expectedInDate", "label": "计划入仓日期", "width": "120px" },
+      { "key": "cartonMarkFile", "label": "箱唛文件", "width": "160px" },
+      { "key": "packingListFile", "label": "装箱单文件", "width": "160px" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "处理" }
+    ],
+    "filters": [
+      { "label": "平台", "key": "platformCode", "type": "select" },
+      { "label": "店铺", "key": "shopName", "type": "select" },
+      { "label": "平台仓", "key": "platformWarehouse", "type": "select" }
+    ],
+    "scopeNote": "全托管与 FBA 发到平台仓，需箱唛、装箱单与入仓预约；不产生消费者运单",
+    "form": {
+      "title": "平台备货",
+      "note": "箱唛与装箱单只记附件名；预约号与预约时间由平台入仓预约结果回写。",
+      "groups": [
+        { "title": "备货信息", "fields": [
+          { "label": "备货单号", "key": "replenishNo", "readonly": true },
+          { "label": "平台", "key": "platformCode", "readonly": true },
+          { "label": "店铺", "key": "shopName", "readonly": true },
+          { "label": "平台仓", "key": "platformWarehouse", "readonly": true },
+          { "label": "箱数", "key": "boxCount", "readonly": true },
+          { "label": "备货数量", "key": "totalQty", "readonly": true }
+        ] },
+        { "title": "箱唛与预约", "fields": [
+          { "label": "箱唛号", "key": "cartonMarkNo", "type": "text" },
+          { "label": "箱唛文件", "key": "cartonMarkFile", "type": "text" },
+          { "label": "装箱单号", "key": "packingListNo", "type": "text" },
+          { "label": "装箱单文件", "key": "packingListFile", "type": "text" },
+          { "label": "预约号", "key": "appointmentNo", "type": "text" },
+          { "label": "预约时间", "key": "appointmentTime", "type": "date" },
+          { "label": "备注", "key": "remark", "type": "textarea" }
+        ] }
+      ],
+      "actions": [
+        { "label": "生成箱唛", "primary": true, "attrs": { "data-form-action": "cartonMark" } },
+        { "label": "打印箱唛", "ghost": true, "attrs": { "data-form-action": "printCartonMark" } },
+        { "label": "生成装箱单", "ghost": true, "attrs": { "data-form-action": "packingList" } },
+        { "label": "打印装箱单", "ghost": true, "attrs": { "data-form-action": "printPackingList" } },
+        { "label": "预约入仓", "ghost": true, "attrs": { "data-form-action": "book" } },
+        { "label": "发货", "ghost": true, "attrs": { "data-form-action": "ship" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": {
+      "cartonMark": "pendingBook",
+      "packingList": "pendingBook",
+      "book": "booked",
+      "ship": "shipped"
+    },
+    "emptyTitle": "暂无平台备货单"
+  },
+  "rows": [
+    { "owner": "海纳食品", "replenishNo": "RP20261108001", "platformCode": "Temu", "shopName": "海纳食品优选店", "platformWarehouse": "Temu 华东集货仓", "replenishStatus": "pendingStock", "boxCount": 12, "skuCount": 2, "totalQty": 200, "appointmentNo": "", "expectedInDate": "2026-11-12", "cartonMarkNo": "", "packingListNo": "", "cartonMarkFile": "", "packingListFile": "", "appointmentTime": "", "remark": "整箱混装" },
+    { "owner": "海纳食品", "replenishNo": "RP20261108002", "platformCode": "Amazon", "shopName": "HN Foods US", "platformWarehouse": "Amazon ONT8", "replenishStatus": "pendingBook", "boxCount": 18, "skuCount": 1, "totalQty": 200, "appointmentNo": "", "expectedInDate": "2026-11-15", "cartonMarkNo": "CM-AMZ-26110801", "packingListNo": "PL-AMZ-26110801", "cartonMarkFile": "箱唛-RP20261108002.pdf", "packingListFile": "装箱单-RP20261108002.pdf", "appointmentTime": "", "remark": "" },
+    { "owner": "海纳食品", "replenishNo": "RP20261108003", "platformCode": "Amazon", "shopName": "HN Foods US", "platformWarehouse": "Amazon LAX9", "replenishStatus": "booked", "boxCount": 20, "skuCount": 3, "totalQty": 300, "appointmentNo": "APT-LAX9-1108", "expectedInDate": "2026-11-10", "cartonMarkNo": "CM-AMZ-26110802", "packingListNo": "PL-AMZ-26110802", "cartonMarkFile": "箱唛-RP20261108003.pdf", "packingListFile": "装箱单-RP20261108003.pdf", "appointmentTime": "2026-11-10 09:00", "remark": "" },
+    { "owner": "海纳食品", "replenishNo": "RP20261106002", "platformCode": "Temu", "shopName": "海纳食品优选店", "platformWarehouse": "Temu 华东集货仓", "replenishStatus": "finished", "boxCount": 18, "skuCount": 1, "totalQty": 260, "appointmentNo": "APT-TEMU-1106", "expectedInDate": "2026-11-06", "cartonMarkNo": "CM-TEMU-26110601", "packingListNo": "PL-TEMU-26110601", "cartonMarkFile": "箱唛-RP20261106002.pdf", "packingListFile": "装箱单-RP20261106002.pdf", "appointmentTime": "2026-11-06 10:00", "remark": "" },
+    { "owner": "辰星日化", "replenishNo": "RP20261108004", "platformCode": "Temu", "shopName": "辰星日化官方店", "platformWarehouse": "Temu 华南集货仓", "replenishStatus": "pendingStock", "boxCount": 10, "skuCount": 2, "totalQty": 150, "appointmentNo": "", "expectedInDate": "2026-11-13", "cartonMarkNo": "", "packingListNo": "", "cartonMarkFile": "", "packingListFile": "", "appointmentTime": "", "remark": "" },
+    { "owner": "辰星日化", "replenishNo": "RP20261108005", "platformCode": "Temu", "shopName": "辰星日化官方店", "platformWarehouse": "Temu 华南集货仓", "replenishStatus": "shipped", "boxCount": 12, "skuCount": 2, "totalQty": 180, "appointmentNo": "APT-TEMU-1108", "expectedInDate": "2026-11-09", "cartonMarkNo": "CM-TEMU-26110803", "packingListNo": "PL-TEMU-26110803", "cartonMarkFile": "箱唛-RP20261108005.pdf", "packingListFile": "装箱单-RP20261108005.pdf", "appointmentTime": "2026-11-09 14:00", "remark": "" }
+  ]
+}

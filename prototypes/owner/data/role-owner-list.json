@@ -1,0 +1,88 @@
+{
+  "config": {
+    "unit": "个",
+    "statusField": "roleStatus",
+    "keyField": "roleCode",
+    "statusMeta": {
+      "active": { "label": "启用", "tone": "enabled" },
+      "disabled": { "label": "停用", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "启用", "value": "active" },
+      { "label": "停用", "value": "disabled" }
+    ],
+    "columns": [
+      { "key": "roleName", "label": "角色名称", "width": "140px", "cls": "wx-col-strong" },
+      { "key": "roleCode", "label": "角色编码", "width": "120px" },
+      { "key": "roleType", "label": "角色类型", "width": "108px" },
+      { "key": "accountCount", "label": "账号数", "width": "80px", "align": "right", "type": "num" },
+      { "key": "permissionCount", "label": "权限数", "width": "80px", "align": "right", "type": "num" },
+      { "key": "dataScope", "label": "数据范围", "width": "220px" },
+      { "key": "roleStatus", "label": "状态", "width": "88px", "type": "status" },
+      { "key": "updateTime", "label": "更新时间", "width": "157px" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "配置" }
+    ],
+    "filters": [
+      { "label": "角色类型", "key": "roleType", "type": "select" }
+    ],
+    "scopeNote": "只维护本货主角色；菜单只出现货主可用段，数据范围固定本货主",
+    "form": {
+      "title": "角色权限",
+      "note": "货主角色不能跨货主；角色停用前先改派所有启用账号。",
+      "groups": [
+        { "title": "角色信息", "fields": [
+          { "label": "角色名称", "key": "roleName", "type": "text", "required": true },
+          { "label": "角色编码", "key": "roleCode", "type": "text", "required": true },
+          { "label": "角色类型", "key": "roleType", "type": "select", "options": ["系统内置", "自定义"], "required": true },
+          { "label": "角色归属", "key": "roleScope", "type": "select", "options": ["货主"], "required": true },
+          { "label": "状态", "key": "roleStatus", "type": "select", "options": [{ "label": "启用", "value": "active" }, { "label": "停用", "value": "disabled" }], "required": true }
+        ] },
+        { "title": "菜单权限", "fields": [
+          { "label": "可见菜单", "key": "menuScope", "type": "checks", "required": true, "options": [
+            { "group": "货主菜单", "label": "工作台", "value": "工作台" },
+            { "group": "货主菜单", "label": "订单", "value": "订单" },
+            { "group": "货主菜单", "label": "履约", "value": "履约" },
+            { "group": "货主菜单", "label": "售后", "value": "售后" },
+            { "group": "货主菜单", "label": "仓储委托", "value": "仓储委托" },
+            { "group": "货主菜单", "label": "库存", "value": "库存" },
+            { "group": "货主菜单", "label": "商品", "value": "商品" },
+            { "group": "货主菜单", "label": "商城店铺", "value": "商城店铺" },
+            { "group": "货主菜单", "label": "平台接入", "value": "平台接入" },
+            { "group": "货主菜单", "label": "账单与服务", "value": "账单与服务" },
+            { "group": "货主菜单", "label": "报表与设置", "value": "报表与设置" }
+          ] }
+        ] },
+        { "title": "动作权限", "fields": [
+          { "label": "可执行动作", "key": "actionScope", "type": "checks", "options": ["查看", "新增", "编辑", "停用", "导出", "审核", "发货", "退款"] }
+        ] },
+        { "title": "数据范围", "fields": [
+          { "label": "数据范围", "key": "dataScope", "type": "checks", "required": true, "options": [
+            { "group": "货主", "label": "本货主", "value": "本货主" },
+            { "group": "仓库", "label": "全部授权仓库", "value": "全部授权仓库" },
+            { "group": "仓库", "label": "指定仓库", "value": "指定仓库" },
+            { "group": "业务", "label": "全部业务", "value": "全部业务" },
+            { "group": "业务", "label": "指定业务", "value": "指定业务" }
+          ] }
+        ] }
+      ],
+      "actions": [
+        { "label": "保存", "primary": true, "attrs": { "data-form-action": "confirm" } },
+        { "label": "停用", "ghost": true, "attrs": { "data-form-action": "withdraw" } },
+        { "label": "复制角色", "ghost": true, "attrs": { "data-toast": "复制角色（原型示意）" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": { "confirm": "active", "withdraw": "disabled" },
+    "emptyTitle": "暂无角色"
+  },
+  "rows": [
+    { "owner": "海纳食品", "roleCode": "RO1001", "roleName": "货主管理员", "roleType": "系统内置", "roleScope": "货主", "accountCount": 1, "permissionCount": 18, "dataScope": "本货主、全部授权仓库、全部业务", "roleStatus": "active", "updateTime": "2026-11-07 10:20", "menuScope": "工作台、订单、履约、售后、仓储委托、库存、商品、商城店铺、平台接入、账单与服务、报表与设置", "actionScope": "查看、新增、编辑、停用、导出、审核、发货、退款" },
+    { "owner": "海纳食品", "roleCode": "RO1002", "roleName": "货主查询", "roleType": "系统内置", "roleScope": "货主", "accountCount": 2, "permissionCount": 8, "dataScope": "本货主、全部授权仓库、指定业务", "roleStatus": "active", "updateTime": "2026-11-07 10:24", "menuScope": "工作台、订单、履约、库存、报表与设置", "actionScope": "查看、导出" },
+    { "owner": "海纳食品", "roleCode": "RO1003", "roleName": "委托经办", "roleType": "系统内置", "roleScope": "货主", "accountCount": 1, "permissionCount": 9, "dataScope": "本货主、指定仓库、委托业务", "roleStatus": "active", "updateTime": "2026-11-07 10:30", "menuScope": "工作台、订单、履约、仓储委托、库存", "actionScope": "查看、新增、编辑、导出" },
+    { "owner": "海纳食品", "roleCode": "RO1004", "roleName": "售后专员", "roleType": "系统内置", "roleScope": "货主", "accountCount": 1, "permissionCount": 7, "dataScope": "本货主、全部授权仓库、售后与物流", "roleStatus": "active", "updateTime": "2026-11-07 10:36", "menuScope": "工作台、订单、履约、售后", "actionScope": "查看、编辑、退款" },
+    { "owner": "海纳食品", "roleCode": "RO1005", "roleName": "货主财务", "roleType": "系统内置", "roleScope": "货主", "accountCount": 1, "permissionCount": 5, "dataScope": "本货主、全部授权仓库、账单", "roleStatus": "disabled", "updateTime": "2026-11-07 15:10", "menuScope": "工作台、账单与服务、报表与设置", "actionScope": "查看、导出" },
+    { "owner": "辰星日化", "roleCode": "RO2001", "roleName": "货主管理员", "roleType": "系统内置", "roleScope": "货主", "accountCount": 1, "permissionCount": 18, "dataScope": "本货主、全部授权仓库、全部业务", "roleStatus": "active", "updateTime": "2026-11-07 11:20", "menuScope": "工作台、订单、履约、售后、仓储委托、库存、商品、商城店铺、平台接入、账单与服务、报表与设置", "actionScope": "查看、新增、编辑、停用、导出、审核、发货、退款" },
+    { "owner": "辰星日化", "roleCode": "RO2002", "roleName": "货主查询", "roleType": "系统内置", "roleScope": "货主", "accountCount": 1, "permissionCount": 8, "dataScope": "本货主、全部授权仓库、指定业务", "roleStatus": "active", "updateTime": "2026-11-07 11:26", "menuScope": "工作台、订单、履约、库存、报表与设置", "actionScope": "查看、导出" },
+    { "owner": "辰星日化", "roleCode": "RO2003", "roleName": "售后专员", "roleType": "系统内置", "roleScope": "货主", "accountCount": 1, "permissionCount": 7, "dataScope": "本货主、全部授权仓库、售后与物流", "roleStatus": "active", "updateTime": "2026-11-07 11:30", "menuScope": "工作台、订单、履约、售后", "actionScope": "查看、编辑、退款" }
+  ]
+}

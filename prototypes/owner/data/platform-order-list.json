@@ -1,0 +1,106 @@
+{
+  "config": {
+    "unit": "单",
+    "statusField": "processStatus",
+    "keyField": "orderNo",
+    "statusMeta": {
+      "pendingAudit": { "label": "待审单", "tone": "pending" },
+      "reviewed": { "label": "已审单", "tone": "info" },
+      "split": { "label": "已拆单", "tone": "pending" },
+      "pendingDispatch": { "label": "待下发", "tone": "info" },
+      "syncException": { "label": "同步异常", "tone": "rejected" },
+      "dispatched": { "label": "已下发", "tone": "enabled" }
+    },
+    "tabs": [
+      { "label": "待审单", "value": "pendingAudit" },
+      { "label": "已审单", "value": "reviewed" },
+      { "label": "已拆单", "value": "split" },
+      { "label": "待下发", "value": "pendingDispatch" },
+      { "label": "同步异常", "value": "syncException" },
+      { "label": "已下发", "value": "dispatched" }
+    ],
+    "columns": [
+      { "key": "orderNo", "label": "订单编号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "platform", "label": "平台", "width": "96px" },
+      { "key": "shopName", "label": "店铺", "width": "168px" },
+      { "key": "platformOrderNo", "label": "平台订单号", "width": "160px" },
+      { "key": "platformStatus", "label": "平台原始状态", "width": "140px" },
+      { "key": "orderType", "label": "订单类型", "width": "96px" },
+      { "key": "fulfillMode", "label": "履约方式", "width": "96px" },
+      { "key": "processStatus", "label": "处理状态", "width": "108px", "type": "status" },
+      { "key": "fulfillmentCount", "label": "履约单数", "width": "96px", "align": "right" },
+      { "key": "syncStatus", "label": "同步状态", "width": "96px" },
+      { "key": "createTime", "label": "下单时间", "width": "157px" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "审单" }
+    ],
+    "filters": [
+      { "label": "平台", "key": "platform", "type": "select" },
+      { "label": "店铺", "key": "shopName", "type": "select" },
+      { "label": "订单类型", "key": "orderType", "type": "select" },
+      { "label": "履约方式", "key": "fulfillMode", "type": "select" },
+      { "label": "异常标签", "key": "exceptionTags", "type": "select" },
+      { "label": "同步状态", "key": "syncStatus", "type": "select" }
+    ],
+    "scopeNote": "原单按幂等键 shopCode+platformOrderNo 去重；平台改地址与退款重新同步覆盖",
+    "form": {
+      "title": "平台订单",
+      "note": "拆单生成履约单后原单不再改写；标记重复单后该行停止下发，需补拉或人工确认后恢复。",
+      "groups": [
+        { "title": "原单信息", "fields": [
+          { "label": "订单编号", "key": "orderNo", "readonly": true },
+          { "label": "平台", "key": "platform", "readonly": true },
+          { "label": "店铺", "key": "shopName", "readonly": true },
+          { "label": "平台订单号", "key": "platformOrderNo", "readonly": true },
+          { "label": "平台原始状态", "key": "platformStatus", "readonly": true },
+          { "label": "订单类型", "key": "orderType", "readonly": true },
+          { "label": "履约方式", "key": "fulfillMode", "readonly": true },
+          { "label": "幂等键", "key": "idempotencyKey", "readonly": true },
+          { "label": "商品明细", "key": "skuSummary", "type": "textarea", "readonly": true },
+          { "label": "同步状态", "key": "syncStatus", "readonly": true }
+        ] },
+        { "title": "审单与拆分", "fields": [
+          { "label": "异常标签", "key": "exceptionTags", "type": "checks", "options": ["缺货", "未配对SKU", "地址异常", "重复单", "漏单"] },
+          { "label": "命中规则", "key": "hitRule", "type": "select", "options": ["平台默认规则", "缺货拦截", "未配对SKU拦截", "地址校验", "幂等去重", "漏单补拉"] },
+          { "label": "审单结论", "key": "auditResult", "type": "select", "options": ["通过", "挂起", "驳回"] },
+          { "label": "拆分履约单数", "key": "splitCount", "type": "number" },
+          { "label": "处理备注", "key": "remark", "type": "textarea" }
+        ] }
+      ],
+      "actions": [
+        { "label": "审单通过", "primary": true, "attrs": { "data-form-action": "auditPass" } },
+        { "label": "拆单生成履约单", "ghost": true, "attrs": { "data-form-action": "splitOrder" } },
+        { "label": "下发 3PL", "ghost": true, "attrs": { "data-form-action": "dispatch" } },
+        { "label": "自发货", "ghost": true, "attrs": { "data-form-action": "selfship" } },
+        { "label": "备货到平台仓", "ghost": true, "attrs": { "data-form-action": "replenish" } },
+        { "label": "补拉漏单", "ghost": true, "attrs": { "data-form-action": "refetch" } },
+        { "label": "标记重复单", "ghost": true, "attrs": { "data-form-action": "markDuplicate" } },
+        { "label": "重新同步", "ghost": true, "attrs": { "data-form-action": "resync" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": {
+      "auditPass": "reviewed",
+      "splitOrder": "split",
+      "dispatch": "dispatched",
+      "selfship": "dispatched",
+      "replenish": "dispatched",
+      "refetch": "pendingAudit",
+      "markDuplicate": "syncException",
+      "resync": "pendingAudit"
+    },
+    "emptyTitle": "暂无平台订单"
+  },
+  "rows": [
+    { "owner": "海纳食品", "orderNo": "PO20261108001", "platform": "Temu", "shopName": "海纳食品优选店", "platformOrderNo": "TM2026110800123", "platformStatus": "WAIT_DELIVERY", "orderType": "全托管", "fulfillMode": "平台备货", "processStatus": "pendingAudit", "totalQty": 180, "orderAmount": 1280.00, "syncStatus": "已同步", "createTime": "2026-11-08 09:12", "idempotencyKey": "SH-TEMU-HN-01/TM2026110800123", "exceptionTags": "", "hitRule": "平台默认规则", "auditResult": "", "splitCount": 1, "remark": "", "fulfillmentCount": 0, "skuSummary": "SKU100232×120；SKU100205×60", "receiverName": "Temu 华东集货仓", "planNo": "" },
+    { "owner": "海纳食品", "orderNo": "PO20261108002", "platform": "Amazon", "shopName": "HN Foods US", "platformOrderNo": "112-4456-8890", "platformStatus": "Unshipped", "orderType": "FBM", "fulfillMode": "自发货", "processStatus": "reviewed", "totalQty": 6, "orderAmount": 860.40, "syncStatus": "已同步", "createTime": "2026-11-08 08:40", "idempotencyKey": "SH-AMZ-HN-US/112-4456-8890", "exceptionTags": "", "hitRule": "平台默认规则", "auditResult": "通过", "splitCount": 1, "remark": "", "fulfillmentCount": 1, "skuSummary": "SKU100198×4；SKU100175×2", "receiverName": "王女士", "planNo": "SS20261108001" },
+    { "owner": "海纳食品", "orderNo": "PO20261108003", "platform": "速卖通", "shopName": "HN Global Store", "platformOrderNo": "AE261107778", "platformStatus": "WAIT_SELLER_SEND", "orderType": "半托管", "fulfillMode": "仓发货", "processStatus": "split", "totalQty": 120, "orderAmount": 1520.00, "syncStatus": "已同步", "createTime": "2026-11-07 18:20", "idempotencyKey": "SH-AE-HN-01/AE261107778", "exceptionTags": "缺货", "hitRule": "缺货拦截", "auditResult": "通过", "splitCount": 2, "remark": "华东仓 60 件、华南仓 60 件分两单", "fulfillmentCount": 2, "skuSummary": "SKU100232×60；SKU100205×40；SKU100198×20", "receiverName": "李先生", "planNo": "OP20261108001" },
+    { "owner": "海纳食品", "orderNo": "PO20261108004", "platform": "速卖通", "shopName": "HN Global Store", "platformOrderNo": "AE261107556", "platformStatus": "SELLER_SENDED", "orderType": "半托管", "fulfillMode": "仓发货", "processStatus": "dispatched", "totalQty": 8, "orderAmount": 640.00, "syncStatus": "已同步", "createTime": "2026-11-07 15:10", "idempotencyKey": "SH-AE-HN-01/AE261107556", "exceptionTags": "", "hitRule": "平台默认规则", "auditResult": "通过", "splitCount": 1, "remark": "", "fulfillmentCount": 1, "skuSummary": "SKU100175×8", "receiverName": "赵女士", "planNo": "OP20261108002" },
+    { "owner": "海纳食品", "orderNo": "PO20261108005", "platform": "Amazon", "shopName": "HN Foods US", "platformOrderNo": "112-4456-9901", "platformStatus": "Pending", "orderType": "FBA", "fulfillMode": "平台备货", "processStatus": "pendingDispatch", "totalQty": 200, "orderAmount": 2100.00, "syncStatus": "已同步", "createTime": "2026-11-07 11:30", "idempotencyKey": "SH-AMZ-HN-US/112-4456-9901", "exceptionTags": "", "hitRule": "平台默认规则", "auditResult": "通过", "splitCount": 1, "remark": "", "fulfillmentCount": 1, "skuSummary": "SKU100232×200", "receiverName": "Amazon ONT8", "planNo": "RP20261108001" },
+    { "owner": "海纳食品", "orderNo": "PO20261108011", "platform": "Lazada", "shopName": "Haina Mart MY", "platformOrderNo": "MY261108003", "platformStatus": "pending", "orderType": "POP", "fulfillMode": "仓发货", "processStatus": "syncException", "totalQty": 12, "orderAmount": 540.00, "syncStatus": "同步失败", "createTime": "2026-11-08 09:50", "idempotencyKey": "SH-LZD-HN-01/MY261108003", "exceptionTags": "重复单", "hitRule": "幂等去重", "auditResult": "挂起", "splitCount": 1, "remark": "平台重复推送，已按幂等键去重", "fulfillmentCount": 0, "skuSummary": "SKU100205×12", "receiverName": "Tan", "planNo": "" },
+    { "owner": "辰星日化", "orderNo": "PO20261108006", "platform": "Shopee", "shopName": "辰星日化 SG", "platformOrderNo": "SG261108001", "platformStatus": "READY_TO_SHIP", "orderType": "自营", "fulfillMode": "仓发货", "processStatus": "pendingAudit", "totalQty": 24, "orderAmount": 980.00, "syncStatus": "已同步", "createTime": "2026-11-08 09:05", "idempotencyKey": "SH-SHP-CX-01/SG261108001", "exceptionTags": "", "hitRule": "平台默认规则", "auditResult": "", "splitCount": 1, "remark": "", "fulfillmentCount": 1, "skuSummary": "SKU100205×24", "receiverName": "陈先生", "planNo": "OP20261108003" },
+    { "owner": "辰星日化", "orderNo": "PO20261108007", "platform": "Temu", "shopName": "辰星日化官方店", "platformOrderNo": "TM2026110800456", "platformStatus": "WAIT_DELIVERY", "orderType": "全托管", "fulfillMode": "平台备货", "processStatus": "syncException", "totalQty": 200, "orderAmount": 1750.00, "syncStatus": "待同步", "createTime": "2026-11-08 08:30", "idempotencyKey": "SH-TEMU-CX-01/TM2026110800456", "exceptionTags": "漏单", "hitRule": "漏单补拉", "auditResult": "挂起", "splitCount": 1, "remark": "平台时间窗内订单未拉到，待补拉", "fulfillmentCount": 0, "skuSummary": "SKU100198×150；SKU100175×50", "receiverName": "Temu 华南集货仓", "planNo": "" },
+    { "owner": "辰星日化", "orderNo": "PO20261108008", "platform": "Amazon", "shopName": "CX Daily US", "platformOrderNo": "112-4456-7712", "platformStatus": "Canceled", "orderType": "FBM", "fulfillMode": "自发货", "processStatus": "syncException", "totalQty": 6, "orderAmount": 420.00, "syncStatus": "已同步", "createTime": "2026-11-06 16:20", "idempotencyKey": "SH-AMZ-CX-US/112-4456-7712", "exceptionTags": "地址异常", "hitRule": "地址校验", "auditResult": "挂起", "splitCount": 1, "remark": "平台改地址，重新同步覆盖原地址", "fulfillmentCount": 1, "skuSummary": "SKU100232×6", "receiverName": "Linda", "planNo": "SS20261107002" },
+    { "owner": "辰星日化", "orderNo": "PO20261108009", "platform": "Lazada", "shopName": "CX Daily TH", "platformOrderNo": "MY2611070012", "platformStatus": "shipped", "orderType": "POP", "fulfillMode": "仓发货", "processStatus": "dispatched", "totalQty": 12, "orderAmount": 730.00, "syncStatus": "已同步", "createTime": "2026-11-05 10:10", "idempotencyKey": "SH-LZD-CX-01/MY2611070012", "exceptionTags": "", "hitRule": "平台默认规则", "auditResult": "通过", "splitCount": 1, "remark": "", "fulfillmentCount": 1, "skuSummary": "SKU100205×12", "receiverName": "Ahmad", "planNo": "OP20261107004" },
+    { "owner": "海纳食品", "orderNo": "PO20261108010", "platform": "Temu", "shopName": "海纳食品优选店", "platformOrderNo": "TM202611040998", "platformStatus": "DELIVERED", "orderType": "全托管", "fulfillMode": "平台备货", "processStatus": "dispatched", "totalQty": 260, "orderAmount": 3000.00, "syncStatus": "已同步", "createTime": "2026-11-04 09:40", "idempotencyKey": "SH-TEMU-HN-01/TM202611040998", "exceptionTags": "", "hitRule": "平台默认规则", "auditResult": "通过", "splitCount": 1, "remark": "", "fulfillmentCount": 1, "skuSummary": "SKU100232×260", "receiverName": "Temu 华东集货仓", "planNo": "RP20261106002" }
+  ]
+}

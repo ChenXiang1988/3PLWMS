@@ -1,0 +1,8 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "skuCode": "SKU100231", "skuName": "海纳原味麦片 500g", "category": "食品饮料", "price": 32.0, "ladderPrice": "满 10 箱 ￥28.00", "guestVisible": "否", "memberVisible": "是" },
+    { "owner": "海纳食品", "skuCode": "SKU100232", "skuName": "海纳坚果燕麦 400g", "category": "食品饮料", "price": 38.5, "ladderPrice": "满 20 箱 ￥34.00", "guestVisible": "是", "memberVisible": "是" },
+    { "owner": "辰星日化", "skuCode": "SKU100241", "skuName": "辰星抑菌洗手液 500ml", "category": "日化清洁", "price": 19.9, "ladderPrice": "满 30 瓶 ￥17.50", "guestVisible": "否", "memberVisible": "是" },
+    { "owner": "辰星日化", "skuCode": "SKU100242", "skuName": "辰星衣物柔顺剂 2L", "category": "日化清洁", "price": 45.0, "ladderPrice": "满 12 瓶 ￥41.00", "guestVisible": "是", "memberVisible": "是" }
+  ]
+}

@@ -1,4 +1,4 @@
-import { ReportHero, StatRow, Block, BaseTable, esc, n } from '../../shared/ui.mjs';
+import { ReportHero, StatRow, Block, BaseTable, ReportPage, BarRows, EmptyState } from '../../shared/ui.mjs';
 
 export function renderPage(data, ctx) {
   const { rows = [] } = data[ctx.pageKey] || {};
@@ -28,30 +28,14 @@ export function renderPage(data, ctx) {
   });
 
   const block1 = Block({ title: '明细', note: `共 ${rows.length} 条`, body: detail });
-
-  const max = Math.max(1, ...rows.map((r) => Number(r.completed) || 0));
-  const bars = rows.slice(0, 5).map((r) => {
-    const pct = Math.round((Number(r.completed) || 0) / max * 100);
-    return `<div class="tk-doc-overview-bar">`
-      + `<span class="tk-doc-overview-label">${esc(r.docType)}</span>`
-      + `<span class="tk-doc-overview-track"><span class="tk-doc-overview-fill" style="width:${pct}%"></span></span>`
-      + `<span class="tk-doc-overview-value">${n(r.completed)}</span>`
-      + `</div>`;
-  }).join('');
-
+  const bars = BarRows(rows.slice(0, 5).map((r) => ({ label: r.docType, value: r.completed })));
   const block2 = Block({
     title: '构成',
     note: '按单据类型已完成量',
-    body: bars || '<div class="wx-empty"><b>暂无数据</b><span>当前筛选条件下没有任何记录。</span></div>',
+    body: bars || EmptyState({ title: '暂无数据', desc: '当前筛选条件下没有任何记录。' }),
   });
 
-  return `<div class="wx-report">${hero}${stats}${block1}${block2}</div>`;
+  return ReportPage({ hero, stats, blocks: [block1, block2] });
 }
 
-export const PAGE_CSS = `
-.tk-doc-overview-bar{display:grid;grid-template-columns:140px 1fr 90px;align-items:center;gap:var(--wx-sp-3);padding:var(--wx-sp-1) 0}
-.tk-doc-overview-label{font-size:var(--wx-fs-sm);color:var(--wx-gray-700);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.tk-doc-overview-track{height:8px;border-radius:var(--wx-r-pill);background:var(--wx-gray-100)}
-.tk-doc-overview-fill{display:block;height:100%;border-radius:var(--wx-r-pill);background:var(--wx-primary-500)}
-.tk-doc-overview-value{font-size:var(--wx-fs-sm);text-align:right;font-variant-numeric:tabular-nums;color:var(--wx-gray-900)}
-`;
+export const PAGE_CSS = ``;

@@ -1,4 +1,4 @@
-import { ListPage, StatusTag, dash, uniq } from '../../shared/ui.mjs';
+import { ListPage, StatusTag, dash, uniq, moneyOrDash } from '../../shared/ui.mjs';
 
 export const STATUS_META = {
   unpaid: { label: '待付款', type: 'pending' },
@@ -10,7 +10,6 @@ export const STATUS_META = {
 
 const labelOf = (s) => (STATUS_META[s] || {}).label || '—';
 const toneOf = (s) => (STATUS_META[s] || {}).type || 'info';
-const money = (v) => (v == null || v === '' ? '—' : `￥${Number(v).toFixed(2)}`);
 
 export function renderPage(data, ctx) {
   const { rows = [] } = data[ctx.pageKey] || {};
@@ -39,7 +38,7 @@ export function renderPage(data, ctx) {
     columns: [
       { key: 'orderNo', label: '订单编号', width: '160px', cls: 'wx-col-strong' },
       { key: 'account', label: '下单账号', width: '120px', render: (r) => dash(r.account) },
-      { key: 'orderAmount', label: '订单金额', width: '120px', align: 'right', render: (r) => money(r.orderAmount) },
+      { key: 'orderAmount', label: '订单金额', width: '120px', align: 'right', render: (r) => moneyOrDash(r.orderAmount) },
       { key: 'obNo', label: '履约出库单号', width: '160px', render: (r) => dash(r.obNo) },
       { key: 'orderStatus', label: '订单状态', width: '108px', render: (r) => StatusTag(labelOf(r.orderStatus), toneOf(r.orderStatus)) },
       { key: 'createTime', label: '下单时间', width: '157px', render: (r) => dash(r.createTime) },

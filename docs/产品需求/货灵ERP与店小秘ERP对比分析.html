@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>货灵ERP 与店小秘ERP 深入对比分析</title>
+<style>
+:root{
+  --bg:#f4f6f9; --paper:#ffffff; --ink:#1c2430; --muted:#5a6675; --faint:#8792a1;
+  --line:#e2e7ee; --line-soft:#eef1f5; --accent:#1d5f8c; --accent-soft:#eaf2f9;
+  --ok:#2b6c49; --ok-soft:#e9f4ed; --warn:#9a5b16; --warn-soft:#fdf3e5;
+  --grey:#5f6b7a; --grey-soft:#f0f2f5; --red:#9c3b3b; --red-soft:#fbeded;
+  --shadow:0 1px 2px rgba(20,32,48,.05),0 10px 32px rgba(20,32,48,.06);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.78 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  -webkit-font-smoothing:antialiased}
+.layout{display:grid;grid-template-columns:246px minmax(0,1fr);gap:26px;max-width:1420px;margin:0 auto;padding:26px}
+aside{position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;
+  background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:20px 16px;box-shadow:var(--shadow)}
+aside .side-title{font-size:12px;letter-spacing:.08em;color:var(--faint);font-weight:600;margin:0 0 12px 4px}
+aside a{display:block;color:var(--muted);text-decoration:none;font-size:13.5px;padding:5px 9px;border-radius:5px;border-left:2px solid transparent}
+aside a:hover{background:var(--accent-soft);color:var(--accent)}
+aside a.lv2{padding-left:22px;font-size:12.8px;color:var(--faint)}
+aside a.active{border-left-color:var(--accent);color:var(--accent);background:var(--accent-soft);font-weight:600}
+aside .side-note{margin-top:16px;padding-top:14px;border-top:1px solid var(--line-soft);font-size:12px;color:var(--faint);line-height:1.6}
+main{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:52px 60px 72px;box-shadow:var(--shadow);min-width:0}
+.cover{border-bottom:2px solid var(--ink);padding-bottom:26px;margin-bottom:34px}
+.kicker{font-size:12.5px;letter-spacing:.14em;color:var(--accent);font-weight:700;margin:0 0 10px}
+h1{font-size:30px;line-height:1.35;margin:0 0 12px;letter-spacing:-.01em}
+.sub{font-size:16px;color:var(--muted);margin:0 0 22px}
+.meta{display:flex;flex-wrap:wrap;gap:10px 26px;font-size:13px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+h2{font-size:22px;margin:52px 0 6px;padding-bottom:10px;border-bottom:1px solid var(--line);letter-spacing:-.01em;scroll-margin-top:20px}
+h2 .num{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.04em;display:block;margin-bottom:4px}
+h3{font-size:17px;margin:32px 0 10px;scroll-margin-top:20px}
+h4{font-size:15px;margin:22px 0 8px;color:var(--accent)}
+p{margin:10px 0 14px}
+ul,ol{margin:10px 0 16px;padding-left:22px}
+li{margin:5px 0}
+strong{font-weight:650}
+code{font:13px/1.5 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
+  background:var(--grey-soft);padding:1px 5px;border-radius:3px;color:#334}
+a{color:var(--accent)}
+.lead{font-size:15.5px;color:var(--muted);background:var(--accent-soft);border-left:3px solid var(--accent);
+  padding:14px 18px;border-radius:0 6px 6px 0;margin:16px 0 26px}
+.lead p{margin:0}
+.callout{border:1px solid var(--line);border-left:3px solid var(--warn);background:var(--warn-soft);
+  padding:14px 18px;border-radius:0 6px 6px 0;margin:18px 0;font-size:14px}
+.callout.neutral{border-left-color:var(--accent);background:var(--accent-soft)}
+.callout.caution{border-left-color:var(--red);background:var(--red-soft)}
+.callout p:last-child{margin-bottom:0}
+.callout .ct{font-weight:700;display:block;margin-bottom:5px}
+table{width:100%;border-collapse:collapse;font-size:13.6px;margin:14px 0 22px;line-height:1.65}
+th,td{border:1px solid var(--line);padding:9px 11px;vertical-align:top;text-align:left}
+th{background:#f3f6fa;font-weight:650;color:#33404f}
+tbody tr:nth-child(even){background:#fafbfd}
+td:first-child{font-weight:600;color:#2b3644}
+table.compact{font-size:13px}
+table.compact th,table.compact td{padding:7px 9px}
+.col-head{background:#eef3f8}
+.tag{display:inline-block;font-size:11px;line-height:1.6;padding:0 6px;border-radius:3px;white-space:nowrap;
+  font-weight:600;vertical-align:1px;margin-right:3px}
+.t-obs{background:#e5f0f8;color:#1d5f8c}
+.t-doc{background:var(--ok-soft);color:var(--ok)}
+.t-impl{background:#efeaf7;color:#6a4a94}
+.t-inf{background:var(--warn-soft);color:var(--warn)}
+.t-na{background:var(--grey-soft);color:var(--grey)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--muted);
+  background:var(--grey-soft);padding:12px 16px;border-radius:6px;margin:14px 0 24px}
+.legend span{white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0 22px}
+.card{border:1px solid var(--line);border-radius:7px;padding:16px 18px;background:#fcfdfe}
+.card h4{margin:0 0 8px;font-size:14.5px;color:var(--accent)}
+.card p:last-child,.card ul:last-child{margin-bottom:0}
+.card ul{padding-left:18px;font-size:13.6px}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0 18px;font-size:13px}
+.flow .step{background:var(--accent-soft);color:#194f75;border:1px solid #cfe1ef;border-radius:5px;padding:5px 10px;white-space:nowrap}
+.flow .arr{color:var(--faint)}
+.flow.alt .step{background:var(--ok-soft);color:var(--ok);border-color:#cfe7d7}
+.impact{border-left:3px solid var(--warn);padding:2px 0 2px 14px;margin:10px 0 18px;font-size:14px;color:#4b422f}
+.impact b{color:var(--warn)}
+.footnote{font-size:12.5px;color:var(--faint);border-top:1px solid var(--line-soft);margin-top:44px;padding-top:16px}
+.toolbar{display:flex;gap:8px;justify-content:flex-end;margin-bottom:-16px}
+.toolbar button{font:inherit;font-size:12.5px;padding:5px 12px;border:1px solid var(--line);background:#fff;
+  color:var(--muted);border-radius:5px;cursor:pointer}
+.toolbar button:hover{border-color:var(--accent);color:var(--accent)}
+@media(max-width:1000px){
+  .layout{grid-template-columns:1fr;padding:14px;gap:14px}
+  aside{position:static;max-height:none}
+  main{padding:30px 22px 48px}
+  .grid2{grid-template-columns:1fr}
+  table{font-size:12.8px}
+  h1{font-size:25px}
+}
+@media print{
+  body{background:#fff;font-size:11.5pt}
+  .layout{display:block;padding:0;max-width:none}
+  aside,.toolbar{display:none}
+  main{border:0;box-shadow:none;padding:0;max-width:none}
+  h2{page-break-after:avoid;margin-top:26px}
+  h3{page-break-after:avoid}
+  table,.card,.callout{page-break-inside:avoid}
+  tr{page-break-inside:avoid}
+  a{text-decoration:none;color:inherit}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+  <p class="side-title">目录</p>
+  <nav class="toc">
+    <a href="#s0">阅读须知与证据边界</a>
+    <a href="#s1">对象与对标口径</a>
+    <a href="#s2">一、功能层面</a>
+    <a class="lv2" href="#s2-1">能力覆盖矩阵</a>
+    <a class="lv2" href="#s2-2">逐段对照</a>
+    <a class="lv2" href="#s2-3">独有能力与适用场景</a>
+    <a class="lv2" href="#s2-4">关键差异与潜在影响</a>
+    <a href="#s3">二、交互层面</a>
+    <a class="lv2" href="#s3-1">信息架构与导航</a>
+    <a class="lv2" href="#s3-2">典型操作流程</a>
+    <a class="lv2" href="#s3-3">列表、表单与反馈</a>
+    <a class="lv2" href="#s3-4">身份与数据范围</a>
+    <a class="lv2" href="#s3-5">关键差异与潜在影响</a>
+    <a href="#s4">三、数据层面</a>
+    <a class="lv2" href="#s4-1">数据模型与实体</a>
+    <a class="lv2" href="#s4-2">库存口径</a>
+    <a class="lv2" href="#s4-3">订单与履约结构</a>
+    <a class="lv2" href="#s4-4">单据流转与状态机</a>
+    <a class="lv2" href="#s4-5">平台同步与对账</a>
+    <a class="lv2" href="#s4-6">存储与运行形态</a>
+    <a class="lv2" href="#s4-7">关键差异与潜在影响</a>
+    <a href="#s5">结论与建议</a>
+    <a href="#s6">附录：证据清单</a>
+  </nav>
+  <p class="side-note">报告为静态自包含 HTML，可直接打印或另存。标签含义见「阅读须知」。</p>
+</aside>
+
+<main>
+<div class="toolbar">
+  <button type="button" onclick="window.print()">打印 / 存为 PDF</button>
+  <button type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})">回到顶部</button>
+</div>
+
+<header class="cover">
+  <p class="kicker">竞品对比分析 · 供人工阅读</p>
+  <h1>货灵ERP 与店小秘ERP 深入对比分析</h1>
+  <p class="sub">功能、交互、数据三个维度的差异、成因与潜在影响</p>
+  <div class="meta">
+    <span><b>对比对象</b>　货灵ERP（货灵供应链运营平台五端之一） / 店小秘ERP（网页版）</span>
+    <span><b>成文日期</b>　2026-11-08</span>
+    <span><b>材料截止</b>　2026-11-08 现场状态</span>
+  </div>
+</header>
+
+<div class="lead">
+  <p>店小秘是货灵ERP 的直接竞品之一，两者共用同一条 ERP 主干：平台店铺接入、订单、履约发货、售后、库存、商品、报表与账号权限。差异分布在多个能力域，其中「把仓储履约委托给 3PL」只是货灵ERP 的一项差异化能力，不是它的产品定位，也不能用来解释全部差异。本报告按功能、交互、数据三个维度逐项拆解，并明确哪些结论有实测或文档支撑、哪些只是界面可证、哪些无法验证。</p>
+</div>
+
+<h2 id="s0"><span class="num">阅读须知</span>证据边界与标注方式</h2>
+
+<p>双方材料不对称，这是阅读全篇的前提。货灵ERP 一侧有方案文档、字段真值源和原型源码；店小秘一侧只有一次登录后对网页界面的只读浏览。凡涉及店小秘内部数据结构、存储、接口与并发机制的内容，本报告不作断言。</p>
+
+<div class="legend">
+  <span><span class="tag t-obs">实测</span>调研中实际打开的页面或菜单</span>
+  <span><span class="tag t-doc">文档</span>本项目方案文档 / 数据字典写明</span>
+  <span><span class="tag t-impl">实现</span>原型源码或构建脚本可查</span>
+  <span><span class="tag t-inf">推断</span>基于前两类材料的分析判断</span>
+  <span><span class="tag t-na">未验证</span>界面与材料均不可见，不下结论</span>
+</div>
+
+<table class="compact">
+  <thead><tr><th style="width:20%">项</th><th style="width:40%">店小秘ERP</th><th style="width:40%">货灵ERP</th></tr></thead>
+  <tbody>
+    <tr><td>材料来源</td><td><span class="tag t-obs">实测</span>2026-11-08 登录后只读浏览，覆盖 13 个一级模块中的 10 个菜单与 9 个具体页面；另有官网公开首页信息</td><td><span class="tag t-doc">文档</span><code>docs/产品需求/</code> 方案与 <code>docs/数据字典/</code> 49 份实体字典；<span class="tag t-impl">实现</span><code>prototypes/</code> 源码与装配脚本</td></tr>
+    <tr><td>账号状态</td><td><span class="tag t-obs">实测</span>店铺授权页显示全部 74 个平台、已授权 0、未授权 74；订单与库存计数均为 0</td><td><span class="tag t-impl">实现</span>构建期按两个演示货主（海纳食品、辰星日化）各渲染一套页面，共 37 页 × 2 身份</td></tr>
+    <tr><td>可见深度</td><td>菜单结构、列表字段、状态分组、筛选维度、表单入口与空态文案</td><td>设计口径（字段、枚举、状态机、流转规则）+ 原型交互实现</td></tr>
+    <tr><td>不可见部分</td><td><span class="tag t-na">未验证</span>库表结构、主外键、事务边界、接口契约、队列与限流实现、真实数据量下的表现；详情/编辑态与动作后的真实反馈（账号无数据，未触发）</td><td><span class="tag t-na">未验证</span>生产系统能力。本项目明确无后端、数据库与真实前端工程；原型表单与状态流转只写在浏览器内存与 <code>sessionStorage</code>，不发起网络请求</td></tr>
+  </tbody>
+</table>
+
+<div class="callout caution">
+  <span class="ct">两条不能越过的界线</span>
+  <p>其一，<code>docs/架构设计/技术栈选型.md</code> 写有 Vue 3 + Spring Boot 3 + PostgreSQL + Redis + K8s，那是目标技术选型草案，不是货灵ERP 已实现的技术栈，不能据此推断存储与一致性能力。</p>
+  <p>其二，店小秘界面上出现的字段名只是界面口径，不等于它的数据字典；本报告在「数据层面」比较的是<strong>设计口径与界面口径</strong>，不是双方数据库实现。</p>
+</div>
+
+<h2 id="s1"><span class="num">对象与口径</span>为什么是这两个对象</h2>
+
+<p>项目共五个端：货灵ERP、货灵运营中台管理端、货灵WMS、货灵商城、PDA 作业端。<strong>货灵ERP 是店小秘的直接竞品之一</strong>：同为面向货主/卖家的 ERP，导航都覆盖订单、履约、售后、商品、平台接入、库存、报表、账号权限与操作日志。3PL 仓储委托是货灵ERP 在这条主干之外新增的一项能力，对应「仓储委托」「异常与对账」「账单与服务」等段；仓内具体作业划给货灵WMS 与 PDA 端，属同一产品族的端分工，不是 ERP 缺少该能力。其余四端不是本次对比对象。</p>
+
+<table class="compact">
+  <thead><tr><th style="width:18%">维度</th><th style="width:41%">店小秘ERP</th><th style="width:41%">货灵ERP</th></tr></thead>
+  <tbody>
+    <tr><td>使用者</td><td>跨境电商卖家，在平台上开店、备货、打单发货</td><td>货主/卖家，处理平台订单与商城业务，其中一部分仓储履约委托给 3PL</td></tr>
+    <tr><td>交付形态</td><td>在线 SaaS 服务（网页版），需图形验证码登录、店铺授权后使用</td><td>五端之一，独立部署、单实例单主体；当前交付物是自包含 HTML 原型</td></tr>
+    <tr><td>货权与库存账</td><td>卖家自持，系统维护自营仓实物账与平台仓库存</td><td>自营部分按货主维度管理；在委托 3PL 的链路上，ERP 不接管实物账，只查看本货主库存与台账</td></tr>
+    <tr><td>主线问题</td><td>「这一单怎么打出来、发走，货还够不够」</td><td>「这一单怎么接、怎么履约、异常与差异怎么闭环；委托 3PL 时由哪张执行单承接」</td></tr>
+    <tr><td>规模口径</td><td><span class="tag t-obs">实测</span>13 个一级模块；平台授权目录 74 个平台</td><td><span class="tag t-impl">实现</span>12 段导航、37 个页面；<span class="tag t-doc">文档</span>数据字典 49 个实体</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s2"><span class="num">一</span>功能层面：能力、范围与适用场景</h2>
+
+<h3 id="s2-1">1.1 能力覆盖矩阵</h3>
+<p>按能力域逐项列出。店小秘列依据实测菜单与页面，货灵ERP 列依据 <code>prototypes/shared/modules.json</code> 的 12 段导航与方案文档。「无」表示本次材料中未出现该能力，不代表产品绝对不具备。</p>
+
+<table>
+  <thead><tr><th style="width:16%">能力域</th><th style="width:42%">店小秘ERP</th><th style="width:42%">货灵ERP</th></tr></thead>
+  <tbody>
+    <tr><td>平台店铺授权</td><td><span class="tag t-obs">实测</span>设置 → 店铺授权，平台目录式开通（全部 74 / 已授权 / 未授权），另有小程序授权、ERP搬家</td><td><span class="tag t-doc">文档</span>平台店铺、店铺授权两页；授权 6 态（待授权/已授权/即将过期/已过期/已撤销/授权失败），记授权范围、过期时间、失败原因</td></tr>
+    <tr><td>商品刊登</td><td><span class="tag t-obs">实测</span>数据采集、数据搬家、产品开发、产品检测、UPC管理、外观专利、小秘美图，以及 Temu / TikTok / Amazon / 速卖通等平台刊登</td><td>无。商品主档由 3PL 侧审核下发，本端只有本货主商品查询与商品资料变更申请</td></tr>
+    <tr><td>商品主档</td><td><span class="tag t-obs">实测</span>商品管理、商品图片、商品配对、模板管理、包材管理、条码工具；SKU 分单个 / 组合 / 加工 / 多变种 SKU</td><td><span class="tag t-doc">文档</span>本货主商品查询、商品资料变更申请；主档审核在运营中台端，含撞码与跨货主同码处理</td></tr>
+    <tr><td>订单接入</td><td><span class="tag t-obs">实测</span>订单处理、手工订单；按订单来源与国家筛选</td><td><span class="tag t-doc">文档</span>平台订单、商城订单、代发采购单、手工订单（补录）；订单中心为聚合视图</td></tr>
+    <tr><td>审单与自动化</td><td><span class="tag t-obs">实测</span>审单规则、物流规则、赠品规则、运单号自动申请规则；优先级条件→动作，带规则试算</td><td><span class="tag t-doc">文档</span>履约决策记录（决策编号、规则版本、拆分原因、决策人），偏可追溯留痕，不是自动改单</td></tr>
+    <tr><td>履约发货</td><td><span class="tag t-obs">实测</span>待审核 → 待处理 → 运单号申请 → 待打单 → 有货/缺货 → 已交运 → 发货成功/失败；打单、交运、分拨组包、平台组包</td><td><span class="tag t-doc">文档</span>三类履约：仓发货（出库计划单）、自发货、平台备货；渠道单 1:N 履约单 → 执行单，支持部分发货与拆单补发</td></tr>
+    <tr><td>物流</td><td><span class="tag t-obs">实测</span>选择物流方式、常用报关信息、合并申报规则、运费模板 / 运费计算、物流追踪、传预报单、补录单号</td><td><span class="tag t-doc">文档</span>物流跟踪；承运商规则、面单来源、时效由「平台 × 订单类型」配置项吸收</td></tr>
+    <tr><td>售后</td><td><span class="tag t-obs">实测</span>在客服模块按平台拆：速卖通纠纷 / 延长收货 / 买家取消、Wish Tickets、eBay 纠纷与议价；另有物流消息、智能客服</td><td><span class="tag t-doc">文档</span>统一的平台售后单、退货申请；售后处理结果生成入库计划单，验收按可再销售 / 残次 / 报废处置</td></tr>
+    <tr><td>自营仓作业</td><td><span class="tag t-obs">实测</span>签收管理 / 收货异常、手动入库 / 退货入库、手动出库、仓库调拨、仓库盘点、货架管理、加工建议、组装加工、批次库存、出入记录</td><td>不在本端。由货灵WMS 与 PDA 作业端承担（库区库位、移库、盘点、波次、拣货、复核、交接、扫码验收等）</td></tr>
+    <tr><td>仓储委托</td><td>本次材料未见委托单据能力；仓内作业在自身产品内完成</td><td><span class="tag t-doc">文档</span>入库计划单、出库计划单、调拨申请、退货申请、委托单据中心；计划单需运营中台确认后下发仓内。为货灵ERP 的差异化能力之一</td></tr>
+    <tr><td>库存</td><td><span class="tag t-obs">实测</span>仓库清单、批次库存、出入记录、库存推送；六段库存口径（安全/在途/未发/占用/可用/总量）</td><td><span class="tag t-doc">文档</span>本货主库存总览/查询/台账/批次效期查询；已占用、在途、可承诺（ATP）、数据截止</td></tr>
+    <tr><td>平台仓与全托管</td><td><span class="tag t-obs">实测</span>全托管 6 类（Temu、SHEIN、Shopee、TikTok、速卖通、美客多）、平台仓 10 类（FBA、FBL、FBT、Shopee、Mercado 等）、第三方海外仓与海外货盘</td><td><span class="tag t-doc">文档</span>不按平台建页面，用 <code>platformCode + orderTypeCode</code> 配置矩阵表达履约责任方、备货位置、面单来源</td></tr>
+    <tr><td>异常与对账</td><td><span class="tag t-obs">实测</span>订单页异常筛选（缺货、未配对SKU、仓库无此SKU、报关信息未填写等）；财务侧有物流对账</td><td><span class="tag t-doc">文档</span>异常队列（6 类来源域 + SLA）、对账差异（5 类对账来源 × 5 类差异类型，可转异常 / 确认 / 关闭）</td></tr>
+    <tr><td>财务</td><td><span class="tag t-obs">实测</span>利润核算、采购成本、平台费用、物流对账、平台结算、付款审批、1688开票、账号管理</td><td><span class="tag t-doc">文档</span>费用规则查看、本货主费用账单、服务费账单、仓储服务；计费口径是 3PL 仓租与作业费</td></tr>
+    <tr><td>采购</td><td><span class="tag t-obs">实测</span>独立采购模块：采购建议、采购计划、手动采购 / 1688采购、供应商，状态含草稿 / 待审核 / 待到货 / 待入库 / 已入库 / 已完成 / 已取消</td><td>代发采购单归订单段，无独立采购模块与供应商管理</td></tr>
+    <tr><td>商城</td><td>无</td><td><span class="tag t-doc">文档</span>我的店铺、店铺商品、店铺价格、店铺订单、企业资质认证；货主同时是店主与买家的双身份模型</td></tr>
+    <tr><td>数据报表</td><td><span class="tag t-obs">实测</span>综合分析（数据汇总、经营看板、实时大屏）、运营分析、仓储物流统计、采购统计、TikTok 数据</td><td><span class="tag t-doc">文档</span>货主数据报表、工作台待办与风险队列（承诺超时、库存风险、对账差异）</td></tr>
+    <tr><td>账号权限</td><td><span class="tag t-obs">实测</span>子账号管理 + 角色管理、登录需邮箱/短信验证码、责任人设置、PDA设置、操作日志</td><td><span class="tag t-doc">文档</span>三类账号、货主域与运营中台域两套边界、角色 = 菜单 + 动作 + 数据范围、账号生命周期、操作日志、全局审计与代维只读</td></tr>
+  </tbody>
+</table>
+
+<h3 id="s2-2">1.2 按货灵ERP 导航逐段对照</h3>
+<p>下表以货灵ERP 的 12 段导航为骨架，标出店小秘的对应落点。缺失处即能力范围差异最明显的地方，不代表双方产品定位对立。</p>
+
+<table class="compact">
+  <thead><tr><th style="width:14%">货灵ERP 段</th><th style="width:29%">主要页面</th><th style="width:29%">店小秘对应</th><th style="width:28%">关系</th></tr></thead>
+  <tbody>
+    <tr><td>工作台</td><td>货主工作台</td><td>首页（授权引导、直播培训）</td><td>入口形态不同：待办汇总 vs 开店引导</td></tr>
+    <tr><td>订单</td><td>订单中心、平台订单、代发采购单</td><td>订单处理、手工订单</td><td>部分对应；货灵ERP 把发货动作拆出</td></tr>
+    <tr><td>履约</td><td>履约单、平台备货单、自发货单、物流跟踪</td><td>订单处理的状态分组、物流追踪</td><td>同一业务段，建模方式完全不同</td></tr>
+    <tr><td>售后</td><td>平台售后单、退货申请</td><td>客服模块的各平台纠纷与消息</td><td>店小秘无统一售后单，不接逆向入库</td></tr>
+    <tr><td>仓储委托</td><td>入/出库计划单、调拨申请、委托单据中心</td><td>收货、入库、出库管理</td><td>货灵ERP 的差异化能力之一；店小秘仓内作业在自身产品内完成</td></tr>
+    <tr><td>异常与对账</td><td>异常队列、对账差异</td><td>订单页异常筛选、物流对账</td><td>筛选条件 vs 独立单据</td></tr>
+    <tr><td>库存</td><td>总览、查询、台账、批次效期查询</td><td>仓库清单、批次库存、出入记录</td><td>委托方只读视角 vs 自营仓作业视角</td></tr>
+    <tr><td>商品</td><td>本货主商品查询、资料变更申请</td><td>商品管理、配对、包材、条码；产品刊登链路</td><td>店小秘范围大得多，含刊登与素材</td></tr>
+    <tr><td>商城店铺</td><td>我的店铺、店铺商品/价格/订单、资质认证</td><td>无</td><td>货灵ERP 独有</td></tr>
+    <tr><td>平台接入</td><td>平台店铺、同步任务</td><td>店铺授权、库存推送（配对关系/推送规则/推送记录）</td><td>店小秘把同步放在仓库模块下</td></tr>
+    <tr><td>账单与服务</td><td>费用规则、费用账单、服务费账单、仓储服务</td><td>财务模块（利润、成本、平台结算）</td><td>账的主体不同，不是同一套核算</td></tr>
+    <tr><td>报表与设置</td><td>货主数据报表、子账号、角色权限、操作日志</td><td>数据模块、设置模块（子账号/角色/日志）</td><td>结构最接近的一段</td></tr>
+  </tbody>
+</table>
+
+<h3 id="s2-3">1.3 各自独有能力与适用场景</h3>
+<p>下列能力按域平列，都是共同主干之外的差异化部分。<strong>3PL 仓储委托只是货灵ERP 的差异化能力之一</strong>，不是它的产品定位；店小秘的自营仓作业同样只是它的一个能力域。</p>
+<div class="grid2">
+  <div class="card">
+    <h4>店小秘独有或明显更强</h4>
+    <ul>
+      <li>产品刊登全链路：采集、搬家、开发、UPC、专利检测、美图、各平台刊登。</li>
+      <li>全托管与平台仓：6 类全托管、10 类平台仓、海外仓与海外货盘。</li>
+      <li>物流与报关：运费模板/计算、常用报关信息、合并申报、面单与组包。</li>
+      <li>经营财务：利润核算、采购成本、平台费用、平台结算、1688 采购与开票。</li>
+      <li>客服自动化：发货提醒、自动催付、自动评价、消息模板、纠纷与议价。</li>
+      <li>自营仓作业：收货、入库、出库、调拨、盘点、货架、加工组装。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>货灵ERP 独有或明显更强</h4>
+    <ul>
+      <li>仓储委托：计划单、调拨/退货申请、委托单据中心，形成委托—确认—执行链。</li>
+      <li>三类履约与 1:N 履约单：仓发货、自发货、平台备货，支持部分发货与拆单。</li>
+      <li>订单 360 与履约决策留痕、ATP 与承诺时钟、风险队列。</li>
+      <li>异常队列（来源域 + SLA）与对账差异（五类来源 × 五类差异）。</li>
+      <li>售后逆向入库：处置结果回写库存，形成货权闭环。</li>
+      <li>商城双身份、服务费账单与仓储服务、两域账号与全局审计。</li>
+    </ul>
+  </div>
+</div>
+
+<table class="compact">
+  <thead><tr><th style="width:16%">场景</th><th style="width:42%">更贴合店小秘</th><th style="width:42%">更贴合货灵ERP</th></tr></thead>
+  <tbody>
+    <tr><td>典型使用者</td><td>在多个跨境平台开店、自己租仓或发平台仓、自己打单的卖家</td><td>货主/卖家，处理多平台订单与商城业务，其中一部分仓储履约委托给 3PL</td></tr>
+    <tr><td>核心诉求</td><td>多平台上架与铺货、订单处理效率、运费与利润核算</td><td>订单与履约可追踪、本货主库存可信、异常与差异有闭环；委托链路上还要能核对服务费</td></tr>
+    <tr><td>当前不覆盖</td><td>本次材料未见把作业委托给外部仓、按货主隔离数据、对账到单据级</td><td>当前版本未见刊登商品、经营利润核算、直接指挥仓内拣货与打单</td></tr>
+  </tbody>
+</table>
+
+<h3 id="s2-4">1.4 关键差异点与潜在影响</h3>
+<table>
+  <thead><tr><th style="width:17%">差异点</th><th style="width:22%">店小秘</th><th style="width:22%">货灵ERP</th><th style="width:39%">潜在影响</th></tr></thead>
+  <tbody>
+    <tr><td>履约模式覆盖范围</td><td>覆盖卖家自营发货、平台仓、全托管、海外仓；自营仓作业在自身产品内</td><td>同样有平台订单、三类履约、自发货与平台备货；额外提供 3PL 仓储委托，仓内作业由同平台 WMS 端承接</td><td>主干状态可以对齐，差异集中在委托链路。把「委托 3PL」当成货灵ERP 的产品定位，会把端分工误读成能力缺口，也会漏掉刊登、物流报关、经营财务等其他能力域的差距。<span class="tag t-inf">推断</span></td></tr>
+    <tr><td>平台差异承载方式</td><td>按平台建页面：全托管 6 类、平台仓 10 类、组包按平台拆分</td><td>按 <code>platformCode + orderTypeCode</code> 配置矩阵，10 项配置项决定履约责任、备货位置、面单来源</td><td>店小秘接入新平台会新增一批入口，导航膨胀但规则直观；货灵ERP 新增平台主要改配置，代价是规则集中、排障时要先看配置再定位页面。<span class="tag t-inf">推断</span></td></tr>
+    <tr><td>售后是否闭环到库存</td><td>客服模块按平台处理纠纷与消息，界面未见统一售后单</td><td>平台售后单 → 退货申请 → 入库计划单 → 验收处置（可再销售/残次/报废）</td><td>在委托 3PL 的链路上，货权必须回到库存账，否则退货长期悬在「售后中」而对不上台账；卖家自营时货本就在自己手里，闭环压力小。<span class="tag t-doc">文档</span><span class="tag t-inf">推断</span></td></tr>
+    <tr><td>异常是否成单</td><td>异常以筛选标签挂在订单页；财务侧另有物流对账</td><td>异常队列带来源域与处理时限；对账差异可转异常、确认、关闭</td><td>跨系统的差异需要责任人、时限与处理轨迹，靠人工在订单页筛出来容易漏；反过来，独立异常单也带来额外的录入与维护成本。<span class="tag t-inf">推断</span></td></tr>
+    <tr><td>仓储作业边界</td><td>仓库模块内含收货、入库、出库、盘点、货架、加工</td><td>ERP 不含仓内作业，交给货灵WMS 与 PDA 端</td><td>货灵ERP 的功能清单看起来比店小秘「薄」，这是端职责切分的结果，不能当成能力缺口去补。<span class="tag t-doc">文档</span></td></tr>
+    <tr><td>商品主档归属</td><td>卖家自建 SKU，含组合/加工/多变种，含素材与刊登</td><td>3PL 侧审核下发，本端发起变更申请，需处理跨货主同码</td><td>多货主共用同一条码时，取数规则写错会把货记到别家账上；这是店小秘单主体模型不会遇到的约束。<span class="tag t-doc">文档</span></td></tr>
+    <tr><td>账号与数据范围</td><td>子账号 + 角色 + 登录二次验证，面向单一卖家主体</td><td>两域三类账号，角色含数据范围，列表按登录货主限定</td><td>货灵ERP 需要跨货主隔离与运营中台只读审计；照搬店小秘的子账号模型会缺一层数据边界。<span class="tag t-doc">文档</span></td></tr>
+  </tbody>
+</table>
+
+<h2 id="s3"><span class="num">二</span>交互层面：流程、反馈与体验</h2>
+
+<div class="callout neutral">
+  <span class="ct">本维度的可比范围</span>
+  <p>店小秘一侧的交互证据来自列表页、规则页、设置页与登录/引导流程的实际渲染；调研账号无订单与库存数据，<strong>详情视图、编辑表单、批量动作执行后的真实反馈未触发，标为未验证</strong>。货灵ERP 一侧的交互是原型实现，可点击但状态只存在浏览器内，两侧都不代表生产环境的完整体验。</p>
+</div>
+
+<h3 id="s3-1">2.1 信息架构与导航</h3>
+<table class="compact">
+  <thead><tr><th style="width:18%">项</th><th style="width:41%">店小秘ERP</th><th style="width:41%">货灵ERP</th></tr></thead>
+  <tbody>
+    <tr><td>一级组织</td><td><span class="tag t-obs">实测</span>顶部横向 13 个一级模块</td><td><span class="tag t-impl">实现</span>admin 外壳左侧栏，按 <code>apps[].nav</code> 的 12 段分组</td></tr>
+    <tr><td>展开方式</td><td><span class="tag t-obs">实测</span>悬停展开分组式大菜单（如「仓库」一次列出 9 个功能组、数十个链接），点击一级模块落到默认页</td><td><span class="tag t-impl">实现</span><code>data-nav-group</code> 控制，同一时刻只展开当前段；页头页签与侧栏由同一份 groups 生成，只显示当前段</td></tr>
+    <tr><td>单段容量</td><td>大，一个菜单内跨域平铺（商品、库存推送、自营仓、收货、入库、出库、全托管、平台仓、第三方仓并列）</td><td><span class="tag t-doc">文档</span>信息架构规则写明「一段只回答一个问题、单段不超过 5 页」；实测段内 3~5 页</td></tr>
+    <tr><td>首次使用</td><td><span class="tag t-obs">实测</span>登录后弹新手引导（授权店铺 → 发布产品 → 处理订单 → 其他功能，可勾「不再提醒」），首页是平台授权目录</td><td><span class="tag t-impl">实现</span>登录层选演示身份，进入后是货主工作台待办与风险队列</td></tr>
+  </tbody>
+</table>
+
+<div class="impact"><b>影响：</b>店小秘把入口一次性摊开，熟练用户能在一次悬停里跳到任意功能，但新用户要记住「找哪个模块」；货灵ERP 按信息线索分段，跨段任务要多一次切换，代价是每段内部更聚焦。<span class="tag t-inf">推断</span></div>
+
+<h3 id="s3-2">2.2 典型操作流程对比</h3>
+
+<h4>流程 A：从接单到发货</h4>
+<p><strong>店小秘</strong> <span class="tag t-obs">实测</span>（状态分组即操作队列，依据是订单处理页的页签与审单规则页）</p>
+<div class="flow">
+  <span class="step">店铺授权</span><span class="arr">→</span>
+  <span class="step">订单进入待审核</span><span class="arr">→</span>
+  <span class="step">审单规则自动标记 / 移入待审核</span><span class="arr">→</span>
+  <span class="step">待处理</span><span class="arr">→</span>
+  <span class="step">运单号申请</span><span class="arr">→</span>
+  <span class="step">待打单（有货 / 缺货）</span><span class="arr">→</span>
+  <span class="step">打单、已交运</span><span class="arr">→</span>
+  <span class="step">发货成功 / 失败</span>
+</div>
+<p><strong>货灵ERP</strong> <span class="tag t-doc">文档</span><span class="tag t-impl">实现</span></p>
+<div class="flow alt">
+  <span class="step">平台店铺授权</span><span class="arr">→</span>
+  <span class="step">同步任务拉单（只写订单中心，不自动下发）</span><span class="arr">→</span>
+  <span class="step">订单中心 360 看概览 / ATP / 时间线</span><span class="arr">→</span>
+  <span class="step">履约决策（方式、目标仓、承运商、拆分原因）</span><span class="arr">→</span>
+  <span class="step">下发执行单（出库计划单 / 自发货单 / 平台备货单）</span><span class="arr">→</span>
+  <span class="step">履约单聚合状态、仓内执行</span>
+</div>
+<div class="impact"><b>差异：</b>店小秘把判断压在订单状态里，操作者按队列往前推；货灵ERP 把「为什么这样发」显式化为一次可留痕的决策（决策编号、规则版本、决策人）。前者快，后者把决策变成可追溯数据，与是否委托 3PL 没有必然关系。<span class="tag t-inf">推断</span></div>
+
+<h4>流程 B：异常与售后</h4>
+<p><strong>店小秘</strong> <span class="tag t-obs">实测</span>：在订单页勾选异常筛选（缺货 / 未配对SKU / 仓库无此SKU / 报关信息未填写 / 黑名单买家等）定位问题单，人工处理；买家侧问题进入客服模块对应平台的纠纷、Tickets、消息入口。</p>
+<p><strong>货灵ERP</strong> <span class="tag t-doc">文档</span>：异常队列按来源域（订单 / 平台同步 / 履约 / 售后 / 账单 / 仓储）与 SLA 排队，可转处理；对账差异按四单口径比对后转异常、确认或关闭；售后走平台售后单 → 退货申请 → 入库计划单 → 验收处置。</p>
+<div class="impact"><b>影响：</b>筛选标签依赖操作者主动去找，队列带时限则把发现责任交给系统。跨 3PL、平台、货主三方的差异若只靠订单页筛选，容易在月末对账时才暴露。<span class="tag t-inf">推断</span></div>
+
+<h3 id="s3-3">2.3 列表、表单与界面反馈</h3>
+<table class="compact">
+  <thead><tr><th style="width:17%">项</th><th style="width:41%">店小秘ERP</th><th style="width:41%">货灵ERP</th></tr></thead>
+  <tbody>
+    <tr><td>列表结构</td><td><span class="tag t-obs">实测</span>状态分组页签（多数带计数）→ 多维筛选 + 高级搜索 + 精确匹配 → 工具条（批量操作、导入/导出）→ 表格 → 分页（50 / 100 条每页）；商品管理页底部有库存总价值、库存总数、可用库存总数汇总行</td><td><span class="tag t-doc">文档</span>结构固定为状态页签 → 筛选条 → 工具条 → 表格 → 分页；首项「全部」不带筛选字段，其余必须真筛；计数写在 <code>statusTabs[].count</code></td></tr>
+    <tr><td>状态表达</td><td><span class="tag t-obs">实测</span>订单页用一串横向状态分组表达流水线；仓库清单用「拣货区 / 次品区 / 全部区」表达库区；仓库设置用「仓库管理 / 分区管理 / 货架管理」表达对象层级</td><td><span class="tag t-impl">实现</span>状态页签由 <code>data-tab-field/data-tab-value</code> 驱动，动作后 <code>rebuildRows()</code> 重绘表格并重算每个页签计数</td></tr>
+    <tr><td>行下钻与表单</td><td><span class="tag t-na">未验证</span>本次未进入详情/编辑态，无法确认抽屉、弹窗或表单校验形态</td><td><span class="tag t-impl">实现</span><code>DrawerDetail</code> 抽屉（订单 360 含订单概览、履约决策、关联单据、ATP 检查、时间线）、<code>FormDrawer</code> 表单；<code>checks</code> 多选按组渲染，值以「、」拼接回写</td></tr>
+    <tr><td>动作后反馈</td><td><span class="tag t-obs">实测</span>可见状态计数、空态文案（「暂无数据，您可通过系统规则…创建规则」）、登录验证码错误提示、帮助中心与悬浮「小秘AI / 客服 / 帮助 / 回到顶部」；<span class="tag t-na">未验证</span>具体业务动作后的反馈</td><td><span class="tag t-impl">实现</span><code>applyFormAction()</code>：收集表单 → 改状态 → 写 trace → 存 <code>sessionStorage</code> → 重绘 → 关抽屉 → toast「…已生效」</td></tr>
+    <tr><td>批量动作</td><td><span class="tag t-obs">实测</span>列表工具条有「批量操作」「导入/导出」等入口</td><td><span class="tag t-impl">实现</span>工具条按钮只支持 <code>toast</code> / <code>confirm</code> / 属性三类；全库无行勾选框与批量状态机，批量动作只弹「原型示意」提示，不改数据</td></tr>
+    <tr><td>验证与配置</td><td><span class="tag t-obs">实测</span>审单规则页有「启用审核流程」开关、未命中处理下拉、「规则试算」「设置系统规则」「创建规则」；规则列表按优先级、名称、详情、执行动作、状态展开</td><td><span class="tag t-impl">实现</span>表单含必填校验；策略/工作流配置在货灵WMS 侧（作业配置段），ERP 本端主要是查询与委托</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <span class="ct">原型反馈不能当产品体验结论</span>
+  <p>货灵ERP 的表单提交、状态流转、页签计数都是浏览器内存状态，刷新或换端不共享，<code>sessionStorage</code> 键形如 <code>wx-live-&lt;pageId&gt;-&lt;view&gt;-&lt;storageKey&gt;</code>；批量动作只弹提示。因此「动作后即时反馈」这条在设计上成立，但不能推断生产环境的持久化与并发表现。</p>
+</div>
+
+<h3 id="s3-4">2.4 身份与数据范围交互</h3>
+<table class="compact">
+  <thead><tr><th style="width:18%">项</th><th style="width:41%">店小秘ERP</th><th style="width:41%">货灵ERP</th></tr></thead>
+  <tbody>
+    <tr><td>登录</td><td><span class="tag t-obs">实测</span>用户名 + 密码 + 图形验证码，提供扫码登录、记住密码、找回密码；验证码错误会刷新验证码并提示</td><td><span class="tag t-impl">实现</span>登录层提供演示身份选择，进入后按身份锁定；<span class="tag t-doc">文档</span>原型不实现真实密码、SSO、审批流与登录校验</td></tr>
+    <tr><td>数据切换</td><td><span class="tag t-obs">实测</span>页面内提供仓库位置、国家/地区、平台、SKU 类型、商品状态等多种筛选器，可自由切换查看范围</td><td><span class="tag t-impl">实现</span>构建期按 <code>r.owner === view</code> 过滤每页行数据，每个 section 打 <code>data-owner-view</code>；运行期只显示当前身份的页，不提供货主下拉或筛选</td></tr>
+    <tr><td>约束落地</td><td><span class="tag t-na">未验证</span>内部权限拦截不可见</td><td><span class="tag t-impl">实现</span>构建期断言：ERP 产物一旦出现 <code>&lt;select class="wx-owner-select"&gt;</code> 或 <code>data-filter-key="owner"</code> 即报错；逐个 section 检查「身份 A 的页面不得出现身份 B 的货主名」</td></tr>
+    <tr><td>PDA 交互</td><td><span class="tag t-obs">实测</span>设置里有「PDA设置」入口，具体作业界面未展开</td><td><span class="tag t-doc">文档</span>PDA 作业端 14 页；扫码页固定六段（导航 / 任务上下文 / 当前输入 / 对象摘要 / 数量与进度 / 操作），一屏只露一个输入；登录是设备登录（工号牌 / PIN / 人脸）</td></tr>
+  </tbody>
+</table>
+
+<div class="impact"><b>影响：</b>货灵ERP 从构建期就把跨货主数据隔离写死，交互层没有误切货主的可能，代价是同一会话不能切换货主，演示需要重进；店小秘的筛选器更自由，但那是单卖家主体内切换仓库/平台，与跨货主隔离不是同一个问题。<span class="tag t-inf">推断</span></div>
+
+<h3 id="s3-5">2.5 关键差异点与潜在影响</h3>
+<table>
+  <thead><tr><th style="width:19%">差异点</th><th style="width:38%">具体表现</th><th style="width:43%">潜在影响</th></tr></thead>
+  <tbody>
+    <tr><td>导航密度</td><td>大菜单一次平铺数十入口 vs 12 段侧栏、单段 ≤5 页、同时只展开一段</td><td>前者查找路径短、记忆负担高；后者路径清晰、跨段任务多一步。培训材料与帮助入口的写法要跟着变。<span class="tag t-inf">推断</span></td></tr>
+    <tr><td>状态即流程 vs 单据即流程</td><td>订单页状态分组直接是待办队列 vs 订单中心 / 履约单 / 执行单分层，状态分布在三类单据上</td><td>前者「一眼看到还有多少单要打」，后者「一眼看到这单为什么这样发」。若把货灵ERP 也做成单串状态分组，1:N 履约与部分发货无法表达。<span class="tag t-inf">推断</span></td></tr>
+    <tr><td>决策是否显式</td><td>审单规则自动改单，配「规则试算」验证 vs 履约决策抽屉记录方式、仓、承运商、拆分原因、规则版本</td><td>委托场景下事后追责需要决策留痕；但显式决策增加一次操作。可借鉴「规则试算」降低配置上线风险。<span class="tag t-inf">推断</span></td></tr>
+    <tr><td>异常发现方式</td><td>筛选标签由人主动勾 vs 异常队列 + SLA + 工作台待办</td><td>影响异常暴露时延与遗漏率；队列方案需要维护来源域分类与责任人，否则会变成无人认领的堆积。<span class="tag t-inf">推断</span></td></tr>
+    <tr><td>反馈的真实性</td><td>真实在线服务的计数与提示 vs 原型内存状态、toast、批量动作只示意</td><td>不能把原型「点一下计数就变」当成已验证的交互质量；任何面向生产的体验结论都需要真实系统复验。<span class="tag t-doc">文档</span></td></tr>
+  </tbody>
+</table>
+
+<h2 id="s4"><span class="num">三</span>数据层面：结构、处理、存储与流转</h2>
+
+<div class="callout caution">
+  <span class="ct">先说可比性</span>
+  <p>店小秘的内部数据结构、存储引擎、事务与接口实现<strong>本次完全不可见</strong>；货灵ERP 有完整的数据字典设计，但当前只有静态 JSON 原型，没有数据库。因此本章比较的是<strong>设计口径（货灵ERP 字典与方案）与界面口径（店小秘列表字段、状态分组）</strong>，并在末节单独说明双方的运行形态。任何关于性能、一致性、并发与事务的结论都不在本报告范围内。</p>
+</div>
+
+<h3 id="s4-1">3.1 数据模型与实体</h3>
+<p><strong>货灵ERP</strong> <span class="tag t-doc">文档</span>：<code>docs/数据字典/</code> 收录 49 个实体，字段表统一 7 列（字段 key / 中文名 / 类型 / 长度 / 必填 / 取值口径 / 说明关联），状态与枚举单列成表。与本报告相关的关键实体：</p>
+
+<table class="compact">
+  <thead><tr><th style="width:18%">实体</th><th style="width:12%">字段规模</th><th style="width:34%">关键字段组</th><th style="width:36%">状态 / 枚举</th></tr></thead>
+  <tbody>
+    <tr><td>平台订单</td><td>4 组 36 字段</td><td>标识（订单号、平台订单号、平台/店铺/授权码、货主编码、订单类型、履约方式、同步状态、承诺发货时间、风险等级、决策编号）、收货金额、明细行、履约对账（<code>planNo</code> 只存首张主履约单号、履约单数、退款状态、失败原因）</td><td>履约状态 7（未下发/待发货/部分发货/已发货/已签收/售后中/已取消）；履约风险 3；平台 7、订单类型 6、履约方式 3、同步状态 3</td></tr>
+    <tr><td>履约决策</td><td>1 组 11 字段</td><td>决策编号、订单号、履约单号、履约方式、目标仓、承运商、承诺时间、拆分原因、规则版本、决策人、决策时间</td><td>决策本身不设状态，只追加不改写</td></tr>
+    <tr><td>平台店铺 / 店铺授权</td><td>16 / 14 字段</td><td>店铺编码、卖家 ID、区域、店铺类型、授权状态；授权号、授权范围、授权/过期时间、最近同步时间、失败原因；授权日志记操作者与动作</td><td>店铺授权 6 态；授权记录 5 态；动作 4 类（授权/重新授权/解除授权/刷新凭证），重新授权追加不覆盖</td></tr>
+    <tr><td>同步任务</td><td>2 组 18 字段</td><td>任务号、店铺、同步类型、触发方式、时间窗、任务状态、成功/失败数、重试次数、失败原因；游标、页数、上次成功时间、下次重试时间</td><td>任务状态 5（待执行/执行中/成功/部分失败/失败）；同步类型 3（拉单/回传/售后）</td></tr>
+    <tr><td>平台备货单 / 自发货单</td><td>21 / 14 字段</td><td>平台仓、预约号与预约时间、箱唛/装箱单号与文件、出库计划单号、收发货时间；自发货含来源单据、收货方、承运商、运单号、包裹数</td><td>备货状态 7（待备货…已完成/已取消）；自发货状态 4；自发货不锁 3PL 库存</td></tr>
+    <tr><td>平台售后单</td><td>3 组 23 字段</td><td>售后编号、平台售后号、订单号、售后类型、售后状态、退款金额、处理时限；退货运单、处理结果、同步状态；逆向入库计划单号、处置结果</td><td>售后状态 7；类型 5（仅退款/退货退款/换货/平台介入/索赔）；处置结果 3（可再销售/残次/报废）</td></tr>
+    <tr><td>库存台账 / 批次效期</td><td>15 / 17 字段</td><td>流水号、业务类型、变动量、变动后量、发生时间；冲正单号、仓库编码；批次号、生产/到期/到货日期、库位、剩余天数、冻结量、处置意见</td><td>台账状态 2（已入账/已冲正），只追加不改写；效期状态 4（正常/临期/禁售/过期）</td></tr>
+    <tr><td>入库 / 出库计划单</td><td>20 / 25 字段</td><td>计划单号、业务类型、目标仓、计划状态、确认方式、来源单据类型与单号、预计到货、计划数量、确认人与时间、关闭原因、明细行；出库另含收货方信息、截单时间、锁库状态</td><td>计划单状态 5（草稿/待确认/已生效/已分发/已关闭）；锁库状态 3（未锁/已锁/已释放）；入库类型 5 含售后入库</td></tr>
+    <tr><td>子账号 / 角色 / 操作日志</td><td>23 / 14 / 13 字段</td><td>账号域、账号类型、所属货主/仓、角色、账号状态；菜单/动作/数据范围、可见仓与业务；日志记操作者、所属端、模块、动作、IP、对象、结果、失败原因</td><td>账号域 2（erp/network）、账号类型 3、状态 4；角色归属 3；日志结果 2、动作 16 类</td></tr>
+    <tr><td>差异异常单</td><td>2 组 18 字段</td><td>异常号、异常类型、来源域、来源单据号、SLA、差异数量、异常状态；货主意见、申诉号、处理结果、台账号</td><td>处理状态 4；来源域 6（订单/平台同步/履约/售后/账单/仓储）</td></tr>
+    <tr><td>货主开通 / 平台应用</td><td>14 / 11 字段</td><td>货主编码、签约与 ERP 状态、模块数、版本、到期日、店铺/账号数；应用编码、平台、AppKey 掩码、授权方式、回调、能力范围、限流、审核状态、版本</td><td>ERP 状态 3；应用审核 5 态；App Secret 不落页面</td></tr>
+  </tbody>
+</table>
+
+<p class="footnote" style="margin-top:-8px;border:0;padding-top:0">注：<strong>履约单没有独立的数据字典实体文档</strong>，其口径散落在方案文档与《平台订单》《履约决策》字典中，状态 5 值（待发货/已发货/已签收/已取消/异常）由方案文档定义。写下游实现时不能假设它已有字段真值源。</p>
+
+<p><strong>店小秘</strong> <span class="tag t-obs">实测</span>：界面可见的字段口径集中在几处——商品管理页（商品信息、仓库位置、货架位、库存情况、销量、单价、总价、时间、操作）、订单处理页（订单来源、国家、备注/留言、物流、报关信息、SKU 配对、仓库有无此 SKU）、仓库设置（仓库名称/地址/负责人/默认状态，分区名称/货架数/分区类型/状态）、子账号管理（子账号名称、姓名、角色、创建时间、登录二次验证、最后登录时间）、采购建议（采购单号、供货商、SKU、运单号、关联订单号、备注）。<span class="tag t-na">未验证</span>其内部实体划分、主外键、字段类型与约束均不可见。</p>
+
+<div class="impact"><b>影响：</b>货灵ERP 的实体与枚举是显式真值源，页面列名、状态标签、原型数据都要向它对齐；店小秘的界面字段只能作为命名与口径的参考，不能反推成数据模型。把界面字段当作对方的数据字典，是竞品分析里最容易出错的一步。<span class="tag t-inf">推断</span></div>
+
+<h3 id="s4-2">3.2 库存口径对照</h3>
+<table class="compact">
+  <thead><tr><th style="width:17%">项</th><th style="width:41%">店小秘 <span class="tag t-obs">实测</span></th><th style="width:42%">货灵ERP <span class="tag t-doc">文档</span></th></tr></thead>
+  <tbody>
+    <tr><td>数量分段</td><td>安全 / 在途 / 未发 / 占用 / 可用 / 总量，六段并列展示</td><td>列表展示已占用、在途、可承诺、数据截止；ATP 公式 = 可用数量 − 未发订单占用 + 在途入库，按货主 × 商品 × 仓计算</td></tr>
+    <tr><td>「未发」含义</td><td>作为独立库存分段展示的业务量</td><td>在 ATP 公式里是扣减项；订单侧还有履约状态「未下发」</td></tr>
+    <tr><td>预警与效期</td><td>安全库存一段；商品状态含滞销 / 清仓；批次库存、出入记录</td><td>低库存预警、批次效期 4 态、临期处置意见 3 类、日清检查、库存快照、仓位/分仓/分布视图</td></tr>
+    <tr><td>商品维度</td><td>SKU 类型 4 类（单个/组合/加工/多变种）；商品状态 6 类；销量按 3/7/15/30 天；货架位、识别码</td><td>商品主档按货主隔离、变更申请与审核下发；本端不维护销量分档与商品生命周期状态</td></tr>
+    <tr><td>账的形态</td><td>界面有批次库存与出入记录，具体账本规则<span class="tag t-na">未验证</span></td><td>库存台账只追加不改写、可冲正；调整与快照留痕；原型 ATP 为演示值，不做实时计算</td></tr>
+  </tbody>
+</table>
+
+<div class="impact"><b>潜在影响：</b>同名不同义最需要警惕——两边都写「未发」「在途」，但在店小秘是并列展示的数量段，在货灵ERP 是 ATP 公式的输入项与履约状态。若直接把六段口径搬进本端，会出现同一字段两种算法、对账时对不上。反过来，店小秘的「安全」与销量分档能补足货主看经营表现的诉求，但按现行「ERP 不接管 3PL 库存账」的边界，销量分档不宜进 ERP。<span class="tag t-inf">推断</span></div>
+
+<h3 id="s4-3">3.3 订单与履约的数据结构</h3>
+<div class="grid2">
+  <div class="card">
+    <h4>店小秘：单层订单 + 状态分组</h4>
+    <p><span class="tag t-obs">实测</span>订单处理页用「全部订单 / 待审核 / 待处理 / 运单号申请 / 待打单 / 有货 / 缺货 / 已交运 / 发货失败 / 发货成功 / 已退款 / 已搁置」组织同一批订单；异常以筛选标签表达（缺货、未配对SKU、仓库无此SKU、报关信息未填写、黑名单买家等）。</p>
+    <p>界面未见「履约单」或「执行单」层。一单对应几张包裹、部分发货如何记录，<span class="tag t-na">未验证</span>。</p>
+  </div>
+  <div class="card">
+    <h4>货灵ERP：三层 + 1:N</h4>
+    <p><span class="tag t-doc">文档</span>渠道单（平台订单/商城订单/代发采购单，持有真相）→ 履约单（一次发货一条，视图，不建表）→ 执行单（出库计划单/自发货单/平台备货单，持有真相）；订单中心是聚合视图。</p>
+    <p>一个渠道单可对应多张履约单：按商品行/仓/包裹拆分，全部履约单完成才转已发货，补发另建履约单且原单留痕。平台订单的 <code>planNo</code> 只存首张主履约单号，靠 <code>fulfillmentCount</code> 记录张数。</p>
+  </div>
+</div>
+
+<div class="impact"><b>潜在影响：</b>1:N 让部分发货、拆单、补发有了明确落点，但列表上「执行单号」这类列必须显式说明只存首张，否则使用者会误读成一对一，后续对账、售后关联都会按错误假设写。店小秘的单层模型在自营发货下更轻，代价是这类拆分场景的表达能力受限（具体如何表达未验证）。<span class="tag t-inf">推断</span></div>
+
+<h3 id="s4-4">3.4 单据流转与状态机</h3>
+<table class="compact">
+  <thead><tr><th style="width:17%">项</th><th style="width:41%">店小秘 <span class="tag t-obs">实测</span></th><th style="width:42%">货灵ERP <span class="tag t-doc">文档</span></th></tr></thead>
+  <tbody>
+    <tr><td>主干单据</td><td>订单 → 打单发货；采购单 → 到货 → 入库；仓库侧手动入库 / 退货入库 / 手动出库 / 调拨 / 盘点</td><td>L0 计划单 → 确认即下发一票一仓（编号不变）→ L2 工序单 → L3 任务；三层状态互不覆盖，<code>docStatus</code> 由数量派生</td></tr>
+    <tr><td>状态机</td><td>采购单：草稿箱 / 手动采购 / 1688采购 / 待审核 / 待到货 / 已完成 / 已取消 / 待入库 / 已入库</td><td>计划单 5 态（草稿/待确认/已生效/已分发/已关闭）；出库锁库 3 态；售后状态 7；履约状态 7</td></tr>
+    <tr><td>校验与快照</td><td>界面未见统一的能力校验或时效快照口径 <span class="tag t-na">未验证</span></td><td>能力校验放在计划单确认时；按「仓 × 货主 × 业务类型」快照 <code>slaCode / slaDueTime / slaStatus</code>；出库提交即按商品 × 批次 × 仓全量冻结，库存不足不允许提交</td></tr>
+    <tr><td>逆向</td><td>退货入库、已取消、已搁置、已退款等状态；具体逆向规则<span class="tag t-na">未验证</span></td><td>回退白名单、出库三档取消（未拣货 / 已拣未交接返仓 / 已交接不可取消）、台账冲正、不可逆终态清单；售后入库是 <code>bizType</code> 而非独立单据类型</td></tr>
+  </tbody>
+</table>
+
+<div class="impact"><b>潜在影响：</b>货灵ERP 的委托链把「谁确认、按哪份 SLA、锁了多少库存、怎么冲正」都做成可审计数据，适合多方对账，但状态机与逆向规则复杂，实现与测试成本明显高于自营仓直接出入库。若后续简化，最容易丢的是冲正与不可逆终态，一旦丢了就无法解释历史库存。<span class="tag t-inf">推断</span></div>
+
+<h3 id="s4-5">3.5 平台同步与对账机制</h3>
+<table class="compact">
+  <thead><tr><th style="width:17%">项</th><th style="width:41%">店小秘 <span class="tag t-obs">实测</span></th><th style="width:42%">货灵ERP <span class="tag t-doc">文档</span></th></tr></thead>
+  <tbody>
+    <tr><td>同步入口</td><td>仓库模块下的「库存推送」：配对关系、推送规则、推送记录；设置里的店铺授权</td><td>一级导航「平台接入」：平台店铺、同步任务；运营中台另有平台应用、同步健康、全局审计</td></tr>
+    <tr><td>同步粒度</td><td>界面可见推送规则与推送记录两层，具体触发、重试与并发策略<span class="tag t-na">未验证</span></td><td>每店一条队列 + 平台级限流 + 全局并发上限、店间公平调度；幂等键 <code>shopCode + platformOrderNo</code> / <code>platformAfterSaleNo</code> / <code>waybillNo</code>；拉单只写订单中心，不自动下发；已下发时拦截转人工</td></tr>
+    <tr><td>失败处理</td><td>推送记录可查；失败重试机制<span class="tag t-na">未验证</span></td><td>同步任务 5 态（含部分失败）、游标与重试次数、下次重试时间、失败原因；部分失败/重试耗尽可查可告警</td></tr>
+    <tr><td>对账</td><td>财务侧有物流对账；平台结算、平台费用、利润核算</td><td>四单对账：平台单 ↔ ERP 订单 ↔ 履约/运单 ↔ 账单/售后；对账来源 5 类 × 差异类型 5 类（单号缺失/状态不一致/数量不一致/金额不一致/重复单）；异常 6 来源域 + SLA</td></tr>
+    <tr><td>审计</td><td>操作日志（设置模块）</td><td>操作日志按账号域分开；全局审计跨货主只读、动作留痕不可删除；运营中台代维只开只读摘要</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <span class="ct">设计口径 ≠ 已实现</span>
+  <p>货灵ERP 方案文档明确：原型不实现真实平台接口、OAuth、队列、限流与资金对账，每店队列与全局并发由产品侧实现，原型只展示任务状态、成功失败数与失败原因；ATP 与对账也是演示数据与视图。因此上表右列是<strong>产品设计契约</strong>，不能读作当前系统的运行能力。</p>
+</div>
+
+<h3 id="s4-6">3.6 存储与运行形态</h3>
+<table class="compact">
+  <thead><tr><th style="width:17%">项</th><th style="width:41%">店小秘ERP</th><th style="width:42%">货灵ERP（当前交付物）</th></tr></thead>
+  <tbody>
+    <tr><td>系统形态</td><td><span class="tag t-obs">实测</span>真实在线服务，需登录与店铺授权；<span class="tag t-inf">推断</span>有服务端存储与平台接口</td><td><span class="tag t-doc">文档</span>产品文档与五端自包含 HTML 原型；<code>CODEBUDDY.md</code> 写明「没有后端、数据库、真实前端工程」</td></tr>
+    <tr><td>数据来源</td><td><span class="tag t-na">未验证</span>服务端库表不可见</td><td><span class="tag t-impl">实现</span><code>prototypes/shared/data/</code> 6 份共享主档（货主、商品、仓库、批次、变更申请、平台店铺）+ 各页 <code>data/*.json</code>；页面数据用 <code>ref</code> 声明引用共享主档，构建期由 <code>hydrate()</code> 展开（可投影字段、剔除字段、指定写入目标）</td></tr>
+    <tr><td>装配方式</td><td>不适用</td><td><span class="tag t-impl">实现</span><code>build-app.mjs</code> 读注册表与数据 → 按演示身份过滤行 → 渲染页面 → 把 CSS 与脚本内联进单个 HTML；断言无 <code>http(s)://</code> 外链、无 <code>&lt;script src&gt;</code> / <code>&lt;link href&gt;</code> / <code>@import</code>；产物写到 <code>prototypes/dist/</code> 且不入库</td></tr>
+    <tr><td>运行期状态</td><td>服务端持久化（细节<span class="tag t-na">未验证</span>）</td><td><span class="tag t-impl">实现</span>表单提交与状态流转只写浏览器内存与 <code>sessionStorage</code>，刷新或换端不共享，不发起网络请求；<span class="tag t-doc">文档</span>不做真实权限拦截、SSO、实时 ATP 计算与资金对账</td></tr>
+    <tr><td>技术栈</td><td>不可见</td><td><span class="tag t-doc">文档</span>《技术栈选型》写有 Vue 3 / Spring Boot 3 / PostgreSQL / Redis / K8s，但状态为草案，属目标选型而非已实现</td></tr>
+  </tbody>
+</table>
+
+<div class="impact"><b>潜在影响：</b>这是全篇最需要克制的一节。货灵ERP 一侧能谈的是「字段怎么定、状态怎么转、单据怎么关联」的设计口径；店小秘一侧能谈的是「界面暴露了哪些字段与状态」。双方都没有可比的生产存储证据，因此不能得出事务一致性、并发能力、数据隔离实现或性能方面的优劣结论。<span class="tag t-inf">推断</span></div>
+
+<h3 id="s4-7">3.7 关键差异点与潜在影响</h3>
+<table>
+  <thead><tr><th style="width:19%">差异点</th><th style="width:38%">具体表现</th><th style="width:43%">潜在影响</th></tr></thead>
+  <tbody>
+    <tr><td>真值源形态</td><td>界面字段与状态分组 vs 49 份实体字典 + 统一 7 列字段表 + 枚举表</td><td>货灵ERP 原型列名、演示数据、后续实现都需向字典对齐，字典缺项（如履约单）要补齐，否则页面各自起名；店小秘侧无法做同类校验。<span class="tag t-inf">推断</span></td></tr>
+    <tr><td>库存分段同名不同义</td><td>六段并列展示 vs 已占用 / 在途 / 可承诺 + ATP 公式</td><td>直接照搬会造成字段二义与对账差异；建议先做术语对照表再决定补哪些字段。<span class="tag t-inf">推断</span></td></tr>
+    <tr><td>订单是否分层</td><td>单层订单 + 状态分组 vs 渠道单/履约单/执行单 + 1:N</td><td>影响部分发货、拆单、补发、售后关联与对账口径；分层方案需额外约束「列表只显示首张执行单号」这类展示规则。<span class="tag t-inf">推断</span></td></tr>
+    <tr><td>单据是否带快照与冲正</td><td>界面未见统一 SLA 快照与台账冲正 <span class="tag t-na">未验证</span> vs 仓 × 货主 × 业务类型 SLA 快照、锁库、回退白名单、台账冲正</td><td>3PL 结算与合规要能复算历史时点，快照缺失会导致事后无法解释差异；代价是状态机与逆向用例数量大幅增加。<span class="tag t-inf">推断</span></td></tr>
+    <tr><td>同步与对账是否单据化</td><td>推送规则 + 推送记录 vs 同步任务（5 态、幂等键、游标重试）+ 对账差异单 + 异常队列</td><td>单据化便于跨系统追责，但需要维护任务生命周期、幂等与重试策略；原型阶段只有展示，落地前不能按已实现能力排期。<span class="tag t-doc">文档</span><span class="tag t-inf">推断</span></td></tr>
+    <tr><td>数据范围与审计</td><td>单主体子账号；跨主体隔离机制<span class="tag t-na">未验证</span> vs 两域账号、角色含数据范围、列表按登录货主限定、全局审计只读留痕</td><td>多货主是业务维度而非租户时，隔离必须在字段、查询与审计三处同时成立，任一处漏掉都可能跨货主串货。<span class="tag t-doc">文档</span></td></tr>
+  </tbody>
+</table>
+
+<h2 id="s5"><span class="num">结论</span>差异分布与可借鉴项</h2>
+
+<div class="grid2">
+  <div class="card">
+    <h4>三条结论</h4>
+    <ol>
+      <li><strong>两者是直接竞品，主干同构，差异分布在多个能力域。</strong>平台店铺、订单、履约、售后、库存、商品、报表、账号权限是共同主干；店小秘在刊登、自营仓作业、物流报关、经营财务、客服自动化上更深，货灵ERP 在订单分层与履约决策、异常与对账、商城双身份、两域账号上更深，并额外具备 3PL 仓储委托能力。委托 3PL 只是其中一项，不能用来解释全部差异，也不能把端分工读成能力缺口。</li>
+      <li><strong>交互差异是各自的信息架构选择，成因不止一个。</strong>大菜单 + 状态即流程适合高频熟练操作；分段侧栏 + 显式决策 + 独立异常队列侧重留痕与跨域协同，其中一部分与 3PL 委托链路相关，另一部分（导航密度、规则试算、身份锁定）与委托无关。</li>
+      <li><strong>数据层面的可比部分是口径，不是实现。</strong>一侧有设计真值源但只有静态 JSON 原型，另一侧只有界面字段；报告结论应止于字段、状态与流转口径。</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h4>可借鉴项分级</h4>
+    <ul>
+      <li><strong>可直接借鉴</strong>：审单规则的「规则试算」入口；异常筛选前置（缺货、未配对SKU、仓库无此SKU 等做成列表快捷筛选）；商品生命周期状态（在售/热销/新品/滞销/清仓/停售）。</li>
+      <li><strong>需评估后再定</strong>：六段库存口径（先做术语对照，避免「未发」「在途」二义）；销量 3/7/15/30 分档（与委托链路上「ERP 不接管 3PL 库存账」的边界有冲突）；库区/货架位分型（属货灵WMS，不进 ERP）。</li>
+      <li><strong>不必跟随</strong>：产品刊登链路、全托管与 10 类平台仓、经营利润与平台结算、客服消息自动化、仓内作业与 PDA 作业。</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout caution">
+  <span class="ct">落地前的三个前置条件</span>
+  <p>一，任何原型改动先按工作区规范做跨端联动评估，确认受影响端与「必须同改 / 无需改」；二，涉及字段与枚举的改动，先改 <code>docs/数据字典/</code> 再改页面，并跑两套 <code>check.mjs</code>；三，涉及文案的改动逐字取 <code>glossary.md</code>。本报告只做分析，不改原型与字典。</p>
+</div>
+
+<h2 id="s6"><span class="num">附录</span>证据清单</h2>
+
+<h3>A. 店小秘侧：实测范围</h3>
+<table class="compact">
+  <thead><tr><th style="width:26%">类别</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td>展开的菜单</td><td><span class="tag t-obs">实测</span>产品、订单、客服、采购、仓库、物流、数据、财务、设置（9 个）；首页为登录后落地页；托管、广告、服务未展开</td></tr>
+    <tr><td>打开的页面</td><td><span class="tag t-obs">实测</span>官网/登录页、首页、商品管理、订单处理、审单规则、采购建议、仓库清单、仓库设置（仓库管理、分区管理）、子账号管理、店铺授权</td></tr>
+    <tr><td>只读约束</td><td>未提交任何表单，未新增、修改、删除业务数据；单步串行访问，每步留间隔，无并发请求或批量抓取</td></tr>
+    <tr><td>未覆盖</td><td><span class="tag t-na">未验证</span>详情/编辑态、批量动作执行、打单与发货真实流程、平台授权后的数据表现、内部数据结构与接口</td></tr>
+  </tbody>
+</table>
+
+<h3>B. 货灵ERP 侧：文件依据</h3>
+<table class="compact">
+  <thead><tr><th style="width:38%">文件</th><th>支撑的结论</th></tr></thead>
+  <tbody>
+    <tr><td><code>prototypes/shared/modules.json</code></td><td>12 段导航、37 个页面归属、演示货主清单</td></tr>
+    <tr><td><code>docs/数据字典/index.md</code> 及 49 份实体字典</td><td>字段真值源、状态枚举、只追加/冲正等口径</td></tr>
+    <tr><td><code>docs/产品需求/ERP订单体系与平台接入方案.md</code></td><td>订单三层、1:N 履约、平台 × 订单类型、拉单与幂等、售后逆向入库</td></tr>
+    <tr><td><code>docs/产品需求/ERP履约控制台优化方案.md</code></td><td>订单 360、履约决策、ATP 与承诺时钟、异常与对账五类来源</td></tr>
+    <tr><td><code>docs/产品需求/计划单与时效协议方案.md</code>、<code>出入库计划单状态流转与逆向流程.md</code></td><td>L0/L2/L3、计划单五态、确认即下发、锁库、SLA 快照、逆向与冲正</td></tr>
+    <tr><td><code>docs/产品需求/账号与权限方案.md</code>、<code>ERP运营后台方案.md</code></td><td>两域账号、角色数据范围、代维只读、全局审计、平台应用能力矩阵</td></tr>
+    <tr><td><code>prototypes/shared/ui.mjs</code>、<code>prototypes/build-app.mjs</code></td><td>列表/抽屉/表单/状态计数/toast 契约、构建期身份过滤与断言、无外链自包含产物</td></tr>
+    <tr><td><code>.codebuddy/skills/huoling-proto/references/implementation.md</code>、<code>references/shells/*.md</code></td><td>组件白名单、<code>data-*</code> 契约、后台外壳与 PDA 扫码六段结构</td></tr>
+    <tr><td><code>CODEBUDDY.md</code>、<code>.codebuddy/skills/huoling-proto/README.md</code></td><td>「没有后端、数据库、真实前端工程」「产物不发起网络请求」等边界原话</td></tr>
+    <tr><td><code>docs/产品需求/店小秘ERP竞品对照.md</code></td><td>本报告的实测底稿，含 12 段功能地图对照与页面口径</td></tr>
+  </tbody>
+</table>
+
+<h3>C. 术语对照</h3>
+<table class="compact">
+  <thead><tr><th style="width:25%">本报告用语</th><th style="width:37%">店小秘侧</th><th style="width:38%">货灵ERP 侧</th></tr></thead>
+  <tbody>
+    <tr><td>履约执行</td><td>打单 / 交运 / 发货成功</td><td>下发执行单（出库计划单 / 自发货单 / 平台备货单）</td></tr>
+    <tr><td>库存分段</td><td>安全 / 在途 / 未发 / 占用 / 可用 / 总量</td><td>已占用 / 在途 / 可承诺，ATP 由公式派生</td></tr>
+    <tr><td>平台差异</td><td>按平台建页面（全托管、平台仓、组包）</td><td>按 <code>platformCode + orderTypeCode</code> 配置</td></tr>
+    <tr><td>异常处理</td><td>订单页异常筛选标签</td><td>异常队列（来源域 + SLA）、对账差异单</td></tr>
+    <tr><td>仓库层级</td><td>仓库 → 分区（拣货区/次品区）→ 货架位</td><td>仓网档案 → 库区库位（货灵WMS 侧）</td></tr>
+  </tbody>
+</table>
+
+<p class="footnote">本报告为静态分析文档，成文于 2026-11-08。材料变更后须重新核对：原型页面数、数据字典实体清单、店小秘菜单与页面口径均可能随版本变化。</p>
+
+</main>
+</div>
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('aside .toc a'));
+  var targets = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
+  function mark(){
+    var best = 0, y = window.scrollY + 120;
+    targets.forEach(function(t,i){ if(t && t.offsetTop <= y) best = i; });
+    links.forEach(function(a,i){ a.classList.toggle('active', i === best); });
+  }
+  window.addEventListener('scroll', mark, {passive:true});
+  mark();
+})();
+</script>
+</body>
+</html>

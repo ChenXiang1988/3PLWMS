@@ -9,12 +9,12 @@
   },
   "lanes": [
     { "id": "intake", "label": "发起与受理" },
-    { "id": "entry", "label": "仓网管理端 · 建档录入" },
+    { "id": "entry", "label": "货灵运营中台管理端 · 建档录入" },
     { "id": "gate", "label": "校验与审核" },
     { "id": "master", "label": "主档落库与启用" },
     { "id": "exception", "label": "异常与处置", "variant": "exception" },
     { "id": "reverse", "label": "逆向与留痕", "variant": "exception" },
-    { "id": "usage", "label": "单仓端 / 货主端 · 使用" }
+    { "id": "usage", "label": "货灵WMS / 货主端 · 使用" }
   ],
   "phases": [
     { "id": "p0", "label": "签约与录入", "fromCol": 0, "toCol": 0 },
@@ -48,7 +48,7 @@
     { "id": "r_void", "lane": "reverse", "col": 4, "type": "security", "label": "未下发前可作废", "sublabel": "ownerCode 不复用，主档留痕不可删", "tag": "逆向终态" },
     { "id": "r_reverse", "lane": "reverse", "col": 5, "type": "security", "label": "启用后发现字段错误", "sublabel": "反审核回待审核，原版本留痕", "tag": "可逆向" },
     { "id": "r_stop", "lane": "reverse", "col": 5, "type": "security", "label": "停用货主", "sublabel": "已下发部分同步撤回，台账留痕", "tag": "可再启用" },
-    { "id": "u_wh", "lane": "usage", "col": 5, "type": "frontend", "label": "单仓端按货主作业", "sublabel": "收货、上架、拣货、盘点，库存隔离" },
+    { "id": "u_wh", "lane": "usage", "col": 5, "type": "frontend", "label": "货灵WMS按货主作业", "sublabel": "收货、上架、拣货、盘点，库存隔离" },
     { "id": "u_owner", "lane": "usage", "col": 5, "type": "frontend", "label": "货主端按登录身份使用", "sublabel": "查库存与单据、提交委托、子账号" },
     { "id": "end", "lane": "usage", "col": 5, "type": "external", "label": "货主可开单", "sublabel": "进入日常业务", "tag": "正常终态" }
   ],

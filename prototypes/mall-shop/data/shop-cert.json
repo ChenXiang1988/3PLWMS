@@ -1,0 +1,40 @@
+{
+  "rows": [
+    {
+      "owner": "海纳食品",
+      "certNo": "EC20261105001",
+      "enterpriseName": "海纳食品有限公司",
+      "licenseNo": "91310000MA1FL0A23X",
+      "licenseFile": "营业执照-海纳食品.pdf",
+      "licenseExpiry": "2036-04-18",
+      "certStatus": "approved",
+      "submitTime": "2026-11-05 09:20",
+      "reviewer": "仓网审核员",
+      "reviewTime": "2026-11-05 14:05",
+      "reviewRemark": "营业执照与货主主档一致，认证通过",
+      "materials": [
+        { "item": "营业执照", "fileName": "营业执照-海纳食品.pdf", "uploadTime": "2026-11-05 09:18", "remark": "原件扫描件" }
+      ],
+      "timeline": [
+        { "time": "2026-11-05 09:18", "text": "上传营业执照", "operator": "海纳食品" },
+        { "time": "2026-11-05 09:20", "text": "提交认证", "operator": "海纳食品" },
+        { "time": "2026-11-05 14:05", "text": "审核通过", "operator": "仓网审核员" }
+      ]
+    },
+    {
+      "owner": "辰星日化",
+      "certNo": "EC20261106002",
+      "enterpriseName": "辰星日化有限公司",
+      "licenseNo": "",
+      "licenseFile": "",
+      "licenseExpiry": "",
+      "certStatus": "unverified",
+      "submitTime": "",
+      "reviewer": "",
+      "reviewTime": "",
+      "reviewRemark": "",
+      "materials": [],
+      "timeline": []
+    }
+  ]
+}

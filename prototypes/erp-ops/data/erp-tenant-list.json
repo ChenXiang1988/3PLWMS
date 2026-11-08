@@ -1,0 +1,119 @@
+{
+  "config": {
+    "unit": "个",
+    "statusField": "erpStatus",
+    "keyField": "ownerCode",
+    "statusMeta": {
+      "pending": { "label": "待开通", "tone": "pending" },
+      "active": { "label": "已开通", "tone": "enabled" },
+      "disabled": { "label": "已停用", "tone": "disabled" }
+    },
+    "tabs": [
+      { "label": "待开通", "value": "pending" },
+      { "label": "已开通", "value": "active" },
+      { "label": "已停用", "value": "disabled" }
+    ],
+    "columns": [
+      { "key": "ownerCode", "label": "货主编码", "width": "120px", "cls": "wx-col-strong" },
+      { "key": "ownerName", "label": "货主名称", "width": "168px" },
+      { "key": "signStatus", "label": "签约状态", "width": "96px" },
+      { "key": "erpStatus", "label": "ERP 状态", "width": "108px", "type": "status" },
+      { "key": "moduleCount", "label": "模块数", "width": "80px", "align": "right", "type": "num" },
+      { "key": "version", "label": "版本", "width": "96px" },
+      { "key": "expireDate", "label": "有效期", "width": "120px" },
+      { "key": "shopCount", "label": "店铺数", "width": "80px", "align": "right", "type": "num" },
+      { "key": "accountCount", "label": "账号数", "width": "80px", "align": "right", "type": "num" },
+      { "key": "lastActive", "label": "最近活跃", "width": "157px" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "查看" }
+    ],
+    "filters": [
+      { "label": "签约状态", "key": "signStatus", "type": "select" }
+    ],
+    "scopeNote": "只读货主开通汇总，不管理货主子账号；代维只读并留审计",
+    "form": {
+      "title": "货主开通",
+      "note": "开通与停用只影响 ERP 访问，不改货主签约关系与仓内账号。",
+      "groups": [
+        { "title": "货主信息", "fields": [
+          { "label": "货主编码", "key": "ownerCode", "type": "text", "readonly": true },
+          { "label": "货主名称", "key": "ownerName", "type": "text", "required": true },
+          { "label": "签约状态", "key": "signStatus", "type": "select", "options": ["已签约", "待签约"], "required": true },
+          { "label": "ERP 状态", "key": "erpStatus", "type": "select", "options": [{ "label": "待开通", "value": "pending" }, { "label": "已开通", "value": "active" }, { "label": "已停用", "value": "disabled" }], "required": true },
+          { "label": "版本", "key": "version", "type": "text", "placeholder": "如 2026.11" },
+          { "label": "有效期", "key": "expireDate", "type": "date" }
+        ] },
+        { "title": "模块配置", "fields": [
+          { "label": "已开通模块", "key": "modules", "type": "checks", "options": ["订单", "履约", "售后", "仓储委托", "库存", "商品", "商城店铺", "平台接入", "账单与服务", "报表与设置"] }
+        ] },
+        { "title": "运营信息", "fields": [
+          { "label": "店铺数", "key": "shopCount", "type": "number", "readonly": true },
+          { "label": "账号数", "key": "accountCount", "type": "number", "readonly": true },
+          { "label": "最近活跃", "key": "lastActive", "type": "text", "readonly": true }
+        ] }
+      ],
+      "actions": [
+        { "label": "保存", "primary": true, "attrs": { "data-form-action": "confirm" } },
+        { "label": "停用", "ghost": true, "attrs": { "data-form-action": "withdraw" } },
+        { "label": "代维进入", "ghost": true, "attrs": { "data-toast": "代维进入（原型示意，只读）" } },
+        { "label": "查看审计", "ghost": true, "attrs": { "data-toast": "查看货主审计（原型示意）" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": { "confirm": "active", "withdraw": "disabled" },
+    "emptyTitle": "暂无货主开通记录"
+  },
+  "rows": [
+    {
+      "ownerCode": "HN001",
+      "ownerName": "海纳食品",
+      "signStatus": "已签约",
+      "erpStatus": "active",
+      "moduleCount": 8,
+      "version": "2026.11",
+      "expireDate": "2027-11-07",
+      "shopCount": 3,
+      "accountCount": 3,
+      "lastActive": "2026-11-08 09:40",
+      "modules": "订单、履约、售后、仓储委托、库存、商品、商城店铺、平台接入、账单与服务、报表与设置"
+    },
+    {
+      "ownerCode": "CX001",
+      "ownerName": "辰星日化",
+      "signStatus": "已签约",
+      "erpStatus": "active",
+      "moduleCount": 7,
+      "version": "2026.11",
+      "expireDate": "2027-06-30",
+      "shopCount": 1,
+      "accountCount": 1,
+      "lastActive": "2026-11-08 09:05",
+      "modules": "订单、履约、售后、库存、商品、账单与服务、报表与设置"
+    },
+    {
+      "ownerCode": "YT001",
+      "ownerName": "云途电商",
+      "signStatus": "已签约",
+      "erpStatus": "pending",
+      "moduleCount": 0,
+      "version": "2026.11",
+      "expireDate": "2027-03-31",
+      "shopCount": 0,
+      "accountCount": 1,
+      "lastActive": "2026-10-28 11:16",
+      "modules": ""
+    },
+    {
+      "ownerCode": "XY001",
+      "ownerName": "新元食品",
+      "signStatus": "待签约",
+      "erpStatus": "disabled",
+      "moduleCount": 0,
+      "version": "2026.11",
+      "expireDate": "2026-12-31",
+      "shopCount": 0,
+      "accountCount": 0,
+      "lastActive": "—",
+      "modules": ""
+    }
+  ]
+}

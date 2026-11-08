@@ -131,9 +131,10 @@ function renderFilter(f) {
 export function ListPage({
   unit = '条', pageSize = 20, statusTabs = [], filters = [], toolbar = [],
   showCount = true, scopeNote = '', columns = [], rows = [], rowAttrs = null,
-  card = null, bare = false, before = '', body = '',
+  card = null, bare = false, before = '', body = '', live = null,
   emptyTitle = '暂无记录', emptyDesc = '当前筛选条件下没有任何记录。',
 } = {}) {
+  const liveAttr = live ? ` data-live="${esc(JSON.stringify(live))}"` : '';
   const tabs = statusTabs.map((t) => {
     const attrs = t.field
       ? ` data-tab-field="${esc(t.field)}" data-tab-value="${esc(t.value ?? '')}"`
@@ -156,8 +157,8 @@ export function ListPage({
     ? `<div class="wx-list-cards">${rows.map((r, i) => card(r, i)).join('')}</div>`
       + `<div class="wx-empty" hidden><b>${esc(emptyTitle)}</b><span>${esc(emptyDesc)}</span></div>`
     : BaseTable({ columns, rows, rowAttrs, emptyTitle, emptyDesc }));
-  if (bare) return `<div class="wx-list" data-page-size="${Number(pageSize) || 20}">${before}${table}</div>`;
-  return `<div class="wx-list" data-page-size="${Number(pageSize) || 20}">`
+  if (bare) return `<div class="wx-list" data-page-size="${Number(pageSize) || 20}"${liveAttr}>${before}${table}</div>`;
+  return `<div class="wx-list" data-page-size="${Number(pageSize) || 20}"${liveAttr}>`
     + tabBar
     + filterBar
     + `<div class="wx-actionbar"><span class="wx-actionbar-note">${countNote}</span>`
@@ -191,6 +192,163 @@ export function DetailPage({
   return `<div class="wx-detail">${head}${grid}${table}${tl}${acts}</div>`;
 }
 
+/** 列表行的下钻入口。按钮由组件出，页面模块不拼 HTML。 */
+export function DrawerButton({ label = '查看详情', pageId = '', rowKey = '', formRow = '' } = {}) {
+  const extra = formRow ? ` data-form-row="${esc(formRow)}"` : '';
+  return `<button type="button" class="wx-link" data-drawer-open="${esc(pageId)}" data-drawer-key="${esc(rowKey)}"${extra}>${esc(label)}</button>`;
+}
+
+/** 行下钻详情面板。由 renderPage 作为 overlay 返回，构建挂到 body 末尾，不随页面显隐。 */
+export function DrawerDetail({
+  pageId = '', rowKey = '', title = '', docNo = '—', status = '', statusTone = 'info',
+  fields = [], columns = [], rows = [], timeline = [], actions = [],
+} = {}) {
+  const detail = DetailPage({ docNo, status, statusTone, fields, columns, rows, timeline, actions: [] });
+  const acts = actions.length ? `<div class="wx-drawer-actions">${actions.map(renderButton).join('')}</div>` : '';
+  return `<div class="wx-drawer-panel" data-drawer-panel="${esc(pageId)}" data-drawer-key="${esc(rowKey)}" hidden>`
+    + `<div class="wx-drawer-head"><b>${esc(title)}</b>`
+    + `<button type="button" class="wx-drawer-x" data-drawer-close aria-label="关闭">×</button></div>`
+    + `<div class="wx-drawer-body">${detail}</div>`
+    + acts
+    + `</div>`;
+}
+
+/** 工序编排拓扑：分层节点 + 折线依赖 + 节点属性块；点节点用 :target 联动属性块，不写脚本。 */
+export function DagGraph({
+  flowKey = 'flow', nodes = [], edges = [],
+  nodeW = 132, nodeH = 52, gapX = 20, gapY = 24, pad = 16,
+} = {}) {
+  const layers = [];
+  nodes.forEach((nd) => {
+    const li = Math.max(0, Number(nd.layer) || 0);
+    if (!layers[li]) layers[li] = [];
+    layers[li].push(nd);
+  });
+  const rows = layers.map((r) => r || []);
+  const maxCount = Math.max(1, ...rows.map((r) => r.length));
+  const canvasW = pad * 2 + maxCount * nodeW + (maxCount - 1) * gapX;
+  const canvasH = pad * 2 + rows.length * nodeH + Math.max(0, rows.length - 1) * gapY;
+  const pos = {};
+  rows.forEach((row, li) => {
+    const rowW = row.length * nodeW + Math.max(0, row.length - 1) * gapX;
+    const startX = pad + (canvasW - pad * 2 - rowW) / 2;
+    row.forEach((nd, i) => {
+      pos[nd.id] = { x: startX + i * (nodeW + gapX), y: pad + li * (nodeH + gapY) };
+    });
+  });
+  const pid = (id) => `wx-dag-${flowKey}-${id}`.replace(/[^A-Za-z0-9_-]/g, '-');
+  const paths = edges.map((e) => {
+    const a = pos[e.from]; const b = pos[e.to];
+    if (!a || !b) return '';
+    const x1 = Math.round(a.x + nodeW / 2); const y1 = a.y + nodeH;
+    const x2 = Math.round(b.x + nodeW / 2); const y2 = b.y;
+    const midY = Math.round((y1 + y2) / 2);
+    return `<path d="M${x1} ${y1}V${midY}H${x2}V${y2}" fill="none" stroke="var(--wx-gray-200)"/>`;
+  }).join('');
+  const nodesHtml = nodes.map((nd) => {
+    const p = pos[nd.id] || { x: pad, y: pad };
+    const auto = nd.gen === '自动';
+    const sub = [nd.gen, nd.subject].filter(Boolean).join(' · ');
+    return `<a class="wx-dag-node" href="#${pid(nd.id)}" style="left:${Math.round(p.x)}px;top:${Math.round(p.y)}px;width:${nodeW}px;height:${nodeH}px">`
+      + `<b>${esc(nd.label)}</b>`
+      + `<em><i class="wx-dag-dot${auto ? ' wx-dag-dot--auto' : ''}"></i>${esc(sub)}</em></a>`;
+  }).join('');
+  const props = nodes.map((nd) => {
+    const rowsHtml = (nd.props || []).map((f) => `<div><span>${esc(f.label)}</span>`
+      + `<b${f.tip ? ` title="${esc(f.tip)}"` : ''}>${dash(f.value)}</b></div>`).join('');
+    return `<div class="wx-dag-prop" id="${pid(nd.id)}">`
+      + `<div class="wx-dag-prop-head"><b>${esc(nd.label)}</b><span>${esc(nd.cond || '无条件')}</span></div>`
+      + `<div class="wx-dag-prop-grid">${rowsHtml}</div></div>`;
+  }).join('');
+  return `<div class="wx-dag"><div class="wx-dag-canvas" style="width:${canvasW}px;height:${canvasH}px">`
+    + `<svg class="wx-dag-edges" width="${canvasW}" height="${canvasH}" viewBox="0 0 ${canvasW} ${canvasH}" aria-hidden="true">${paths}</svg>`
+    + nodesHtml + `</div><div class="wx-dag-props">${props}</div>`
+    + `<p class="wx-dag-note">点节点查看该项配置，同一时间只展开一项。</p></div>`;
+}
+
+/** 编排抽屉：抬头字段 + 拓扑 + 节点属性，作为 renderPage 的 overlay 返回，不注册独立页面。 */
+export function DagDrawer({
+  pageId = '', rowKey = '', title = '', docNo = '—', status = '', statusTone = 'info',
+  fields = [], graph = null, actions = [],
+} = {}) {
+  const grid = `<div class="wx-detail-grid">${fields.map((f) => `<div class="wx-detail-field">`
+    + `<span>${esc(f.label)}</span><b${f.tip ? ` title="${esc(f.tip)}"` : ''}>${dash(f.value)}</b>`
+    + `</div>`).join('')}</div>`;
+  const acts = actions.length ? `<div class="wx-drawer-actions">${actions.map(renderButton).join('')}</div>` : '';
+  const dag = graph ? DagGraph({ ...graph, flowKey: graph.flowKey || `${pageId}-${rowKey}` }) : '';
+  return `<div class="wx-drawer-panel wx-drawer-panel--wide" data-drawer-panel="${esc(pageId)}" data-drawer-key="${esc(rowKey)}" hidden>`
+    + `<div class="wx-drawer-head"><b>${esc(title)}</b>`
+    + `<button type="button" class="wx-drawer-x" data-drawer-close aria-label="关闭">×</button></div>`
+    + `<div class="wx-drawer-body"><div class="wx-detail"><div class="wx-detail-head"><b>${esc(docNo)}</b>`
+    + (status ? StatusTag(status, statusTone) : '') + `</div>${grid}${dag}</div></div>`
+    + acts + `</div>`;
+}
+
+/** 表单字段：结构只在实现层出，页面模块只给声明。 */
+export function FormField(f = {}) {
+  const key = esc(f.key || '');
+  const label = esc(f.label || '');
+  const required = f.required ? ` data-form-required="${label}"` : '';
+  const placeholder = esc(f.placeholder || '');
+  const value = esc(f.value ?? '');
+  const ro = f.readonly ? ' readonly' : '';
+  let control;
+  if (f.type === 'select') {
+    const opts = (f.options || []).map((o) => {
+      const label = typeof o === 'string' ? o : o.label;
+      const v = typeof o === 'string' ? o : (o.value ?? o.label);
+      return `<option value="${esc(v)}"${String(f.value ?? '') === String(v) ? ' selected' : ''}>${esc(label)}</option>`;
+    }).join('');
+    control = `<select class="wx-select" data-form-key="${key}"${required}><option value="">请选择</option>${opts}</select>`;
+  } else if (f.type === 'textarea') {
+    control = `<textarea class="wx-input wx-textarea" data-form-key="${key}"${required}${ro} placeholder="${placeholder}">${value}</textarea>`;
+  } else if (f.type === 'checks') {
+    const groups = new Map();
+    (f.options || []).forEach((o) => {
+      const opt = typeof o === 'string' ? { label: o, value: o } : o;
+      const g = opt.group || '';
+      if (!groups.has(g)) groups.set(g, []);
+      groups.get(g).push(opt);
+    });
+    const selected = String(f.value ?? '').split(/[、,，]/).map((s) => s.trim());
+    const groupHtml = [...groups.entries()].map(([g, opts]) => {
+      const items = opts.map((o) => {
+        const v = String(o.value ?? o.label);
+        const checked = selected.includes(v) ? ' checked' : '';
+        return `<label class="wx-check"><input type="checkbox" data-form-check="${key}" value="${esc(v)}"${checked}><span>${esc(o.label)}</span></label>`;
+      }).join('');
+      return `<div class="wx-check-group">${g ? `<b>${esc(g)}</b>` : ''}<div class="wx-check-items">${items}</div></div>`;
+    }).join('');
+    control = `<div class="wx-checks" data-form-check-group="${key}"${required}>${groupHtml}</div>`;
+  } else {
+    const t = ['number', 'date'].includes(f.type) ? f.type : 'text';
+    control = `<input class="wx-input" type="${t}" data-form-key="${key}"${required}${ro} value="${value}" placeholder="${placeholder}">`;
+  }
+  const tag = f.type === 'checks' ? 'div' : 'label';
+  return `<${tag} class="wx-form-field"><span>${label}${f.required ? '<i>*</i>' : ''}</span>${control}</${tag}>`;
+}
+
+/** 表单抽屉：作为 renderPage 的 overlay 返回，不注册独立页面与骨架类型。 */
+export function FormDrawer({
+  pageId = '', rowKey = '__new__', title = '', fields = [], groups = [], actions = [], note = '',
+} = {}) {
+  const sections = groups.length ? groups : [{ title: '', fields }];
+  const body = sections.map((g) => {
+    const inner = (g.fields || []).map(FormField).join('');
+    const head = g.title ? `<div class="wx-form-group-title">${esc(g.title)}</div>` : '';
+    return `<div class="wx-form-group">${head}<div class="wx-form-grid">${inner}</div></div>`;
+  }).join('');
+  const acts = actions.length ? `<div class="wx-drawer-actions">${actions.map(renderButton).join('')}</div>` : '';
+  return `<div class="wx-drawer-panel" data-drawer-panel="${esc(pageId)}" data-drawer-key="${esc(rowKey)}" hidden>`
+    + `<div class="wx-drawer-head"><b>${esc(title)}</b>`
+    + `<button type="button" class="wx-drawer-x" data-drawer-close aria-label="关闭">×</button></div>`
+    + `<div class="wx-drawer-body"><div class="wx-form" data-form-panel="${esc(pageId)}">`
+    + (note ? `<p class="wx-form-note">${esc(note)}</p>` : '')
+    + body + `</div></div>`
+    + acts
+    + `</div>`;
+}
+
 /** report 页三件套。这类页是唯一允许摆 KPI 的类型。指标值由数据算出，不写死。 */
 export function ReportHero({ title = '', sub = '' } = {}) {
   return `<div class="wx-hero"><h1>${esc(title)}</h1><p>${esc(sub)}</p></div>`;
@@ -206,6 +364,38 @@ export function StatRow(items = [], { cols = 3 } = {}) {
 export function Block({ title = '', note = '', body = '' } = {}) {
   return `<div class="wx-block"><div class="wx-block-head"><b>${esc(title)}</b>`
     + `<span>${esc(note)}</span></div><div class="wx-block-body">${body}</div></div>`;
+}
+
+/** report 页统一收口：页面只传各段结果，不自己拼外壳。 */
+export function ReportPage({ hero = '', stats = '', blocks = [] } = {}) {
+  return hero + stats + blocks.join('');
+}
+
+/** 报表「构成」横条：页面只传 label / value 对，结构与样式留在共享层。 */
+export function BarRows(items = []) {
+  if (!items.length) return '';
+  const max = Math.max(1, ...items.map((x) => Number(x.value) || 0));
+  return items.map((x) => {
+    const pct = Math.round((Number(x.value) || 0) / max * 100);
+    return `<div class="wx-bar">`
+      + `<span class="wx-bar-label">${esc(x.label)}</span>`
+      + `<span class="wx-bar-track"><span class="wx-bar-fill" style="width:${pct}%"></span></span>`
+      + `<span class="wx-bar-value">${n(x.value)}</span>`
+      + `</div>`;
+  }).join('');
+}
+
+/** PDA 任务卡：三张作业列表结构相同，只传跳转目标、编码字段与库位字段。 */
+export function PdaTaskCard({
+  row = {}, tab = '', tabName = '', status = '', codeKey = '', binLabel = '', binKey = '',
+} = {}) {
+  return `<button type="button" class="wx-pda-taskcard" data-pda-tab="${esc(tab)}" data-pda-tab-name="${esc(tabName)}">`
+    + `<span class="wx-pda-task-head"><b class="wx-pda-task-id">${esc(row.taskNo)}</b>${status}</span>`
+    + `<span class="wx-pda-task-meta"><span>${esc(row.owner)}</span><span>${esc(row[codeKey])}</span>`
+    + `<span>${esc(row.skuName)}</span></span>`
+    + `<span class="wx-pda-task-foot"><span>${esc(binLabel)} ${esc(row[binKey])}</span>`
+    + `<span>${esc(row.doneQty)} / ${esc(row.planQty)}</span></span>`
+    + `</button>`;
 }
 
 /**
@@ -271,6 +461,8 @@ export const BASE_CSS = `
 .wx-top-tools{display:flex;align-items:center;gap:var(--wx-sp-1)}
 .wx-top-tool{height:32px;padding:0 var(--wx-sp-2);border:0;background:transparent;border-radius:var(--wx-r-sm);font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
 .wx-top-tool:hover{background:var(--wx-gray-50);color:var(--wx-gray-900)}
+.wx-top-mall{display:inline-flex;align-items:center;height:32px;padding:0 var(--wx-sp-3);border:var(--wx-border);border-radius:var(--wx-r-sm);background:var(--wx-white);font-size:var(--wx-fs-sm);font-weight:600;color:var(--wx-primary-600);text-decoration:none;white-space:nowrap}
+.wx-top-mall:hover{background:var(--wx-primary-50)}
 .wx-user{display:flex;align-items:center;gap:var(--wx-sp-2);padding:var(--wx-sp-1) var(--wx-sp-2);border-radius:var(--wx-r-sm);font-size:var(--wx-fs-sm);color:var(--wx-gray-700)}
 .wx-user-avatar{width:26px;height:26px;display:grid;place-items:center;border-radius:var(--wx-r-pill);background:var(--wx-primary-500);color:var(--wx-white);font-size:var(--wx-fs-xs);font-weight:600}
 .wx-shell{display:flex;margin-top:var(--wx-top-h);height:calc(100vh - var(--wx-top-h))}
@@ -374,6 +566,11 @@ export const BASE_CSS = `
 .wx-block-head span{font-size:var(--wx-fs-xs);color:var(--wx-gray-400)}
 .wx-block-body{padding:var(--wx-sp-4)}
 .wx-block .wx-table-wrap{border:0;border-radius:0;box-shadow:none}
+.wx-bar{display:grid;grid-template-columns:140px 1fr 90px;align-items:center;gap:var(--wx-sp-3);padding:var(--wx-sp-1) 0}
+.wx-bar-label{font-size:var(--wx-fs-sm);color:var(--wx-gray-700);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wx-bar-track{height:8px;border-radius:var(--wx-r-pill);background:var(--wx-gray-100)}
+.wx-bar-fill{display:block;height:100%;border-radius:var(--wx-r-pill);background:var(--wx-primary-500)}
+.wx-bar-value{font-size:var(--wx-fs-sm);text-align:right;font-variant-numeric:tabular-nums;color:var(--wx-gray-900)}
 .wx-timeline{list-style:none;margin:0;padding:0}
 .wx-timeline li{display:flex;gap:var(--wx-sp-4);padding:var(--wx-sp-2) 0;font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
 .wx-timeline li b{color:var(--wx-gray-700);font-weight:500}
@@ -404,11 +601,57 @@ export const BASE_CSS = `
 .wx-scan-log li b{flex:1;font-weight:500;color:var(--wx-gray-700)}
 .wx-scan-actions{display:flex;gap:var(--wx-sp-2);margin-top:auto}
 .wx-scan-actions .wx-btn{flex:1;min-height:var(--wx-touch)}
-.wx-drawer{position:fixed;inset:0;background:var(--wx-gray-900);opacity:.35}
-.wx-drawer-panel{position:fixed;top:0;right:0;bottom:0;width:420px;max-width:90vw;background:var(--wx-white);padding:var(--wx-sp-6);overflow:auto}
+.wx-overlay[hidden]{display:none !important}
+.wx-drawer{position:fixed;inset:0;border:0;padding:0;cursor:pointer;background:var(--wx-gray-900);opacity:.35}
+.wx-drawer-panel{position:fixed;top:0;right:0;bottom:0;width:420px;max-width:90vw;background:var(--wx-white);padding:var(--wx-sp-6);overflow:auto;box-shadow:var(--wx-shadow);z-index:1}
+.wx-drawer-panel[hidden]{display:none !important}
+.wx-drawer-head{display:flex;align-items:center;justify-content:space-between;gap:var(--wx-sp-2);margin-bottom:var(--wx-sp-4);font-size:var(--wx-fs-lg)}
+.wx-drawer-x{width:32px;height:32px;border:0;background:transparent;border-radius:var(--wx-r-sm);color:var(--wx-gray-500);font-size:var(--wx-fs-lg)}
+.wx-drawer-body .wx-detail-grid{grid-template-columns:repeat(2,1fr)}
+.wx-drawer-actions{display:flex;justify-content:flex-end;gap:var(--wx-sp-2);margin-top:var(--wx-sp-4)}
+.wx-drawer-panel--wide{width:920px}
+.wx-dag{position:relative;background:var(--wx-white);border:var(--wx-border);border-radius:var(--wx-r-md);padding:var(--wx-sp-4);margin-bottom:var(--wx-sp-4);overflow:auto}
+.wx-dag-canvas{position:relative;margin:0 auto}
+.wx-dag-edges{position:absolute;inset:0;pointer-events:none}
+.wx-dag-node{position:absolute;display:flex;flex-direction:column;justify-content:center;gap:var(--wx-sp-1);padding:0 var(--wx-sp-3);border:var(--wx-border);border-radius:var(--wx-r-sm);background:var(--wx-white);color:var(--wx-gray-900);text-decoration:none}
+.wx-dag-node b{font-size:var(--wx-fs-md);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wx-dag-node em{display:flex;align-items:center;gap:var(--wx-sp-1);font-style:normal;font-size:var(--wx-fs-xs);color:var(--wx-gray-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wx-dag-node:hover{border-color:var(--wx-primary-500)}
+.wx-dag-node:target{border-color:var(--wx-primary-500)}
+.wx-dag:not(:has(.wx-dag-prop:target)) .wx-dag-node:first-of-type{border-color:var(--wx-primary-500)}
+.wx-dag-dot{width:var(--wx-sp-1);height:var(--wx-sp-1);border-radius:var(--wx-r-pill);background:var(--wx-gray-400);flex:none}
+.wx-dag-dot--auto{background:var(--wx-gray-700)}
+.wx-dag-props{border-top:var(--wx-border);padding-top:var(--wx-sp-3)}
+.wx-dag-prop{display:none}
+.wx-dag-prop:first-child{display:block}
+.wx-dag-prop:target{display:block}
+.wx-dag-props:has(.wx-dag-prop:target) .wx-dag-prop:first-child:not(:target){display:none}
+.wx-dag-prop-head{display:flex;align-items:center;gap:var(--wx-sp-2);font-size:var(--wx-fs-md);margin-bottom:var(--wx-sp-2)}
+.wx-dag-prop-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--wx-sp-2) var(--wx-sp-6);font-size:var(--wx-fs-sm)}
+.wx-dag-prop-grid div{display:flex;align-items:baseline;gap:var(--wx-sp-2);min-width:0}
+.wx-dag-prop-grid span{flex:none;min-width:72px;font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-dag-prop-grid b{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wx-dag-note{font-size:var(--wx-fs-xs);color:var(--wx-gray-500);margin-top:var(--wx-sp-2)}
 .wx-toast{position:fixed;left:50%;bottom:var(--wx-sp-8);transform:translateX(-50%);padding:var(--wx-sp-3) var(--wx-sp-4);border-radius:var(--wx-r-sm);background:var(--wx-gray-900);color:var(--wx-white);font-size:var(--wx-fs-sm);box-shadow:var(--wx-shadow)}
 @media (max-width:1080px){.wx-page-body{overflow-x:auto}.wx-detail-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:900px){.wx-global-search{display:none}}
+.wx-form{display:flex;flex-direction:column;gap:var(--wx-sp-4)}
+.wx-form-note{font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-form-group-title{font-size:var(--wx-fs-sm);color:var(--wx-gray-700);margin-bottom:var(--wx-sp-2);padding-bottom:var(--wx-sp-1);border-bottom:var(--wx-border)}
+.wx-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--wx-sp-3)}
+.wx-form-field{display:flex;flex-direction:column;gap:var(--wx-sp-1);min-width:0;font-size:var(--wx-fs-sm);color:var(--wx-gray-700)}
+.wx-form-field>span i{font-style:normal;color:var(--wx-error-500)}
+.wx-form-field .wx-input,.wx-form-field .wx-select{min-height:var(--wx-touch);width:100%;border:var(--wx-border);border-radius:var(--wx-r-sm);padding:0 var(--wx-sp-3);font-size:var(--wx-fs-md)}
+.wx-form-field .wx-textarea{min-height:80px;padding:var(--wx-sp-2) var(--wx-sp-3);resize:vertical}
+.wx-form-field .wx-input:focus,.wx-form-field .wx-select:focus,.wx-form-field .wx-textarea:focus{outline:2px solid var(--wx-primary-500);outline-offset:1px}
+.wx-form-field [readonly]{background:var(--wx-gray-50);color:var(--wx-gray-500)}
+.wx-form-field:has(.wx-checks){grid-column:1/-1}
+.wx-checks{display:flex;flex-direction:column;gap:var(--wx-sp-2);width:100%}
+.wx-check-group{display:flex;flex-direction:column;gap:var(--wx-sp-1)}
+.wx-check-group>b{font-size:var(--wx-fs-xs);color:var(--wx-gray-500);font-weight:500}
+.wx-check-items{display:flex;flex-wrap:wrap;gap:var(--wx-sp-2) var(--wx-sp-3)}
+.wx-check{display:inline-flex;align-items:center;gap:var(--wx-sp-1);font-size:var(--wx-fs-sm);color:var(--wx-gray-700);min-height:24px}
+.wx-check input{width:16px;height:16px;accent-color:var(--wx-primary-500)}
 `;
 
 /* ---------------- 统一交互脚本（构建内联一份） ---------------- */
@@ -493,6 +736,11 @@ export const SHELL_SCRIPT = `
     if (topUser && ov) topUser.textContent = ov;
     var topAvatar = document.querySelector('[data-top-avatar]');
     if (topAvatar && ov) topAvatar.textContent = ov.slice(0, 1);
+    var mallLink = document.querySelector('[data-mall-entry]');
+    if (mallLink) {
+      var base = mallLink.getAttribute('data-mall-base') || '';
+      mallLink.setAttribute('href', base + '?owner=' + encodeURIComponent(ov || ''));
+    }
     if (notify) {
       var cur = currentPage();
       var id = cur ? cur.getAttribute('data-page-id') : (location.hash || '').replace('#','');
@@ -509,19 +757,21 @@ export const SHELL_SCRIPT = `
       if (on) hit = p;
     });
     if (!hit) return;
-    var moduleId = id.split('/')[0];
+    closeDrawer();
+    var groupId = hit.getAttribute('data-nav-group') || id.split('/')[0];
     Array.prototype.slice.call(document.querySelectorAll('.wx-side-item')).forEach(function(b){
       b.classList.toggle('is-active', b.getAttribute('data-target') === id);
     });
     Array.prototype.slice.call(document.querySelectorAll('.wx-nav-item')).forEach(function(b){
-      var on = b.getAttribute('data-nav') === moduleId;
+      var on = b.getAttribute('data-nav') === groupId;
       b.classList.toggle('is-current', on);
-      if (on) b.setAttribute('aria-expanded','true');
+      b.setAttribute('aria-expanded', on ? 'true' : 'false');
     });
-    var box = document.querySelector('.wx-nav-children[data-children="'+moduleId+'"]');
-    if (box) box.hidden = false;
+    Array.prototype.slice.call(document.querySelectorAll('.wx-nav-children')).forEach(function(box){
+      box.hidden = box.getAttribute('data-children') !== groupId;
+    });
     Array.prototype.slice.call(document.querySelectorAll('.wx-head-tabs')).forEach(function(row){
-      row.hidden = row.getAttribute('data-tabs') !== moduleId;
+      row.hidden = row.getAttribute('data-tabs') !== groupId;
       if (!row.hidden) {
         Array.prototype.slice.call(row.querySelectorAll('.wx-head-tab')).forEach(function(b){
           b.classList.toggle('is-active', b.getAttribute('data-target') === id);
@@ -533,12 +783,199 @@ export const SHELL_SCRIPT = `
     setNo(hit, 1); applyFilters(hit);
     if (push !== false) { try { location.hash = id; } catch(e){} }
   }
+  function escText(s){
+    return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function liveCfg(page){
+    var list = page ? page.querySelector('.wx-list[data-live]') : null;
+    if (!list) return null;
+    try { return JSON.parse(list.getAttribute('data-live') || 'null'); } catch(e){ return null; }
+  }
+  function stateKey(page, cfg){
+    return 'wx-live-' + page.getAttribute('data-page-id') + '-' + (activeView() || 'all') + '-' + (cfg.storageKey || 'rows');
+  }
+  function readRows(page, cfg){
+    try {
+      var saved = window.sessionStorage.getItem(stateKey(page, cfg));
+      if (saved) { var arr = JSON.parse(saved); if (Object.prototype.toString.call(arr) === '[object Array]') return arr; }
+    } catch(e){}
+    var out = [];
+    Array.prototype.slice.call(page.querySelectorAll('tbody tr[data-row-idx]')).forEach(function(tr){ out.push(rowData(tr)); });
+    return out;
+  }
+  function saveRows(page, cfg, rows){
+    try { window.sessionStorage.setItem(stateKey(page, cfg), JSON.stringify(rows)); } catch(e){}
+  }
+  function liveCell(r, c, cfg, pageId){
+    var v = r[c.key];
+    if (c.type === 'status') {
+      var m = (cfg.statusMeta || {})[String(v == null ? '' : v)] || { label: (v == null || v === '') ? '—' : v, tone: 'info' };
+      return '<span class="wx-tag wx-tag--' + m.tone + '">' + escText(m.label) + '</span>';
+    }
+    if (c.type === 'tag') return '<span class="wx-chip wx-chip--info">' + escText(v == null || v === '' ? '—' : v) + '</span>';
+    if (c.type === 'risk') {
+      var rm = (c.riskMeta || {})[String(v == null ? '' : v)] || { label: (v == null || v === '') ? '—' : v, tone: 'info' };
+      return '<span class="wx-tag wx-tag--' + rm.tone + '">' + escText(rm.label) + '</span>';
+    }
+    if (c.type === 'money') return v == null || v === '' ? '—' : '￥' + Number(v).toFixed(2);
+    if (c.type === 'action') {
+      const primary = '<button type="button" class="wx-link" data-' + 'drawer-open="' + escText(pageId) + '" data-drawer-key="__new__" data-form-row="' + escText(r[cfg.keyField]) + '">' + escText(c.button || c.label || '查看') + '</button>';
+      const detail = c.detailButton
+        ? ' <button type="button" class="wx-link" data-' + 'drawer-open="' + escText(pageId) + '" data-drawer-key="' + escText(r[cfg.keyField]) + '">' + escText(c.detailButton) + '</button>'
+        : '';
+      return primary + detail;
+    }
+    return escText(v == null || v === '' ? '—' : v);
+  }
+  function rebuildRows(page, cfg, rows){
+    var tbody = page.querySelector('tbody');
+    if (!tbody) return;
+    var pageId = page.getAttribute('data-page-id');
+    var html = '';
+    rows.forEach(function(r, i){
+      var cells = '';
+      (cfg.columns || []).forEach(function(c){
+        var cls = c.type === 'num' ? ' class="num"' : '';
+        cells += '<td' + cls + (c.type === 'status' ? ' data-status-cell' : '') + '>' + liveCell(r, c, cfg, pageId) + '</td>';
+      });
+      var owner = r.owner ? ' data-owner="' + escText(r.owner) + '"' : '';
+      html += '<tr data-row-idx="' + i + '" data-row="' + escText(JSON.stringify(r)) + '" data-status="' + escText(r[cfg.statusField] || '') + '"' + owner + '>' + cells + '</tr>';
+    });
+    tbody.innerHTML = html;
+    Array.prototype.slice.call(page.querySelectorAll('.wx-tab')).forEach(function(t){
+      var badge = t.querySelector('.wx-tab-count');
+      if (!badge) return;
+      if (t.hasAttribute('data-tab-all')) { badge.textContent = String(rows.length); return; }
+      var f = t.getAttribute('data-tab-field'), v = t.getAttribute('data-tab-value'), cnt = 0;
+      rows.forEach(function(r){ if (String(r[f] == null ? '' : r[f]) === v) cnt++; });
+      badge.textContent = String(cnt);
+    });
+    setNo(page, 1);
+    applyFilters(page);
+  }
+  function collectForm(panel){
+    var out = {}, missing = '';
+    Array.prototype.slice.call(panel.querySelectorAll('[data-form-key]')).forEach(function(el){
+      var k = el.getAttribute('data-form-key');
+      var v = (el.value || '').trim();
+      if (el.hasAttribute('data-form-required') && !v && !missing) missing = el.getAttribute('data-form-required');
+      out[k] = v;
+    });
+    Array.prototype.slice.call(panel.querySelectorAll('[data-form-check-group]')).forEach(function(group){
+      var k = group.getAttribute('data-form-check-group');
+      var vals = [];
+      Array.prototype.slice.call(group.querySelectorAll('input[data-form-check]:checked')).forEach(function(cb){ vals.push(cb.value); });
+      if (group.hasAttribute('data-form-required') && !vals.length && !missing) missing = group.getAttribute('data-form-required');
+      out[k] = vals.join('、');
+    });
+    return { values: out, missing: missing };
+  }
+  function fillForm(panel, row, isNew){
+    Array.prototype.slice.call(panel.querySelectorAll('[data-form-key]')).forEach(function(el){
+      var k = el.getAttribute('data-form-key');
+      el.value = isNew || !row || row[k] == null ? '' : String(row[k]);
+    });
+    Array.prototype.slice.call(panel.querySelectorAll('[data-form-check-group]')).forEach(function(group){
+      var k = group.getAttribute('data-form-check-group');
+      var raw = isNew || !row || row[k] == null ? '' : String(row[k]);
+      var vals = raw.split(/[、,，]/).map(function(s){ return s.trim(); });
+      Array.prototype.slice.call(group.querySelectorAll('input[data-form-check]')).forEach(function(cb){
+        cb.checked = vals.indexOf(cb.value) !== -1;
+      });
+    });
+  }
+  function nowText(){
+    var d = new Date();
+    function p(x){ return (x < 10 ? '0' : '') + x; }
+    return d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+  }
+  var FORM_STATUS = {
+    saveDraft: 'draft', submitReview: 'pendingReview', approve: 'approved',
+    reject: 'rejectedReview', withdraw: 'withdrawn', voidApply: 'voided',
+    republish: 'pendingReview', resubmit: 'pendingReview'
+  };
+  var FORM_LABEL = {
+    saveDraft: '保存草稿', submitReview: '提交审核', approve: '审核通过',
+    reject: '驳回', withdraw: '撤回', voidApply: '作废', republish: '反审核', resubmit: '退回修改重提',
+    confirm: '确认', appeal: '异议申诉', cancel: '变更取消', publish: '发布',
+    submit: '提交', confirmBill: '确认账单', invoice: '开票', resync: '重新同步', cancelDropship: '取消代发',
+    authorize: '授权', reauthorize: '重新授权', revoke: '解除授权', retry: '重试',
+    dispatch: '下发 3PL', selfship: '自发货', replenish: '备货到平台仓',
+    cartonMark: '生成箱唛', packingList: '生成装箱单', book: '预约入仓',
+    ship: '发货', sign: '签收', agree: '同意', refuse: '拒绝', receive: '确认收货',
+    refund: '退款', createInbound: '生成售后入库计划单',
+    applyWaybill: '申请运单号', printWaybill: '打印面单', printLabel: '打印标签',
+    printCartonMark: '打印箱唛', printPackingList: '打印装箱单',
+    saveShop: '保存店铺',
+    publishAdapter: '发布', disableAdapter: '停用',
+    auditPass: '审单通过', splitOrder: '拆单生成履约单',
+    refetch: '补拉漏单', markDuplicate: '标记重复单'
+  };
+  function applyFormAction(el, panel){
+    var page = currentPage();
+    var cfg = page ? liveCfg(page) : null;
+    if (!page || !cfg) { closeDrawer(); return; }
+    var action = el.getAttribute('data-form-action');
+    var f = collectForm(panel);
+    if (f.missing && action !== 'saveDraft') { toast('请填写' + f.missing); return; }
+    if (action === 'reject' && !f.values.rejectReason) { toast('请填写驳回原因'); return; }
+    var rows = readRows(page, cfg);
+    var rk = panel.getAttribute('data-form-current') || '__new__';
+    var idx = -1, i, j;
+    for (i = 0; i < rows.length; i++) { if (String(rows[i][cfg.keyField]) === String(rk)) { idx = i; break; } }
+    var r = {};
+    if (idx >= 0) { for (j in rows[idx]) r[j] = rows[idx][j]; }
+    else {
+      var seq = rows.length + 1;
+      r[cfg.keyField] = 'AP' + nowText().slice(0,10).replace(/-/g,'') + (seq < 10 ? '00' : seq < 100 ? '0' : '') + seq;
+      r.owner = activeView() || '海纳食品';
+      r.applicant = activeView() || '运营账号';
+      r.trace = '';
+    }
+    for (j in f.values) r[j] = f.values[j];
+    var st = (cfg.actionStatus && cfg.actionStatus[action]) || FORM_STATUS[action];
+    if (st) r[cfg.statusField] = st;
+    var t = nowText();
+    if (action === 'submitReview') { r.submitTime = t; r.applicant = activeView() || '运营账号'; }
+    if (action === 'approve' || action === 'reject') {
+      r.reviewer = activeView() || '仓网审核';
+      r.reviewTime = t;
+      if (action === 'approve') {
+        if ('skuCode' in r && !r.skuCode) r.skuCode = 'SKU' + String(100300 + rows.length);
+        if ('releasedVersion' in r) r.releasedVersion = Number(r.releasedVersion || 0) + 1;
+      }
+    }
+    if (action === 'confirm') { r.confirmTime = t; r.confirmBy = activeView() || '运营账号'; }
+    r.trace = (r.trace ? r.trace + '；' : '') + t + ' ' + (FORM_LABEL[action] || action);
+    if (idx >= 0) rows[idx] = r; else rows.unshift(r);
+    saveRows(page, cfg, rows);
+    rebuildRows(page, cfg, rows);
+    closeDrawer();
+    toast((FORM_LABEL[action] || '操作') + '已生效');
+  }
   function toast(text){
     var t = document.querySelector('.wx-toast');
     if (!t) return;
     t.textContent = text;
     t.hidden = false;
     window.setTimeout(function(){ t.hidden = true; }, 2200);
+  }
+  function closeDrawer(){
+    var ov = document.querySelector('.wx-overlay');
+    if (!ov) return;
+    ov.hidden = true;
+    Array.prototype.slice.call(ov.querySelectorAll('[data-drawer-panel]')).forEach(function(p){ p.hidden = true; });
+  }
+  function openDrawer(pageId, rowKey){
+    var ov = document.querySelector('.wx-overlay');
+    if (!ov) return;
+    var hit = false;
+    Array.prototype.slice.call(ov.querySelectorAll('[data-drawer-panel]')).forEach(function(p){
+      var on = p.getAttribute('data-drawer-panel') === pageId && p.getAttribute('data-drawer-key') === rowKey;
+      p.hidden = !on;
+      if (on) hit = true;
+    });
+    ov.hidden = !hit;
   }
   document.addEventListener('click', function(e){
     var el = e.target.closest ? e.target.closest('button, [data-toast]') : null;
@@ -549,6 +986,11 @@ export const SHELL_SCRIPT = `
       if (box2 && box2.classList.contains('wx-nav-children')) {
         var isCur = el.classList.contains('is-current');
         var open = !box2.hidden;
+        Array.prototype.slice.call(document.querySelectorAll('.wx-nav-children')).forEach(function(b){
+          if (b === box2) return;
+          b.hidden = true;
+          if (b.previousElementSibling) b.previousElementSibling.setAttribute('aria-expanded', 'false');
+        });
         box2.hidden = open && !isCur;
         el.setAttribute('aria-expanded', box2.hidden ? 'false' : 'true');
       }
@@ -599,14 +1041,31 @@ export const SHELL_SCRIPT = `
       return;
     }
     if (el.hasAttribute('data-toast')) { toast(el.getAttribute('data-toast')); return; }
-    if (el.hasAttribute('data-drawer-close')) {
-      var ov = document.querySelector('.wx-overlay');
-      if (ov) ov.hidden = true;
+    if (el.hasAttribute('data-drawer-close')) { closeDrawer(); return; }
+    if (el.hasAttribute('data-form-action')) {
+      var actionPanel = el.closest ? el.closest('.wx-drawer-panel') : null;
+      if (actionPanel) applyFormAction(el, actionPanel);
       return;
     }
     if (el.hasAttribute('data-drawer-open')) {
-      var ov2 = document.querySelector('.wx-overlay');
-      if (ov2) ov2.hidden = false;
+      var openId = el.getAttribute('data-drawer-open');
+      var openKey = el.getAttribute('data-drawer-key') || '';
+      var formPanel = document.querySelector('.wx-overlay [data-' + 'drawer-panel="' + openId + '"][data-drawer-key="' + openKey + '"]');
+      if (formPanel && formPanel.querySelector('[data-form-panel]')) {
+        var rowKeyValue = el.getAttribute('data-form-row') || '__new__';
+        formPanel.setAttribute('data-form-current', rowKeyValue);
+        var curPage = currentPage(), curCfg = curPage ? liveCfg(curPage) : null;
+        var currentRow = null;
+        if (curCfg && rowKeyValue !== '__new__') {
+          var allRows = readRows(curPage, curCfg);
+          for (var ri = 0; ri < allRows.length; ri++) {
+            if (String(allRows[ri][curCfg.keyField]) === String(rowKeyValue)) { currentRow = allRows[ri]; break; }
+          }
+        }
+        fillForm(formPanel, currentRow, rowKeyValue === '__new__');
+      }
+      openDrawer(openId, openKey);
+      return;
     }
   });
   document.addEventListener('change', function(e){
@@ -789,7 +1248,7 @@ export const LOGIN_SCRIPT = `
   }
   function showLayer(show){
     if (layer) layer.hidden = !show;
-    if (!show && session) session.hidden = true;
+    if (session) session.hidden = true;
   }
   function setTab(mode){
     state.mode = mode;
@@ -950,6 +1409,11 @@ export const SHOP_CATEGORIES = ['全部商品', '食品饮料', '日化清洁', 
 
 export function money(v) {
   return '￥' + Number(v || 0).toFixed(2);
+}
+
+/** 列表金额列用：空值显示破折号，有值走 money。商城价格仍用 money。 */
+export function moneyOrDash(v) {
+  return (v == null || v === '') ? dash(v) : money(v);
 }
 
 export function ShopPrice(value, { tag = 'b', cls = '', attrs = '' } = {}) {
@@ -1492,6 +1956,7 @@ export function ShopActions({ items = [] } = {}) {
   const attrs = (i) => [
     i.target ? `data-target="${esc(i.target)}"` : '',
     i.submit ? 'data-shop-submit' : '',
+    i.group ? `data-shop-submit-group="${esc(i.group)}"` : '',
     i.toast ? `data-toast="${esc(i.toast)}"` : '',
   ].filter(Boolean).join(' ');
   return `<div class="wx-shop-actions">${items.map((i) => `<button type="button" class="wx-shop-btn${i.ghost ? ' wx-shop-btn--ghost' : ''}" ${attrs(i)}>${esc(i.label)}</button>`).join('')}</div>`;
@@ -1523,6 +1988,11 @@ export const MALL_SCRIPT = `
   }
   function money(v){ return '￥' + Number(v || 0).toFixed(2); }
   var cat = '全部商品', q = '', cartCount = 0;
+  var buyerOwner = '';
+  try {
+    var ownerMatch = (location.search || '').match(/[?&]owner=([^&]*)/);
+    if (ownerMatch) buyerOwner = decodeURIComponent(ownerMatch[1]) || '';
+  } catch (e) { buyerOwner = ''; }
   function activate(id, push){
     var hit = null;
     pages().forEach(function(p){
@@ -1559,9 +2029,9 @@ export const MALL_SCRIPT = `
     var count = page.querySelector('[data-shop-result-count]');
     if (count) count.textContent = String(shown);
   }
-  function recalc(){
+  function sumRows(root){
     var total = 0, kinds = 0;
-    Array.prototype.slice.call(document.querySelectorAll('.page[data-page-id="mall/cart"] [data-shop-cart-row]')).forEach(function(row){
+    Array.prototype.slice.call(root.querySelectorAll('[data-shop-cart-row]')).forEach(function(row){
       if (row.hidden) return;
       var price = Number(row.getAttribute('data-shop-price') || 0);
       var input = row.querySelector('[data-shop-qty-input]');
@@ -1570,9 +2040,19 @@ export const MALL_SCRIPT = `
       if (cell) cell.textContent = money(price * qty);
       total += price * qty; kinds++;
     });
-    Array.prototype.slice.call(document.querySelectorAll('[data-shop-total]')).forEach(function(el){ el.textContent = money(total); });
-    Array.prototype.slice.call(document.querySelectorAll('[data-shop-goods-total]')).forEach(function(el){ el.textContent = money(total); });
-    Array.prototype.slice.call(document.querySelectorAll('[data-shop-item-count]')).forEach(function(el){ el.textContent = String(kinds); });
+    return { total: total, kinds: kinds };
+  }
+  function writeTotals(root, sum){
+    Array.prototype.slice.call(root.querySelectorAll('[data-shop-total]')).forEach(function(el){ el.textContent = money(sum.total); });
+    Array.prototype.slice.call(root.querySelectorAll('[data-shop-goods-total]')).forEach(function(el){ el.textContent = money(sum.total); });
+    Array.prototype.slice.call(root.querySelectorAll('[data-shop-item-count]')).forEach(function(el){ el.textContent = String(sum.kinds); });
+  }
+  function recalc(){
+    var cart = document.querySelector('.page[data-page-id="mall/cart"]');
+    if (cart) writeTotals(cart, sumRows(cart));
+    Array.prototype.slice.call(document.querySelectorAll('[data-shop-group]')).forEach(function(g){
+      writeTotals(g, sumRows(g));
+    });
   }
   function bumpCart(by){
     cartCount = Math.max(0, cartCount + by);
@@ -1584,7 +2064,12 @@ export const MALL_SCRIPT = `
     if (el.hasAttribute('data-target')) { activate(el.getAttribute('data-target')); return; }
     if (el.hasAttribute('data-shop-cat')) { setCat(el.getAttribute('data-shop-cat')); activate('mall/search'); applyFilter(); return; }
     if (el.hasAttribute('data-shop-search-go')) { activate('mall/search'); applyFilter(); return; }
-    if (el.hasAttribute('data-shop-add')) { bumpCart(1); toast('已加入进货单（原型示意）'); return; }
+    if (el.hasAttribute('data-shop-add')) {
+      var card = el.closest('[data-shop-card]');
+      var cardOwner = card ? card.getAttribute('data-shop-owner') || '' : '';
+      if (buyerOwner && cardOwner && cardOwner === buyerOwner) { toast('不允许买自己的货'); return; }
+      bumpCart(1); toast('已加入进货单（原型示意）'); return;
+    }
     if (el.hasAttribute('data-shop-qty')) {
       var row = el.closest('[data-shop-cart-row]');
       var input = row ? row.querySelector('[data-shop-qty-input]') : null;
@@ -1597,7 +2082,12 @@ export const MALL_SCRIPT = `
       if (r) r.hidden = true;
       bumpCart(-1); recalc(); toast('已移除（原型示意）'); return;
     }
-    if (el.hasAttribute('data-shop-submit')) { toast('订单已提交（原型示意）'); activate('mall/orders'); return; }
+    if (el.hasAttribute('data-shop-submit')) {
+      var groupOwner = el.getAttribute('data-shop-submit-group') || '';
+      if (buyerOwner && groupOwner && groupOwner === buyerOwner) { toast('不允许买自己的货'); return; }
+      if (groupOwner) { toast('提交本店订单（原型示意）'); return; }
+      toast('订单已提交（原型示意）'); activate('mall/orders'); return;
+    }
     if (el.hasAttribute('data-toast')) { toast(el.getAttribute('data-toast')); return; }
   });
   document.addEventListener('input', function(e){
@@ -1614,6 +2104,11 @@ export const MALL_SCRIPT = `
   Array.prototype.slice.call(document.querySelectorAll('[data-shop-cart-count]')).forEach(function(el){
     cartCount = Number(el.textContent) || 0;
   });
+  if (buyerOwner) {
+    Array.prototype.slice.call(document.querySelectorAll('[data-session-user]')).forEach(function(el){ el.textContent = buyerOwner; });
+    Array.prototype.slice.call(document.querySelectorAll('.wx-shop-user')).forEach(function(el){ el.textContent = buyerOwner; });
+    document.documentElement.setAttribute('data-buyer-owner', buyerOwner);
+  }
   setCat('全部商品'); recalc();
   var initial = (location.hash || '').replace('#','');
   var valid = initial && pages().some(function(p){ return p.getAttribute('data-page-id') === initial; });

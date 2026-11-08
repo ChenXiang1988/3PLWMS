@@ -1,18 +1,18 @@
 {
   "id": "workbench",
   "name": "货主工作台",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "owner": "产品组",
   "tier": "core",
   "deployed": true,
   "dependsOn": [
     "shared"
   ],
-  "scope": "货主端待办单据与状态汇总视图",
+  "scope": "货灵ERP待办单据、风险队列与状态汇总视图",
   "deliverables": [
     "pages/",
     "data/"
   ],
-  "status": "review",
-  "note": "货主工作台页"
+  "status": "delivered",
+  "note": "货主工作台页，含授权、拉单、待下发、待发货、待预约与待处理售后待办"
 }

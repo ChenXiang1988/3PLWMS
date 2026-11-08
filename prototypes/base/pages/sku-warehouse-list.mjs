@@ -31,7 +31,6 @@ export function renderPage(data, ctx) {
       { label: '刷新', ghost: true, toast: '刷新（原型示意）' },
     ],
     showCount: true,
-    scopeNote: `本模块：${ctx.moduleName}`,
     columns: [
       { key: 'skuCode', label: '商品编码', width: '160px', cls: 'wx-col-strong' },
       { key: 'skuName', label: '商品名称', render: (r) => dash(r.skuName) },

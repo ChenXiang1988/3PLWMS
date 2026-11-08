@@ -1,4 +1,4 @@
-import { ReportHero, StatRow, Block, BaseTable, esc, n } from '../../shared/ui.mjs';
+import { ReportHero, StatRow, Block, BaseTable, ReportPage, BarRows, EmptyState } from '../../shared/ui.mjs';
 
 export function renderPage(data, ctx) {
   const { rows = [] } = data[ctx.pageKey] || {};
@@ -29,30 +29,14 @@ export function renderPage(data, ctx) {
   });
 
   const block1 = Block({ title: '明细', note: `共 ${rows.length} 条`, body: detail });
-
-  const max = Math.max(1, ...rows.map((r) => Number(r.batchCount) || 0));
-  const bars = rows.slice(0, 5).map((r) => {
-    const pct = Math.round((Number(r.batchCount) || 0) / max * 100);
-    return `<div class="iv-batch-network-report-bar">`
-      + `<span class="iv-batch-network-report-label">${esc(r.warehouse)}</span>`
-      + `<span class="iv-batch-network-report-track"><span class="iv-batch-network-report-fill" style="width:${pct}%"></span></span>`
-      + `<span class="iv-batch-network-report-value">${n(r.batchCount)}</span>`
-      + `</div>`;
-  }).join('');
-
+  const bars = BarRows(rows.slice(0, 5).map((r) => ({ label: r.warehouse, value: r.batchCount })));
   const block2 = Block({
     title: '构成',
     note: `共 ${rows.length} 条`,
-    body: bars || '<div class="wx-empty"><b>暂无数据</b><span>当前筛选条件下没有任何记录。</span></div>',
+    body: bars || EmptyState({ title: '暂无数据', desc: '当前筛选条件下没有任何记录。' }),
   });
 
-  return `<div class="wx-report">${hero}${stats}${block1}${block2}</div>`;
+  return ReportPage({ hero, stats, blocks: [block1, block2] });
 }
 
-export const PAGE_CSS = `
-.iv-batch-network-report-bar{display:grid;grid-template-columns:140px 1fr 90px;align-items:center;gap:var(--wx-sp-3);padding:var(--wx-sp-1) 0}
-.iv-batch-network-report-label{font-size:var(--wx-fs-sm);color:var(--wx-gray-700);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.iv-batch-network-report-track{height:8px;border-radius:var(--wx-r-pill);background:var(--wx-gray-100)}
-.iv-batch-network-report-fill{display:block;height:100%;border-radius:var(--wx-r-pill);background:var(--wx-primary-500)}
-.iv-batch-network-report-value{font-size:var(--wx-fs-sm);text-align:right;font-variant-numeric:tabular-nums;color:var(--wx-gray-900)}
-`;
+export const PAGE_CSS = ``;

@@ -1,0 +1,73 @@
+{
+  "config": {
+    "unit": "条",
+    "statusField": "fulfillStatus",
+    "keyField": "fulfillmentNo",
+    "statusMeta": {
+      "pendingShip": { "label": "待发货", "tone": "pending" },
+      "shipped": { "label": "已发货", "tone": "enabled" },
+      "signed": { "label": "已签收", "tone": "info" },
+      "cancelled": { "label": "已取消", "tone": "disabled" },
+      "exception": { "label": "异常", "tone": "rejected" }
+    },
+    "tabs": [
+      { "label": "待发货", "value": "pendingShip" },
+      { "label": "已发货", "value": "shipped" },
+      { "label": "已签收", "value": "signed" },
+      { "label": "已取消", "value": "cancelled" },
+      { "label": "异常", "value": "exception" }
+    ],
+    "columns": [
+      { "key": "fulfillmentNo", "label": "履约单号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "sourceDocNo", "label": "来源订单", "width": "160px" },
+      { "key": "fulfillMode", "label": "履约方式", "width": "96px" },
+      { "key": "executionNo", "label": "执行单号", "width": "160px" },
+      { "key": "fulfillStatus", "label": "履约单状态", "width": "108px", "type": "status" },
+      { "key": "packageCount", "label": "包裹数", "width": "80px", "align": "right", "type": "num" },
+      { "key": "carrierName", "label": "承运商", "width": "108px" },
+      { "key": "waybillNo", "label": "运单号", "width": "160px" },
+      { "key": "shipTime", "label": "发货时间", "width": "157px" },
+      { "key": "action", "label": "操作", "width": "88px", "type": "action", "button": "发货" }
+    ],
+    "filters": [
+      { "label": "来源订单", "key": "sourceDocNo", "type": "text", "placeholder": "请输入来源订单" },
+      { "label": "履约方式", "key": "fulfillMode", "type": "select" }
+    ],
+    "scopeNote": "一次发货一条履约单；同一订单可有多条，部分发货按已发与未发汇总",
+    "form": {
+      "title": "履约单发货",
+      "note": "仓发货由交接回写运单；自发货与平台备货由货主维护发货信息。",
+      "groups": [
+        { "title": "履约信息", "fields": [
+          { "label": "履约单号", "key": "fulfillmentNo", "readonly": true },
+          { "label": "来源订单", "key": "sourceDocNo", "readonly": true },
+          { "label": "履约方式", "key": "fulfillMode", "readonly": true },
+          { "label": "执行单号", "key": "executionNo", "readonly": true },
+          { "label": "包裹数", "key": "packageCount", "type": "number" },
+          { "label": "承运商", "key": "carrierName", "type": "text" },
+          { "label": "运单号", "key": "waybillNo", "type": "text" }
+        ] }
+      ],
+      "actions": [
+        { "label": "发货", "primary": true, "attrs": { "data-form-action": "ship" } },
+        { "label": "签收", "ghost": true, "attrs": { "data-form-action": "sign" } },
+        { "label": "取消", "ghost": true, "attrs": { "data-form-action": "cancel" } },
+        { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+      ]
+    },
+    "actionStatus": { "ship": "shipped", "sign": "signed", "cancel": "cancelled" },
+    "emptyTitle": "暂无履约单"
+  },
+  "rows": [
+    { "owner": "海纳食品", "fulfillmentNo": "FL20261108001", "sourceDocNo": "PO20261108002", "fulfillMode": "自发货", "executionNo": "SS20261108001", "fulfillStatus": "pendingShip", "packageCount": 1, "carrierName": "云途物流", "waybillNo": "YT261108001", "shipTime": "", "receiverName": "王女士" },
+    { "owner": "海纳食品", "fulfillmentNo": "FL20261108002", "sourceDocNo": "PO20261108003", "fulfillMode": "仓发货", "executionNo": "OP20261108001", "fulfillStatus": "shipped", "packageCount": 2, "carrierName": "顺丰速运", "waybillNo": "SF261107778", "shipTime": "2026-11-08 08:20", "receiverName": "李先生" },
+    { "owner": "海纳食品", "fulfillmentNo": "FL20261108003", "sourceDocNo": "PO20261108003", "fulfillMode": "仓发货", "executionNo": "OP20261108001", "fulfillStatus": "pendingShip", "packageCount": 1, "carrierName": "顺丰速运", "waybillNo": "", "shipTime": "", "receiverName": "李先生" },
+    { "owner": "海纳食品", "fulfillmentNo": "FL20261108004", "sourceDocNo": "PO20261108004", "fulfillMode": "仓发货", "executionNo": "OP20261108002", "fulfillStatus": "shipped", "packageCount": 1, "carrierName": "京东物流", "waybillNo": "JD261107556", "shipTime": "2026-11-07 17:40", "receiverName": "赵女士" },
+    { "owner": "海纳食品", "fulfillmentNo": "FL20261108005", "sourceDocNo": "PO20261108005", "fulfillMode": "平台备货", "executionNo": "RP20261108001", "fulfillStatus": "pendingShip", "packageCount": 12, "carrierName": "中远海运", "waybillNo": "", "shipTime": "", "receiverName": "Amazon ONT8" },
+    { "owner": "海纳食品", "fulfillmentNo": "FL20261108006", "sourceDocNo": "PO20261108010", "fulfillMode": "平台备货", "executionNo": "RP20261106002", "fulfillStatus": "signed", "packageCount": 18, "carrierName": "中远海运", "waybillNo": "", "shipTime": "2026-11-05 10:20", "receiverName": "Temu 华东集货仓" },
+    { "owner": "辰星日化", "fulfillmentNo": "FL20261108007", "sourceDocNo": "PO20261108006", "fulfillMode": "仓发货", "executionNo": "OP20261108003", "fulfillStatus": "pendingShip", "packageCount": 1, "carrierName": "顺丰速运", "waybillNo": "", "shipTime": "", "receiverName": "陈先生" },
+    { "owner": "辰星日化", "fulfillmentNo": "FL20261108008", "sourceDocNo": "PO20261108008", "fulfillMode": "自发货", "executionNo": "SS20261107002", "fulfillStatus": "exception", "packageCount": 1, "carrierName": "云途物流", "waybillNo": "YT261107002", "shipTime": "2026-11-07 10:00", "receiverName": "Linda" },
+    { "owner": "辰星日化", "fulfillmentNo": "FL20261108009", "sourceDocNo": "PO20261108009", "fulfillMode": "仓发货", "executionNo": "OP20261107004", "fulfillStatus": "signed", "packageCount": 1, "carrierName": "京东物流", "waybillNo": "JD261106221", "shipTime": "2026-11-06 09:30", "receiverName": "Ahmad" },
+    { "owner": "辰星日化", "fulfillmentNo": "FL20261108010", "sourceDocNo": "PO20261108007", "fulfillMode": "平台备货", "executionNo": "RP20261108002", "fulfillStatus": "cancelled", "packageCount": 0, "carrierName": "", "waybillNo": "", "shipTime": "", "receiverName": "Temu 华南集货仓" }
+  ]
+}

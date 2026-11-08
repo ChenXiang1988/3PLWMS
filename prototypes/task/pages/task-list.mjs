@@ -40,6 +40,7 @@ export function renderPage(data, ctx) {
     columns: [
       { key: 'taskNo', label: '任务编号', width: '160px', cls: 'wx-col-strong' },
       { key: 'taskType', label: '任务类型', width: '120px', render: (r) => dash(r.taskType) },
+      { key: 'sourceDocNo', label: '来源单据号', width: '160px', render: (r) => dash(r.sourceDocNo) },
       {
         key: 'taskStatus', label: '任务状态', width: '108px',
         render: (r) => StatusTag(labelOf(r.taskStatus), toneOf(r.taskStatus)),

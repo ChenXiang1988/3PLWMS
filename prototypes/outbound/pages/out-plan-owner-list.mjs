@@ -46,10 +46,13 @@ export function renderPage(data, ctx) {
       { label: '导出', ghost: true, toast: '导出（原型示意）' },
     ],
     showCount: true,
+    scopeNote: '未签约的账号不能用仓储服务，提交前先签仓储服务协议',
     columns: [
       { key: 'planNo', label: '计划单号', width: '160px', cls: 'wx-col-strong' },
       { key: 'planStatus', label: '计划单状态', width: '108px', render: (r) => StatusTag(labelOf(r.planStatus), toneOf(r.planStatus)) },
       { key: 'bizType', label: '出库类型', width: '120px', render: (r) => dash(r.bizType) },
+      { key: 'sourceDocType', label: '来源单据类型', width: '120px', render: (r) => dash(r.sourceDocType) },
+      { key: 'receiverName', label: '收货方', width: '160px', render: (r) => dash(r.receiverName) },
       { key: 'targetWarehouse', label: '目标仓库', width: '120px', render: (r) => dash(r.targetWarehouse) },
       { key: 'expectedDate', label: '计划出库日期', width: '120px', render: (r) => dash(r.expectedDate) },
       { key: 'skuCount', label: '品类数', width: '120px', align: 'right', render: (r) => n(r.skuCount) },

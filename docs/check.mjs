@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 文档体系检查（3PL 云仓）
+ * 文档体系检查（货灵供应链运营平台）
  *
  * 校验 docs/ 的存放、分类、索引闭环与日志分片规则（规则见 docs/index.md）：
  *   - 顶层 index.md / log.md 存在，index 含必需章节
