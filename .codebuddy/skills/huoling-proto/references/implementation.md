@@ -115,7 +115,7 @@
 | `data-status-cell` | 状态列 `<td>` | 状态动作后由 `SHELL_SCRIPT` 按 `statusMeta` 重绘该单元格 |
 | `data-side-toggle` | 侧栏底部按钮 | 侧栏收起 / 展开 |
 | `data-global-search` | 顶栏搜索框 | 按页面名过滤侧栏与页头页签 |
-| `data-pda-tab` / `data-pda-key` / `data-pda-title` | PDA 外壳与入口卡 | 屏内切页、按键区、导航标题 |
+| `data-pda-tab` / `data-pda-group` / `data-pda-key` / `data-pda-title` | PDA 外壳与入口卡 | 屏内切页、四分组 tab 高亮（值为组内 `data-page-id` 竖线分隔）、按键区、导航标题 |
 | `data-login-tab` / `data-login-panel` | 登录方式页签 / 面板 | 切换登录方式 |
 | `data-login-submit` / `data-login-retry` | 登录按钮 / 重试按钮 | 统一提交与重试 |
 | `data-login-error` | 登录错误条 | 统一错误提示 |

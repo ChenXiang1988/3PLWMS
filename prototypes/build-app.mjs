@@ -272,9 +272,11 @@ async function renderApp(app, entries, sharedUi) {
 
 function buildMallHtml(app, entries, built, sharedUi) {
   const esc = sharedUi.esc;
-  const navNames = { home: '首页', search: '商品搜索', cart: '进货单', orders: '我的订单' };
-  const nav = entries.filter((e) => navNames[e.page.key])
-    .map((e) => ({ id: e.pageId, name: navNames[e.page.key] }));
+  const byId = new Map(entries.map((e) => [e.pageId, e]));
+  const nav = (app.nav || []).map((g) => {
+    const first = (g.pages || []).find((id) => byId.has(id));
+    return first ? { id: first, name: g.name } : null;
+  }).filter(Boolean);
   let cartCount = 0;
   try {
     cartCount = (JSON.parse(read(path.join(PROTO, 'mall', 'data', 'cart.json')) || '{}').rows || []).length;
@@ -315,6 +317,10 @@ function buildPdaHtml(app, entries, built, sharedUi) {
   }
   const sections = ordered.map((e) => sectionOf.get(e.pageId)).filter(Boolean).join('\n');
   const tabs = ordered.map((e) => ({ id: e.pageId, name: e.page.name }));
+  const groups = (app.nav || []).map((g) => ({
+    name: g.name,
+    pages: (g.pages || []).filter((id) => entries.some((e) => e.pageId === id)),
+  })).filter((g) => g.pages.length);
   let operator = '';
   let device = '';
   const scanEntry = entries.find((e) => e.page.type === 'scan');
@@ -333,6 +339,9 @@ function buildPdaHtml(app, entries, built, sharedUi) {
     tabs,
     sections,
     minePageId: mine ? mine.pageId : '',
+    groups,
+    bootId: home.pageId,
+    bootName: home.page.name,
   });
   return `<!DOCTYPE html>\n<html lang="zh-CN" data-build="__FINGERPRINT__" data-auth="guest">\n<head>\n`
     + `<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n`

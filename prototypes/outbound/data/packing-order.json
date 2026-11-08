@@ -1,0 +1,100 @@
+{
+  "rows": [
+    {
+      "packingNo": "PK20261109001",
+      "obNo": "OUT20261109002",
+      "owner": "海纳食品",
+      "cartonNo": "CTN-0001",
+      "boxType": "大箱",
+      "boxCount": 1,
+      "weight": 12.4,
+      "volume": 0.08,
+      "packer": "王强",
+      "packingStatus": "done"
+    },
+    {
+      "packingNo": "PK20261109002",
+      "obNo": "OUT20261109003",
+      "owner": "云途电商",
+      "cartonNo": "CTN-0002",
+      "boxType": "中箱",
+      "boxCount": 2,
+      "weight": 8.6,
+      "volume": 0.05,
+      "packer": "赵敏",
+      "packingStatus": "doing"
+    },
+    {
+      "packingNo": "PK20261109003",
+      "obNo": "OUT20261109005",
+      "owner": "辰星日化",
+      "cartonNo": "CTN-0003",
+      "boxType": "小箱",
+      "boxCount": 3,
+      "weight": 5.2,
+      "volume": 0.03,
+      "packer": "黄磊",
+      "packingStatus": "pending"
+    },
+    {
+      "packingNo": "PK20261109004",
+      "obNo": "OUT20261109008",
+      "owner": "海纳食品",
+      "cartonNo": "CTN-0004",
+      "boxType": "托盘",
+      "boxCount": 1,
+      "weight": 86,
+      "volume": 0.62,
+      "packer": "王强",
+      "packingStatus": "done"
+    },
+    {
+      "packingNo": "PK20261108005",
+      "obNo": "OUT20261108018",
+      "owner": "云途电商",
+      "cartonNo": "CTN-0005",
+      "boxType": "中箱",
+      "boxCount": 2,
+      "weight": 9.8,
+      "volume": 0.06,
+      "packer": "赵敏",
+      "packingStatus": "done"
+    },
+    {
+      "packingNo": "PK20261108006",
+      "obNo": "OUT20261108020",
+      "owner": "辰星日化",
+      "cartonNo": "CTN-0006",
+      "boxType": "小箱",
+      "boxCount": 4,
+      "weight": 6.4,
+      "volume": 0.04,
+      "packer": "黄磊",
+      "packingStatus": "done"
+    },
+    {
+      "packingNo": "PK20261108007",
+      "obNo": "OUT20261108021",
+      "owner": "海纳食品",
+      "cartonNo": "CTN-0007",
+      "boxType": "大箱",
+      "boxCount": 1,
+      "weight": 13.2,
+      "volume": 0.09,
+      "packer": "王强",
+      "packingStatus": "done"
+    },
+    {
+      "packingNo": "PK20261108008",
+      "obNo": "OUT20261108023",
+      "owner": "云途电商",
+      "cartonNo": "CTN-0008",
+      "boxType": "中箱",
+      "boxCount": 3,
+      "weight": 10.5,
+      "volume": 0.07,
+      "packer": "赵敏",
+      "packingStatus": "done"
+    }
+  ]
+}

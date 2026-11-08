@@ -1,0 +1,92 @@
+{
+  "rows": [
+    {
+      "loadingNo": "LD20261109001",
+      "carrier": "顺丰速运",
+      "plateNo": "沪A·8J231",
+      "dock": "D01",
+      "handoverNo": "HO20261109001",
+      "packageCount": 42,
+      "weight": 286.5,
+      "loadedAt": "2026-11-09 10:20",
+      "loadingStatus": "shipped"
+    },
+    {
+      "loadingNo": "LD20261109002",
+      "carrier": "中通快运",
+      "plateNo": "粤B·3K882",
+      "dock": "D02",
+      "handoverNo": "HO20261109002",
+      "packageCount": 36,
+      "weight": 214,
+      "loadedAt": "",
+      "loadingStatus": "doing"
+    },
+    {
+      "loadingNo": "LD20261109003",
+      "carrier": "京东物流",
+      "plateNo": "京C·7L520",
+      "dock": "D03",
+      "handoverNo": "HO20261109003",
+      "packageCount": 28,
+      "weight": 168.4,
+      "loadedAt": "",
+      "loadingStatus": "pending"
+    },
+    {
+      "loadingNo": "LD20261109004",
+      "carrier": "德邦快递",
+      "plateNo": "川A·2M918",
+      "dock": "D04",
+      "handoverNo": "HO20261109004",
+      "packageCount": 51,
+      "weight": 320.8,
+      "loadedAt": "2026-11-09 09:40",
+      "loadingStatus": "shipped"
+    },
+    {
+      "loadingNo": "LD20261108005",
+      "carrier": "顺丰速运",
+      "plateNo": "沪A·6N337",
+      "dock": "D01",
+      "handoverNo": "HO20261108005",
+      "packageCount": 33,
+      "weight": 198.2,
+      "loadedAt": "2026-11-08 17:30",
+      "loadingStatus": "shipped"
+    },
+    {
+      "loadingNo": "LD20261108006",
+      "carrier": "中通快运",
+      "plateNo": "粤B·9P102",
+      "dock": "D02",
+      "handoverNo": "HO20261108006",
+      "packageCount": 40,
+      "weight": 245.6,
+      "loadedAt": "2026-11-08 16:10",
+      "loadingStatus": "shipped"
+    },
+    {
+      "loadingNo": "LD20261108007",
+      "carrier": "京东物流",
+      "plateNo": "京C·1Q771",
+      "dock": "D03",
+      "handoverNo": "HO20261108007",
+      "packageCount": 22,
+      "weight": 132,
+      "loadedAt": "2026-11-08 15:05",
+      "loadingStatus": "shipped"
+    },
+    {
+      "loadingNo": "LD20261108008",
+      "carrier": "德邦快递",
+      "plateNo": "川A·5R620",
+      "dock": "D04",
+      "handoverNo": "HO20261108008",
+      "packageCount": 46,
+      "weight": 288.7,
+      "loadedAt": "2026-11-08 11:20",
+      "loadingStatus": "shipped"
+    }
+  ]
+}

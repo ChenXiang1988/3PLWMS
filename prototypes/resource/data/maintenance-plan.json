@@ -1,0 +1,84 @@
+{
+  "rows": [
+    {
+      "planNo": "MP20261101",
+      "deviceCode": "AGV-01",
+      "maintenanceType": "定期检修",
+      "cycleDays": 90,
+      "nextDueAt": "2026-12-05",
+      "lastDoneAt": "2026-09-06",
+      "vendor": "华航自动化",
+      "planStatus": "scheduled"
+    },
+    {
+      "planNo": "MP20261102",
+      "deviceCode": "AGV-03",
+      "maintenanceType": "日常保养",
+      "cycleDays": 30,
+      "nextDueAt": "2026-11-15",
+      "lastDoneAt": "2026-10-16",
+      "vendor": "华航自动化",
+      "planStatus": "pending"
+    },
+    {
+      "planNo": "MP20261103",
+      "deviceCode": "FORK-07",
+      "maintenanceType": "定期检修",
+      "cycleDays": 180,
+      "nextDueAt": "2026-12-20",
+      "lastDoneAt": "2026-06-23",
+      "vendor": "合力叉车",
+      "planStatus": "scheduled"
+    },
+    {
+      "planNo": "MP20261104",
+      "deviceCode": "CONV-02",
+      "maintenanceType": "大修",
+      "cycleDays": 365,
+      "nextDueAt": "2027-03-01",
+      "lastDoneAt": "2026-03-01",
+      "vendor": "东杰智能",
+      "planStatus": "pending"
+    },
+    {
+      "planNo": "MP20261105",
+      "deviceCode": "SCAN-11",
+      "maintenanceType": "日常保养",
+      "cycleDays": 60,
+      "nextDueAt": "2026-11-10",
+      "lastDoneAt": "2026-09-11",
+      "vendor": "新大陆",
+      "planStatus": "overdue"
+    },
+    {
+      "planNo": "MP20261106",
+      "deviceCode": "PRINT-05",
+      "maintenanceType": "日常保养",
+      "cycleDays": 60,
+      "nextDueAt": "2026-11-28",
+      "lastDoneAt": "2026-09-29",
+      "vendor": "斑马",
+      "planStatus": "pending"
+    },
+    {
+      "planNo": "MP20261107",
+      "deviceCode": "AGV-06",
+      "maintenanceType": "定期检修",
+      "cycleDays": 90,
+      "nextDueAt": "2026-12-12",
+      "lastDoneAt": "2026-09-13",
+      "vendor": "华航自动化",
+      "planStatus": "scheduled"
+    },
+    {
+      "planNo": "MP20261108",
+      "deviceCode": "FORK-02",
+      "maintenanceType": "日常保养",
+      "cycleDays": 30,
+      "nextDueAt": "2026-11-05",
+      "lastDoneAt": "2026-10-06",
+      "vendor": "合力叉车",
+      "planStatus": "done"
+    }
+  ]
+}

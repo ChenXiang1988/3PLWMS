@@ -1,0 +1,76 @@
+{
+  "rows": [
+    {
+      "owner": "海纳食品",
+      "source": "1688",
+      "sourceUrl": "detail.1688.com/offer/8812",
+      "title": "每日坚果 750g 混合装",
+      "claimStatus": "claimed",
+      "dupStatus": "唯一",
+      "collectTime": "2026-11-09 09:30"
+    },
+    {
+      "owner": "辰星日化",
+      "source": "链接采集",
+      "sourceUrl": "item.taobao.com/item/9921",
+      "title": "氨基酸洁面乳 120ml",
+      "claimStatus": "pending",
+      "dupStatus": "唯一",
+      "collectTime": "2026-11-09 09:05"
+    },
+    {
+      "owner": "海纳食品",
+      "source": "1688",
+      "sourceUrl": "detail.1688.com/offer/8820",
+      "title": "厨房收纳三件套",
+      "claimStatus": "pending",
+      "dupStatus": "重复",
+      "collectTime": "2026-11-09 08:50"
+    },
+    {
+      "owner": "辰星日化",
+      "source": "1688",
+      "sourceUrl": "detail.1688.com/offer/8831",
+      "title": "快充数据线 1.5m",
+      "claimStatus": "claimed",
+      "dupStatus": "唯一",
+      "collectTime": "2026-11-08 18:20"
+    },
+    {
+      "owner": "海纳食品",
+      "source": "链接采集",
+      "sourceUrl": "item.taobao.com/item/9935",
+      "title": "低糖燕麦饼干 400g",
+      "claimStatus": "duplicate",
+      "dupStatus": "重复",
+      "collectTime": "2026-11-08 17:10"
+    },
+    {
+      "owner": "辰星日化",
+      "source": "1688",
+      "sourceUrl": "detail.1688.com/offer/8842",
+      "title": "便携洗衣凝珠 30 颗",
+      "claimStatus": "pending",
+      "dupStatus": "唯一",
+      "collectTime": "2026-11-08 16:35"
+    },
+    {
+      "owner": "海纳食品",
+      "source": "1688",
+      "sourceUrl": "detail.1688.com/offer/8850",
+      "title": "折叠收纳箱 60L",
+      "claimStatus": "claimed",
+      "dupStatus": "唯一",
+      "collectTime": "2026-11-08 15:00"
+    },
+    {
+      "owner": "辰星日化",
+      "source": "链接采集",
+      "sourceUrl": "item.taobao.com/item/9948",
+      "title": "无线鼠标静音版",
+      "claimStatus": "duplicate",
+      "dupStatus": "重复",
+      "collectTime": "2026-11-07 20:15"
+    }
+  ]
+}

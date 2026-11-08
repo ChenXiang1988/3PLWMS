@@ -1,0 +1,100 @@
+{
+  "rows": [
+    {
+      "settlementNo": "ST20261109001",
+      "owner": "海纳食品",
+      "billType": "混合",
+      "period": "2026-10",
+      "billCount": 2,
+      "currency": "CNY",
+      "amountWithTax": 47000,
+      "invoiceStatus": "invoiced",
+      "settlementStatus": "completed",
+      "approver": "李静"
+    },
+    {
+      "settlementNo": "ST20261109002",
+      "owner": "云途电商",
+      "billType": "作业费",
+      "period": "2026-10",
+      "billCount": 1,
+      "currency": "CNY",
+      "amountWithTax": 18400,
+      "invoiceStatus": "uninvoiced",
+      "settlementStatus": "sent",
+      "approver": "李静"
+    },
+    {
+      "settlementNo": "ST20261109003",
+      "owner": "辰星日化",
+      "billType": "仓储",
+      "period": "2026-10",
+      "billCount": 1,
+      "currency": "CNY",
+      "amountWithTax": 9600,
+      "invoiceStatus": "invoiced",
+      "settlementStatus": "confirmed",
+      "approver": "王涛"
+    },
+    {
+      "settlementNo": "ST20261108004",
+      "owner": "海纳食品",
+      "billType": "增值服务",
+      "period": "2026-09",
+      "billCount": 1,
+      "currency": "CNY",
+      "amountWithTax": 31200,
+      "invoiceStatus": "invoiced",
+      "settlementStatus": "completed",
+      "approver": "李静"
+    },
+    {
+      "settlementNo": "ST20261108005",
+      "owner": "云途电商",
+      "billType": "混合",
+      "period": "2026-09",
+      "billCount": 2,
+      "currency": "CNY",
+      "amountWithTax": 15900,
+      "invoiceStatus": "invoiced",
+      "settlementStatus": "completed",
+      "approver": "王涛"
+    },
+    {
+      "settlementNo": "ST20261107006",
+      "owner": "辰星日化",
+      "billType": "作业费",
+      "period": "2026-09",
+      "billCount": 1,
+      "currency": "CNY",
+      "amountWithTax": 7200,
+      "invoiceStatus": "uninvoiced",
+      "settlementStatus": "pending",
+      "approver": ""
+    },
+    {
+      "settlementNo": "ST20261107007",
+      "owner": "海纳食品",
+      "billType": "作业费",
+      "period": "2026-11",
+      "billCount": 1,
+      "currency": "CNY",
+      "amountWithTax": 12600,
+      "invoiceStatus": "uninvoiced",
+      "settlementStatus": "rejected",
+      "approver": "王涛"
+    },
+    {
+      "settlementNo": "ST20261106008",
+      "owner": "云途电商",
+      "billType": "仓储",
+      "period": "2026-11",
+      "billCount": 1,
+      "currency": "CNY",
+      "amountWithTax": 7800,
+      "invoiceStatus": "uninvoiced",
+      "settlementStatus": "pending",
+      "approver": ""
+    }
+  ]
+}

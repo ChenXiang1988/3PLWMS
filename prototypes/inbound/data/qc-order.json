@@ -1,0 +1,92 @@
+{
+  "rows": [
+    {
+      "qcNo": "QC20261109001",
+      "receivingNo": "RC20261109001",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-001",
+      "receivedQty": 2400,
+      "acceptedQty": 2400,
+      "qualifiedQty": 2380,
+      "defectiveQty": 20,
+      "conclusion": "partial"
+    },
+    {
+      "qcNo": "QC20261109002",
+      "receivingNo": "RC20261109002",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-011",
+      "receivedQty": 1200,
+      "acceptedQty": 1200,
+      "qualifiedQty": 1200,
+      "defectiveQty": 0,
+      "conclusion": "qualified"
+    },
+    {
+      "qcNo": "QC20261109003",
+      "receivingNo": "RC20261109003",
+      "owner": "辰星日化",
+      "skuCode": "SKU-CX-003",
+      "receivedQty": 800,
+      "acceptedQty": 800,
+      "qualifiedQty": 720,
+      "defectiveQty": 80,
+      "conclusion": "unqualified"
+    },
+    {
+      "qcNo": "QC20261109004",
+      "receivingNo": "RC20261109004",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-006",
+      "receivedQty": 960,
+      "acceptedQty": 960,
+      "qualifiedQty": 960,
+      "defectiveQty": 0,
+      "conclusion": "qualified"
+    },
+    {
+      "qcNo": "QC20261108005",
+      "receivingNo": "RC20261108009",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-012",
+      "receivedQty": 1500,
+      "acceptedQty": 1500,
+      "qualifiedQty": 1470,
+      "defectiveQty": 30,
+      "conclusion": "partial"
+    },
+    {
+      "qcNo": "QC20261108006",
+      "receivingNo": "RC20261108011",
+      "owner": "辰星日化",
+      "skuCode": "SKU-CX-004",
+      "receivedQty": 600,
+      "acceptedQty": 600,
+      "qualifiedQty": 600,
+      "defectiveQty": 0,
+      "conclusion": "qualified"
+    },
+    {
+      "qcNo": "QC20261108007",
+      "receivingNo": "RC20261108012",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-004",
+      "receivedQty": 720,
+      "acceptedQty": 720,
+      "qualifiedQty": 700,
+      "defectiveQty": 20,
+      "conclusion": "partial"
+    },
+    {
+      "qcNo": "QC20261108008",
+      "receivingNo": "RC20261108014",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-014",
+      "receivedQty": 1800,
+      "acceptedQty": 1800,
+      "qualifiedQty": 1800,
+      "defectiveQty": 0,
+      "conclusion": "qualified"
+    }
+  ]
+}

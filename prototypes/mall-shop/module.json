@@ -1,7 +1,7 @@
 {
   "id": "mall-shop",
   "name": "商城店铺",
-  "version": "0.1.0",
+  "version": "0.4.0",
   "owner": "产品组",
   "tier": "core",
   "deployed": true,
@@ -13,6 +13,6 @@
     "pages/",
     "data/"
   ],
-  "status": "review",
-  "note": "店主侧单店铺视图，未开通时显示招商页"
+  "status": "delivered",
+  "note": "企业资质认证改单行 list 与表单抽屉；店铺商品、价格、订单补数据"
 }

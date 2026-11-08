@@ -1,18 +1,18 @@
 {
   "id": "network",
   "name": "仓网管理",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "owner": "产品组",
   "tier": "core",
   "deployed": true,
   "dependsOn": [
     "shared"
   ],
-  "scope": "仓网总览、跨仓调拨、服务协议审核与软件服务费",
+  "scope": "仓网总览、告警与运营日报、服务关系与报价、仓网调度与月台预约、仓容与产能、跨仓调拨",
   "deliverables": [
     "pages/",
     "data/"
   ],
-  "status": "review",
-  "note": "仓网总览、跨仓调拨、服务协议审核、软件服务费四页"
+  "status": "delivered",
+  "note": "服务目录、货主仓授权、告警、运营日报、月台预约、仓容与产能六页；服务关系与计费段重排"
 }

@@ -1,0 +1,92 @@
+{
+  "rows": [
+    {
+      "sn": "SN202611090001",
+      "skuCode": "SKU-HN-001",
+      "owner": "海纳食品",
+      "batchNo": "B20261018",
+      "locationCode": "A-01-01-01",
+      "serialStatus": "in",
+      "inDocNo": "IN20261109001",
+      "outDocNo": "",
+      "lastMoveAt": "2026-11-09 09:40"
+    },
+    {
+      "sn": "SN202611090002",
+      "skuCode": "SKU-HN-001",
+      "owner": "海纳食品",
+      "batchNo": "B20261018",
+      "locationCode": "A-01-01-01",
+      "serialStatus": "in",
+      "inDocNo": "IN20261109001",
+      "outDocNo": "",
+      "lastMoveAt": "2026-11-09 09:40"
+    },
+    {
+      "sn": "SN202611090003",
+      "skuCode": "SKU-YT-011",
+      "owner": "云途电商",
+      "batchNo": "B20261020",
+      "locationCode": "A-02-01-01",
+      "serialStatus": "out",
+      "inDocNo": "IN20261108009",
+      "outDocNo": "OUT20261109002",
+      "lastMoveAt": "2026-11-09 10:15"
+    },
+    {
+      "sn": "SN202611090004",
+      "skuCode": "SKU-CX-003",
+      "owner": "辰星日化",
+      "batchNo": "B20261011",
+      "locationCode": "B-01-01-01",
+      "serialStatus": "in",
+      "inDocNo": "IN20261109003",
+      "outDocNo": "",
+      "lastMoveAt": "2026-11-09 10:02"
+    },
+    {
+      "sn": "SN202611090005",
+      "skuCode": "SKU-HN-006",
+      "owner": "海纳食品",
+      "batchNo": "B20261022",
+      "locationCode": "B-02-01-01",
+      "serialStatus": "frozen",
+      "inDocNo": "IN20261109004",
+      "outDocNo": "",
+      "lastMoveAt": "2026-11-09 09:55"
+    },
+    {
+      "sn": "SN202611080006",
+      "skuCode": "SKU-YT-012",
+      "owner": "云途电商",
+      "batchNo": "B20261015",
+      "locationCode": "C-01-01-01",
+      "serialStatus": "in",
+      "inDocNo": "IN20261108009",
+      "outDocNo": "",
+      "lastMoveAt": "2026-11-08 16:20"
+    },
+    {
+      "sn": "SN202611080007",
+      "skuCode": "SKU-CX-004",
+      "owner": "辰星日化",
+      "batchNo": "B20261009",
+      "locationCode": "C-02-01-01",
+      "serialStatus": "out",
+      "inDocNo": "IN20261108011",
+      "outDocNo": "OUT20261108020",
+      "lastMoveAt": "2026-11-08 15:05"
+    },
+    {
+      "sn": "SN202611080008",
+      "skuCode": "SKU-HN-004",
+      "owner": "海纳食品",
+      "batchNo": "B20261007",
+      "locationCode": "D-01-01-01",
+      "serialStatus": "in",
+      "inDocNo": "IN20261108012",
+      "outDocNo": "",
+      "lastMoveAt": "2026-11-08 11:00"
+    }
+  ]
+}

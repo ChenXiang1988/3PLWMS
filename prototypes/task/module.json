@@ -8,11 +8,11 @@
   "dependsOn": [
     "shared"
   ],
-  "scope": "跨模块任务聚合视图，不持有业务源",
+  "scope": "跨模块任务聚合、任务池与派工、人效看板与 PDA 作业入口，不持有业务源",
   "deliverables": [
     "pages/",
     "data/"
   ],
   "status": "delivered",
-  "note": "作业任务、作业看板、单据总览三页；PDA 我的页补角色、仓库范围与权限入口"
+  "note": "新增任务池与派工、人效与准确率"
 }

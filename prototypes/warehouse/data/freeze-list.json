@@ -1,0 +1,92 @@
+{
+  "rows": [
+    {
+      "freezeNo": "FZ20261109001",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-001",
+      "batchNo": "B20261018",
+      "locationCode": "A-01-01-01",
+      "freezeQty": 120,
+      "reasonType": "质检待判",
+      "reason": "到货抽检异常",
+      "freezeStatus": "frozen"
+    },
+    {
+      "freezeNo": "FZ20261109002",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-011",
+      "batchNo": "B20261020",
+      "locationCode": "A-02-01-01",
+      "freezeQty": 60,
+      "reasonType": "盘点差异",
+      "reason": "盘亏待查",
+      "freezeStatus": "unfreezing"
+    },
+    {
+      "freezeNo": "FZ20261109003",
+      "owner": "辰星日化",
+      "skuCode": "SKU-CX-003",
+      "batchNo": "B20261011",
+      "locationCode": "B-01-01-01",
+      "freezeQty": 80,
+      "reasonType": "客户要求",
+      "reason": "客户暂缓出库",
+      "freezeStatus": "frozen"
+    },
+    {
+      "freezeNo": "FZ20261109004",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-006",
+      "batchNo": "B20261022",
+      "locationCode": "B-02-01-01",
+      "freezeQty": 40,
+      "reasonType": "异常调查",
+      "reason": "包装破损待判",
+      "freezeStatus": "unfrozen"
+    },
+    {
+      "freezeNo": "FZ20261108005",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-012",
+      "batchNo": "B20261015",
+      "locationCode": "C-01-01-01",
+      "freezeQty": 30,
+      "reasonType": "质检待判",
+      "reason": "效期复核",
+      "freezeStatus": "frozen"
+    },
+    {
+      "freezeNo": "FZ20261108006",
+      "owner": "辰星日化",
+      "skuCode": "SKU-CX-004",
+      "batchNo": "B20261009",
+      "locationCode": "C-02-01-01",
+      "freezeQty": 25,
+      "reasonType": "盘点差异",
+      "reason": "串位待调",
+      "freezeStatus": "unfrozen"
+    },
+    {
+      "freezeNo": "FZ20261108007",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-004",
+      "batchNo": "B20261007",
+      "locationCode": "D-01-01-01",
+      "freezeQty": 50,
+      "reasonType": "客户要求",
+      "reason": "退仓前冻结",
+      "freezeStatus": "frozen"
+    },
+    {
+      "freezeNo": "FZ20261108008",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-014",
+      "batchNo": "B20261002",
+      "locationCode": "A-01-02-01",
+      "freezeQty": 35,
+      "reasonType": "异常调查",
+      "reason": "串货核查",
+      "freezeStatus": "unfrozen"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "rows": [
+    {
+      "tallyNo": "TL20261109001",
+      "receivingNo": "RC20261109001",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-001",
+      "stageLocation": "STG-01",
+      "palletNo": "PLT-018",
+      "tallyQty": 2400,
+      "tallyStatus": "done",
+      "operator": "王强"
+    },
+    {
+      "tallyNo": "TL20261109002",
+      "receivingNo": "RC20261109002",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-011",
+      "stageLocation": "STG-02",
+      "palletNo": "PLT-022",
+      "tallyQty": 1200,
+      "tallyStatus": "doing",
+      "operator": "赵敏"
+    },
+    {
+      "tallyNo": "TL20261109003",
+      "receivingNo": "RC20261109003",
+      "owner": "辰星日化",
+      "skuCode": "SKU-CX-003",
+      "stageLocation": "STG-03",
+      "palletNo": "PLT-031",
+      "tallyQty": 800,
+      "tallyStatus": "diff",
+      "operator": "黄磊"
+    },
+    {
+      "tallyNo": "TL20261109004",
+      "receivingNo": "RC20261109004",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-006",
+      "stageLocation": "STG-01",
+      "palletNo": "PLT-019",
+      "tallyQty": 960,
+      "tallyStatus": "pending",
+      "operator": ""
+    },
+    {
+      "tallyNo": "TL20261108005",
+      "receivingNo": "RC20261108009",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-012",
+      "stageLocation": "STG-02",
+      "palletNo": "PLT-024",
+      "tallyQty": 1500,
+      "tallyStatus": "done",
+      "operator": "赵敏"
+    },
+    {
+      "tallyNo": "TL20261108006",
+      "receivingNo": "RC20261108011",
+      "owner": "辰星日化",
+      "skuCode": "SKU-CX-004",
+      "stageLocation": "STG-03",
+      "palletNo": "PLT-033",
+      "tallyQty": 600,
+      "tallyStatus": "done",
+      "operator": "黄磊"
+    },
+    {
+      "tallyNo": "TL20261108007",
+      "receivingNo": "RC20261108012",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-004",
+      "stageLocation": "STG-01",
+      "palletNo": "PLT-020",
+      "tallyQty": 720,
+      "tallyStatus": "diff",
+      "operator": "王强"
+    },
+    {
+      "tallyNo": "TL20261108008",
+      "receivingNo": "RC20261108014",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-014",
+      "stageLocation": "STG-02",
+      "palletNo": "PLT-026",
+      "tallyQty": 1800,
+      "tallyStatus": "done",
+      "operator": "赵敏"
+    }
+  ]
+}

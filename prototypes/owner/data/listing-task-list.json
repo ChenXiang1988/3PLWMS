@@ -1,0 +1,92 @@
+{
+  "rows": [
+    {
+      "taskNo": "LT20261109-01",
+      "platform": "Temu",
+      "shop": "海纳食品海外店",
+      "listingCount": 6,
+      "taskStatus": "done",
+      "failReason": "—",
+      "retryCount": 0,
+      "submitTime": "2026-11-09 09:02",
+      "owner": "海纳食品"
+    },
+    {
+      "taskNo": "LT20261109-02",
+      "platform": "Lazada",
+      "shop": "云途马来店",
+      "listingCount": 3,
+      "taskStatus": "running",
+      "failReason": "—",
+      "retryCount": 0,
+      "submitTime": "2026-11-09 08:45",
+      "owner": "海纳食品"
+    },
+    {
+      "taskNo": "LT20261109-03",
+      "platform": "TikTok Shop",
+      "shop": "辰星日化跨境店",
+      "listingCount": 2,
+      "taskStatus": "failed",
+      "failReason": "平台类目属性缺失",
+      "retryCount": 1,
+      "submitTime": "2026-11-09 08:10",
+      "owner": "辰星日化"
+    },
+    {
+      "taskNo": "LT20261108-07",
+      "platform": "Amazon",
+      "shop": "海纳食品美国店",
+      "listingCount": 4,
+      "taskStatus": "done",
+      "failReason": "—",
+      "retryCount": 0,
+      "submitTime": "2026-11-08 17:30",
+      "owner": "海纳食品"
+    },
+    {
+      "taskNo": "LT20261108-06",
+      "platform": "Shopee",
+      "shop": "云途新加坡店",
+      "listingCount": 5,
+      "taskStatus": "failed",
+      "failReason": "库存推送超时",
+      "retryCount": 2,
+      "submitTime": "2026-11-08 16:05",
+      "owner": "海纳食品"
+    },
+    {
+      "taskNo": "LT20261108-05",
+      "platform": "Temu",
+      "shop": "辰星日化海外店",
+      "listingCount": 2,
+      "taskStatus": "pending",
+      "failReason": "—",
+      "retryCount": 0,
+      "submitTime": "2026-11-08 14:20",
+      "owner": "辰星日化"
+    },
+    {
+      "taskNo": "LT20261108-04",
+      "platform": "Lazada",
+      "shop": "海纳食品泰国店",
+      "listingCount": 1,
+      "taskStatus": "done",
+      "failReason": "—",
+      "retryCount": 0,
+      "submitTime": "2026-11-08 11:00",
+      "owner": "海纳食品"
+    },
+    {
+      "taskNo": "LT20261107-09",
+      "platform": "Temu",
+      "shop": "海纳食品海外店",
+      "listingCount": 8,
+      "taskStatus": "done",
+      "failReason": "—",
+      "retryCount": 1,
+      "submitTime": "2026-11-07 19:40",
+      "owner": "海纳食品"
+    }
+  ]
+}

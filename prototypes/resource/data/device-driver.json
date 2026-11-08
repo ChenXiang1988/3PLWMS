@@ -1,0 +1,76 @@
+{
+  "rows": [
+    {
+      "driverCode": "DRV-AGV-01",
+      "deviceType": "AGV",
+      "protocol": "MQTT",
+      "endpoint": "mqtt://10.20.1.11:1883/agv",
+      "heartbeatSeconds": 30,
+      "connectStatus": "connected",
+      "lastTestAt": "2026-11-09 10:00"
+    },
+    {
+      "driverCode": "DRV-AGV-02",
+      "deviceType": "AGV",
+      "protocol": "TCP",
+      "endpoint": "tcp://10.20.1.12:9000",
+      "heartbeatSeconds": 30,
+      "connectStatus": "connected",
+      "lastTestAt": "2026-11-09 09:50"
+    },
+    {
+      "driverCode": "DRV-CONV-01",
+      "deviceType": "输送线",
+      "protocol": "Modbus",
+      "endpoint": "modbus://10.20.1.21:502",
+      "heartbeatSeconds": 15,
+      "connectStatus": "connected",
+      "lastTestAt": "2026-11-09 09:30"
+    },
+    {
+      "driverCode": "DRV-FORK-01",
+      "deviceType": "叉车",
+      "protocol": "HTTP",
+      "endpoint": "10.20.1.31:8080/healthz",
+      "heartbeatSeconds": 60,
+      "connectStatus": "disconnected",
+      "lastTestAt": "2026-11-09 08:20"
+    },
+    {
+      "driverCode": "DRV-SCAN-01",
+      "deviceType": "扫码枪",
+      "protocol": "TCP",
+      "endpoint": "tcp://10.20.1.41:9100",
+      "heartbeatSeconds": 30,
+      "connectStatus": "connected",
+      "lastTestAt": "2026-11-08 18:00"
+    },
+    {
+      "driverCode": "DRV-PRINT-01",
+      "deviceType": "打印机",
+      "protocol": "HTTP",
+      "endpoint": "10.20.1.51:8080/readyz",
+      "heartbeatSeconds": 60,
+      "connectStatus": "failed",
+      "lastTestAt": "2026-11-08 17:40"
+    },
+    {
+      "driverCode": "DRV-AGV-03",
+      "deviceType": "AGV",
+      "protocol": "MQTT",
+      "endpoint": "mqtt://10.20.1.13:1883/agv",
+      "heartbeatSeconds": 30,
+      "connectStatus": "connected",
+      "lastTestAt": "2026-11-08 16:30"
+    },
+    {
+      "driverCode": "DRV-CONV-02",
+      "deviceType": "输送线",
+      "protocol": "TCP",
+      "endpoint": "tcp://10.20.1.22:9001",
+      "heartbeatSeconds": 15,
+      "connectStatus": "connected",
+      "lastTestAt": "2026-11-08 15:20"
+    }
+  ]
+}

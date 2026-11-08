@@ -1,18 +1,18 @@
 {
   "id": "system",
   "name": "系统设置",
-  "version": "0.3.1",
+  "version": "0.2.0",
   "owner": "产品组",
   "tier": "ext",
   "deployed": true,
   "dependsOn": [
     "shared"
   ],
-  "scope": "货灵运营中台管理端运营方与仓内账号、角色、权限、操作日志与字典",
+  "scope": "货主运营方与仓内账号、角色、权限、操作日志、组织与审批流、字典",
   "deliverables": [
     "pages/",
     "data/"
   ],
   "status": "delivered",
-  "note": "货灵运营中台管理端账号管理、角色权限、操作日志与字典管理四页；不含货主账号"
+  "note": "新增组织架构、审批流配置"
 }

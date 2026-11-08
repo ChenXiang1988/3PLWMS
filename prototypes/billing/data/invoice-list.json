@@ -1,0 +1,84 @@
+{
+  "rows": [
+    {
+      "invoiceNo": "INV202611001",
+      "settlementNo": "ST20261109001",
+      "owner": "海纳食品",
+      "invoiceType": "增值税专用发票",
+      "amount": 47000,
+      "receivedAmount": 47000,
+      "receiveStatus": "paid",
+      "dueDate": "2026-11-30"
+    },
+    {
+      "invoiceNo": "INV202611002",
+      "settlementNo": "ST20261109003",
+      "owner": "辰星日化",
+      "invoiceType": "电子发票",
+      "amount": 9600,
+      "receivedAmount": 9600,
+      "receiveStatus": "paid",
+      "dueDate": "2026-11-25"
+    },
+    {
+      "invoiceNo": "INV202611003",
+      "settlementNo": "ST20261108004",
+      "owner": "海纳食品",
+      "invoiceType": "增值税专用发票",
+      "amount": 31200,
+      "receivedAmount": 31200,
+      "receiveStatus": "paid",
+      "dueDate": "2026-10-31"
+    },
+    {
+      "invoiceNo": "INV202611004",
+      "settlementNo": "ST20261108005",
+      "owner": "云途电商",
+      "invoiceType": "增值税普通发票",
+      "amount": 15900,
+      "receivedAmount": 12000,
+      "receiveStatus": "partial",
+      "dueDate": "2026-11-20"
+    },
+    {
+      "invoiceNo": "INV202611005",
+      "settlementNo": "ST20261109002",
+      "owner": "云途电商",
+      "invoiceType": "电子发票",
+      "amount": 18400,
+      "receivedAmount": 0,
+      "receiveStatus": "unpaid",
+      "dueDate": "2026-12-10"
+    },
+    {
+      "invoiceNo": "INV202611006",
+      "settlementNo": "ST20261107006",
+      "owner": "辰星日化",
+      "invoiceType": "电子发票",
+      "amount": 7200,
+      "receivedAmount": 0,
+      "receiveStatus": "overdue",
+      "dueDate": "2026-11-01"
+    },
+    {
+      "invoiceNo": "INV202611007",
+      "settlementNo": "ST20261107007",
+      "owner": "海纳食品",
+      "invoiceType": "增值税专用发票",
+      "amount": 12600,
+      "receivedAmount": 0,
+      "receiveStatus": "unpaid",
+      "dueDate": "2026-12-15"
+    },
+    {
+      "invoiceNo": "INV202611008",
+      "settlementNo": "ST20261106008",
+      "owner": "云途电商",
+      "invoiceType": "增值税普通发票",
+      "amount": 7800,
+      "receivedAmount": 0,
+      "receiveStatus": "unpaid",
+      "dueDate": "2026-12-20"
+    }
+  ]
+}

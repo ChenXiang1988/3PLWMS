@@ -1,0 +1,92 @@
+{
+  "rows": [
+    {
+      "flowCode": "FL-001",
+      "docType": "入库计划单",
+      "nodeSeq": 1,
+      "nodeName": "仓网确认",
+      "approverRole": "仓网调度",
+      "timeoutHours": 4,
+      "escalateTo": "运营经理",
+      "flowStatus": "published",
+      "version": "v3"
+    },
+    {
+      "flowCode": "FL-001",
+      "docType": "入库计划单",
+      "nodeSeq": 2,
+      "nodeName": "仓储受理",
+      "approverRole": "仓库主管",
+      "timeoutHours": 2,
+      "escalateTo": "运营经理",
+      "flowStatus": "published",
+      "version": "v3"
+    },
+    {
+      "flowCode": "FL-002",
+      "docType": "出库计划单",
+      "nodeSeq": 1,
+      "nodeName": "仓网确认",
+      "approverRole": "仓网调度",
+      "timeoutHours": 4,
+      "escalateTo": "运营经理",
+      "flowStatus": "published",
+      "version": "v2"
+    },
+    {
+      "flowCode": "FL-003",
+      "docType": "盘点差异",
+      "nodeSeq": 1,
+      "nodeName": "盘点复核",
+      "approverRole": "仓库主管",
+      "timeoutHours": 8,
+      "escalateTo": "运营经理",
+      "flowStatus": "published",
+      "version": "v1"
+    },
+    {
+      "flowCode": "FL-003",
+      "docType": "盘点差异",
+      "nodeSeq": 2,
+      "nodeName": "差异审批",
+      "approverRole": "运营经理",
+      "timeoutHours": 24,
+      "escalateTo": "—",
+      "flowStatus": "published",
+      "version": "v1"
+    },
+    {
+      "flowCode": "FL-004",
+      "docType": "冻结解冻",
+      "nodeSeq": 1,
+      "nodeName": "解冻审批",
+      "approverRole": "仓库主管",
+      "timeoutHours": 8,
+      "escalateTo": "运营经理",
+      "flowStatus": "published",
+      "version": "v1"
+    },
+    {
+      "flowCode": "FL-005",
+      "docType": "费用账单",
+      "nodeSeq": 1,
+      "nodeName": "账单审核",
+      "approverRole": "财务",
+      "timeoutHours": 24,
+      "escalateTo": "运营经理",
+      "flowStatus": "draft",
+      "version": "v1"
+    },
+    {
+      "flowCode": "FL-006",
+      "docType": "入库计划单",
+      "nodeSeq": 1,
+      "nodeName": "旧版确认",
+      "approverRole": "仓网调度",
+      "timeoutHours": 4,
+      "escalateTo": "运营经理",
+      "flowStatus": "disabled",
+      "version": "v2"
+    }
+  ]
+}

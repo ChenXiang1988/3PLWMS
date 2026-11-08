@@ -3,6 +3,10 @@
     { "taskNo": "PCK20261106001", "taskStatus": "busy", "owner": "海纳食品", "soNo": "SO20261106001", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "pickBin": "A-01-01", "planQty": 240, "doneQty": 120 },
     { "taskNo": "PCK20261106002", "taskStatus": "wait", "owner": "辰星日化", "soNo": "SO20261106002", "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "pickBin": "B-01-02", "planQty": 480, "doneQty": 0 },
     { "taskNo": "PCK20261106003", "taskStatus": "busy", "owner": "云途电商", "soNo": "SO20261106006", "skuCode": "SKU100198", "skuName": "云途收纳箱 45L", "pickBin": "C-03-01", "planQty": 200, "doneQty": 80 },
-    { "taskNo": "PCK20261106004", "taskStatus": "wait", "owner": "海纳食品", "soNo": "SO20261106007", "skuCode": "SKU100402", "skuName": "海纳常温酸奶礼盒 200g×12", "pickBin": "A-03-01", "planQty": 300, "doneQty": 0 }
+    { "taskNo": "PCK20261106004", "taskStatus": "wait", "owner": "海纳食品", "soNo": "SO20261106007", "skuCode": "SKU100402", "skuName": "海纳常温酸奶礼盒 200g×12", "pickBin": "A-03-01", "planQty": 300, "doneQty": 0 },
+    { "taskNo": "PCK20261106005", "taskStatus": "busy", "owner": "云途电商", "soNo": "SO20261106008", "skuCode": "SKU100205", "skuName": "海苔薄饼 200g", "pickBin": "C-02-01", "planQty": 180, "doneQty": 120 },
+    { "taskNo": "PCK20261106006", "taskStatus": "wait", "owner": "辰星日化", "soNo": "SO20261106009", "skuCode": "SKU100355", "skuName": "辰星柔顺剂 1kg×12", "pickBin": "B-03-02", "planQty": 240, "doneQty": 0 },
+    { "taskNo": "PCK20261106007", "taskStatus": "done", "owner": "海纳食品", "soNo": "SO20261106010", "skuCode": "SKU100232", "skuName": "海苔脆片 50g", "pickBin": "A-04-02", "planQty": 360, "doneQty": 360 },
+    { "taskNo": "PCK20261106008", "taskStatus": "blocked", "owner": "云途电商", "soNo": "SO20261106011", "skuCode": "SKU100198", "skuName": "云途收纳箱 45L", "pickBin": "C-01-04", "planQty": 120, "doneQty": 40 }
   ]
 }

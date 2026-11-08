@@ -1,0 +1,92 @@
+{
+  "rows": [
+    {
+      "appointmentNo": "DA20261109001",
+      "inPlanNo": "IN20261109001",
+      "owner": "海纳食品",
+      "dock": "D01",
+      "plateNo": "沪A·8J231",
+      "plannedAt": "2026-11-09 09:00",
+      "arrivedAt": "2026-11-09 08:52",
+      "palletCount": 24,
+      "appointmentStatus": "arrived"
+    },
+    {
+      "appointmentNo": "DA20261109002",
+      "inPlanNo": "IN20261109004",
+      "owner": "云途电商",
+      "dock": "D02",
+      "plateNo": "粤B·3K882",
+      "plannedAt": "2026-11-09 10:30",
+      "arrivedAt": "",
+      "palletCount": 16,
+      "appointmentStatus": "confirmed"
+    },
+    {
+      "appointmentNo": "DA20261109003",
+      "inPlanNo": "IN20261109006",
+      "owner": "辰星日化",
+      "dock": "D03",
+      "plateNo": "京C·7L520",
+      "plannedAt": "2026-11-09 11:00",
+      "arrivedAt": "",
+      "palletCount": 18,
+      "appointmentStatus": "pending"
+    },
+    {
+      "appointmentNo": "DA20261109004",
+      "inPlanNo": "IN20261109008",
+      "owner": "海纳食品",
+      "dock": "D01",
+      "plateNo": "沪A·2M918",
+      "plannedAt": "2026-11-09 13:30",
+      "arrivedAt": "",
+      "palletCount": 20,
+      "appointmentStatus": "confirmed"
+    },
+    {
+      "appointmentNo": "DA20261108005",
+      "inPlanNo": "IN20261108009",
+      "owner": "云途电商",
+      "dock": "D04",
+      "plateNo": "粤B·6N337",
+      "plannedAt": "2026-11-08 15:00",
+      "arrivedAt": "2026-11-08 14:48",
+      "palletCount": 12,
+      "appointmentStatus": "arrived"
+    },
+    {
+      "appointmentNo": "DA20261108006",
+      "inPlanNo": "IN20261108011",
+      "owner": "辰星日化",
+      "dock": "D01",
+      "plateNo": "京C·9P102",
+      "plannedAt": "2026-11-08 16:30",
+      "arrivedAt": "2026-11-08 17:10",
+      "palletCount": 22,
+      "appointmentStatus": "arrived"
+    },
+    {
+      "appointmentNo": "DA20261108007",
+      "inPlanNo": "IN20261108012",
+      "owner": "海纳食品",
+      "dock": "D02",
+      "plateNo": "沪A·1Q771",
+      "plannedAt": "2026-11-08 14:00",
+      "arrivedAt": "",
+      "palletCount": 10,
+      "appointmentStatus": "cancelled"
+    },
+    {
+      "appointmentNo": "DA20261108008",
+      "inPlanNo": "IN20261108014",
+      "owner": "云途电商",
+      "dock": "D02",
+      "plateNo": "粤B·5R620",
+      "plannedAt": "2026-11-08 09:30",
+      "arrivedAt": "2026-11-08 09:25",
+      "palletCount": 26,
+      "appointmentStatus": "arrived"
+    }
+  ]
+}

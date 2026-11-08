@@ -1,0 +1,100 @@
+{
+  "rows": [
+    {
+      "exceptionNo": "EX20261109001",
+      "exceptionType": "收货差异",
+      "sourceNo": "RC20261109001",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-001",
+      "qty": 20,
+      "responsibility": "仓库",
+      "handleStatus": "pending",
+      "slaHours": 24,
+      "handleResult": ""
+    },
+    {
+      "exceptionNo": "EX20261109002",
+      "exceptionType": "盘点差异",
+      "sourceNo": "CT20261109003",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-011",
+      "qty": -6,
+      "responsibility": "仓库",
+      "handleStatus": "doing",
+      "slaHours": 12,
+      "handleResult": "复核中"
+    },
+    {
+      "exceptionNo": "EX20261109003",
+      "exceptionType": "破损丢失",
+      "sourceNo": "OUT20261109005",
+      "owner": "辰星日化",
+      "skuCode": "SKU-CX-003",
+      "qty": 4,
+      "responsibility": "承运商",
+      "handleStatus": "done",
+      "slaHours": 24,
+      "handleResult": "承运商赔付"
+    },
+    {
+      "exceptionNo": "EX20261109004",
+      "exceptionType": "批次不符",
+      "sourceNo": "RC20261109004",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-006",
+      "qty": 12,
+      "responsibility": "货主",
+      "handleStatus": "done",
+      "slaHours": 8,
+      "handleResult": "货主确认"
+    },
+    {
+      "exceptionNo": "EX20261108005",
+      "exceptionType": "跨货主串货",
+      "sourceNo": "OUT20261108018",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-012",
+      "qty": 2,
+      "responsibility": "仓库",
+      "handleStatus": "done",
+      "slaHours": 4,
+      "handleResult": "已冲正"
+    },
+    {
+      "exceptionNo": "EX20261108006",
+      "exceptionType": "费用对账",
+      "sourceNo": "BL202610-002",
+      "owner": "云途电商",
+      "skuCode": "—",
+      "qty": 0,
+      "responsibility": "运营方",
+      "handleStatus": "doing",
+      "slaHours": 48,
+      "handleResult": "对账中"
+    },
+    {
+      "exceptionNo": "EX20261108007",
+      "exceptionType": "收货差异",
+      "sourceNo": "RC20261108012",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-004",
+      "qty": -8,
+      "responsibility": "承运商",
+      "handleStatus": "done",
+      "slaHours": 24,
+      "handleResult": "承运商赔付"
+    },
+    {
+      "exceptionNo": "EX20261108008",
+      "exceptionType": "盘点差异",
+      "sourceNo": "CT20261108011",
+      "owner": "辰星日化",
+      "skuCode": "SKU-CX-004",
+      "qty": 3,
+      "responsibility": "仓库",
+      "handleStatus": "pending",
+      "slaHours": 12,
+      "handleResult": ""
+    }
+  ]
+}

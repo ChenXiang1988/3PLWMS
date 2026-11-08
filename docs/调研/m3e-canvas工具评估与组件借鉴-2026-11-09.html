@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="topic" content="m3e-canvas工具评估与组件借鉴">
+<meta name="survey-window" content="2026-11-09T14:20 / 2026-11-09T17:00">
+<meta name="survey-objects" content="m3e-canvas">
+<title>m3e-canvas 工具评估与组件借鉴</title>
+<style>
+:root{--bg:#f4f6f9;--paper:#fff;--ink:#1c2430;--muted:#5a6675;--faint:#8792a1;--line:#e2e7ee;--accent:#1d5f8c;--accent-soft:#eaf2f9;--warn:#9a5b16;--warn-soft:#fdf3e5;--red:#9c3b3b;--red-soft:#fbeded;--shadow:0 1px 2px rgba(20,32,48,.05),0 10px 32px rgba(20,32,48,.06)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.78 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+.layout{display:grid;grid-template-columns:224px minmax(0,1fr);gap:24px;max-width:1360px;margin:0 auto;padding:24px}
+aside{position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:18px 14px;box-shadow:var(--shadow)}
+aside .side-title{font-size:12px;letter-spacing:.08em;color:var(--faint);font-weight:600;margin:0 0 10px 4px}
+aside a{display:block;color:var(--muted);text-decoration:none;font-size:13.5px;padding:5px 9px;border-radius:5px;border-left:2px solid transparent}
+aside a:hover{background:var(--accent-soft);color:var(--accent)}
+main{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:48px 56px 64px;box-shadow:var(--shadow);min-width:0}
+.cover{border-bottom:2px solid var(--ink);padding-bottom:24px;margin-bottom:30px}
+.kicker{font-size:12.5px;letter-spacing:.14em;color:var(--accent);font-weight:700;margin:0 0 10px}
+h1{font-size:29px;line-height:1.35;margin:0 0 12px;letter-spacing:-.01em}
+.sub{font-size:16px;color:var(--muted);margin:0 0 20px}
+.meta{display:flex;flex-wrap:wrap;gap:10px 24px;font-size:13px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600;margin-right:4px}
+h2{font-size:21px;margin:48px 0 6px;padding-bottom:10px;border-bottom:1px solid var(--line);scroll-margin-top:20px}
+h2 .num{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.04em;margin-right:8px}
+h3{font-size:16.5px;margin:28px 0 8px;scroll-margin-top:20px}
+h4{font-size:14.5px;margin:18px 0 6px;color:var(--accent)}
+p{margin:8px 0 12px}
+ul,ol{margin:8px 0 14px;padding-left:22px}
+li{margin:4px 0}
+code{font:13px/1.5 ui-monospace,Consolas,monospace;background:#f0f2f5;padding:1px 5px;border-radius:3px}
+table{width:100%;border-collapse:collapse;font-size:13.6px;margin:12px 0 20px}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:#f3f6fa;font-weight:650}
+tbody tr:nth-child(even){background:#fafbfd}
+td:first-child{font-weight:600}
+.callout{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 16px;border-radius:0 6px 6px 0;margin:16px 0;font-size:14px}
+.callout.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.callout.caution{border-left-color:var(--red);background:var(--red-soft)}
+.tree,.tree ul{list-style:none;margin:0;padding-left:14px}
+.tree{font-size:13.6px;margin:12px 0 18px;color:var(--ink)}
+.tree ul{border-left:1px solid var(--line)}
+.tree li{position:relative;padding:3px 0 3px 12px;white-space:nowrap}
+.tree li::before{content:"";position:absolute;left:0;top:15px;width:8px;border-top:1px solid var(--line)}
+.tree > li{padding-left:0}
+.tree > li::before{display:none}
+.matrix td.m-y{background:#e9f4ed;color:#2b6c49}
+.matrix td.m-n{background:#fbeded;color:#9c3b3b}
+.matrix td.m-u{background:#fdf3e5;color:#9a5b16}
+.tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:3px;background:#e5f0f8;color:var(--accent);font-weight:600;margin-right:4px}
+.badge-ok{background:#e9f4ed;color:#2b6c49}
+.badge-no{background:#fbeded;color:#9c3b3b}
+.badge-tbd{background:#fdf3e5;color:#9a5b16}
+@media(max-width:980px){.layout{grid-template-columns:1fr;padding:12px}aside{position:static;max-height:none}main{padding:28px 20px 44px}h1{font-size:24px}table{font-size:12.8px}}
+@media print{body{background:#fff;font-size:11.5pt}.layout{display:block;padding:0;max-width:none}aside{display:none}main{border:0;box-shadow:none;padding:0}table,figure,.callout,.tree{page-break-inside:avoid}a{text-decoration:none;color:inherit}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+  <p class="side-title">目录</p>
+  <nav>
+    <a href="#s1">1 口径与证据</a>
+    <a href="#s2">2 覆盖清单</a>
+    <a href="#s3">3 逐页记录</a>
+    <a href="#s4">4 术语对照</a>
+    <a href="#s5">5 横向对比</a>
+    <a href="#s6">6 结论与落点</a>
+    <a href="#s7">7 缺项</a>
+    <a href="#s8">8 截图索引</a>
+  </nav>
+</aside>
+<main>
+
+<div class="cover">
+  <p class="kicker">调研报告</p>
+  <h1>m3e-canvas 工具评估与组件借鉴</h1>
+  <p class="sub">不替换现有 HTML 原型流程，但可借鉴其组件完备度补足 shared/ui.mjs 基础件，并用 AGENT 规格把 vibe-coding 方法落到 wx-* 栈。</p>
+  <div class="meta">
+    <span><b>日期</b>2026-11-09</span>
+    <span><b>状态</b>草案</span>
+    <span><b>版本</b>v0.1</span>
+    <span><b>作者</b>货灵产品组</span>
+    <span><b>报告对象</b>lnkiai/m3e-canvas（草图→提示词工具）</span>
+  </div>
+</div>
+
+<h2 id="s1"><span class="num">1</span> 口径与证据</h2>
+
+<p>本轮覆盖 1 个对象，全部为只读访问，未在目标系统执行任何写操作。证据级别分三档：<b>A</b> 本人在目标系统实见（页面、字段、状态、操作）；<b>B</b> 官方仓库元数据或 README 原文；<b>C</b> 第三方文章与搜索摘要，只作范围参考。本对象的官方仓库为 <code>github.com/lnkiai/m3e-canvas</code>（用户所给链接的 owner 拼写 <code>inkia</code> 为笔误，正确为 <code>lnkiai</code>）。</p>
+
+<h3>1.1 调研对象</h3>
+
+<table>
+<thead><tr><th>对象</th><th>简称</th><th>访问时刻</th><th>账号条件</th><th>覆盖端</th><th>证据级</th><th>未验证项</th></tr></thead>
+<tbody>
+<tr><td>lnkiai/m3e-canvas</td><td>m3e-canvas</td><td>2026-11-09 14:20 ~ 16:40</td><td>未登录，公开仓库元数据与 README 只读</td><td>Web（GitHub API 取仓库元数据 + README）</td><td>B</td><td>浏览器实机交互、截图、AI 助手实测、分享链接均未做</td></tr>
+</tbody>
+</table>
+
+<div class="callout caution">未执行任何写操作：仅通过 GitHub REST API 拉取仓库元数据、README 与目录结构，未注册账号、未运行应用、未发起任何写请求。</div>
+
+<h2 id="s2"><span class="num">2</span> 覆盖清单</h2>
+
+<p>覆盖清单用来回答「看过什么、没看什么」。m3e-canvas 是单页浏览器工具，没有传统菜单树，这里以「能力模块树 + 逐能力覆盖表」替代菜单树与逐页覆盖表，作为对象的全量能力边界。</p>
+
+<h3>2.1 能力模块树</h3>
+
+<ul class="tree" role="img" aria-label="能力模块树：草图与组件、画布与导航、主题、提示词、AI 与分享、工程与部署">
+  <li>草图与组件
+    <ul>
+      <li>真实 M3 部件面板（按钮 / FAB / 栏 / 标签 / 卡片 / 列表 / 抽屉 / 选择器 / 轮播 / 加载指示）</li>
+      <li>每个部件的专属配置面板（文本 / 样式 / 尺寸 / 对齐 / 点按行为）</li>
+      <li>磁吸连接（按钮、chip、列表项靠近自动融合为组）</li>
+    </ul>
+  </li>
+  <li>画布与导航
+    <ul>
+      <li>手机（412×892）与桌面（1280×800）画布，标签切换互转</li>
+      <li>滚动屏、点按 / 滑动导航 + 转场、流程箭头</li>
+      <li>图层与分组、对齐参考线、4dp 栅格、Tidy 一键对齐</li>
+    </ul>
+  </li>
+  <li>主题
+    <ul>
+      <li>七套调色板或种子色、明暗、三档对比、动态色</li>
+      <li>圆角（方 / 圆 / 全圆）、字体、弹性动效</li>
+    </ul>
+  </li>
+  <li>提示词
+    <ul>
+      <li>整份或单屏生成简洁 brief（日 / 英 / 中 / 韩）</li>
+      <li>可选 Android / Web 目标、可编辑、可导出 PNG</li>
+    </ul>
+  </li>
+  <li>AI 与分享
+    <ul>
+      <li>可选 AI 助手（自带 key 直连厂商，不外传）</li>
+      <li>分享链接、agent.md（给 Claude Code / Codex 的指令文件）</li>
+    </ul>
+  </li>
+  <li>工程与部署
+    <ul>
+      <li>Next.js 16 静态导出、GitHub Pages、本地 npm run dev</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>2.2 逐能力覆盖表</h3>
+
+<table>
+<thead><tr><th>能力路径</th><th>类型</th><th>状态</th><th>记录节号</th></tr></thead>
+<tbody>
+<tr><td>草图与组件 › 部件与配置面板</td><td>核心能力</td><td>已看（README 全量列表）</td><td>3.1</td></tr>
+<tr><td>草图与组件 › 磁吸连接</td><td>交互</td><td>已看（README 描述）</td><td>3.1</td></tr>
+<tr><td>画布与导航 › 手机/桌面互转与转场</td><td>核心能力</td><td>已看（README 描述）</td><td>3.2</td></tr>
+<tr><td>画布与导航 › 图层分组与 4dp 栅格 / Tidy</td><td>布局辅助</td><td>已看（README 描述）</td><td>3.2</td></tr>
+<tr><td>主题 › 调色板 / 圆角 / 字体 / 动效</td><td>主题</td><td>已看（README 描述）</td><td>3.3</td></tr>
+<tr><td>提示词 › 多语言 brief / 目标 / 导出 PNG</td><td>产出</td><td>已看（README 描述）</td><td>3.4</td></tr>
+<tr><td>AI 与分享 › AI 助手 / 分享链接 / agent.md</td><td>协作</td><td>已看（README 描述，未实测）</td><td>3.5</td></tr>
+<tr><td>工程与部署 › 静态导出 / Pages</td><td>工程</td><td>已看（README + package.json）</td><td>3.5</td></tr>
+</tbody>
+</table>
+
+<h3>2.3 非页面能力</h3>
+
+<p>以下能力不在主流程页内，逐项记录覆盖情况：导出 PNG（单屏截图，README 描述，未实测）、分享链接（README 描述，未实测）、<code>agent.md</code> 指令文件（README 描述，源码未读）、可选 AI 助手（自带 key 直连厂商，未实测）、浏览器本地 autosave、键盘快捷键、静态导出部署。</p>
+
+<h3>2.4 未覆盖项</h3>
+
+<p>未跑浏览器实机，所有交互行为（拖拽、磁吸、转场播放、主题实时预览、提示词实际生成结果）均按 README 描述记录，标「未验证」；AI 助手与分享链接需自带 key 或联网，超出只读范围；多语言提示词与 agent.md 实际效果未验证。具体影响见第 7 节。</p>
+
+<h2 id="s3"><span class="num">3</span> 逐页记录</h2>
+
+<h3>3.1 m3e-canvas › 草图与组件面板</h3>
+
+<h4>入口</h4>
+<p>浏览器打开应用（静态站点或本地 <code>npm run dev</code>）即进入草图画布；部件从左侧部件面板拖入。无账号、无服务端。</p>
+
+<h4>结构分区</h4>
+<p>左侧部件面板（键盘可用、可收藏）、中央画布（手机 / 桌面）、右侧每个部件的专属配置面板（文本、样式、尺寸、对齐、点按行为标签页）。</p>
+
+<h4>组件清单与筛选</h4>
+<p>README「Everything it can do」列出 M3 部件全量。下表将其映射到本项目 <code>prototypes/shared/ui.mjs</code> 的等价实现，作为目标 2「借鉴组件」的落点依据。标记：<span class="tag">有</span> 已有等价；<span class="tag">部分</span> 仅有业务特化或裸标签，无通用组件；<span class="tag">无</span> 缺件。</p>
+
+<table>
+<thead><tr><th>M3 部件（原生叫法）</th><th>类别</th><th>我方 shared/ui.mjs 等价</th><th>缺口判定</th></tr></thead>
+<tbody>
+<tr><td>buttons / icon buttons</td><td>操作</td><td>无独立 Button 组件；页面用裸 <code>&lt;button&gt;</code> + 令牌</td><td>部分</td></tr>
+<tr><td>FAB / extended FAB / FAB menus</td><td>操作</td><td>无</td><td>无</td></tr>
+<tr><td>split buttons / chips</td><td>操作 / 选择</td><td><code>Tag</code> 近似标签，非 chip 多选；无 split button</td><td>无</td></tr>
+<tr><td>top app bars / navigation bars / rails</td><td>导航</td><td>三套外壳顶栏与侧栏由 <code>renderAdminShell</code> / <code>renderShopShell</code> / <code>renderPdaShell</code> 提供</td><td>有</td></tr>
+<tr><td>floating toolbars / tabs</td><td>导航</td><td><code>ListPage</code> 页签 = tabs；无浮动工具条</td><td>部分</td></tr>
+<tr><td>search bars</td><td>输入</td><td>无独立 search bar；<code>ListPage</code> 筛选区承载</td><td>部分</td></tr>
+<tr><td>cards / list items / boxes</td><td>容器</td><td><code>ProductCard</code> / <code>PdaTaskCard</code> 等业务卡；<code>BaseTable</code> 行；无通用 Card / Box</td><td>部分</td></tr>
+<tr><td>bottom sheets / dialogs</td><td>弹层</td><td><code>DrawerDetail</code> / <code>FormDrawer</code> 是侧抽屉；无居中对话框、无底部 sheet</td><td>无</td></tr>
+<tr><td>snackbars</td><td>反馈</td><td>无轻提示组件</td><td>无</td></tr>
+<tr><td>text fields / dropdowns</td><td>输入</td><td><code>FormField</code> 含输入与 select</td><td>部分</td></tr>
+<tr><td>switches / checkboxes / radio buttons</td><td>选择</td><td><code>checks</code> 多选组；无单行 switch / checkbox / radio 组件</td><td>无</td></tr>
+<tr><td>sliders</td><td>输入</td><td>无</td><td>无</td></tr>
+<tr><td>date and time pickers</td><td>输入</td><td>无日期 / 时间选择器</td><td>无</td></tr>
+<tr><td>text / images</td><td>基础</td><td>裸文本；<code>ProductCard</code> 含图，无通用 Image</td><td>部分</td></tr>
+<tr><td>carousels / camera·map placeholders</td><td>媒体</td><td>无</td><td>无</td></tr>
+<tr><td>dividers</td><td>基础</td><td>CSS border 实现</td><td>有</td></tr>
+<tr><td>shape-morphing loading / wavy progress</td><td>反馈</td><td><code>ProgressCell</code>；无形状变形加载指示</td><td>部分</td></tr>
+</tbody>
+</table>
+
+<h4>行与批量操作</h4>
+<p>部件级操作：拖入、删除、复制、分组、对齐、Tidy 一键整理（对齐到边缘 / 角落、合并相邻项、16dp 留白，可撤销）。</p>
+
+<h4>状态 × 动作</h4>
+
+<table>
+<thead><tr><th>画布态</th><th>拖入部件</th><th>磁吸融合</th><th>导出 PNG</th></tr></thead>
+<tbody>
+<tr><td>手机画布</td><td>可</td><td>可（靠近自动成组）</td><td>可（单屏）</td></tr>
+<tr><td>桌面画布</td><td>可</td><td>可</td><td>未验证</td></tr>
+<tr><td>只读 / 分享查看态</td><td>不可</td><td>不可</td><td>不可</td></tr>
+</tbody>
+</table>
+
+<h4>交互与异常</h4>
+<p>空态：空白画布；本地 autosave 防丢失；撤销 / 重做。交互实机未跑，拖拽手感、磁吸触发阈值、Tidy 效果均标「未验证」。</p>
+
+<h3>3.2 m3e-canvas › 画布、导航与转场</h3>
+
+<h4>入口</h4>
+<p>从部件面板拖出屏幕；任一屏幕可在标签上切换手机（412×892）与桌面（1280×800），栏自动伸缩、导航栏与导航轨互转。</p>
+
+<h4>结构分区</h4>
+<p>多屏幕管理、滚动屏（拖底部手柄或 1x~3x）、点按 / 滑动目标与转场（侧滑 / 淡入 / 展开 / 无）、流程箭头总览、图层面板、分组复制粘贴。</p>
+
+<h4>列表列与筛选</h4>
+<p>无传统列表；屏幕以标签管理，同名屏幕在提示词中合并为「同屏两宽」。</p>
+
+<h4>状态 × 动作</h4>
+
+<table>
+<thead><tr><th>导航动作</th><th>手机</th><th>桌面</th><th>预览播放</th></tr></thead>
+<tbody>
+<tr><td>点按跳转（含 back 反向）</td><td>可</td><td>可</td><td>可</td></tr>
+<tr><td>滑动打开</td><td>可</td><td>未验证</td><td>未验证</td></tr>
+<tr><td>转场动画</td><td>可（四选一）</td><td>可</td><td>可</td></tr>
+</tbody>
+</table>
+
+<h4>交互与异常</h4>
+<p>预览态回放转场；back 反向播放。转场实际观感未实测，标「未验证」。</p>
+
+<h3>3.3 m3e-canvas › 主题系统</h3>
+
+<h4>入口</h4>
+<p>主题面板一处统管：颜色、形状、字体、动效。</p>
+
+<h4>结构分区</h4>
+<p>七套调色板或单一种子色（自动生成完整 M3 方案并可微调）、明暗、三档对比 + 动态色；圆角（方 / 圆 / 全圆）全局生效；Roboto 系列或系统字体；标准或弹性 spring 动效（驱动预览）。</p>
+
+<h4>行与批量操作</h4>
+<p>主题切换一键应用到全部部件。</p>
+
+<h4>状态 × 动作</h4>
+
+<table>
+<thead><tr><th>主题维度</th><th>可选</th><th>实时预览</th></tr></thead>
+<tbody>
+<tr><td>调色板 / 种子色</td><td>7 套 + 自定义</td><td>可（未验证）</td></tr>
+<tr><td>对比度</td><td>3 档 + 动态色</td><td>可（未验证）</td></tr>
+<tr><td>圆角 / 字体 / 动效</td><td>3 / 4 / 2 选</td><td>可（未验证）</td></tr>
+</tbody>
+</table>
+
+<h4>交互与异常</h4>
+<p>单一主题源避免散落；与我方 <code>tokens.css.mjs</code> 的「实现层唯一取值来源」思路一致，但具体视觉语言是 Material 3 Expressive，与我方 <code>wx-*</code> 体系不同（见第 4、6 节）。</p>
+
+<h3>3.4 m3e-canvas › 提示词生成</h3>
+
+<h4>入口</h4>
+<p>画完草图后「Copy the prompt」：整份设计或单屏生成简洁 brief。</p>
+
+<h4>结构分区</h4>
+<p>输出语言（日 / 英 / 中 / 韩）、目标（Android / Web）、可编辑后复制、单屏可存 PNG；行、重叠与对齐网格的卡片会被显式写出，保证生成布局保形。</p>
+
+<h4>列表列与筛选</h4>
+<p>无列表；提示词文本可在复制前编辑。</p>
+
+<h4>交互与异常</h4>
+<p>实际生成文本结构未实测，标「未验证」。这一能力是目标 1「vibe-coding 工作法」的核心：把设计意图转成可喂给 AI 编码工具的精准 brief。</p>
+
+<h3>3.5 m3e-canvas › AI 助手、分享与工程部署</h3>
+
+<h4>入口</h4>
+<p>可选 AI 助手（自带 key 直连 OpenAI / Claude / Gemini / DeepSeek）；分享链接打开他人画布；<code>public/agent.md</code> 给 Claude Code / Codex 的指令文件。</p>
+
+<h4>结构分区</h4>
+<p>AI 助手：从一句话起草设计、写部件行为备注、写屏幕描述，每次重写可撤销，请求直连厂商不外传。agent.md：描述需求 → 自动草图 → 回一个分享链接。</p>
+
+<h4>工程与部署</h4>
+<p>栈 Next.js 16.4 + React 19 + Tailwind 4 + TypeScript 7，<code>npm run build</code> 静态导出到 <code>out/</code>，GitHub Actions 发布 Pages；可设 <code>NEXT_PUBLIC_BASE_PATH</code> 支持子路径托管。</p>
+
+<h4>交互与异常</h4>
+<p>AI 助手与分享链接需 key / 联网，未实测，标「未验证」。源码中 <code>public/agent.md</code> 内容未读，仅 README 描述。</p>
+
+<h2 id="s4"><span class="num">4</span> 术语对照</h2>
+
+<p>同名不同义必须先对照再用，避免把 m3e-canvas 的状态当成我方的。</p>
+
+<table>
+<thead><tr><th>对象</th><th>原生叫法</th><th>该对象下的判定口径</th><th>我方叫法</th></tr></thead>
+<tbody>
+<tr><td>m3e-canvas</td><td>Material 3 Expressive</td><td>Google 的第三代质感设计语言（Expressive 分支）</td><td>我方 <code>wx-*</code> 自有设计语言，非 Material 体系</td></tr>
+<tr><td>m3e-canvas</td><td>FAB（悬浮操作按钮）</td><td>屏幕右下角圆形主操作，可扩展为菜单</td><td>我方无独立 FAB 组件，主操作用页面按钮</td></tr>
+<tr><td>m3e-canvas</td><td>Tidy（一键对齐）</td><td>一键把栏贴边、FAB 贴角、合并相邻项、16dp 留白，可撤销</td><td>我方无此功能，但间距令牌已是 4px 栅格基础</td></tr>
+<tr><td>m3e-canvas</td><td>Prompt（提示词）</td><td>把整份设计转成可喂给 AI 编码工具的精准 brief</td><td>我方「方案文档 / 数据字典」是设计说明，非机器消费 brief</td></tr>
+<tr><td>m3e-canvas</td><td>agent.md</td><td>给 Claude Code / Codex 的指令文件：描述→草图→回链</td><td>我方暂无（结论 C5 建议新增 <code>prototypes/AGENT.md</code>）</td></tr>
+<tr><td>m3e-canvas</td><td>4dp grid</td><td>部件对齐到 4dp 栅格，磁吸参考线</td><td>我方 <code>--wx-sp-1:4px</code> 间距令牌，同样是 4px 基准</td></tr>
+<tr><td>m3e-canvas</td><td>Share link</td><td>复制链接在任何人画布打开设计</td><td>我方原型走构建产物，无分享链接概念</td></tr>
+</tbody>
+</table>
+
+<h2 id="s5"><span class="num">5</span> 横向对比</h2>
+
+<p>行是能力维度，列是对象，格填 有 / 无 / 未验证。主对象是 m3e-canvas，对比我方原型流程与 README「See also」提到的两个生态项目（matraic/m3e、Beer CSS）。</p>
+
+<table class="matrix">
+<thead><tr><th>能力维度</th><th>m3e-canvas</th><th>我方原型流程</th><th>matraic/m3e</th><th>Beer CSS</th><th>差异与口径</th></tr></thead>
+<tbody>
+<tr><td>设计语言</td><td><span class="m-y">Material 3 Expressive</span></td><td><span class="m-y">wx-* 自有</span></td><td><span class="m-y">Material 3 Expressive</span></td><td><span class="m-y">Material Design 3</span></td><td>我方已独立定调，不随 M3 走</td></tr>
+<tr><td>组件完备度（基础件）</td><td><span class="m-y">高（40+ 部件）</span></td><td><span class="m-u">部分（缺开关/单选/滑块/日期选择器等）</span></td><td><span class="m-y">高（Lit 组件）</span></td><td><span class="m-y">中（纯 CSS）</span></td><td>我方基础件缺口见 3.1</td></tr>
+<tr><td>生成目标产物</td><td><span class="m-y">React / Web 应用代码</span></td><td><span class="m-y">自包含 HTML（build-app.mjs 装配）</span></td><td><span class="m-y">Lit Web 组件</span></td><td><span class="m-y">CSS 类</span></td><td>我方产物形态与 m3e-canvas 输出不兼容</td></tr>
+<tr><td>本地无后端</td><td><span class="m-y">是</span></td><td><span class="m-y">是</span></td><td><span class="m-y">是</span></td><td><span class="m-y">是</span></td><td>四者均纯前端</td></tr>
+<tr><td>许可</td><td><span class="m-y">MIT</span></td><td><span class="m-y">内部</span></td><td><span class="m-y">MIT</span></td><td><span class="m-y">MIT</span></td><td>均宽松可借鉴实现思路</td></tr>
+<tr><td>主题系统</td><td><span class="m-y">调色板/对比/圆角/动效一处统管</span></td><td><span class="m-y">tokens.css.mjs 一处统管</span></td><td><span class="m-y">有</span></td><td><span class="m-n">弱（手动类）</span></td><td>两者都主张单一主题源，思路一致</td></tr>
+<tr><td>AI / 提示词</td><td><span class="m-y">草图→brief→AI 生成</span></td><td><span class="m-n">无</span></td><td><span class="m-n">无</span></td><td><span class="m-n">无</span></td><td>仅 m3e-canvas 提供 vibe-coding 闭环</td></tr>
+<tr><td>能否直接落地我方 wx-* 栈</td><td><span class="m-n">否（输出 M3/React）</span></td><td><span class="m-y">是（现状）</span></td><td><span class="m-n">否（Lit）</span></td><td><span class="m-u">部分（CSS 可参考）</span></td><td>m3e-canvas 只能借鉴方法，不能直接用其产物</td></tr>
+</tbody>
+</table>
+
+<div class="callout">差异归因：m3e-canvas 与两个生态项目都建立在 Material 3 之上，且目标是「生成可运行应用代码」；我方原型是手工装配的自包含 HTML，设计语言是自有 <code>wx-*</code>。因此横向结论不是「谁更强」，而是「方法可借鉴、产物与视觉体系不可直接嫁接」。</div>
+
+<h2 id="s6"><span class="num">6</span> 结论与落点</h2>
+
+<p>每条结论只允许三种判定：可借鉴、不跟随、待定。落不到具体落点的是描述，不是结论。</p>
+
+<table>
+<thead><tr><th>编号</th><th>判定</th><th>结论</th><th>落点</th></tr></thead>
+<tbody>
+<tr><td>C1</td><td>不跟随</td><td>不把 m3e-canvas 生成的 React/Web 应用替换现有手工 HTML 原型流程；我方产物由 <code>build-app.mjs</code> 从 <code>modules.json</code> + <code>shared</code> 装配，且设计语言非 M3</td><td><code>prototypes/build-app.mjs</code>（构建链不变）</td></tr>
+<tr><td>C2</td><td>不跟随</td><td>不引入 Material 3 Expressive 视觉体系；强行换皮等于重做五端设计</td><td><code>prototypes/shared/tokens.css.mjs</code>（维持 wx-* 体系）</td></tr>
+<tr><td>C3</td><td>可借鉴</td><td>补足 <code>shared/ui.mjs</code> 缺口基础组件：开关、单选、滑块、日期/时间选择器、底部抽屉、居中对话框、轻提示、轮播、分段控件</td><td><code>prototypes/shared/ui.mjs</code> + <code>references/implementation.md</code> 组件白名单</td></tr>
+<tr><td>C4</td><td>可借鉴</td><td>引入布局辅助思路：4dp 栅格吸附 + 一键对齐（Tidy），我方间距令牌已是 4px 基准，缺的是可视化对齐与批量整理</td><td><code>references/implementation.md</code> 布局约束 + <code>ui.mjs</code> 可选辅助</td></tr>
+<tr><td>C5</td><td>可借鉴</td><td>把 vibe-coding 方法落到我方栈：新增 <code>AGENT.md</code> 规格，让 AI 编码工具按 <code>shared/ui.mjs</code> 组件与 wx-* 令牌从页面描述生成 HTML，补充（非替代）手工流程</td><td><code>prototypes/AGENT.md</code>（新增） + <code>SKILL.md</code></td></tr>
+<tr><td>C6</td><td>不跟随</td><td>不纳入可选 AI 助手（自带 key 直连厂商）、分享链接、LAN 平板镜像等协作特性；我方原型是静态演示，不需要在线 AI 补全</td><td>不纳入原型流程</td></tr>
+<tr><td>C7</td><td>待定</td><td>提示词多语言（日英中韩）与 Android/Web 目标导出是否值得让我方页面生成器支持，取决于是否做海外仓英文界面</td><td>定了影响 <code>prototypes/AGENT.md</code></td></tr>
+<tr><td>C8</td><td>不跟随</td><td>磁吸连接（按钮靠近自动融合为组）的视觉融合效果不仿；我方列表 / 卡片用分组容器即可</td><td>不仿磁吸，业务分组用容器实现</td></tr>
+</tbody>
+</table>
+
+<h3>6.1 建议</h3>
+
+<table>
+<thead><tr><th>编号</th><th>动作</th><th>前置</th><th>判据</th></tr></thead>
+<tbody>
+<tr><td>R1</td><td>增补 <code>shared/ui.mjs</code> 缺口基础组件并登记白名单</td><td>C3 通过、确认组件清单与令牌约束</td><td><code>build-app.mjs</code> 重建五端，验收 S1~S5 与 X 通过，新组件进入白名单</td></tr>
+<tr><td>R2</td><td>起草 <code>prototypes/AGENT.md</code></td><td>C5 通过、梳理 <code>shared</code> 组件与令牌契约</td><td>用一段页面描述让 AI 编码工具产出可通过构建的 HTML 页</td></tr>
+<tr><td>R3</td><td>在 <code>references/implementation.md</code> 补「AI 生成页面契约」</td><td>R2 完成</td><td>规范层登记 AGENT 用法、令牌与组件约束、禁用自创取值</td></tr>
+</tbody>
+</table>
+
+<h2 id="s7"><span class="num">7</span> 缺项</h2>
+
+<table>
+<thead><tr><th>项</th><th>原因</th><th>影响</th></tr></thead>
+<tbody>
+<tr><td>浏览器实机交互未跑</td><td>无本地运行环境且无法截图，A 级证据缺失</td><td>影响 C5「AI 生成落地」结论，仅到方法层面，未实测生成质量</td></tr>
+<tr><td>AI 助手与分享链接未测</td><td>需自带 key / 联网，超出只读范围</td><td>影响 C6 不跟随判定的依据强度（仅 README 描述）</td></tr>
+<tr><td>多语言提示词未验证</td><td>未跑实机</td><td>影响 C7 待定项，无法确认多语言 brief 的实际结构</td></tr>
+<tr><td>agent.md 源码未读</td><td>仅 README 提及，未取 <code>public/agent.md</code> 原文</td><td>影响 R2 起草 AGENT 规格时可参考的指令写法</td></tr>
+</tbody>
+</table>
+
+<h2 id="s8"><span class="num">8</span> 截图索引</h2>
+
+<p>本轮无截图。原因：未运行浏览器实机，无法整窗（≥1440 宽、不缩放）拍摄默认列表、筛选展开、表单填一半、按钮禁用、错误提示五态；证据级为 B（官方 README 与仓库元数据），所有交互类事实已在正文标「未验证」。按规范，缺图不写，证据级降至 B，不冒充 A。</p>
+
+<table>
+<thead><tr><th>图号</th><th>文件</th><th>对象</th><th>菜单路径</th><th>证明什么</th><th>数据状态</th></tr></thead>
+<tbody>
+<tr><td>无截图</td><td>—</td><td>m3e-canvas</td><td>—</td><td>无截图：未运行浏览器实机，证据级 B，交互项标未验证</td><td>—</td></tr>
+</tbody>
+</table>
+
+</main>
+</div>
+</body>
+</html>

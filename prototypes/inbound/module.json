@@ -1,18 +1,18 @@
 {
   "id": "inbound",
   "name": "入库管理",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "owner": "产品组",
   "tier": "core",
   "deployed": true,
   "dependsOn": [
     "shared"
   ],
-  "scope": "入库计划单、收货单、上架单与收货验收作业",
+  "scope": "入库通知、到货预约、收货验收、质检、理货、越库、上架",
   "deliverables": [
     "pages/",
     "data/"
   ],
-  "status": "review",
-  "note": "入库计划单与详情、收货单、上架单，含货灵ERP入库计划单两页；收货验收归 PDA 端"
+  "status": "delivered",
+  "note": "新增到货预约、质检单、理货任务、越库直发"
 }

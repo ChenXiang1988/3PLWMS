@@ -42,12 +42,46 @@ td:first-child{font-weight:600}
 figure{margin:16px 0 22px}
 figure img{max-width:100%;border:1px solid var(--line);border-radius:6px}
 figcaption{font-size:12.5px;color:var(--faint);margin-top:6px;line-height:1.6}
+/* 图表：条形、占比条、步骤链、状态带、缩进树、矩阵。结构见 references/chart-snippets.md */
+.bars{display:grid;gap:8px;margin:14px 0 18px;font-size:13.6px}
+.bar-row{display:grid;grid-template-columns:88px minmax(0,1fr) 76px;align-items:center;gap:10px}
+.bar-label{color:var(--muted);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{height:10px;background:var(--accent-soft);border-radius:2px}
+.bar{display:block;height:10px;background:var(--accent);border-radius:2px}
+.bar-row.muted .bar{background:#b9c8d6}
+.bar-num{font-variant-numeric:tabular-nums;text-align:right;color:var(--ink)}
+.stack{display:flex;height:16px;border-radius:3px;overflow:hidden;margin:14px 0 8px;font-size:11px;color:#fff}
+.stack .seg{display:flex;align-items:center;justify-content:center;white-space:nowrap;border-right:2px solid var(--paper)}
+.stack .seg:last-child{border-right:0}
+.stack .s1{background:var(--accent)}
+.stack .s2{background:#8ea9bd}
+.stack .s3{background:#c9d6e1;color:#33404f}
+.steps{display:flex;flex-wrap:wrap;align-items:center;gap:6px;list-style:none;padding:0;margin:14px 0 18px;font-size:13px}
+.steps li{background:var(--accent-soft);border:1px solid #cfe1ef;color:#194f75;border-radius:6px;padding:5px 10px;white-space:nowrap}
+.steps li:not(:first-child)::before{content:"→";color:var(--faint);margin-right:6px}
+.steps li.end{font-weight:650}
+.steps li.alt{background:#fff;border-style:dashed;color:var(--muted)}
+.band{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 6px;font-size:13px}
+.band .st{border:1px solid var(--line);border-radius:4px;padding:4px 9px;background:#fcfdfe}
+.band .st.end{border-bottom:2px solid var(--ink);font-weight:650}
+.band .ar{color:var(--faint)}
+.band-note{margin:0 0 6px;font-size:12.5px;color:var(--muted)}
+.tree,.tree ul{list-style:none;margin:0;padding-left:14px}
+.tree{font-size:13.6px;margin:12px 0 18px;color:var(--ink)}
+.tree ul{border-left:1px solid var(--line)}
+.tree li{position:relative;padding:3px 0 3px 12px;white-space:nowrap}
+.tree li::before{content:"";position:absolute;left:0;top:15px;width:8px;border-top:1px solid var(--line)}
+.tree > li{padding-left:0}
+.tree > li::before{display:none}
+.matrix td.m-y{background:#e9f4ed;color:#2b6c49}
+.matrix td.m-n{background:#fbeded;color:#9c3b3b}
+.matrix td.m-u{background:#fdf3e5;color:#9a5b16}
 .tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:3px;background:#e5f0f8;color:var(--accent);font-weight:600;margin-right:4px}
 .badge-ok{background:#e9f4ed;color:#2b6c49}
 .badge-no{background:#fbeded;color:#9c3b3b}
 .badge-tbd{background:#fdf3e5;color:#9a5b16}
 @media(max-width:980px){.layout{grid-template-columns:1fr;padding:12px}aside{position:static;max-height:none}main{padding:28px 20px 44px}h1{font-size:24px}table{font-size:12.8px}}
-@media print{body{background:#fff;font-size:11.5pt}.layout{display:block;padding:0;max-width:none}aside{display:none}main{border:0;box-shadow:none;padding:0}table,figure,.callout{page-break-inside:avoid}a{text-decoration:none;color:inherit}}
+@media print{body{background:#fff;font-size:11.5pt}.layout{display:block;padding:0;max-width:none}aside{display:none}main{border:0;box-shadow:none;padding:0}table,figure,.callout,.bars,.steps,.band,.tree{page-break-inside:avoid}a{text-decoration:none;color:inherit}}
 </style>
 </head>
 <body>
@@ -122,6 +156,22 @@ head 的三个 meta 与文件名的对应关系由项目规则约束，填完别
   </li>
 </ul>
 
+<!-- GUIDE 图位示例：菜单树。用的时候删掉注释符，把节点换成实际菜单；超过三层折叠为「等 N 项」。
+<figure>
+  <ul class="tree" role="img" aria-label="菜单树：订单下有订单处理与手工订单">
+    <li>订单
+      <ul>
+        <li>订单处理
+          <ul><li>列表</li><li>详情</li></ul>
+        </li>
+        <li>手工订单</li>
+      </ul>
+    </li>
+  </ul>
+  <figcaption>图 1 ｜ 订单段只有两层，第三层是页内抽屉，不进菜单</figcaption>
+</figure>
+-->
+
 <h3>2.2 逐页覆盖表</h3>
 
 <table>
@@ -172,6 +222,19 @@ head 的三个 meta 与文件名的对应关系由项目规则约束，填完别
 </tbody>
 </table>
 
+<!-- GUIDE 图位示例：状态带。终态加下边线，逆向在图注或 band-note 里写清。
+<figure>
+  <div class="band" role="img" aria-label="状态推进：待处理 → 拣货中 → 已复核 → 已发货；已发货为不可逆终态">
+    <span class="st">待处理</span><span class="ar">→</span>
+    <span class="st">拣货中</span><span class="ar">→</span>
+    <span class="st">已复核</span><span class="ar">→</span>
+    <span class="st end">已发货</span>
+  </div>
+  <p class="band-note">逆向：拣货中可撤销回待处理；已复核需反审核</p>
+  <figcaption>图 2 ｜ 可逆节点止于已复核，已发货只能走退货单</figcaption>
+</figure>
+-->
+
 <h4>交互与异常</h4>
 <p>{{空态、加载、请求失败、批量部分失败、重复提交、提示位置与现场保留}}</p>
 
@@ -208,6 +271,17 @@ head 的三个 meta 与文件名的对应关系由项目规则约束，填完别
 <tr><td>{{维度名}}</td><td>{{有}}</td><td>{{未验证}}</td><td>{{差异原因}}</td></tr>
 </tbody>
 </table>
+
+<!-- GUIDE 图位示例：横向条形。宽度百分比 = 该项数值 ÷ 最大项数值，条从 0 起。
+<figure>
+  <div class="bars" role="img" aria-label="各对象页面数量：甲 118 页、乙 20 节、丙 19 模块">
+    <div class="bar-row"><span class="bar-label">甲</span><span class="bar-track"><span class="bar" style="width:100%"></span></span><span class="bar-num">118 页</span></div>
+    <div class="bar-row"><span class="bar-label">乙</span><span class="bar-track"><span class="bar" style="width:17%"></span></span><span class="bar-num">20 节</span></div>
+    <div class="bar-row"><span class="bar-label">丙</span><span class="bar-track"><span class="bar" style="width:16%"></span></span><span class="bar-num">19 模块</span></div>
+  </div>
+  <figcaption>图 3 ｜ 甲的页面数是另两套的六倍，逐页记录只能按它取上限</figcaption>
+</figure>
+-->
 
 <!-- GUIDE 5. 横向对比
 写什么：对象 × 能力维度的矩阵，格用三种取值；矩阵后写差异原因。

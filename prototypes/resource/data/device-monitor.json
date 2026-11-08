@@ -1,0 +1,76 @@
+{
+  "rows": [
+    {
+      "deviceCode": "AGV-01",
+      "deviceType": "AGV",
+      "runStatus": "running",
+      "currentTask": "TK20261109002",
+      "batteryLevel": 78,
+      "lastHeartbeat": "2026-11-09 10:26",
+      "alarmCount": 0
+    },
+    {
+      "deviceCode": "AGV-03",
+      "deviceType": "AGV",
+      "runStatus": "fault",
+      "currentTask": "TK20261109006",
+      "batteryLevel": 32,
+      "lastHeartbeat": "2026-11-09 10:25",
+      "alarmCount": 2
+    },
+    {
+      "deviceCode": "FORK-07",
+      "deviceType": "叉车",
+      "runStatus": "running",
+      "currentTask": "TK20261109001",
+      "batteryLevel": 0,
+      "lastHeartbeat": "2026-11-09 10:24",
+      "alarmCount": 0
+    },
+    {
+      "deviceCode": "CONV-02",
+      "deviceType": "输送线",
+      "runStatus": "running",
+      "currentTask": "WV20261109A",
+      "batteryLevel": 0,
+      "lastHeartbeat": "2026-11-09 10:26",
+      "alarmCount": 1
+    },
+    {
+      "deviceCode": "SCAN-11",
+      "deviceType": "扫码枪",
+      "runStatus": "idle",
+      "currentTask": "",
+      "batteryLevel": 64,
+      "lastHeartbeat": "2026-11-09 10:20",
+      "alarmCount": 0
+    },
+    {
+      "deviceCode": "PRINT-05",
+      "deviceType": "打印机",
+      "runStatus": "idle",
+      "currentTask": "",
+      "batteryLevel": 0,
+      "lastHeartbeat": "2026-11-09 10:18",
+      "alarmCount": 0
+    },
+    {
+      "deviceCode": "AGV-06",
+      "deviceType": "AGV",
+      "runStatus": "charging",
+      "currentTask": "",
+      "batteryLevel": 18,
+      "lastHeartbeat": "2026-11-09 10:26",
+      "alarmCount": 0
+    },
+    {
+      "deviceCode": "FORK-02",
+      "deviceType": "叉车",
+      "runStatus": "running",
+      "currentTask": "TK20261109003",
+      "batteryLevel": 0,
+      "lastHeartbeat": "2026-11-09 10:23",
+      "alarmCount": 0
+    }
+  ]
+}

@@ -14,18 +14,122 @@
       "name": "货灵ERP",
       "shell": "admin",
       "nav": [
-        { "id": "nav-workbench", "name": "工作台", "pages": ["workbench/workbench"] },
-        { "id": "nav-order", "name": "订单", "pages": ["owner/order-center", "owner/dropship-list"] },
-        { "id": "nav-fulfillment", "name": "履约", "pages": ["owner/fulfillment-list", "owner/selfship-list", "owner/tracking-list"] },
-        { "id": "nav-aftersale", "name": "售后", "pages": ["owner/return-apply-list"] },
-        { "id": "nav-warehouse", "name": "仓储委托", "pages": ["inbound/in-plan-owner-list", "outbound/out-plan-owner-list", "owner/transfer-apply-list", "owner/delegation-list"] },
-        { "id": "nav-reconcile", "name": "异常与对账", "pages": ["owner/exception-list", "owner/reconciliation-list"] },
-        { "id": "nav-inventory", "name": "库存", "pages": ["inventory/stock-owner-report", "inventory/stock-owner-list", "inventory/ledger-owner-list", "inventory/batch-owner-list"] },
-        { "id": "nav-sku", "name": "商品", "pages": ["owner/sku-owner-list", "base/sku-apply-list"] },
-        { "id": "nav-shop", "name": "商城店铺", "pages": ["mall-shop/my-shop", "mall-shop/shop-sku", "mall-shop/shop-price", "mall-shop/shop-order", "mall-shop/shop-cert"] },
-        { "id": "nav-platform", "name": "平台接入", "pages": ["owner/platform-shop-list", "owner/platform-adapter-list", "owner/sync-task-list", "owner/platform-order-list", "owner/platform-replenish-list", "owner/platform-aftersale-list"] },
-        { "id": "nav-billing", "name": "账单与服务", "pages": ["billing/bill-owner-list", "billing/rate-owner-list", "owner/service-bill-list", "owner/service-agreement"] },
-        { "id": "nav-setting", "name": "报表与设置", "pages": ["owner/owner-report", "owner/account-list", "owner/role-owner-list", "owner/audit-owner-log"] }
+        {
+          "id": "nav-workbench",
+          "name": "工作台",
+          "pages": [
+            "workbench/workbench"
+          ]
+        },
+        {
+          "id": "nav-order",
+          "name": "订单",
+          "pages": [
+            "owner/order-center",
+            "owner/dropship-list"
+          ]
+        },
+        {
+          "id": "nav-fulfillment",
+          "name": "履约",
+          "pages": [
+            "owner/fulfillment-list",
+            "owner/selfship-list",
+            "owner/tracking-list"
+          ]
+        },
+        {
+          "id": "nav-aftersale",
+          "name": "售后",
+          "pages": [
+            "owner/return-apply-list"
+          ]
+        },
+        {
+          "id": "nav-warehouse",
+          "name": "仓储委托",
+          "pages": [
+            "inbound/in-plan-owner-list",
+            "outbound/out-plan-owner-list",
+            "owner/transfer-apply-list",
+            "owner/delegation-list",
+            "owner/sku-owner-list"
+          ]
+        },
+        {
+          "id": "nav-reconcile",
+          "name": "异常与对账",
+          "pages": [
+            "owner/exception-list",
+            "owner/reconciliation-list"
+          ]
+        },
+        {
+          "id": "nav-inventory",
+          "name": "库存",
+          "pages": [
+            "inventory/stock-owner-report",
+            "inventory/stock-owner-list",
+            "inventory/ledger-owner-list",
+            "inventory/batch-owner-list"
+          ]
+        },
+        {
+          "id": "nav-sku",
+          "name": "商品",
+          "pages": [
+            "owner/spu-list",
+            "owner/listing-list",
+            "owner/listing-task-list",
+            "owner/collect-box",
+            "base/sku-apply-list"
+          ]
+        },
+        {
+          "id": "nav-shop",
+          "name": "商城店铺",
+          "pages": [
+            "mall-shop/my-shop",
+            "mall-shop/shop-sku",
+            "mall-shop/shop-price",
+            "mall-shop/shop-order",
+            "mall-shop/shop-cert"
+          ]
+        },
+        {
+          "id": "nav-platform",
+          "name": "平台接入",
+          "pages": [
+            "owner/platform-shop-list",
+            "owner/platform-adapter-list",
+            "owner/sync-task-list",
+            "owner/platform-order-list",
+            "owner/platform-replenish-list",
+            "owner/platform-aftersale-list"
+          ]
+        },
+        {
+          "id": "nav-billing",
+          "name": "账单与服务",
+          "pages": [
+            "billing/bill-owner-list",
+            "billing/rate-owner-list",
+            "owner/service-bill-list",
+            "owner/service-agreement"
+          ]
+        },
+        {
+          "id": "nav-setting",
+          "name": "报表与设置",
+          "pages": [
+            "owner/owner-report",
+            "owner/shop-report",
+            "owner/profit-report",
+            "owner/account-list",
+            "owner/role-owner-list",
+            "owner/audit-owner-log"
+          ]
+        }
       ]
     },
     {
@@ -33,16 +137,132 @@
       "name": "货灵运营中台管理端",
       "shell": "admin",
       "nav": [
-        { "id": "nav-workbench", "name": "总览", "pages": ["network/network-overview"] },
-        { "id": "nav-archive", "name": "仓网档案", "pages": ["base/warehouse-list", "base/owner-list", "base/owner-group-list", "base/carrier-list", "base/sla-list"] },
-        { "id": "nav-dispatch", "name": "仓网调度", "pages": ["inbound/in-plan-confirm-list", "outbound/out-plan-confirm-list", "network/transfer-order"] },
-        { "id": "nav-inventory", "name": "库存", "pages": ["inventory/stock-report", "inventory/stock-by-warehouse", "inventory/stock-distribution", "inventory/stock-list", "inventory/lowstock-list", "inventory/ledger-list", "inventory/batch-network-report"] },
-        { "id": "nav-sku", "name": "商品", "pages": ["base/sku-list", "base/sku-audit-list"] },
-        { "id": "nav-resource", "name": "作业资源", "pages": ["resource/hardware-archive", "resource/hardware-transfer", "resource/container-archive"] },
-        { "id": "nav-mall", "name": "商城", "pages": ["mall-admin/mall-overview", "mall-admin/shop-apply-list", "mall-admin/shop-cert-audit", "mall-admin/shop-list", "mall-admin/mall-sku-list", "mall-admin/mall-price-list", "mall-admin/mall-floor-list", "mall-admin/mall-order-list"] },
-        { "id": "nav-erp-ops", "name": "ERP 运营", "pages": ["erp-ops/erp-tenant-list", "erp-ops/erp-module-list", "erp-ops/erp-app-list", "erp-ops/erp-sync-health", "erp-ops/erp-global-audit"] },
-        { "id": "nav-account", "name": "账号与权限", "pages": ["system/user-list", "system/role-list", "system/audit-log"] },
-        { "id": "nav-setting", "name": "服务与设置", "pages": ["network/agreement-audit", "network/erp-bill-list", "system/dict-list"] }
+        {
+          "id": "nav-workbench",
+          "name": "总览",
+          "pages": [
+            "network/network-overview",
+            "network/alert-center",
+            "network/ops-daily"
+          ]
+        },
+        {
+          "id": "nav-service",
+          "name": "服务关系",
+          "pages": [
+            "base/owner-list",
+            "base/owner-group-list",
+            "base/sla-list",
+            "network/owner-warehouse-auth",
+            "network/service-catalog"
+          ]
+        },
+        {
+          "id": "nav-archive",
+          "name": "仓网档案",
+          "pages": [
+            "base/warehouse-list",
+            "base/carrier-list",
+            "network/capacity-plan"
+          ]
+        },
+        {
+          "id": "nav-dispatch",
+          "name": "仓网调度",
+          "pages": [
+            "inbound/in-plan-confirm-list",
+            "outbound/out-plan-confirm-list",
+            "network/transfer-order",
+            "network/dock-schedule"
+          ]
+        },
+        {
+          "id": "nav-inventory",
+          "name": "库存",
+          "pages": [
+            "inventory/stock-report",
+            "inventory/stock-by-warehouse",
+            "inventory/stock-distribution",
+            "inventory/stock-list",
+            "inventory/lowstock-list",
+            "inventory/ledger-list",
+            "inventory/batch-network-report"
+          ]
+        },
+        {
+          "id": "nav-sku",
+          "name": "商品",
+          "pages": [
+            "base/sku-list",
+            "base/sku-audit-list"
+          ]
+        },
+        {
+          "id": "nav-resource",
+          "name": "作业资源",
+          "pages": [
+            "resource/hardware-archive",
+            "resource/hardware-transfer",
+            "resource/container-archive",
+            "resource/device-utilization",
+            "resource/maintenance-plan"
+          ]
+        },
+        {
+          "id": "nav-mall",
+          "name": "商城",
+          "pages": [
+            "mall-admin/mall-overview",
+            "mall-admin/shop-apply-list",
+            "mall-admin/shop-cert-audit",
+            "mall-admin/shop-list",
+            "mall-admin/mall-sku-list",
+            "mall-admin/mall-price-list",
+            "mall-admin/mall-floor-list",
+            "mall-admin/mall-order-list"
+          ]
+        },
+        {
+          "id": "nav-erp-ops",
+          "name": "ERP 运营",
+          "pages": [
+            "erp-ops/erp-tenant-list",
+            "erp-ops/erp-module-list",
+            "erp-ops/erp-app-list",
+            "erp-ops/erp-sync-health",
+            "erp-ops/erp-global-audit"
+          ]
+        },
+        {
+          "id": "nav-account",
+          "name": "账号与权限",
+          "pages": [
+            "system/user-list",
+            "system/role-list",
+            "system/audit-log",
+            "system/org-list",
+            "system/approval-flow"
+          ]
+        },
+        {
+          "id": "nav-billing",
+          "name": "计费结算",
+          "pages": [
+            "billing/rate-list",
+            "billing/bill-list",
+            "billing/settlement-list",
+            "billing/invoice-list",
+            "network/agreement-audit"
+          ]
+        },
+        {
+          "id": "nav-setting",
+          "name": "服务与设置",
+          "pages": [
+            "network/erp-bill-list",
+            "system/dict-list"
+          ]
+        }
       ]
     },
     {
@@ -50,25 +270,218 @@
       "name": "货灵WMS",
       "shell": "admin",
       "nav": [
-        { "id": "nav-workbench", "name": "任务中心", "pages": ["task/doc-overview", "task/task-report", "task/task-list"] },
-        { "id": "nav-inbound", "name": "入库管理", "pages": ["inbound/in-plan-list", "inbound/receiving-order", "inbound/putaway-order"] },
-        { "id": "nav-inner", "name": "仓储管理", "pages": ["warehouse/location-list", "warehouse/move-task", "warehouse/count-plan", "warehouse/count-task", "warehouse/replenish-task"] },
-        { "id": "nav-outbound", "name": "出库管理", "pages": ["outbound/out-plan-list", "outbound/wave-list", "outbound/picking-order", "outbound/check-order", "outbound/handover-list"] },
-        { "id": "nav-inventory", "name": "库存中心", "pages": ["inventory/batch-list", "inventory/stock-by-location", "inventory/daily-check", "inventory/opening-stock", "inventory/adjust-task", "inventory/stock-snapshot"] },
-        { "id": "nav-resource", "name": "作业资源", "pages": ["resource/container-list", "resource/hardware-list", "resource/exec-unit-list", "resource/team-list", "resource/staff-list", "resource/shift-list"] },
-        { "id": "nav-config", "name": "作业配置", "pages": ["resource/strategy-list", "resource/workflow-list", "resource/task-strategy-list"] },
-        { "id": "nav-base", "name": "基础资料", "pages": ["base/sku-warehouse-list"] }
+        {
+          "id": "nav-workbench",
+          "name": "任务中心",
+          "pages": [
+            "task/doc-overview",
+            "task/task-report",
+            "task/task-list",
+            "task/task-pool"
+          ]
+        },
+        {
+          "id": "nav-inbound",
+          "name": "入库管理",
+          "pages": [
+            "inbound/in-plan-list",
+            "inbound/appointment-list",
+            "inbound/receiving-order",
+            "inbound/qc-order",
+            "inbound/tally-task",
+            "inbound/crossdock-task",
+            "inbound/putaway-order"
+          ]
+        },
+        {
+          "id": "nav-outbound",
+          "name": "出库管理",
+          "pages": [
+            "outbound/out-plan-list",
+            "outbound/wave-list",
+            "outbound/picking-order",
+            "outbound/check-order"
+          ]
+        },
+        {
+          "id": "nav-shipping",
+          "name": "发货作业",
+          "pages": [
+            "outbound/packing-order",
+            "outbound/sort-task",
+            "outbound/loading-list",
+            "outbound/handover-list"
+          ]
+        },
+        {
+          "id": "nav-inner",
+          "name": "库内作业",
+          "pages": [
+            "warehouse/location-list",
+            "warehouse/location-capacity",
+            "warehouse/move-task",
+            "warehouse/replenish-task",
+            "warehouse/kitting-task",
+            "warehouse/freeze-list"
+          ]
+        },
+        {
+          "id": "nav-count",
+          "name": "盘点与异常",
+          "pages": [
+            "warehouse/count-plan",
+            "warehouse/count-task",
+            "inventory/count-diff-audit",
+            "inventory/adjust-task",
+            "warehouse/wh-exception-list"
+          ]
+        },
+        {
+          "id": "nav-inventory",
+          "name": "库存中心",
+          "pages": [
+            "inventory/batch-list",
+            "inventory/stock-by-location",
+            "inventory/daily-check",
+            "inventory/opening-stock",
+            "inventory/stock-snapshot",
+            "inventory/serial-list"
+          ]
+        },
+        {
+          "id": "nav-resource",
+          "name": "设备与容器",
+          "pages": [
+            "resource/container-list",
+            "resource/hardware-list",
+            "resource/exec-unit-list",
+            "resource/device-monitor",
+            "resource/device-alarm",
+            "resource/device-driver",
+            "resource/agv-strategy"
+          ]
+        },
+        {
+          "id": "nav-staff",
+          "name": "人员与班次",
+          "pages": [
+            "resource/team-list",
+            "resource/staff-list",
+            "resource/shift-list",
+            "task/staff-performance"
+          ]
+        },
+        {
+          "id": "nav-config",
+          "name": "作业配置",
+          "pages": [
+            "resource/strategy-list",
+            "resource/workflow-list",
+            "resource/task-strategy-list"
+          ]
+        },
+        {
+          "id": "nav-base",
+          "name": "基础资料",
+          "pages": [
+            "base/sku-warehouse-list"
+          ]
+        }
       ]
     },
     {
       "id": "mall-app",
       "name": "货灵商城",
-      "shell": "mall"
+      "shell": "mall",
+      "nav": [
+        {
+          "id": "nav-home",
+          "name": "首页",
+          "pages": [
+            "mall/home"
+          ]
+        },
+        {
+          "id": "nav-search",
+          "name": "商品搜索",
+          "pages": [
+            "mall/search"
+          ]
+        },
+        {
+          "id": "nav-detail",
+          "name": "商品详情",
+          "pages": [
+            "mall/product-detail"
+          ]
+        },
+        {
+          "id": "nav-cart",
+          "name": "进货单",
+          "pages": [
+            "mall/cart"
+          ]
+        },
+        {
+          "id": "nav-checkout",
+          "name": "确认订单",
+          "pages": [
+            "mall/checkout"
+          ]
+        },
+        {
+          "id": "nav-orders",
+          "name": "我的订单",
+          "pages": [
+            "mall/orders"
+          ]
+        }
+      ]
     },
     {
       "id": "pda-app",
       "name": "PDA 作业端",
-      "shell": "pda"
+      "shell": "pda",
+      "nav": [
+        {
+          "id": "nav-job",
+          "name": "作业",
+          "pages": [
+            "task/pda-home",
+            "task/pda-putaway-list",
+            "task/pda-picking-list",
+            "task/pda-stocktaking-list"
+          ]
+        },
+        {
+          "id": "nav-scan",
+          "name": "扫码",
+          "pages": [
+            "inbound/receiving-scan",
+            "outbound/picking-scan",
+            "warehouse/count-scan"
+          ]
+        },
+        {
+          "id": "nav-terminal",
+          "name": "终端",
+          "pages": [
+            "pda/pda-login",
+            "pda/pda-face",
+            "pda/pda-invite",
+            "pda/pda-activate",
+            "pda/pda-my-device",
+            "pda/pda-version"
+          ]
+        },
+        {
+          "id": "nav-mine",
+          "name": "我的",
+          "pages": [
+            "task/pda-mine"
+          ]
+        }
+      ]
     }
   ],
   "modules": [
@@ -162,7 +575,7 @@
       "tier": "core",
       "deployed": true,
       "owner": "",
-      "scope": "通知、收货验收、上架",
+      "scope": "入库通知、到货预约、收货验收、质检、理货、越库、上架",
       "pages": [
         {
           "key": "in-plan-list",
@@ -211,6 +624,38 @@
           "file": "pages/in-plan-confirm-list.mjs",
           "ownerScoped": false,
           "app": "network-app"
+        },
+        {
+          "key": "appointment-list",
+          "name": "到货预约",
+          "type": "list",
+          "file": "pages/appointment-list.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "qc-order",
+          "name": "质检单",
+          "type": "list",
+          "file": "pages/qc-order.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "tally-task",
+          "name": "理货任务",
+          "type": "list",
+          "file": "pages/tally-task.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "crossdock-task",
+          "name": "越库直发",
+          "type": "list",
+          "file": "pages/crossdock-task.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
         }
       ]
     },
@@ -221,7 +666,7 @@
       "tier": "core",
       "deployed": true,
       "owner": "",
-      "scope": "订单、波次、拣货、交接",
+      "scope": "出库订单、波次、拣货、复核、打包、分播、装车、交接",
       "pages": [
         {
           "key": "out-plan-list",
@@ -286,6 +731,30 @@
           "file": "pages/out-plan-confirm-list.mjs",
           "ownerScoped": false,
           "app": "network-app"
+        },
+        {
+          "key": "packing-order",
+          "name": "打包单",
+          "type": "list",
+          "file": "pages/packing-order.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "sort-task",
+          "name": "分播播种",
+          "type": "list",
+          "file": "pages/sort-task.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "loading-list",
+          "name": "装车发运",
+          "type": "list",
+          "file": "pages/loading-list.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
         }
       ]
     },
@@ -296,7 +765,7 @@
       "tier": "core",
       "deployed": true,
       "owner": "",
-      "scope": "库位、移库、盘点",
+      "scope": "库位、库位容量、移库、盘点、补货、组套加工、冻结解冻、异常登记",
       "pages": [
         {
           "key": "location-list",
@@ -345,6 +814,38 @@
           "file": "pages/replenish-task.mjs",
           "ownerScoped": true,
           "app": "warehouse-app"
+        },
+        {
+          "key": "location-capacity",
+          "name": "库位容量与 ABC",
+          "type": "list",
+          "file": "pages/location-capacity.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "kitting-task",
+          "name": "组套与库内加工",
+          "type": "list",
+          "file": "pages/kitting-task.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "freeze-list",
+          "name": "冻结与解冻",
+          "type": "list",
+          "file": "pages/freeze-list.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "wh-exception-list",
+          "name": "异常登记与处置",
+          "type": "list",
+          "file": "pages/wh-exception-list.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
         }
       ]
     },
@@ -355,7 +856,7 @@
       "tier": "core",
       "deployed": true,
       "owner": "产品组",
-      "scope": "实物账、流水、批次效期、总览与三端批次效期视图",
+      "scope": "实物账、流水、批次效期、序列号、盘点差异审批、总览与多端视图",
       "pages": [
         {
           "key": "stock-list",
@@ -492,6 +993,22 @@
           "file": "pages/stock-owner-report.mjs",
           "ownerScoped": false,
           "app": "erp-app"
+        },
+        {
+          "key": "serial-list",
+          "name": "序列号追踪",
+          "type": "list",
+          "file": "pages/serial-list.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "count-diff-audit",
+          "name": "盘点差异审批",
+          "type": "list",
+          "file": "pages/count-diff-audit.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
         }
       ]
     },
@@ -502,21 +1019,23 @@
       "tier": "ext",
       "deployed": true,
       "owner": "产品组",
-      "scope": "3PL 仓租与作业费，按交付范围启用",
+      "scope": "3PL 仓租与作业费、结算单、发票与收款，按交付范围启用",
       "pages": [
         {
           "key": "rate-list",
           "name": "费用规则",
           "type": "list",
           "file": "pages/rate-list.mjs",
-          "ownerScoped": true
+          "ownerScoped": true,
+          "app": "network-app"
         },
         {
           "key": "bill-list",
           "name": "费用账单",
           "type": "list",
           "file": "pages/bill-list.mjs",
-          "ownerScoped": true
+          "ownerScoped": true,
+          "app": "network-app"
         },
         {
           "key": "rate-owner-list",
@@ -533,6 +1052,22 @@
           "file": "pages/bill-owner-list.mjs",
           "ownerScoped": false,
           "app": "erp-app"
+        },
+        {
+          "key": "settlement-list",
+          "name": "结算单",
+          "type": "list",
+          "file": "pages/settlement-list.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "invoice-list",
+          "name": "发票与收款",
+          "type": "list",
+          "file": "pages/invoice-list.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
         }
       ]
     },
@@ -543,7 +1078,7 @@
       "tier": "ext",
       "deployed": true,
       "owner": "产品组",
-      "scope": "跨模块任务聚合视图，不持有业务源",
+      "scope": "跨模块任务聚合、任务池与派工、人效看板与 PDA 作业入口，不持有业务源",
       "pages": [
         {
           "key": "task-list",
@@ -608,6 +1143,22 @@
           "file": "pages/pda-mine.mjs",
           "ownerScoped": false,
           "app": "pda-app"
+        },
+        {
+          "key": "task-pool",
+          "name": "任务池与派工",
+          "type": "list",
+          "file": "pages/task-pool.mjs",
+          "ownerScoped": true,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "staff-performance",
+          "name": "人效与准确率",
+          "type": "report",
+          "file": "pages/staff-performance.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
         }
       ]
     },
@@ -618,7 +1169,7 @@
       "tier": "ext",
       "deployed": true,
       "owner": "产品组",
-      "scope": "货灵运营中台管理端运营方与仓内账号、角色、权限、操作日志与字典",
+      "scope": "货主运营方与仓内账号、角色、权限、操作日志、组织与审批流、字典",
       "pages": [
         {
           "key": "user-list",
@@ -649,6 +1200,22 @@
           "name": "字典管理",
           "type": "list",
           "file": "pages/dict-list.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "org-list",
+          "name": "组织架构",
+          "type": "list",
+          "file": "pages/org-list.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "approval-flow",
+          "name": "审批流配置",
+          "type": "list",
+          "file": "pages/approval-flow.mjs",
           "ownerScoped": false,
           "app": "network-app"
         }
@@ -720,7 +1287,7 @@
       "tier": "core",
       "deployed": true,
       "owner": "产品组",
-      "scope": "仓网总览与跨仓调拨",
+      "scope": "仓网总览、告警与运营日报、服务关系与报价、仓网调度与月台预约、仓容与产能、跨仓调拨",
       "pages": [
         {
           "key": "network-overview",
@@ -753,6 +1320,54 @@
           "file": "pages/erp-bill-list.mjs",
           "ownerScoped": true,
           "app": "network-app"
+        },
+        {
+          "key": "service-catalog",
+          "name": "服务目录与报价",
+          "type": "list",
+          "file": "pages/service-catalog.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "owner-warehouse-auth",
+          "name": "货主仓授权",
+          "type": "list",
+          "file": "pages/owner-warehouse-auth.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "alert-center",
+          "name": "告警中心",
+          "type": "list",
+          "file": "pages/alert-center.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "ops-daily",
+          "name": "运营日报",
+          "type": "report",
+          "file": "pages/ops-daily.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "dock-schedule",
+          "name": "月台预约计划",
+          "type": "list",
+          "file": "pages/dock-schedule.mjs",
+          "ownerScoped": true,
+          "app": "network-app"
+        },
+        {
+          "key": "capacity-plan",
+          "name": "仓容与产能规划",
+          "type": "report",
+          "file": "pages/capacity-plan.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
         }
       ]
     },
@@ -763,7 +1378,7 @@
       "tier": "core",
       "deployed": true,
       "owner": "产品组",
-      "scope": "设备、容器、执行单元、班组、人员、排班与作业配置",
+      "scope": "设备、容器、执行单元、班组、人员、排班、设备监控与告警、驱动、AGV 策略与作业配置",
       "pages": [
         {
           "key": "hardware-archive",
@@ -858,6 +1473,54 @@
           "name": "任务中心策略",
           "type": "list",
           "file": "pages/task-strategy-list.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "device-utilization",
+          "name": "设备利用率",
+          "type": "report",
+          "file": "pages/device-utilization.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "maintenance-plan",
+          "name": "维保计划",
+          "type": "list",
+          "file": "pages/maintenance-plan.mjs",
+          "ownerScoped": false,
+          "app": "network-app"
+        },
+        {
+          "key": "device-monitor",
+          "name": "设备监控",
+          "type": "list",
+          "file": "pages/device-monitor.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "device-alarm",
+          "name": "告警与故障工单",
+          "type": "list",
+          "file": "pages/device-alarm.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "device-driver",
+          "name": "驱动与协议",
+          "type": "list",
+          "file": "pages/device-driver.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "agv-strategy",
+          "name": "AGV 调度策略",
+          "type": "list",
+          "file": "pages/agv-strategy.mjs",
           "ownerScoped": false,
           "app": "warehouse-app"
         }
@@ -1001,7 +1664,7 @@
         {
           "key": "shop-cert",
           "name": "企业资质认证",
-          "type": "detail",
+          "type": "list",
           "file": "pages/shop-cert.mjs",
           "ownerScoped": false,
           "app": "erp-app"
@@ -1074,7 +1737,7 @@
       "tier": "core",
       "deployed": true,
       "owner": "产品组",
-      "scope": "货灵ERP订单中心与订单360、平台适配器、原单处理流水线（审单/拆单/去重/补拉）、履约决策、履约单、平台备货、自发货、平台售后、平台店铺、同步任务、商品查询、委托、调拨退货、异常对账、物流跟踪、报表、子账号、角色权限与操作日志",
+      "scope": "货灵ERP订单中心与订单360、平台适配器、原单处理流水线、履约决策、履约单、平台备货、自发货、平台售后、平台店铺、同步任务、商品中枢（SPU/Listing/刊登/采集）、商品查询、委托、调拨退货、异常对账、物流跟踪、报表、子账号、角色权限与操作日志",
       "pages": [
         {
           "key": "sku-owner-list",
@@ -1257,6 +1920,54 @@
           "name": "服务费账单",
           "type": "list",
           "file": "pages/service-bill-list.mjs",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "spu-list",
+          "name": "SPU 列表",
+          "type": "list",
+          "file": "pages/spu-list.mjs",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "listing-list",
+          "name": "平台 Listing",
+          "type": "list",
+          "file": "pages/listing-list.mjs",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "listing-task-list",
+          "name": "刊登任务",
+          "type": "list",
+          "file": "pages/listing-task-list.mjs",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "collect-box",
+          "name": "采集箱",
+          "type": "list",
+          "file": "pages/collect-box.mjs",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "shop-report",
+          "name": "店铺报表",
+          "type": "report",
+          "file": "pages/shop-report.mjs",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "profit-report",
+          "name": "订单利润报表",
+          "type": "report",
+          "file": "pages/profit-report.mjs",
           "ownerScoped": false,
           "app": "erp-app"
         }

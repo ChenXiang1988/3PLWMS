@@ -107,6 +107,8 @@ meta 是窗口与对象的真值，封面对象表由它渲染；两者不一致
 
 **章节顺序**：按 `.codebuddy/skills/research-report/assets/report-template.html` 的八节骨架，正文用 `<h2>` 承载，脚本按此校验；本条不重复列录，改骨架只改 skill 一处。本轮不适用的节写「本轮不适用 + 原因」，不跳号。
 
+**图表**：数据、流程、结构、对比类内容优先图形化，按 `research-report` 的 `references/chart-guide.md` 选图型、`chart-snippets.md` 取结构，图内联在所属节内，正文只留判断、来源与口径；不引外部图表库、CDN 或 Mermaid，图注写「图号 + 一句结论」。
+
 **截图**：
 
 - 存 `<命题>-<日期>.assets/<对象简称>/`，与报告同目录；正文用相对路径 `<img>` 引用，不内联 base64，不引外部链接。

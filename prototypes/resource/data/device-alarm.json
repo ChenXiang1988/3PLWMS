@@ -1,0 +1,84 @@
+{
+  "rows": [
+    {
+      "alarmNo": "DA20261109001",
+      "deviceCode": "AGV-03",
+      "level": "critical",
+      "alarmCode": "E-2201",
+      "raisedAt": "2026-11-09 09:20",
+      "handleStatus": "doing",
+      "downMinutes": 66,
+      "reviewer": ""
+    },
+    {
+      "alarmNo": "DA20261109002",
+      "deviceCode": "CONV-02",
+      "level": "warning",
+      "alarmCode": "W-1102",
+      "raisedAt": "2026-11-09 08:55",
+      "handleStatus": "pending",
+      "downMinutes": 0,
+      "reviewer": ""
+    },
+    {
+      "alarmNo": "DA20261109003",
+      "deviceCode": "FORK-07",
+      "level": "info",
+      "alarmCode": "I-0101",
+      "raisedAt": "2026-11-09 08:10",
+      "handleStatus": "done",
+      "downMinutes": 12,
+      "reviewer": "李静"
+    },
+    {
+      "alarmNo": "DA20261109004",
+      "deviceCode": "AGV-01",
+      "level": "warning",
+      "alarmCode": "W-1105",
+      "raisedAt": "2026-11-09 07:40",
+      "handleStatus": "done",
+      "downMinutes": 8,
+      "reviewer": "李静"
+    },
+    {
+      "alarmNo": "DA20261108005",
+      "deviceCode": "AGV-06",
+      "level": "critical",
+      "alarmCode": "E-2202",
+      "raisedAt": "2026-11-08 18:20",
+      "handleStatus": "done",
+      "downMinutes": 42,
+      "reviewer": "王涛"
+    },
+    {
+      "alarmNo": "DA20261108006",
+      "deviceCode": "PRINT-05",
+      "level": "info",
+      "alarmCode": "I-0103",
+      "raisedAt": "2026-11-08 16:40",
+      "handleStatus": "done",
+      "downMinutes": 5,
+      "reviewer": "王涛"
+    },
+    {
+      "alarmNo": "DA20261108007",
+      "deviceCode": "SCAN-11",
+      "level": "warning",
+      "alarmCode": "W-1109",
+      "raisedAt": "2026-11-08 15:10",
+      "handleStatus": "done",
+      "downMinutes": 6,
+      "reviewer": "李静"
+    },
+    {
+      "alarmNo": "DA20261108008",
+      "deviceCode": "AGV-03",
+      "level": "warning",
+      "alarmCode": "W-1110",
+      "raisedAt": "2026-11-08 14:30",
+      "handleStatus": "done",
+      "downMinutes": 9,
+      "reviewer": "王涛"
+    }
+  ]
+}

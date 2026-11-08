@@ -1,18 +1,18 @@
 {
   "id": "inventory",
   "name": "库存中心",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "owner": "产品组",
   "tier": "core",
   "deployed": true,
   "dependsOn": [
     "shared"
   ],
-  "scope": "实物账、流水、批次效期、总览、ATP 可承诺与多端视图",
+  "scope": "实物账、流水、批次效期、序列号、盘点差异审批、总览与多端视图",
   "deliverables": [
     "pages/",
     "data/"
   ],
-  "status": "review",
-  "note": "17 页：库存查询、台账、总览、批次效期三页、仓位/分仓/分布、低库存预警、日清检查、初始库存、调整任务、快照、本货主三页；冻结分盘点冻结与计划单锁定"
+  "status": "delivered",
+  "note": "新增序列号追踪、盘点差异审批"
 }

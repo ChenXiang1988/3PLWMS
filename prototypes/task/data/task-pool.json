@@ -1,0 +1,92 @@
+{
+  "rows": [
+    {
+      "taskNo": "TK20261109001",
+      "taskType": "收货",
+      "docNo": "RC20261109001",
+      "taskStatus": "doing",
+      "deviceStatus": "执行中",
+      "assignee": "王强",
+      "priority": "高",
+      "retryCount": 0,
+      "plannedAt": "2026-11-09 09:00"
+    },
+    {
+      "taskNo": "TK20261109002",
+      "taskType": "上架",
+      "docNo": "PU20261109001",
+      "taskStatus": "assigned",
+      "deviceStatus": "待执行",
+      "assignee": "AGV-01",
+      "priority": "中",
+      "retryCount": 0,
+      "plannedAt": "2026-11-09 10:30"
+    },
+    {
+      "taskNo": "TK20261109003",
+      "taskType": "拣货",
+      "docNo": "PK20261109001",
+      "taskStatus": "doing",
+      "deviceStatus": "执行中",
+      "assignee": "赵敏",
+      "priority": "高",
+      "retryCount": 1,
+      "plannedAt": "2026-11-09 10:00"
+    },
+    {
+      "taskNo": "TK20261109004",
+      "taskType": "复核",
+      "docNo": "CK20261109001",
+      "taskStatus": "pending",
+      "deviceStatus": "待执行",
+      "assignee": "",
+      "priority": "中",
+      "retryCount": 0,
+      "plannedAt": "2026-11-09 11:30"
+    },
+    {
+      "taskNo": "TK20261109005",
+      "taskType": "盘点",
+      "docNo": "CT20261109001",
+      "taskStatus": "pending",
+      "deviceStatus": "待执行",
+      "assignee": "",
+      "priority": "低",
+      "retryCount": 0,
+      "plannedAt": "2026-11-09 14:00"
+    },
+    {
+      "taskNo": "TK20261109006",
+      "taskType": "移库",
+      "docNo": "MV20261109001",
+      "taskStatus": "assigned",
+      "deviceStatus": "待执行",
+      "assignee": "AGV-03",
+      "priority": "中",
+      "retryCount": 0,
+      "plannedAt": "2026-11-09 13:00"
+    },
+    {
+      "taskNo": "TK20261108007",
+      "taskType": "打包",
+      "docNo": "PK20261108018",
+      "taskStatus": "done",
+      "deviceStatus": "已完成",
+      "assignee": "黄磊",
+      "priority": "中",
+      "retryCount": 0,
+      "plannedAt": "2026-11-08 16:00"
+    },
+    {
+      "taskNo": "TK20261108008",
+      "taskType": "分播",
+      "docNo": "SR20261108005",
+      "taskStatus": "cancelled",
+      "deviceStatus": "—",
+      "assignee": "",
+      "priority": "低",
+      "retryCount": 0,
+      "plannedAt": "2026-11-08 15:00"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "rows": [
+    {
+      "warehouse": "华东中心仓",
+      "total": 50000,
+      "used": 41200,
+      "rate": "82.4%",
+      "inAvg": 11800,
+      "outAvg": 10100,
+      "peak": 13600,
+      "available": 8800
+    },
+    {
+      "warehouse": "华南前置仓",
+      "total": 18000,
+      "used": 13700,
+      "rate": "76.1%",
+      "inAvg": 5200,
+      "outAvg": 5900,
+      "peak": 6800,
+      "available": 4300
+    },
+    {
+      "warehouse": "华北分拨仓",
+      "total": 26000,
+      "used": 20700,
+      "rate": "79.6%",
+      "inAvg": 7100,
+      "outAvg": 7900,
+      "peak": 8600,
+      "available": 5300
+    },
+    {
+      "warehouse": "西南中心仓",
+      "total": 32000,
+      "used": 22800,
+      "rate": "71.3%",
+      "inAvg": 6700,
+      "outAvg": 5500,
+      "peak": 8100,
+      "available": 9200
+    },
+    {
+      "warehouse": "华中转运仓",
+      "total": 12000,
+      "used": 7600,
+      "rate": "63.3%",
+      "inAvg": 3600,
+      "outAvg": 4000,
+      "peak": 4600,
+      "available": 4400
+    },
+    {
+      "warehouse": "浙北冷链仓",
+      "total": 9000,
+      "used": 0,
+      "rate": "0%",
+      "inAvg": 0,
+      "outAvg": 0,
+      "peak": 0,
+      "available": 9000
+    },
+    {
+      "warehouse": "浦东保税仓",
+      "total": 14000,
+      "used": 0,
+      "rate": "0%",
+      "inAvg": 0,
+      "outAvg": 0,
+      "peak": 0,
+      "available": 14000
+    }
+  ]
+}

@@ -8,11 +8,11 @@
   "dependsOn": [
     "shared"
   ],
-  "scope": "库位、移库、盘点、补货",
+  "scope": "库位、库位容量、移库、盘点、补货、组套加工、冻结解冻、异常登记",
   "deliverables": [
     "pages/",
     "data/"
   ],
-  "status": "review",
-  "note": "库区库位、移库任务、盘点计划、盘点单、补货任务五页；盘点单行抽屉列盘点任务，盘点作业归 PDA 端"
+  "status": "delivered",
+  "note": "新增库位容量与 ABC、组套加工、冻结解冻、异常登记；补货、移库、盘点入段"
 }

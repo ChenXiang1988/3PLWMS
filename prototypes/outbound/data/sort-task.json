@@ -1,0 +1,92 @@
+{
+  "rows": [
+    {
+      "sortNo": "SR20261109001",
+      "waveNo": "WV20261109A",
+      "station": "WS-01",
+      "firstContainer": "PLT-018",
+      "secondContainer": "CTN-1001",
+      "grid": "A01",
+      "orderCount": 12,
+      "pickedQty": 240,
+      "sortStatus": "closed"
+    },
+    {
+      "sortNo": "SR20261109002",
+      "waveNo": "WV20261109A",
+      "station": "WS-01",
+      "firstContainer": "PLT-019",
+      "secondContainer": "CTN-1002",
+      "grid": "A02",
+      "orderCount": 10,
+      "pickedQty": 180,
+      "sortStatus": "doing"
+    },
+    {
+      "sortNo": "SR20261109003",
+      "waveNo": "WV20261109B",
+      "station": "WS-02",
+      "firstContainer": "PLT-022",
+      "secondContainer": "CTN-1003",
+      "grid": "B01",
+      "orderCount": 8,
+      "pickedQty": 96,
+      "sortStatus": "pending"
+    },
+    {
+      "sortNo": "SR20261109004",
+      "waveNo": "WV20261109B",
+      "station": "WS-02",
+      "firstContainer": "PLT-024",
+      "secondContainer": "CTN-1004",
+      "grid": "B02",
+      "orderCount": 14,
+      "pickedQty": 210,
+      "sortStatus": "closed"
+    },
+    {
+      "sortNo": "SR20261108005",
+      "waveNo": "WV20261108C",
+      "station": "WS-03",
+      "firstContainer": "PLT-026",
+      "secondContainer": "CTN-1005",
+      "grid": "C01",
+      "orderCount": 9,
+      "pickedQty": 144,
+      "sortStatus": "closed"
+    },
+    {
+      "sortNo": "SR20261108006",
+      "waveNo": "WV20261108C",
+      "station": "WS-03",
+      "firstContainer": "PLT-031",
+      "secondContainer": "CTN-1006",
+      "grid": "C02",
+      "orderCount": 11,
+      "pickedQty": 165,
+      "sortStatus": "closed"
+    },
+    {
+      "sortNo": "SR20261108007",
+      "waveNo": "WV20261108D",
+      "station": "WS-04",
+      "firstContainer": "PLT-033",
+      "secondContainer": "CTN-1007",
+      "grid": "D01",
+      "orderCount": 7,
+      "pickedQty": 84,
+      "sortStatus": "closed"
+    },
+    {
+      "sortNo": "SR20261108008",
+      "waveNo": "WV20261108D",
+      "station": "WS-04",
+      "firstContainer": "PLT-034",
+      "secondContainer": "CTN-1008",
+      "grid": "D02",
+      "orderCount": 13,
+      "pickedQty": 195,
+      "sortStatus": "closed"
+    }
+  ]
+}

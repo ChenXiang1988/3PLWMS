@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="topic" content="jeewms系统深度分析">
+<meta name="survey-window" content="2026-11-09T09:00 / 2026-11-09T18:00">
+<meta name="survey-objects" content="JeeWMS">
+<title>JeeWMS 系统深度分析报告</title>
+<style>
+:root{--bg:#f4f6f9;--paper:#fff;--ink:#1c2430;--muted:#5a6675;--faint:#8792a1;--line:#e2e7ee;--accent:#1d5f8c;--accent-soft:#eaf2f9;--warn:#9a5b16;--warn-soft:#fdf3e5;--red:#9c3b3b;--red-soft:#fbeded;--shadow:0 1px 2px rgba(20,32,48,.05),0 10px 32px rgba(20,32,48,.06)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.78 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+.layout{display:grid;grid-template-columns:224px minmax(0,1fr);gap:24px;max-width:1360px;margin:0 auto;padding:24px}
+aside{position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:18px 14px;box-shadow:var(--shadow)}
+aside .side-title{font-size:12px;letter-spacing:.08em;color:var(--faint);font-weight:600;margin:0 0 10px 4px}
+aside a{display:block;color:var(--muted);text-decoration:none;font-size:13.5px;padding:5px 9px;border-radius:5px;border-left:2px solid transparent}
+aside a:hover{background:var(--accent-soft);color:var(--accent)}
+main{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:48px 56px 64px;box-shadow:var(--shadow);min-width:0}
+.cover{border-bottom:2px solid var(--ink);padding-bottom:24px;margin-bottom:30px}
+.kicker{font-size:12.5px;letter-spacing:.14em;color:var(--accent);font-weight:700;margin:0 0 10px}
+h1{font-size:29px;line-height:1.35;margin:0 0 12px;letter-spacing:-.01em}
+.sub{font-size:16px;color:var(--muted);margin:0 0 20px}
+.meta{display:flex;flex-wrap:wrap;gap:10px 24px;font-size:13px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600;margin-right:4px}
+h2{font-size:21px;margin:48px 0 6px;padding-bottom:10px;border-bottom:1px solid var(--line);scroll-margin-top:20px}
+h2 .num{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.04em;margin-right:8px}
+h3{font-size:16.5px;margin:28px 0 8px;scroll-margin-top:20px}
+h4{font-size:14.5px;margin:18px 0 6px;color:var(--accent)}
+p{margin:8px 0 12px}
+ul,ol{margin:8px 0 14px;padding-left:22px}
+li{margin:4px 0}
+code{font:13px/1.5 ui-monospace,Consolas,monospace;background:#f0f2f5;padding:1px 5px;border-radius:3px}
+table{width:100%;border-collapse:collapse;font-size:13.6px;margin:12px 0 20px}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:#f3f6fa;font-weight:650}
+tbody tr:nth-child(even){background:#fafbfd}
+td:first-child{font-weight:600}
+.callout{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 16px;border-radius:0 6px 6px 0;margin:16px 0;font-size:14px}
+.callout.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.callout.caution{border-left-color:var(--red);background:var(--red-soft)}
+.tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:3px;background:#e5f0f8;color:var(--accent);font-weight:600;margin-right:4px}
+.badge-ok{background:#e9f4ed;color:#2b6c49}
+.badge-no{background:#fbeded;color:#9c3b3b}
+.badge-tbd{background:#fdf3e5;color:#9a5b16}
+@media(max-width:980px){.layout{grid-template-columns:1fr;padding:12px}aside{position:static;max-height:none}main{padding:28px 20px 44px}h1{font-size:24px}table{font-size:12.8px}}
+@media print{body{background:#fff;font-size:11.5pt}.layout{display:block;padding:0;max-width:none}aside{display:none}main{border:0;box-shadow:none;padding:0}table,figure,.callout{page-break-inside:avoid}a{text-decoration:none;color:inherit}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+  <p class="side-title">目录</p>
+  <nav>
+    <a href="#s1">1 口径与证据</a>
+    <a href="#s2">2 覆盖清单</a>
+    <a href="#s3">3 逐页记录</a>
+    <a href="#s4">4 术语对照</a>
+    <a href="#s5">5 横向对比</a>
+    <a href="#s6">6 结论与落点</a>
+    <a href="#s7">7 缺项</a>
+    <a href="#s8">8 截图索引</a>
+  </nav>
+</aside>
+<main>
+
+<div class="cover">
+  <p class="kicker">调研报告</p>
+  <h1>JeeWMS 系统深度分析报告</h1>
+  <p class="sub">JeeWMS 是一套基于 JEECG 的 Java 全栈开源 WMS，覆盖 WMS/OMS/BMS/TMS/RF 全链路，但单体架构、默认弱口令与在线 SQL 计费引擎使其在安全与规模化上存在明显短板。</p>
+  <div class="meta">
+    <span><b>日期</b>2026-11-09</span>
+    <span><b>状态</b>草案</span>
+    <span><b>版本</b>v0.1</span>
+    <span><b>作者</b>货灵产品组</span>
+    <span><b>报告对象</b>JeeWMS 开源仓库管理系统（Gitee：erzhongxmu/JEEWMS）</span>
+  </div>
+</div>
+
+<h2 id="s1"><span class="num">1</span> 口径与证据</h2>
+
+<p>本轮覆盖 1 个对象，全部为只读访问，未在目标系统执行任何写操作。证据级别分三档：<b>A</b> 本人在目标系统实见（页面、字段、状态、操作）；<b>B</b> 官方帮助中心或源码原文；<b>C</b> 第三方文章与搜索摘要，只作范围参考。</p>
+
+<h3>1.1 调研对象</h3>
+
+<table>
+<thead><tr><th>对象</th><th>简称</th><th>访问时刻</th><th>账号条件</th><th>覆盖端</th><th>证据级</th><th>未验证项</th></tr></thead>
+<tbody>
+<tr><td>JeeWMS 开源仓库管理系统</td><td>JW</td><td>2026-11-09 09:00~18:00（公开资料只读）</td><td>未登录，公开资料与源码文档只读</td><td>Web 端公开文档 / Gitee 仓库 README / 第三方技术文章</td><td>B（官方 README）/ C（第三方文章与表结构托管）</td><td>实时页面、PDA 端实操、具体角色菜单差异、完整建表 SQL 未获取</td></tr>
+</tbody>
+</table>
+
+<div class="callout caution"><b>只读与证据声明：</b>本轮未注册账号、未登录生产或测试系统（公开测试地址 jeewms.cn/wmstest 存在但本环境无浏览器实操能力），所有结论基于 Gitee 官方仓库说明（B 级）与第三方技术文章、表结构托管站点（C 级）。凡 C 级推断均标注「待源码核对」，不写为默认行为。</div>
+
+<h2 id="s2"><span class="num">2</span> 覆盖清单</h2>
+
+<p>覆盖清单回答「看过什么、没看什么」，逐页覆盖表是第 3 节的索引。本轮为系统级公开资料调研，未做逐页登录实操。</p>
+
+<h3>2.1 菜单树</h3>
+
+<p>依据 Gitee 官方 README 的功能清单，JeeWMS 顶层菜单如下（子级结构官方未完整公开，标为未验证）：</p>
+
+<ul>
+  <li>基础配置 / 仓库配置 / 计费配置</li>
+  <li>基础资料（货主/客户、商品、仓库、库区、库位、供应商等主数据）</li>
+  <li>仓库管理 / 月台管理</li>
+  <li>进货管理（入库通知 → 收货 → 质检 → 上架）</li>
+  <li>出货管理（出库通知 → 波次 → 拣货 → 复核 → 发货）</li>
+  <li>退货管理（退货收货 → 质检 → 处置）</li>
+  <li>库内管理（移库、补货、库存调整、冻结/解冻）</li>
+  <li>盘点管理（定期/循环/动态盘点 → 差异处理）</li>
+  <li>库存查询</li>
+  <li>计费管理 / 计费配置（BMS）</li>
+  <li>PDA 功能（安卓原生 / UNI-APP 手持端）</li>
+  <li>分析报表 / 分析图表</li>
+  <li>域验证（数据隔离维度校验）</li>
+</ul>
+
+<h3>2.2 逐页覆盖表</h3>
+
+<table>
+<thead><tr><th>菜单路径</th><th>页面类型</th><th>角色</th><th>状态</th><th>记录节号</th></tr></thead>
+<tbody>
+<tr><td>进货管理 › 入库通知</td><td>列表/表单/向导</td><td>仓库主管</td><td>已看（文档层）：流程与字段见 3.2 / 3.4</td><td>3.2</td></tr>
+<tr><td>出货管理 › 出库通知</td><td>列表/表单</td><td>拣货员/复核员</td><td>已看（文档层）：单据链见 3.3</td><td>3.2</td></tr>
+<tr><td>库存查询 › 库存台账</td><td>看板/列表</td><td>受限角色</td><td>已看（文档层）：台账与流水见 3.4</td><td>3.4</td></tr>
+<tr><td>计费管理 › 动态计费</td><td>配置/表单</td><td>计费专员</td><td>已看（文档层）：在线 SQL 引擎风险见 3.6 / 3.7</td><td>3.6</td></tr>
+<tr><td>域验证</td><td>配置</td><td>系统管理员</td><td>已看（文档层）：数据隔离见 3.5</td><td>3.5</td></tr>
+<tr><td>PDA 功能（全模块）</td><td>移动端</td><td>现场作业</td><td>未看：无移动端实操环境，仅 UNI-APP 架构说明（C 级）</td><td>3.6</td></tr>
+</tbody>
+</table>
+
+<h3>2.3 非页面能力</h3>
+
+<table>
+<thead><tr><th>能力</th><th>是否覆盖</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>动态计费引擎（BMS）</td><td>有（文档）</td><td>在线 SQL 拼装计费规则，按操作类型/货主/合同周期组合计费</td></tr>
+<tr><td>外部系统接口适配</td><td>有（文档）</td><td>已对接 SAP ECC、SAP HANA、用友 U8、百胜 E3、UAS</td></tr>
+<tr><td>硬件对接</td><td>有（文档）</td><td>PDA、RFID、AGV（PLC 模拟）、LORA 电子货架标签</td></tr>
+<tr><td>定时任务 / 异步消息</td><td>有（部署文档）</td><td>ActiveMQ 处理异步任务，避免同步阻塞</td></tr>
+<tr><td>域验证（数据权限）</td><td>有（菜单）</td><td>仓/货主/人 三维数据隔离</td></tr>
+<tr><td>开放 API / 开发者门户</td><td>未验证</td><td>公开资料未给出 API 网关或开放平台形态</td></tr>
+</tbody>
+</table>
+
+<h3>2.4 未覆盖项</h3>
+<p>缺实时页面逐页实操、PDA 端真机操作、按角色差异化的菜单与按钮、完整建表 SQL。原因：未登录系统、无移动端环境、官方未公开完整 DDL。影响见第 7 节。</p>
+
+<h2 id="s3"><span class="num">3</span> 逐页记录</h2>
+
+<div class="callout"><b>说明：</b>本轮未登录目标系统实操，无法逐页按「入口/结构/列表/状态矩阵/交互」八段记录；以下以「对象（JeeWMS）› 系统维度」组织，覆盖用户要求的架构、模块、流程、表结构、权限、扩展、性能安全与优缺点，均为系统级事实 + 证据标注。</div>
+
+<h3>3.1 系统定位与整体架构（含技术栈）</h3>
+
+<p>JeeWMS 是一套基于 JEECG 生态打造的开源仓库管理系统，Gitee GVP 项目，采用 GPL-3.0 协议，由灵鹿谷科技主导、经多家企业商用后开源。定位为「智能仓储中枢」，覆盖 WMS、OMS（订单）、BMS（计费）、TMS（运输）、RF（现场作业/PDA）五大域，支持 3PL 第三方物流与厂内物流两类业态，含 Web 后台与 PDA 双端。</p>
+
+<p><b>技术栈（依据部署文档与官方 README，C 级、部署文档佐证）：</b></p>
+<table>
+<thead><tr><th>分层</th><th>选型</th><th>备注</th></tr></thead>
+<tbody>
+<tr><td>语言/运行时</td><td>Java 8（JDK 8 官方建议，避免高版本反射异常）</td><td>单体 Spring Boot 可执行 Jar</td></tr>
+<tr><td>后端框架</td><td>Spring Boot 2.x</td><td>老版基于 JEECG（非 Boot），2022-11-11 发布 JeecgBoot 前后端分离版</td></tr>
+<tr><td>持久层</td><td>MyBatis（部分版本 MyBatis-Plus）</td><td>表名沿用 JEECG 生成约定</td></tr>
+<tr><td>权限</td><td>Apache Shiro</td><td>RBAC + 数据权限（org/company 字段隔离）</td></tr>
+<tr><td>缓存/会话</td><td>Redis</td><td>登录 token、热点数据缓存</td></tr>
+<tr><td>异步消息</td><td>ActiveMQ（默认 61616）</td><td>耗时任务异步消费</td></tr>
+<tr><td>数据库</td><td>MySQL 5.7（建表脚本最佳，utf8mb4 + lower_case_table_names=1）</td><td>建表 SQL 主流支持 MySQL</td></tr>
+<tr><td>前端</td><td>两套：传统模板渲染（EasyUI/jQuery 老版）/ 前后端分离（Vue + Element UI 或 Ant Design）</td><td>生产推荐分离版，Nginx 托管 dist</td></tr>
+<tr><td>移动端</td><td>安卓原生（老）/ UNI-APP（新，一套代码多硬件）</td><td>经接口与后端解耦</td></tr>
+<tr><td>构建</td><td>Maven（JDK8 + MySQL5.7 + Redis + ActiveMQ + Nginx + Systemd）</td><td>mvn clean package -DskipTests</td></tr>
+</tbody>
+</table>
+
+<div class="callout warn"><b>版本分裂：</b>JeeWMS 同时存在三套形态——（1）JEECG 老版单体（EasyUI 前端）；（2）JeecgBoot 前后端分离版（Vue）；（3）兄弟产品 jeemes（基于 jeecg-cloud 的微服务版，含 Nacos/Sentinel/Gateway/MinIO/SkyWalking）。三套技术基线并存，文档与表结构跨版本不一致，是二次开发与运维的主要成本来源。</div>
+
+<h3>3.2 核心功能模块逐项分析</h3>
+
+<table>
+<thead><tr><th>模块</th><th>核心单据/对象</th><th>关键能力</th><th>说明与证据</th></tr></thead>
+<tbody>
+<tr><td>基础资料</td><td>货主/客户、商品、仓库、库区、库位、供应商</td><td>三级库位建模、主数据维护、商品与批次定义</td><td>货主为第一层数据隔离维度（C 级，掘金全景）</td></tr>
+<tr><td>进货管理（入库）</td><td>入库通知单（头/行）、收货单、质检、上架单</td><td>到货登记、收货/验收、质检、上架确认</td><td>入库链：通知 → 收货 → 质检 → 上架；库存于上架确认时过账</td></tr>
+<tr><td>出货管理（出库）</td><td>出库通知单（头/行）、波次、拣货单、复核、出库单</td><td>波次生成、按单/批量拣货、复核、发货确认</td><td>出库链：通知 → 波次 → 拣货 → 复核 → 出库；库存于出库确认时过账</td></tr>
+<tr><td>退货管理</td><td>退货申请、退货收货单、质检、处置单</td><td>逆向收货、质检、退货入库或报废处置</td><td>逆向链：申请 → 退货收货 → 质检 → 处置；库存于处置确认时过账</td></tr>
+<tr><td>库内管理</td><td>移库单、补货单、库存调整、冻结/解冻</td><td>移库、补货、库存调整、状态变更</td><td>库内链：任务 → 移库/盘点单 → 关闭；库存于确认/差异过账时变动</td></tr>
+<tr><td>盘点管理</td><td>盘点单、盘点差异</td><td>定期/循环/动态盘点、差异处理与过账</td><td>差异过账改写台账，并写流水</td></tr>
+<tr><td>库存查询</td><td>库存台账、流水</td><td>实时库存、批次/库位维度查询</td><td>台账 = 现状，流水 = 来龙去脉（CSDN 库存台账）</td></tr>
+<tr><td>计费管理（BMS）</td><td>计费规则、账单</td><td>在线 SQL 动态计费、按货主/合同计费</td><td>计费配置 → 计费管理；在线 SQL 引擎存在安全风险（见 3.7）</td></tr>
+<tr><td>分析报表/图表</td><td>收发存、出入库、库存报表</td><td>报表统计与可视化图表</td><td>报表在 MySQL 上聚合（性能见 3.7）</td></tr>
+<tr><td>PDA 功能</td><td>手持扫码作业</td><td>收货/上架/拣货/复核扫码、校验库位货品批次</td><td>UNI-APP，与后端仅经接口解耦</td></tr>
+<tr><td>域验证</td><td>数据隔离维度</td><td>仓/货主/人 三维数据权限校验</td><td>排查「看不到单」首先查此（掘金全景）</td></tr>
+</tbody>
+</table>
+
+<h3>3.3 业务流程与数据流转逻辑</h3>
+
+<p>JeeWMS 的核心是「单据驱动、过账改库存」。库存只在明确的过账动作上变化，其余环节均为待处理状态，多数账实不符源于单据停在中间态未过账（掘金全景，C 级）：</p>
+
+<table>
+<thead><tr><th>业务链</th><th>起点单据</th><th>中间单据</th><th>终点状态</th><th>库存过账时点</th></tr></thead>
+<tbody>
+<tr><td>入库链</td><td>采购/调拨到货通知</td><td>收货单 → 质检 → 上架单</td><td>入库完成</td><td>上架确认时</td></tr>
+<tr><td>出库链</td><td>客户订单/发货通知</td><td>波次 → 拣货单 → 复核 → 出库单</td><td>发货完成</td><td>出库确认时</td></tr>
+<tr><td>库内链</td><td>移库/补货/盘点任务</td><td>移库单 / 盘点单</td><td>任务关闭</td><td>移库确认 / 盘点差异过账时</td></tr>
+<tr><td>逆向链</td><td>客户退货申请</td><td>退货收货单 → 质检 → 处置单</td><td>退货入库或报废</td><td>处置确认时</td></tr>
+</tbody>
+</table>
+
+<p><b>数据流转骨架（五个核心对象）：</b></p>
+<ol>
+  <li><b>货主</b>：绝大多数数据的第一层隔离维度（厂内物流常一个，3PL 下多个）。</li>
+  <li><b>仓库 / 库区 / 库位</b>：三级物理建模，库位是库存最小容器，也是作业指令最小落点。</li>
+  <li><b>货品与批次</b>：货品是静态主数据，批次是动态实例，追溯挂在批次上。</li>
+  <li><b>库存与库存状态</b>：定位 = 货主 + 货品 + 批次 + 库位 + 状态；状态含可用/锁定/待检/冻结，状态不同可参与业务不同。</li>
+  <li><b>单据与单据行</b>：头与行分离，批次/库位/状态挂在行或头层。</li>
+</ol>
+<p>前三类（货主、仓/区/位、货品与批次）是「配置出来」的；后两类（库存与状态、单据与行）是「跑出来」的。库存扣减通过同事务写入流水 + 更新台账保证一致性。</p>
+
+<h3>3.4 数据库表结构与关键字段含义</h3>
+
+<p>JeeWMS 业务表采用 JEECG 生成约定，前缀 <code>wm_</code>；系统表沿用 JEECG 标准（老版 <code>t_s_*</code>，JeecgBoot 版 <code>sys_*</code>）。下表为已核实字段（来源：果创云公开的 JeeWMS 建表 SQL，C 级，命名以该托管为准）：</p>
+
+<table>
+<thead><tr><th>字段名</th><th>类型/长度</th><th>含义</th><th>约束</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>bigint unsigned</td><td>主键，自增</td><td>NOT NULL，PK</td></tr>
+<tr><td>notice_id</td><td>varchar(32)</td><td>进货通知单号</td><td>普通索引</td></tr>
+<tr><td>im_cus_code</td><td>varchar(32)</td><td>客户订单号</td><td>唯一索引（防重）</td></tr>
+<tr><td>cus_code</td><td>varchar(32)</td><td>客户（货主）编码</td><td>—</td></tr>
+<tr><td>sup_code / sup_name</td><td>varchar(45)/varchar(145)</td><td>供应商编码/名称</td><td>—</td></tr>
+<tr><td>im_data</td><td>datetime</td><td>预计到货时间</td><td>—</td></tr>
+<tr><td>im_car_dri / im_car_no / im_car_mobile</td><td>varchar(32)</td><td>司机 / 车号 / 司机电话</td><td>—</td></tr>
+<tr><td>platform_code</td><td>varchar(32)</td><td>月台</td><td>—</td></tr>
+<tr><td>order_type_code</td><td>varchar(32)</td><td>订单类型</td><td>—</td></tr>
+<tr><td>im_sta</td><td>varchar(32)</td><td>单据状态</td><td>—</td></tr>
+<tr><td>pi_class</td><td>varchar(145)</td><td>对接单据类型</td><td>—</td></tr>
+<tr><td>pi_master</td><td>varchar(45)</td><td>账套</td><td>—</td></tr>
+<tr><td>sys_org_code / sys_company_code</td><td>varchar(50)</td><td>所属部门 / 所属公司</td><td>JEECG 数据权限隔离字段</td></tr>
+<tr><td>create_*/update_*（name/by/date）</td><td>varchar(50)/datetime</td><td>创建人/更新人/时间审计</td><td>—</td></tr>
+<tr><td>FU_JIAN</td><td>varchar(64)</td><td>附件</td><td>—</td></tr>
+</tbody>
+</table>
+
+<p><b>库存台账与流水（第三方文章命名 <code>wms_</code> 前缀，C 级，与源码 <code>wm_</code> 命名可能不同，待源码核对）：</b></p>
+<table>
+<thead><tr><th>表</th><th>关键字段</th><th>作用</th></tr></thead>
+<tbody>
+<tr><td>wms_warehouse</td><td>warehouse_no, warehouse_name, address, status(1启用/0停用)</td><td>仓库主表</td></tr>
+<tr><td>wms_storage_area</td><td>area_no, warehouse_id, area_type(NORMAL/QC/SCRAP), status</td><td>库区，区分正常/质检/报废</td></tr>
+<tr><td>wms_storage_location</td><td>location_no, area_id, location_type, is_frozen(0/1), is_default_in(0/1)</td><td>库位，最小作业落点</td></tr>
+<tr><td>wms_stock（台账）</td><td>material_id, warehouse_id, location_id, batch_no, quantity(可用), frozen_qty(冻结), total_qty(总量), version(乐观锁)</td><td>现状；唯一键 (material_id, location_id, batch_no)</td></tr>
+<tr><td>wms_stock_record（流水）</td><td>stock_id, material_id, change_type(IN/OUT/ADJUST/FREEZE), quantity(出入正负), before_qty, after_qty, ref_no, create_time</td><td>来龙去脉，索引 ref_no / create_time</td></tr>
+</tbody>
+</table>
+
+<div class="callout warn">表命名差异提示：果创云托管用 <code>wm_im_notice_h</code>（wm_ 前缀），CSDN 库存文章用 <code>wms_stock</code>（wms_ 前缀）。两者命名体系不同，后者可能是作者示例或不同版本；以源码建表 SQL 为最终准。本报告对未直接核实的表名均标「待源码核对」。</div>
+
+<h3>3.5 权限与角色管理机制</h3>
+
+<p>JeeWMS 权限基于 Apache Shiro + JEECG RBAC：</p>
+<ul>
+  <li><b>认证</b>：Shiro 管理登录会话，token 存 Redis（部署文档要求 Redis 设密）。</li>
+  <li><b>授权</b>：角色-菜单-按钮三级，菜单与操作权限挂在角色上；受限角色（如拣货员、复核员、货主）看到的菜单与按钮与管理员不同。</li>
+  <li><b>数据权限</b>：通过 <code>sys_org_code</code> / <code>sys_company_code</code> 等字段做行级隔离；「域验证」菜单专门校验仓/货主/人三维数据隔离，排查「看不到单」首先查此。</li>
+  <li><b>默认账号（公开 README，属弱口令风险）</b>：本地 admin/llg123，测试系统 test/123456；ActiveMQ 默认 admin/admin。</li>
+  <li><b>角色差异</b>：官方未公开角色清单；依业务推断含系统管理员、仓库主管、拣货员、复核员、货主/客户，但逐角色菜单差异未验证（C 级）。</li>
+</ul>
+
+<h3>3.6 系统扩展性与二次开发能力</h3>
+
+<p>JeeWMS 的二次开发遵循「配置层 / 扩展层 / 模块层」三级边界（掘金全景，C 级）：</p>
+<table>
+<thead><tr><th>层次</th><th>典型内容</th><th>改动方式</th><th>升级代价</th></tr></thead>
+<tbody>
+<tr><td>配置层</td><td>仓库库位建模、货主货品主数据、计费规则、作业策略</td><td>界面配置</td><td>几乎为零</td></tr>
+<tr><td>扩展层</td><td>自定义校验、接口适配、报表定义</td><td>按扩展点实现</td><td>低</td></tr>
+<tr><td>模块层</td><td>新增业务能力、改造领域模型</td><td>新增模块或改内核</td><td>中到高</td></tr>
+</tbody>
+</table>
+<ul>
+  <li><b>低代码基座</b>：基于 JEECG/JeecgBoot，提供代码生成、Online 表单开发，二次开发门槛低、社区资料多。</li>
+  <li><b>接口适配层</b>：对接 SAP ECC/HANA、用友 U8、百胜 E3、UAS 时在接口层做转换，外部字段语义不下沉领域模型（推荐实践）。</li>
+  <li><b>动态计费（BMS）</b>：在线 SQL 拼装计费规则，按操作类型/货主/合同周期组合；灵活但存在安全风险（见 3.7）。</li>
+  <li><b>移动端解耦</b>：PDA 用 UNI-APP，一套代码适配多硬件，与后端仅经接口通信。</li>
+  <li><b>模块化可拆分部署</b>：3PL 城市配送方案可将 WMS/OMS/BMS/TMS 按模块独立部署。</li>
+  <li><b>兄弟微服务产品</b>：jeemes 提供 Nacos/Sentinel/Gateway/MinIO/SkyWalking 的微服务底座，可作为规模化演进方向。</li>
+</ul>
+
+<h3>3.7 性能与安全性表现</h3>
+
+<p><b>性能：</b></p>
+<ul>
+  <li>库存扣减采用行锁 + 条件约束：<code>UPDATE wms_stock SET quantity = quantity - ? WHERE id = ? AND quantity &gt;= ? AND is_frozen = 0</code>，靠条件充当乐观锁，数据库行锁保证不超卖、跳过冻结（CSDN 库存台账，C 级）。</li>
+  <li>台账与流水写入同一事务，保障对账一致；并发扣减安全。</li>
+  <li>异步任务经 ActiveMQ 削峰，避免同步阻塞。</li>
+  <li><b>瓶颈</b>：单体 Spring Boot，无内置水平扩展；报表统计在 MySQL 上聚合，大仓月报类查询易成瓶颈；PDA 高并发扫码需结合缓存与连接池评估。</li>
+</ul>
+<p><b>安全性：</b></p>
+<ul>
+  <li>认证/授权靠 Shiro + RBAC，机制成熟。</li>
+  <li><b>默认弱口令</b>：admin/llg123、test/123456、ActiveMQ admin/admin，部署文档明确要求改密，否则易被入侵。</li>
+  <li><b>BMS 在线 SQL 计费引擎</b>：若未做沙箱与白名单，存在 SQL 注入乃至命令执行风险，是高危点。</li>
+  <li><b>GPL-3.0 合规</b>：以 SaaS 形式分发需随分发物提供源码与许可证文本，商用边界需法务评估。</li>
+  <li><b>前端风险</b>：老版 EasyUI/jQuery 前端需注意 XSS 与组件漏洞；分离版（Vue）风险相对可控。</li>
+</ul>
+
+<h3>3.8 现有设计优缺点总结与改进建议</h3>
+
+<p><b>优点：</b></p>
+<ul>
+  <li>开源 GPL-3.0，零许可成本，可本地化部署与二次开发。</li>
+  <li>能力覆盖 WMS/OMS/BMS/TMS/RF 全链路，多家企业商用验证。</li>
+  <li>基于成熟 JEECG 生态，招人、踩坑资料多，二开门槛低。</li>
+  <li>支持多租户/3PL 与厂内物流，硬件对接（PDA/RFID/AGV/电子标签）现成。</li>
+  <li>「台账 + 流水」对账模型与明确过账时点的单据链设计清晰、可追溯。</li>
+</ul>
+<p><b>缺点：</b></p>
+<ul>
+  <li>技术栈偏旧（JDK8、单体、EasyUI 老版），规模化与云原生能力不足。</li>
+  <li>版本分裂（JEECG 老版 / JeecgBoot 版 / jeemes）增加维护与表结构不一致成本。</li>
+  <li>默认弱口令与 BMS 在线 SQL 带来明确安全短板。</li>
+  <li>报表在 MySQL 聚合，大仓性能与扩展性受限。</li>
+  <li>文档分散、跨版本命名/表结构不一致，上手与排障成本高。</li>
+  <li>多租户依赖字段隔离（sys_org_code）而非真正租户隔离。</li>
+</ul>
+<p><b>改进建议（落到货灵平台或 JeeWMS 自身改造）：</b></p>
+<ul>
+  <li>升级 JDK17 + 向 jeemes 微服务底座演进，缓解单体瓶颈。</li>
+  <li>交付基线强制改默认口令、Redis/ActiveMQ 设密、BMS 规则加 SQL 沙箱与白名单。</li>
+  <li>报表迁读写分离 / OLAP，避免大查询压主库。</li>
+  <li>统一表命名与 DDL 规范，收敛多版本差异。</li>
+  <li>明确 GPL-3.0 商用/SaaS 边界，提供容器化交付。</li>
+</ul>
+
+<h2 id="s4"><span class="num">4</span> 术语对照</h2>
+
+<p>同名不同义必须先对照再用，避免把 JeeWMS 的状态当成货灵项目的口径。</p>
+
+<table>
+<thead><tr><th>对象</th><th>原生叫法</th><th>该对象下的判定口径</th><th>我方叫法</th></tr></thead>
+<tbody>
+<tr><td>JW</td><td>客户 / cus_code</td><td>入库通知单上的往来单位，含货主与收货客户</td><td>货主（多货主为业务维度，非租户）</td></tr>
+<tr><td>JW</td><td>域验证</td><td>仓/货主/人 三维数据隔离校验</td><td>数据权限 / 数据范围</td></tr>
+<tr><td>JW</td><td>波次</td><td>出库前把多单聚合生成拣货任务的策略</td><td>波次（拣货策略）</td></tr>
+<tr><td>JW</td><td>上架</td><td>收货质检后把货放入库位，库存于此过账</td><td>上架（入库过账动作）</td></tr>
+<tr><td>JW</td><td>复核</td><td>出库拣货后核对货品批次数量</td><td>复核（出库校验）</td></tr>
+<tr><td>JW</td><td>账套 pi_master</td><td>区分不同核算主体的字段</td><td>核算主体（非多租户隔离）</td></tr>
+<tr><td>JW</td><td>sys_org_code / sys_company_code</td><td>JEECG 数据权限行级隔离字段</td><td>组织/公司数据范围字段</td></tr>
+<tr><td>JW</td><td>库存状态（可用/锁定/待检/冻结）</td><td>同一库存行的状态，决定可参与业务</td><td>库存状态（可用/占用/待检/冻结）</td></tr>
+</tbody>
+</table>
+
+<h2 id="s5"><span class="num">5</span> 横向对比</h2>
+
+<p>本轮单对象（JeeWMS），下方以同系统三种交付形态做横向对照，便于判断二次开发落点。</p>
+
+<table>
+<thead><tr><th>能力维度</th><th>JEECG 老版（单体 + EasyUI）</th><th>JeecgBoot 分离版（Vue）</th><th>jeemes 微服务版</th><th>差异与口径</th></tr></thead>
+<tbody>
+<tr><td>架构形态</td><td>单体 Jar</td><td>前后端分离单体</td><td>Spring Cloud 微服务</td><td>三套基线并存，维护成本递增</td></tr>
+<tr><td>前端</td><td>EasyUI / jQuery</td><td>Vue + Element UI / Ant Design</td><td>Vue + 大屏</td><td>分离版与现代前端体验更优</td></tr>
+<tr><td>技术组件</td><td>Shiro + Redis + ActiveMQ</td><td>同左（Boot 化）</td><td>Nacos/Sentinel/Gateway/MinIO/SkyWalking</td><td>微服务版补齐注册/配置/限流/链路</td></tr>
+<tr><td>扩展性</td><td>低（单体）</td><td>中</td><td>高（可水平扩展）</td><td>规模化首选微服务，但复杂度高</td></tr>
+<tr><td>表结构命名</td><td>wm_ 前缀</td><td>wm_ 前缀</td><td>可能随微服务拆分变化</td><td>跨版本命名需以源码 DDL 为准</td></tr>
+</tbody>
+</table>
+
+<h2 id="s6"><span class="num">6</span> 结论与落点</h2>
+
+<p>每条结论只允许三种判定：可借鉴、不跟随、待定。落不到具体落点的是描述，不是结论。</p>
+
+<table>
+<thead><tr><th>编号</th><th>判定</th><th>结论</th><th>落点</th></tr></thead>
+<tbody>
+<tr><td>C1</td><td>可借鉴</td><td>「库存台账 + 流水」双表对账模型（可用/冻结/总量三列 + change_type 流水）可直接映射到货灵库存设计</td><td>货灵WMS / 库存 / 实体 inventory、inventory_transaction</td></tr>
+<tr><td>C2</td><td>可借鉴</td><td>四条业务单据链 + 明确「库存过账时点」的设计，账实不符多因单据停在中间态，值得借鉴</td><td>货灵WMS / 出入库计划单状态流转与逆向流程</td></tr>
+<tr><td>C3</td><td>可借鉴</td><td>货主作第一层数据隔离维度、仓库/库区/库位三级建模、库位为作业最小落点，与货灵仓网模型一致</td><td>货灵WMS / 仓库档案、库位管理</td></tr>
+<tr><td>C4</td><td>不跟随</td><td>默认弱口令（admin/llg123、test/123456、ActiveMQ admin/admin）不可沿用，交付须强制改密与最小权限</td><td>货灵WMS / 安全基线、交付形态方案</td></tr>
+<tr><td>C5</td><td>不跟随</td><td>BMS 动态计费采用在线 SQL 拼装规则，存在注入/命令执行风险，货灵计费应走参数化规则引擎而非裸 SQL</td><td>货灵WMS / 计费模块（BMS）</td></tr>
+<tr><td>C6</td><td>不跟随</td><td>多租户依赖 sys_org_code/sys_company_code 字段隔离，非真正租户隔离；货灵为单实例单主体、多货主仅业务维度，不应照搬字段租户方案</td><td>账号与权限方案 / 数据范围</td></tr>
+<tr><td>C7</td><td>待定</td><td>报表统计在 MySQL 聚合，是否借鉴其报表维度需结合货灵读写分离/OLAP 方案确认</td><td>货灵WMS / 报表统计、数据字典</td></tr>
+<tr><td>C8</td><td>可借鉴</td><td>「配置层/扩展层/模块层」三级改动边界（规则变→配置、参数/流程→扩展、通用能力→提回主线）可作货灵二开分层依据</td><td>货灵WMS / 二次开发框架</td></tr>
+<tr><td>C9</td><td>可借鉴</td><td>接口适配层统一对接 SAP ECC/HANA、用友U8、百胜E3、UAS，外部字段语义不下沉领域模型，可作货灵 ERP 对接层范式</td><td>货灵ERP / 平台接入、订单体系</td></tr>
+<tr><td>C10</td><td>不跟随</td><td>版本分裂（JEECG 老版/JeecgBoot 版/jeemes）增加维护成本；货灵应锁定单一技术基线，不并行多套</td><td>技术栈选型 / 架构设计</td></tr>
+<tr><td>C11</td><td>可借鉴</td><td>PDA 采用 UNI-APP 一套代码多硬件、与后端仅经接口解耦，可作货灵 PDA 端形态参考</td><td>货灵WMS / PDA 端</td></tr>
+<tr><td>C12</td><td>不跟随</td><td>GPL-3.0 下 SaaS 化分发需提供源码，货灵若做多租户云交付须评估许可证边界</td><td>货灵ERP / 交付形态（单独售卖软件）</td></tr>
+</tbody>
+</table>
+
+<h3>6.1 建议</h3>
+
+<table>
+<thead><tr><th>编号</th><th>动作</th><th>前置</th><th>判据</th></tr></thead>
+<tbody>
+<tr><td>R1</td><td>在货灵库存设计中落地「台账+流水」双表与行锁扣减</td><td>数据字典 inventory 实体定稿</td><td>inventory_transaction 表存在且过账与台账同事务</td></tr>
+<tr><td>R2</td><td>交付前强制注入改密与 SQL 沙箱基线</td><td>安全评审通过</td><td>默认口令不存在、BMS 规则不可执行裸 SQL</td></tr>
+<tr><td>R3</td><td>锁定 JeecgBoot/Vue 单一基线，不引入 jeemes 双栈</td><td>技术栈选型评审</td><td>构建产物单一、依赖树无双框架</td></tr>
+<tr><td>R4</td><td>报表迁读写分离/OLAP</td><td>报表性能压测</td><td>大仓月报查询 P95 &lt; 3s</td></tr>
+</tbody>
+</table>
+
+<h2 id="s7"><span class="num">7</span> 缺项</h2>
+
+<table>
+<thead><tr><th>项</th><th>原因</th><th>影响</th></tr></thead>
+<tbody>
+<tr><td>实时页面逐页实操（入口/列表/状态矩阵/交互）</td><td>未登录系统，本环境无浏览器实操能力</td><td>影响 C2/C3 的页面级落点细节，结论停留在系统级</td></tr>
+<tr><td>PDA 端真机操作与字段</td><td>无移动端环境，仅 UNI-APP 架构说明（C 级）</td><td>影响 C11 的 PDA 落点深度</td></tr>
+<tr><td>按角色差异化的菜单与按钮明细</td><td>官方未公开角色清单与权限点</td><td>影响 3.5 角色部分，标为推断</td></tr>
+<tr><td>完整建表 SQL 与全部表字段</td><td>官方未公开全量 DDL，命名跨版本不一致</td><td>影响 3.4 表结构完整性，部分表名标「待源码核对」</td></tr>
+<tr><td>性能压测数据与真实并发指标</td><td>无生产环境数据</td><td>影响 3.7 性能结论，仅依据设计模式推断</td></tr>
+</tbody>
+</table>
+
+<div class="callout warn"><b>无图说明（对应 W4）：</b>本报告为文字 + 表格型系统分析，不内嵌截图与架构图；JeeWMS 的业务流程图、库存对账时序图如需可视化，应按项目「流程图规范」另出独立图件，不在本轮调研报告内嵌。无截图原因见第 8 节声明。</div>
+
+<h2 id="s8"><span class="num">8</span> 截图索引</h2>
+
+<p>本轮无截图：未登录目标系统，仅做公开文档与源码层只读调研；证据级为 B（官方 README）/ C（第三方文章与表结构托管），第三方配图不升 A 级。正文所有事实均来自上述来源并标注证据级，无本地图片证据。</p>
+
+<table>
+<thead><tr><th>图号</th><th>文件</th><th>对象</th><th>菜单路径</th><th>证明什么</th><th>数据状态</th></tr></thead>
+<tbody>
+<tr><td>无</td><td>—</td><td>JW</td><td>—</td><td>未登录系统，无截图；证据级 B/C，详见第 1 节声明</td><td>—</td></tr>
+</tbody>
+</table>
+
+</main>
+</div>
+</body>
+</html>

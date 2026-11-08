@@ -1,0 +1,108 @@
+{
+  "rows": [
+    {
+      "orderNo": "SO20261109001",
+      "shop": "海纳食品海外店",
+      "sale": 328,
+      "freight": 0,
+      "commission": 16,
+      "logistics": 22,
+      "cost": 210,
+      "refund": 0,
+      "profit": 80,
+      "rate": "24.4%",
+      "owner": "海纳食品"
+    },
+    {
+      "orderNo": "SO20261109002",
+      "shop": "云途马来店",
+      "sale": 256,
+      "freight": 12,
+      "commission": 13,
+      "logistics": 18,
+      "cost": 168,
+      "refund": 0,
+      "profit": 69,
+      "rate": "27.0%",
+      "owner": "海纳食品"
+    },
+    {
+      "orderNo": "SO20261109003",
+      "shop": "辰星日化跨境店",
+      "sale": 189,
+      "freight": 0,
+      "commission": 9,
+      "logistics": 15,
+      "cost": 120,
+      "refund": 0,
+      "profit": 45,
+      "rate": "23.8%",
+      "owner": "辰星日化"
+    },
+    {
+      "orderNo": "SO20261108018",
+      "shop": "海纳食品美国店",
+      "sale": 512,
+      "freight": 0,
+      "commission": 26,
+      "logistics": 35,
+      "cost": 330,
+      "refund": 0,
+      "profit": 121,
+      "rate": "23.6%",
+      "owner": "海纳食品"
+    },
+    {
+      "orderNo": "SO20261108017",
+      "shop": "云途新加坡店",
+      "sale": 145,
+      "freight": 8,
+      "commission": 7,
+      "logistics": 12,
+      "cost": 92,
+      "refund": 0,
+      "profit": 42,
+      "rate": "29.0%",
+      "owner": "海纳食品"
+    },
+    {
+      "orderNo": "SO20261108016",
+      "shop": "辰星日化海外店",
+      "sale": 98,
+      "freight": 0,
+      "commission": 5,
+      "logistics": 9,
+      "cost": 62,
+      "refund": 0,
+      "profit": 22,
+      "rate": "22.4%",
+      "owner": "辰星日化"
+    },
+    {
+      "orderNo": "SO20261108015",
+      "shop": "海纳食品海外店",
+      "sale": 276,
+      "freight": 0,
+      "commission": 14,
+      "logistics": 20,
+      "cost": 180,
+      "refund": 0,
+      "profit": 62,
+      "rate": "22.5%",
+      "owner": "海纳食品"
+    },
+    {
+      "orderNo": "SO20261108014",
+      "shop": "云途马来店",
+      "sale": 168,
+      "freight": 0,
+      "commission": 8,
+      "logistics": 14,
+      "cost": 108,
+      "refund": 0,
+      "profit": 38,
+      "rate": "22.6%",
+      "owner": "海纳食品"
+    }
+  ]
+}

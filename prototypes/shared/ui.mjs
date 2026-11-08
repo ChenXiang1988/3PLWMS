@@ -1534,9 +1534,9 @@ export function ShopFilter({ categories = [], owners = [] } = {}) {
  * 页面靠 data-pda-tab 切换，「主页 / 菜单」回作业首页，「返回」回上一屏。
  * 窄屏（<=480px）铺满，不显示机身；不渲染侧栏与货主下拉。
  */
-export function renderPdaShell({ product = '', appName = '', operator = '', device = '', tabs = [], sections = '', minePageId = '' } = {}) {
-  const first = tabs[0] || { id: '', name: '' };
-  const boot = tabs.length ? tabs[0].id : '';
+export function renderPdaShell({ product = '', appName = '', operator = '', device = '', tabs = [], sections = '', minePageId = '', groups = [], bootId = '', bootName = '' } = {}) {
+  const first = { id: bootId || (tabs[0] && tabs[0].id) || '', name: bootName || (tabs[0] && tabs[0].name) || '' };
+  const boot = first.id;
   return `<div class="wx-pda"${boot ? ` data-boot="${esc(boot)}"` : ''} data-operator="${esc(operator)}">\n`
     + `<div class="wx-pda-device">`
     + `<span class="wx-pda-cam" aria-hidden="true"></span><span class="wx-pda-led" aria-hidden="true"></span>`
@@ -1553,6 +1553,9 @@ export function renderPdaShell({ product = '', appName = '', operator = '', devi
     + `</header>`
     + `<main class="wx-pda-body">${sections}</main>`
     + `<div class="wx-pda-toast" data-pda-toast hidden></div>`
+    + (groups.length
+      ? `<nav class="wx-pda-tabs">${groups.map((g) => `<button type="button" class="wx-pda-tab" data-pda-tab="${esc(g.pages[0])}" data-pda-tab-name="${esc(g.name)}" data-pda-group="${esc(g.pages.join('|'))}">${esc(g.name)}</button>`).join('')}</nav>`
+      : '')
     + `</div>`
     + `<div class="wx-pda-keypad">`
     + `<button type="button" class="wx-pda-key" data-pda-key="back">返回</button>`
@@ -1587,6 +1590,9 @@ export const PDA_CSS = `
 .wx-pda-body .wx-device{padding:0}
 .wx-pda-body .wx-device-screen{width:100%;min-height:0;border:0;border-radius:0;box-shadow:none;padding:0;gap:var(--wx-sp-2)}
 .wx-pda-toast{position:absolute;left:50%;bottom:var(--wx-sp-6);z-index:20;transform:translateX(-50%);padding:var(--wx-sp-2) var(--wx-sp-4);border-radius:var(--wx-r-pill);background:var(--wx-gray-900);color:var(--wx-white);font-size:var(--wx-fs-sm)}
+.wx-pda-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:var(--wx-border);background:var(--wx-white)}
+.wx-pda-tab{min-height:34px;border:0;background:transparent;color:var(--wx-gray-500);font-size:var(--wx-fs-xs)}
+.wx-pda-tab.is-active{color:var(--wx-primary-600);font-weight:600;box-shadow:inset 0 2px 0 var(--wx-primary-500)}
 .wx-pda-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:10px 8px 6px}
 .wx-pda-key{min-height:44px;border:0;border-radius:6px;background:var(--wx-gray-100);color:var(--wx-gray-700);font-size:var(--wx-fs-sm)}
 .wx-pda-key--scan{background:var(--wx-primary-500);color:var(--wx-white)}
@@ -1691,6 +1697,9 @@ export const PDA_SCRIPT = `
       if (s.dataset.pageId === id) box = s;
     });
     if (title && name) title.textContent = name;
+    document.querySelectorAll('[data-pda-group]').forEach(function(t){
+      t.classList.toggle('is-active', (t.getAttribute('data-pda-group') || '').split('|').indexOf(id) >= 0);
+    });
     var shell = document.querySelector('.wx-pda');
     var statusLeft = document.querySelector('[data-pda-status-left]');
     if (shell && statusLeft){
@@ -1769,7 +1778,7 @@ export const PDA_SCRIPT = `
 `;
 
 export function renderShopShell({ product = '', appName = '', userLabel = '', nav = [], categories = [], cartCount = 0, content = '' } = {}) {
-  const navHtml = nav.map((n) => `<button type="button" class="wx-shop-nav-item${n.id === 'mall/home' ? ' is-active' : ''}" data-target="${esc(n.id)}">${esc(n.name)}</button>`).join('');
+  const navHtml = nav.map((n, i) => `<button type="button" class="wx-shop-nav-item${i === 0 ? ' is-active' : ''}" data-target="${esc(n.id)}">${esc(n.name)}</button>`).join('');
   const catHtml = categories.map((c) => `<button type="button" class="wx-shop-cat-item${c === '全部商品' ? ' is-active' : ''}" data-shop-cat="${esc(c)}">${esc(c)}</button>`).join('');
   return `<div class="wx-shop-app">\n`
     + `<header class="wx-shop-top"><div class="wx-shop-top-inner">`

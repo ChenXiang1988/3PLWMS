@@ -1,0 +1,100 @@
+{
+  "rows": [
+    {
+      "listingCode": "LS20261101",
+      "platform": "Temu",
+      "shop": "海纳食品海外店",
+      "platformItemId": "TM-889102",
+      "platformSku": "HN-GJ-001",
+      "spuCode": "SP20261101",
+      "pricePushStatus": "pushed",
+      "stockPushStatus": "pushed",
+      "updateTime": "2026-11-09 09:20",
+      "owner": "海纳食品"
+    },
+    {
+      "listingCode": "LS20261102",
+      "platform": "Temu",
+      "shop": "海纳食品海外店",
+      "platformItemId": "TM-889103",
+      "platformSku": "HN-GJ-002",
+      "spuCode": "SP20261101",
+      "pricePushStatus": "pushed",
+      "stockPushStatus": "failed",
+      "updateTime": "2026-11-09 09:20",
+      "owner": "海纳食品"
+    },
+    {
+      "listingCode": "LS20261103",
+      "platform": "Lazada",
+      "shop": "云途马来店",
+      "platformItemId": "LZ-77120",
+      "platformSku": "YT-SP-011",
+      "spuCode": "SP20261104",
+      "pricePushStatus": "failed",
+      "stockPushStatus": "pushed",
+      "updateTime": "2026-11-09 08:55",
+      "owner": "海纳食品"
+    },
+    {
+      "listingCode": "LS20261104",
+      "platform": "TikTok Shop",
+      "shop": "辰星日化跨境店",
+      "platformItemId": "TK-55021",
+      "platformSku": "CX-JM-003",
+      "spuCode": "SP20261102",
+      "pricePushStatus": "pushed",
+      "stockPushStatus": "pushed",
+      "updateTime": "2026-11-08 18:10",
+      "owner": "辰星日化"
+    },
+    {
+      "listingCode": "LS20261105",
+      "platform": "Amazon",
+      "shop": "海纳食品美国店",
+      "platformItemId": "AM-B0C9X1",
+      "platformSku": "HN-GJ-003",
+      "spuCode": "SP20261101",
+      "pricePushStatus": "unpushed",
+      "stockPushStatus": "unpushed",
+      "updateTime": "2026-11-08 16:42",
+      "owner": "海纳食品"
+    },
+    {
+      "listingCode": "LS20261106",
+      "platform": "Shopee",
+      "shop": "云途新加坡店",
+      "platformItemId": "SH-33018",
+      "platformSku": "YT-SP-012",
+      "spuCode": "SP20261104",
+      "pricePushStatus": "pushed",
+      "stockPushStatus": "pushed",
+      "updateTime": "2026-11-08 15:05",
+      "owner": "海纳食品"
+    },
+    {
+      "listingCode": "LS20261107",
+      "platform": "Temu",
+      "shop": "辰星日化海外店",
+      "platformItemId": "TM-889210",
+      "platformSku": "CX-JM-004",
+      "spuCode": "SP20261102",
+      "pricePushStatus": "failed",
+      "stockPushStatus": "failed",
+      "updateTime": "2026-11-07 20:30",
+      "owner": "辰星日化"
+    },
+    {
+      "listingCode": "LS20261108",
+      "platform": "Lazada",
+      "shop": "海纳食品泰国店",
+      "platformItemId": "LZ-77188",
+      "platformSku": "HN-GJ-004",
+      "spuCode": "SP20261101",
+      "pricePushStatus": "pushed",
+      "stockPushStatus": "pushed",
+      "updateTime": "2026-11-07 11:15",
+      "owner": "海纳食品"
+    }
+  ]
+}

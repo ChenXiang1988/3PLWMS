@@ -1,0 +1,76 @@
+{
+  "rows": [
+    {
+      "billNo": "BL202610-001",
+      "owner": "海纳食品",
+      "period": "2026-10",
+      "amount": 28600,
+      "confirmed": 28600,
+      "billStatus": "confirmed",
+      "sourceCount": 42
+    },
+    {
+      "billNo": "BL202610-002",
+      "owner": "云途电商",
+      "period": "2026-10",
+      "amount": 18400,
+      "confirmed": 16800,
+      "billStatus": "disputed",
+      "sourceCount": 31
+    },
+    {
+      "billNo": "BL202610-003",
+      "owner": "辰星日化",
+      "period": "2026-10",
+      "amount": 9600,
+      "confirmed": 9600,
+      "billStatus": "confirmed",
+      "sourceCount": 18
+    },
+    {
+      "billNo": "BL202611-001",
+      "owner": "海纳食品",
+      "period": "2026-11",
+      "amount": 12600,
+      "confirmed": 0,
+      "billStatus": "pending",
+      "sourceCount": 12
+    },
+    {
+      "billNo": "BL202611-002",
+      "owner": "云途电商",
+      "period": "2026-11",
+      "amount": 7800,
+      "confirmed": 0,
+      "billStatus": "pending",
+      "sourceCount": 9
+    },
+    {
+      "billNo": "BL202611-003",
+      "owner": "辰星日化",
+      "period": "2026-11",
+      "amount": 4200,
+      "confirmed": 0,
+      "billStatus": "pending",
+      "sourceCount": 6
+    },
+    {
+      "billNo": "BL202609-004",
+      "owner": "海纳食品",
+      "period": "2026-09",
+      "amount": 31200,
+      "confirmed": 31200,
+      "billStatus": "closed",
+      "sourceCount": 48
+    },
+    {
+      "billNo": "BL202609-005",
+      "owner": "云途电商",
+      "period": "2026-09",
+      "amount": 15900,
+      "confirmed": 15900,
+      "billStatus": "closed",
+      "sourceCount": 27
+    }
+  ]
+}

@@ -213,6 +213,77 @@ export function DrawerDetail({
     + `</div>`;
 }
 
+/** 工序编排拓扑：分层节点 + 折线依赖 + 节点属性块；点节点用 :target 联动属性块，不写脚本。 */
+export function DagGraph({
+  flowKey = 'flow', nodes = [], edges = [],
+  nodeW = 132, nodeH = 52, gapX = 20, gapY = 24, pad = 16,
+} = {}) {
+  const layers = [];
+  nodes.forEach((nd) => {
+    const li = Math.max(0, Number(nd.layer) || 0);
+    if (!layers[li]) layers[li] = [];
+    layers[li].push(nd);
+  });
+  const rows = layers.map((r) => r || []);
+  const maxCount = Math.max(1, ...rows.map((r) => r.length));
+  const canvasW = pad * 2 + maxCount * nodeW + (maxCount - 1) * gapX;
+  const canvasH = pad * 2 + rows.length * nodeH + Math.max(0, rows.length - 1) * gapY;
+  const pos = {};
+  rows.forEach((row, li) => {
+    const rowW = row.length * nodeW + Math.max(0, row.length - 1) * gapX;
+    const startX = pad + (canvasW - pad * 2 - rowW) / 2;
+    row.forEach((nd, i) => {
+      pos[nd.id] = { x: startX + i * (nodeW + gapX), y: pad + li * (nodeH + gapY) };
+    });
+  });
+  const pid = (id) => `wx-dag-${flowKey}-${id}`.replace(/[^A-Za-z0-9_-]/g, '-');
+  const paths = edges.map((e) => {
+    const a = pos[e.from]; const b = pos[e.to];
+    if (!a || !b) return '';
+    const x1 = Math.round(a.x + nodeW / 2); const y1 = a.y + nodeH;
+    const x2 = Math.round(b.x + nodeW / 2); const y2 = b.y;
+    const midY = Math.round((y1 + y2) / 2);
+    return `<path d="M${x1} ${y1}V${midY}H${x2}V${y2}" fill="none" stroke="var(--wx-gray-200)"/>`;
+  }).join('');
+  const nodesHtml = nodes.map((nd) => {
+    const p = pos[nd.id] || { x: pad, y: pad };
+    const auto = nd.gen === '自动';
+    const sub = [nd.gen, nd.subject].filter(Boolean).join(' · ');
+    return `<a class="wx-dag-node" href="#${pid(nd.id)}" style="left:${Math.round(p.x)}px;top:${Math.round(p.y)}px;width:${nodeW}px;height:${nodeH}px">`
+      + `<b>${esc(nd.label)}</b>`
+      + `<em><i class="wx-dag-dot${auto ? ' wx-dag-dot--auto' : ''}"></i>${esc(sub)}</em></a>`;
+  }).join('');
+  const props = nodes.map((nd) => {
+    const rowsHtml = (nd.props || []).map((f) => `<div><span>${esc(f.label)}</span>`
+      + `<b${f.tip ? ` title="${esc(f.tip)}"` : ''}>${dash(f.value)}</b></div>`).join('');
+    return `<div class="wx-dag-prop" id="${pid(nd.id)}">`
+      + `<div class="wx-dag-prop-head"><b>${esc(nd.label)}</b><span>${esc(nd.cond || '无条件')}</span></div>`
+      + `<div class="wx-dag-prop-grid">${rowsHtml}</div></div>`;
+  }).join('');
+  return `<div class="wx-dag"><div class="wx-dag-canvas" style="width:${canvasW}px;height:${canvasH}px">`
+    + `<svg class="wx-dag-edges" width="${canvasW}" height="${canvasH}" viewBox="0 0 ${canvasW} ${canvasH}" aria-hidden="true">${paths}</svg>`
+    + nodesHtml + `</div><div class="wx-dag-props">${props}</div>`
+    + `<p class="wx-dag-note">点节点查看该项配置，同一时间只展开一项。</p></div>`;
+}
+
+/** 编排抽屉：抬头字段 + 拓扑 + 节点属性，作为 renderPage 的 overlay 返回，不注册独立页面。 */
+export function DagDrawer({
+  pageId = '', rowKey = '', title = '', docNo = '—', status = '', statusTone = 'info',
+  fields = [], graph = null, actions = [],
+} = {}) {
+  const grid = `<div class="wx-detail-grid">${fields.map((f) => `<div class="wx-detail-field">`
+    + `<span>${esc(f.label)}</span><b${f.tip ? ` title="${esc(f.tip)}"` : ''}>${dash(f.value)}</b>`
+    + `</div>`).join('')}</div>`;
+  const acts = actions.length ? `<div class="wx-drawer-actions">${actions.map(renderButton).join('')}</div>` : '';
+  const dag = graph ? DagGraph({ ...graph, flowKey: graph.flowKey || `${pageId}-${rowKey}` }) : '';
+  return `<div class="wx-drawer-panel wx-drawer-panel--wide" data-drawer-panel="${esc(pageId)}" data-drawer-key="${esc(rowKey)}" hidden>`
+    + `<div class="wx-drawer-head"><b>${esc(title)}</b>`
+    + `<button type="button" class="wx-drawer-x" data-drawer-close aria-label="关闭">×</button></div>`
+    + `<div class="wx-drawer-body"><div class="wx-detail"><div class="wx-detail-head"><b>${esc(docNo)}</b>`
+    + (status ? StatusTag(status, statusTone) : '') + `</div>${grid}${dag}</div></div>`
+    + acts + `</div>`;
+}
+
 /** 表单字段：结构只在实现层出，页面模块只给声明。 */
 export function FormField(f = {}) {
   const key = esc(f.key || '');
@@ -293,6 +364,38 @@ export function StatRow(items = [], { cols = 3 } = {}) {
 export function Block({ title = '', note = '', body = '' } = {}) {
   return `<div class="wx-block"><div class="wx-block-head"><b>${esc(title)}</b>`
     + `<span>${esc(note)}</span></div><div class="wx-block-body">${body}</div></div>`;
+}
+
+/** report 页统一收口：页面只传各段结果，不自己拼外壳。 */
+export function ReportPage({ hero = '', stats = '', blocks = [] } = {}) {
+  return hero + stats + blocks.join('');
+}
+
+/** 报表「构成」横条：页面只传 label / value 对，结构与样式留在共享层。 */
+export function BarRows(items = []) {
+  if (!items.length) return '';
+  const max = Math.max(1, ...items.map((x) => Number(x.value) || 0));
+  return items.map((x) => {
+    const pct = Math.round((Number(x.value) || 0) / max * 100);
+    return `<div class="wx-bar">`
+      + `<span class="wx-bar-label">${esc(x.label)}</span>`
+      + `<span class="wx-bar-track"><span class="wx-bar-fill" style="width:${pct}%"></span></span>`
+      + `<span class="wx-bar-value">${n(x.value)}</span>`
+      + `</div>`;
+  }).join('');
+}
+
+/** PDA 任务卡：三张作业列表结构相同，只传跳转目标、编码字段与库位字段。 */
+export function PdaTaskCard({
+  row = {}, tab = '', tabName = '', status = '', codeKey = '', binLabel = '', binKey = '',
+} = {}) {
+  return `<button type="button" class="wx-pda-taskcard" data-pda-tab="${esc(tab)}" data-pda-tab-name="${esc(tabName)}">`
+    + `<span class="wx-pda-task-head"><b class="wx-pda-task-id">${esc(row.taskNo)}</b>${status}</span>`
+    + `<span class="wx-pda-task-meta"><span>${esc(row.owner)}</span><span>${esc(row[codeKey])}</span>`
+    + `<span>${esc(row.skuName)}</span></span>`
+    + `<span class="wx-pda-task-foot"><span>${esc(binLabel)} ${esc(row[binKey])}</span>`
+    + `<span>${esc(row.doneQty)} / ${esc(row.planQty)}</span></span>`
+    + `</button>`;
 }
 
 /**
@@ -463,6 +566,11 @@ export const BASE_CSS = `
 .wx-block-head span{font-size:var(--wx-fs-xs);color:var(--wx-gray-400)}
 .wx-block-body{padding:var(--wx-sp-4)}
 .wx-block .wx-table-wrap{border:0;border-radius:0;box-shadow:none}
+.wx-bar{display:grid;grid-template-columns:140px 1fr 90px;align-items:center;gap:var(--wx-sp-3);padding:var(--wx-sp-1) 0}
+.wx-bar-label{font-size:var(--wx-fs-sm);color:var(--wx-gray-700);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wx-bar-track{height:8px;border-radius:var(--wx-r-pill);background:var(--wx-gray-100)}
+.wx-bar-fill{display:block;height:100%;border-radius:var(--wx-r-pill);background:var(--wx-primary-500)}
+.wx-bar-value{font-size:var(--wx-fs-sm);text-align:right;font-variant-numeric:tabular-nums;color:var(--wx-gray-900)}
 .wx-timeline{list-style:none;margin:0;padding:0}
 .wx-timeline li{display:flex;gap:var(--wx-sp-4);padding:var(--wx-sp-2) 0;font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
 .wx-timeline li b{color:var(--wx-gray-700);font-weight:500}
@@ -501,6 +609,29 @@ export const BASE_CSS = `
 .wx-drawer-x{width:32px;height:32px;border:0;background:transparent;border-radius:var(--wx-r-sm);color:var(--wx-gray-500);font-size:var(--wx-fs-lg)}
 .wx-drawer-body .wx-detail-grid{grid-template-columns:repeat(2,1fr)}
 .wx-drawer-actions{display:flex;justify-content:flex-end;gap:var(--wx-sp-2);margin-top:var(--wx-sp-4)}
+.wx-drawer-panel--wide{width:920px}
+.wx-dag{position:relative;background:var(--wx-white);border:var(--wx-border);border-radius:var(--wx-r-md);padding:var(--wx-sp-4);margin-bottom:var(--wx-sp-4);overflow:auto}
+.wx-dag-canvas{position:relative;margin:0 auto}
+.wx-dag-edges{position:absolute;inset:0;pointer-events:none}
+.wx-dag-node{position:absolute;display:flex;flex-direction:column;justify-content:center;gap:var(--wx-sp-1);padding:0 var(--wx-sp-3);border:var(--wx-border);border-radius:var(--wx-r-sm);background:var(--wx-white);color:var(--wx-gray-900);text-decoration:none}
+.wx-dag-node b{font-size:var(--wx-fs-md);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wx-dag-node em{display:flex;align-items:center;gap:var(--wx-sp-1);font-style:normal;font-size:var(--wx-fs-xs);color:var(--wx-gray-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wx-dag-node:hover{border-color:var(--wx-primary-500)}
+.wx-dag-node:target{border-color:var(--wx-primary-500)}
+.wx-dag:not(:has(.wx-dag-prop:target)) .wx-dag-node:first-of-type{border-color:var(--wx-primary-500)}
+.wx-dag-dot{width:var(--wx-sp-1);height:var(--wx-sp-1);border-radius:var(--wx-r-pill);background:var(--wx-gray-400);flex:none}
+.wx-dag-dot--auto{background:var(--wx-gray-700)}
+.wx-dag-props{border-top:var(--wx-border);padding-top:var(--wx-sp-3)}
+.wx-dag-prop{display:none}
+.wx-dag-prop:first-child{display:block}
+.wx-dag-prop:target{display:block}
+.wx-dag-props:has(.wx-dag-prop:target) .wx-dag-prop:first-child:not(:target){display:none}
+.wx-dag-prop-head{display:flex;align-items:center;gap:var(--wx-sp-2);font-size:var(--wx-fs-md);margin-bottom:var(--wx-sp-2)}
+.wx-dag-prop-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--wx-sp-2) var(--wx-sp-6);font-size:var(--wx-fs-sm)}
+.wx-dag-prop-grid div{display:flex;align-items:baseline;gap:var(--wx-sp-2);min-width:0}
+.wx-dag-prop-grid span{flex:none;min-width:72px;font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-dag-prop-grid b{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wx-dag-note{font-size:var(--wx-fs-xs);color:var(--wx-gray-500);margin-top:var(--wx-sp-2)}
 .wx-toast{position:fixed;left:50%;bottom:var(--wx-sp-8);transform:translateX(-50%);padding:var(--wx-sp-3) var(--wx-sp-4);border-radius:var(--wx-r-sm);background:var(--wx-gray-900);color:var(--wx-white);font-size:var(--wx-fs-sm);box-shadow:var(--wx-shadow)}
 @media (max-width:1080px){.wx-page-body{overflow-x:auto}.wx-detail-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:900px){.wx-global-search{display:none}}
@@ -772,7 +903,13 @@ export const SHELL_SCRIPT = `
     dispatch: '下发 3PL', selfship: '自发货', replenish: '备货到平台仓',
     cartonMark: '生成箱唛', packingList: '生成装箱单', book: '预约入仓',
     ship: '发货', sign: '签收', agree: '同意', refuse: '拒绝', receive: '确认收货',
-    refund: '退款', createInbound: '生成售后入库计划单'
+    refund: '退款', createInbound: '生成售后入库计划单',
+    applyWaybill: '申请运单号', printWaybill: '打印面单', printLabel: '打印标签',
+    printCartonMark: '打印箱唛', printPackingList: '打印装箱单',
+    saveShop: '保存店铺',
+    publishAdapter: '发布', disableAdapter: '停用',
+    auditPass: '审单通过', splitOrder: '拆单生成履约单',
+    refetch: '补拉漏单', markDuplicate: '标记重复单'
   };
   function applyFormAction(el, panel){
     var page = currentPage();
@@ -1274,6 +1411,11 @@ export function money(v) {
   return '￥' + Number(v || 0).toFixed(2);
 }
 
+/** 列表金额列用：空值显示破折号，有值走 money。商城价格仍用 money。 */
+export function moneyOrDash(v) {
+  return (v == null || v === '') ? dash(v) : money(v);
+}
+
 export function ShopPrice(value, { tag = 'b', cls = '', attrs = '' } = {}) {
   const text = typeof value === 'string' ? value : money(value);
   const klass = ['wx-shop-price-value', cls].filter(Boolean).join(' ');
@@ -1392,9 +1534,9 @@ export function ShopFilter({ categories = [], owners = [] } = {}) {
  * 页面靠 data-pda-tab 切换，「主页 / 菜单」回作业首页，「返回」回上一屏。
  * 窄屏（<=480px）铺满，不显示机身；不渲染侧栏与货主下拉。
  */
-export function renderPdaShell({ product = '', appName = '', operator = '', device = '', tabs = [], sections = '', minePageId = '' } = {}) {
-  const first = tabs[0] || { id: '', name: '' };
-  const boot = tabs.length ? tabs[0].id : '';
+export function renderPdaShell({ product = '', appName = '', operator = '', device = '', tabs = [], sections = '', minePageId = '', groups = [], bootId = '', bootName = '' } = {}) {
+  const first = { id: bootId || (tabs[0] && tabs[0].id) || '', name: bootName || (tabs[0] && tabs[0].name) || '' };
+  const boot = first.id;
   return `<div class="wx-pda"${boot ? ` data-boot="${esc(boot)}"` : ''} data-operator="${esc(operator)}">\n`
     + `<div class="wx-pda-device">`
     + `<span class="wx-pda-cam" aria-hidden="true"></span><span class="wx-pda-led" aria-hidden="true"></span>`
@@ -1411,6 +1553,9 @@ export function renderPdaShell({ product = '', appName = '', operator = '', devi
     + `</header>`
     + `<main class="wx-pda-body">${sections}</main>`
     + `<div class="wx-pda-toast" data-pda-toast hidden></div>`
+    + (groups.length
+      ? `<nav class="wx-pda-tabs">${groups.map((g) => `<button type="button" class="wx-pda-tab" data-pda-tab="${esc(g.pages[0])}" data-pda-tab-name="${esc(g.name)}" data-pda-group="${esc(g.pages.join('|'))}">${esc(g.name)}</button>`).join('')}</nav>`
+      : '')
     + `</div>`
     + `<div class="wx-pda-keypad">`
     + `<button type="button" class="wx-pda-key" data-pda-key="back">返回</button>`
@@ -1445,6 +1590,9 @@ export const PDA_CSS = `
 .wx-pda-body .wx-device{padding:0}
 .wx-pda-body .wx-device-screen{width:100%;min-height:0;border:0;border-radius:0;box-shadow:none;padding:0;gap:var(--wx-sp-2)}
 .wx-pda-toast{position:absolute;left:50%;bottom:var(--wx-sp-6);z-index:20;transform:translateX(-50%);padding:var(--wx-sp-2) var(--wx-sp-4);border-radius:var(--wx-r-pill);background:var(--wx-gray-900);color:var(--wx-white);font-size:var(--wx-fs-sm)}
+.wx-pda-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:var(--wx-border);background:var(--wx-white)}
+.wx-pda-tab{min-height:34px;border:0;background:transparent;color:var(--wx-gray-500);font-size:var(--wx-fs-xs)}
+.wx-pda-tab.is-active{color:var(--wx-primary-600);font-weight:600;box-shadow:inset 0 2px 0 var(--wx-primary-500)}
 .wx-pda-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:10px 8px 6px}
 .wx-pda-key{min-height:44px;border:0;border-radius:6px;background:var(--wx-gray-100);color:var(--wx-gray-700);font-size:var(--wx-fs-sm)}
 .wx-pda-key--scan{background:var(--wx-primary-500);color:var(--wx-white)}
@@ -1549,6 +1697,9 @@ export const PDA_SCRIPT = `
       if (s.dataset.pageId === id) box = s;
     });
     if (title && name) title.textContent = name;
+    document.querySelectorAll('[data-pda-group]').forEach(function(t){
+      t.classList.toggle('is-active', (t.getAttribute('data-pda-group') || '').split('|').indexOf(id) >= 0);
+    });
     var shell = document.querySelector('.wx-pda');
     var statusLeft = document.querySelector('[data-pda-status-left]');
     if (shell && statusLeft){
@@ -1627,7 +1778,7 @@ export const PDA_SCRIPT = `
 `;
 
 export function renderShopShell({ product = '', appName = '', userLabel = '', nav = [], categories = [], cartCount = 0, content = '' } = {}) {
-  const navHtml = nav.map((n) => `<button type="button" class="wx-shop-nav-item${n.id === 'mall/home' ? ' is-active' : ''}" data-target="${esc(n.id)}">${esc(n.name)}</button>`).join('');
+  const navHtml = nav.map((n, i) => `<button type="button" class="wx-shop-nav-item${i === 0 ? ' is-active' : ''}" data-target="${esc(n.id)}">${esc(n.name)}</button>`).join('');
   const catHtml = categories.map((c) => `<button type="button" class="wx-shop-cat-item${c === '全部商品' ? ' is-active' : ''}" data-shop-cat="${esc(c)}">${esc(c)}</button>`).join('');
   return `<div class="wx-shop-app">\n`
     + `<header class="wx-shop-top"><div class="wx-shop-top-inner">`

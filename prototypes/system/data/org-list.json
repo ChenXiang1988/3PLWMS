@@ -1,0 +1,84 @@
+{
+  "rows": [
+    {
+      "orgCode": "ORG-01",
+      "orgName": "华东运营中心",
+      "orgType": "运营中心",
+      "parent": "—",
+      "warehouse": "—",
+      "leader": "张海",
+      "staffCount": 86,
+      "orgStatus": "enabled"
+    },
+    {
+      "orgCode": "ORG-0101",
+      "orgName": "华东中心仓",
+      "orgType": "仓库",
+      "parent": "华东运营中心",
+      "warehouse": "华东中心仓",
+      "leader": "李静",
+      "staffCount": 52,
+      "orgStatus": "enabled"
+    },
+    {
+      "orgCode": "ORG-010101",
+      "orgName": "入库班组",
+      "orgType": "班组",
+      "parent": "华东中心仓",
+      "warehouse": "华东中心仓",
+      "leader": "王强",
+      "staffCount": 18,
+      "orgStatus": "enabled"
+    },
+    {
+      "orgCode": "ORG-010102",
+      "orgName": "出库班组",
+      "orgType": "班组",
+      "parent": "华东中心仓",
+      "warehouse": "华东中心仓",
+      "leader": "赵敏",
+      "staffCount": 22,
+      "orgStatus": "enabled"
+    },
+    {
+      "orgCode": "ORG-02",
+      "orgName": "华南运营中心",
+      "orgType": "运营中心",
+      "parent": "—",
+      "warehouse": "—",
+      "leader": "陈伟",
+      "staffCount": 64,
+      "orgStatus": "enabled"
+    },
+    {
+      "orgCode": "ORG-0201",
+      "orgName": "华南前置仓",
+      "orgType": "仓库",
+      "parent": "华南运营中心",
+      "warehouse": "华南前置仓",
+      "leader": "周琳",
+      "staffCount": 40,
+      "orgStatus": "enabled"
+    },
+    {
+      "orgCode": "ORG-020101",
+      "orgName": "夜班班组",
+      "orgType": "班组",
+      "parent": "华南前置仓",
+      "warehouse": "华南前置仓",
+      "leader": "黄磊",
+      "staffCount": 14,
+      "orgStatus": "enabled"
+    },
+    {
+      "orgCode": "ORG-03",
+      "orgName": "华北运营中心",
+      "orgType": "运营中心",
+      "parent": "—",
+      "warehouse": "—",
+      "leader": "刘洋",
+      "staffCount": 48,
+      "orgStatus": "disabled"
+    }
+  ]
+}

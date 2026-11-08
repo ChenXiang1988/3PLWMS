@@ -1,0 +1,92 @@
+{
+  "rows": [
+    {
+      "owner": "海纳食品",
+      "spuCode": "SP20261101",
+      "spuName": "每日坚果混合装",
+      "category": "食品饮料",
+      "variantCount": 3,
+      "listingCount": 6,
+      "skuCount": 3,
+      "lifecycleStatus": "hot",
+      "updateTime": "2026-11-09 09:12"
+    },
+    {
+      "owner": "辰星日化",
+      "spuCode": "SP20261102",
+      "spuName": "氨基酸洁面乳",
+      "category": "日化清洁",
+      "variantCount": 2,
+      "listingCount": 4,
+      "skuCount": 2,
+      "lifecycleStatus": "active",
+      "updateTime": "2026-11-09 08:40"
+    },
+    {
+      "owner": "海纳食品",
+      "spuCode": "SP20261103",
+      "spuName": "厨房收纳三件套",
+      "category": "家居百货",
+      "variantCount": 1,
+      "listingCount": 2,
+      "skuCount": 1,
+      "lifecycleStatus": "fresh",
+      "updateTime": "2026-11-08 17:25"
+    },
+    {
+      "owner": "辰星日化",
+      "spuCode": "SP20261104",
+      "spuName": "快充数据线 1.5m",
+      "category": "数码配件",
+      "variantCount": 4,
+      "listingCount": 8,
+      "skuCount": 4,
+      "lifecycleStatus": "hot",
+      "updateTime": "2026-11-09 10:05"
+    },
+    {
+      "owner": "海纳食品",
+      "spuCode": "SP20261105",
+      "spuName": "低糖燕麦饼干",
+      "category": "食品饮料",
+      "variantCount": 2,
+      "listingCount": 3,
+      "skuCount": 2,
+      "lifecycleStatus": "slow",
+      "updateTime": "2026-11-07 15:18"
+    },
+    {
+      "owner": "辰星日化",
+      "spuCode": "SP20261106",
+      "spuName": "便携洗衣凝珠",
+      "category": "日化清洁",
+      "variantCount": 1,
+      "listingCount": 1,
+      "skuCount": 1,
+      "lifecycleStatus": "clearance",
+      "updateTime": "2026-11-06 11:32"
+    },
+    {
+      "owner": "海纳食品",
+      "spuCode": "SP20261107",
+      "spuName": "折叠收纳箱 60L",
+      "category": "家居百货",
+      "variantCount": 2,
+      "listingCount": 0,
+      "skuCount": 0,
+      "lifecycleStatus": "fresh",
+      "updateTime": "2026-11-05 14:08"
+    },
+    {
+      "owner": "辰星日化",
+      "spuCode": "SP20261108",
+      "spuName": "无线鼠标静音版",
+      "category": "数码配件",
+      "variantCount": 1,
+      "listingCount": 2,
+      "skuCount": 1,
+      "lifecycleStatus": "stopped",
+      "updateTime": "2026-11-04 09:50"
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "rows": [
+    {
+      "diffNo": "DF20261109001",
+      "countNo": "CT20261109001",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-001",
+      "locationCode": "A-01-01-01",
+      "bookQty": 1200,
+      "actualQty": 1180,
+      "diffQty": -20,
+      "diffType": "盘亏",
+      "approveStatus": "pending",
+      "adjustNo": ""
+    },
+    {
+      "diffNo": "DF20261109002",
+      "countNo": "CT20261109001",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-006",
+      "locationCode": "B-02-01-01",
+      "bookQty": 600,
+      "actualQty": 606,
+      "diffQty": 6,
+      "diffType": "盘盈",
+      "approveStatus": "approved",
+      "adjustNo": "AD20261109001"
+    },
+    {
+      "diffNo": "DF20261109003",
+      "countNo": "CT20261109002",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-011",
+      "locationCode": "A-02-01-01",
+      "bookQty": 900,
+      "actualQty": 894,
+      "diffQty": -6,
+      "diffType": "盘亏",
+      "approveStatus": "approved",
+      "adjustNo": "AD20261109002"
+    },
+    {
+      "diffNo": "DF20261109004",
+      "countNo": "CT20261109002",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-012",
+      "locationCode": "C-01-01-01",
+      "bookQty": 450,
+      "actualQty": 450,
+      "diffQty": 0,
+      "diffType": "串位",
+      "approveStatus": "rejected",
+      "adjustNo": ""
+    },
+    {
+      "diffNo": "DF20261108005",
+      "countNo": "CT20261108001",
+      "owner": "辰星日化",
+      "skuCode": "SKU-CX-003",
+      "locationCode": "B-01-01-01",
+      "bookQty": 800,
+      "actualQty": 803,
+      "diffQty": 3,
+      "diffType": "盘盈",
+      "approveStatus": "approved",
+      "adjustNo": "AD20261108003"
+    },
+    {
+      "diffNo": "DF20261108006",
+      "countNo": "CT20261108001",
+      "owner": "辰星日化",
+      "skuCode": "SKU-CX-004",
+      "locationCode": "C-02-01-01",
+      "bookQty": 620,
+      "actualQty": 612,
+      "diffQty": -8,
+      "diffType": "盘亏",
+      "approveStatus": "approved",
+      "adjustNo": "AD20261108004"
+    },
+    {
+      "diffNo": "DF20261108007",
+      "countNo": "CT20261108002",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-004",
+      "locationCode": "D-01-01-01",
+      "bookQty": 720,
+      "actualQty": 720,
+      "diffQty": 0,
+      "diffType": "串位",
+      "approveStatus": "pending",
+      "adjustNo": ""
+    },
+    {
+      "diffNo": "DF20261108008",
+      "countNo": "CT20261108002",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-014",
+      "locationCode": "A-01-02-01",
+      "bookQty": 1500,
+      "actualQty": 1492,
+      "diffQty": -8,
+      "diffType": "盘亏",
+      "approveStatus": "approved",
+      "adjustNo": "AD20261108005"
+    }
+  ]
+}

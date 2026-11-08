@@ -1,0 +1,108 @@
+{
+  "rows": [
+    {
+      "ruleNo": "RL20261101",
+      "feeType": "仓租",
+      "owner": "海纳食品",
+      "warehouse": "华东中心仓",
+      "mode": "按托",
+      "price": 28,
+      "minCharge": 560,
+      "maxCharge": 0,
+      "cycle": "按月",
+      "validTo": "2026-12-31",
+      "ruleStatus": "enabled"
+    },
+    {
+      "ruleNo": "RL20261102",
+      "feeType": "入库作业",
+      "owner": "海纳食品",
+      "warehouse": "华东中心仓",
+      "mode": "按件",
+      "price": 0.8,
+      "minCharge": 200,
+      "maxCharge": 0,
+      "cycle": "按单",
+      "validTo": "2026-12-31",
+      "ruleStatus": "enabled"
+    },
+    {
+      "ruleNo": "RL20261103",
+      "feeType": "出库作业",
+      "owner": "云途电商",
+      "warehouse": "华南前置仓",
+      "mode": "按单",
+      "price": 3.5,
+      "minCharge": 0,
+      "maxCharge": 1800,
+      "cycle": "按单",
+      "validTo": "2027-03-31",
+      "ruleStatus": "enabled"
+    },
+    {
+      "ruleNo": "RL20261104",
+      "feeType": "增值服务",
+      "owner": "辰星日化",
+      "warehouse": "华北分拨仓",
+      "mode": "按件",
+      "price": 1.2,
+      "minCharge": 100,
+      "maxCharge": 0,
+      "cycle": "按件",
+      "validTo": "2026-12-31",
+      "ruleStatus": "enabled"
+    },
+    {
+      "ruleNo": "RL20261105",
+      "feeType": "仓租",
+      "owner": "云途电商",
+      "warehouse": "西南中心仓",
+      "mode": "按面积",
+      "price": 35,
+      "minCharge": 1200,
+      "maxCharge": 0,
+      "cycle": "按月",
+      "validTo": "2026-11-30",
+      "ruleStatus": "disabled"
+    },
+    {
+      "ruleNo": "RL20261106",
+      "feeType": "搬运",
+      "owner": "海纳食品",
+      "warehouse": "华中转运仓",
+      "mode": "按托",
+      "price": 18,
+      "minCharge": 300,
+      "maxCharge": 0,
+      "cycle": "按件",
+      "validTo": "2026-12-31",
+      "ruleStatus": "enabled"
+    },
+    {
+      "ruleNo": "RL20261107",
+      "feeType": "质检",
+      "owner": "辰星日化",
+      "warehouse": "华东中心仓",
+      "mode": "按件",
+      "price": 0.6,
+      "minCharge": 150,
+      "maxCharge": 0,
+      "cycle": "按件",
+      "validTo": "2027-01-31",
+      "ruleStatus": "enabled"
+    },
+    {
+      "ruleNo": "RL20261108",
+      "feeType": "运输",
+      "owner": "海纳食品",
+      "warehouse": "华南前置仓",
+      "mode": "按单",
+      "price": 45,
+      "minCharge": 0,
+      "maxCharge": 900,
+      "cycle": "按单",
+      "validTo": "2026-12-31",
+      "ruleStatus": "disabled"
+    }
+  ]
+}

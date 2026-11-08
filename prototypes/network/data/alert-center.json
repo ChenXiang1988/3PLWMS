@@ -1,0 +1,84 @@
+{
+  "rows": [
+    {
+      "alertNo": "AL20261109001",
+      "alertType": "库存",
+      "level": "critical",
+      "warehouse": "华东中心仓",
+      "objectRef": "SKU-HN-001",
+      "raisedAt": "2026-11-09 08:40",
+      "handleStatus": "pending",
+      "workOrderNo": ""
+    },
+    {
+      "alertNo": "AL20261109002",
+      "alertType": "时效",
+      "level": "warning",
+      "warehouse": "华南前置仓",
+      "objectRef": "SO20261109002",
+      "raisedAt": "2026-11-09 09:05",
+      "handleStatus": "doing",
+      "workOrderNo": "WO20261109001"
+    },
+    {
+      "alertNo": "AL20261109003",
+      "alertType": "设备",
+      "level": "critical",
+      "warehouse": "华北分拨仓",
+      "objectRef": "AGV-03",
+      "raisedAt": "2026-11-09 09:20",
+      "handleStatus": "doing",
+      "workOrderNo": "WO20261109002"
+    },
+    {
+      "alertNo": "AL20261109004",
+      "alertType": "SLA",
+      "level": "warning",
+      "warehouse": "西南中心仓",
+      "objectRef": "SO20261108018",
+      "raisedAt": "2026-11-09 07:55",
+      "handleStatus": "pending",
+      "workOrderNo": ""
+    },
+    {
+      "alertNo": "AL20261108005",
+      "alertType": "库存",
+      "level": "info",
+      "warehouse": "华中转运仓",
+      "objectRef": "SKU-YT-011",
+      "raisedAt": "2026-11-08 18:10",
+      "handleStatus": "done",
+      "workOrderNo": ""
+    },
+    {
+      "alertNo": "AL20261108006",
+      "alertType": "设备",
+      "level": "warning",
+      "warehouse": "华东中心仓",
+      "objectRef": "FORK-07",
+      "raisedAt": "2026-11-08 16:30",
+      "handleStatus": "waived",
+      "workOrderNo": ""
+    },
+    {
+      "alertNo": "AL20261108007",
+      "alertType": "时效",
+      "level": "info",
+      "warehouse": "华南前置仓",
+      "objectRef": "SO20261108017",
+      "raisedAt": "2026-11-08 15:20",
+      "handleStatus": "done",
+      "workOrderNo": ""
+    },
+    {
+      "alertNo": "AL20261108008",
+      "alertType": "SLA",
+      "level": "critical",
+      "warehouse": "华北分拨仓",
+      "objectRef": "SO20261108016",
+      "raisedAt": "2026-11-08 14:05",
+      "handleStatus": "done",
+      "workOrderNo": ""
+    }
+  ]
+}

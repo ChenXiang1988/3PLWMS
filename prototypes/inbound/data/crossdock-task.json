@@ -1,0 +1,84 @@
+{
+  "rows": [
+    {
+      "crossdockNo": "CD20261109001",
+      "inPlanNo": "IN20261109001",
+      "outPlanNo": "OUT20261109002",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-001",
+      "qty": 600,
+      "dock": "D01",
+      "crossdockStatus": "shipped"
+    },
+    {
+      "crossdockNo": "CD20261109002",
+      "inPlanNo": "IN20261109004",
+      "outPlanNo": "OUT20261109005",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-011",
+      "qty": 400,
+      "dock": "D02",
+      "crossdockStatus": "paired"
+    },
+    {
+      "crossdockNo": "CD20261109003",
+      "inPlanNo": "IN20261109006",
+      "outPlanNo": "OUT20261109008",
+      "owner": "辰星日化",
+      "skuCode": "SKU-CX-003",
+      "qty": 300,
+      "dock": "D03",
+      "crossdockStatus": "unpair"
+    },
+    {
+      "crossdockNo": "CD20261109004",
+      "inPlanNo": "IN20261109008",
+      "outPlanNo": "OUT20261109009",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-006",
+      "qty": 500,
+      "dock": "D01",
+      "crossdockStatus": "paired"
+    },
+    {
+      "crossdockNo": "CD20261108005",
+      "inPlanNo": "IN20261108009",
+      "outPlanNo": "OUT20261108018",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-012",
+      "qty": 450,
+      "dock": "D04",
+      "crossdockStatus": "shipped"
+    },
+    {
+      "crossdockNo": "CD20261108006",
+      "inPlanNo": "IN20261108011",
+      "outPlanNo": "OUT20261108020",
+      "owner": "辰星日化",
+      "skuCode": "SKU-CX-004",
+      "qty": 260,
+      "dock": "D01",
+      "crossdockStatus": "shipped"
+    },
+    {
+      "crossdockNo": "CD20261108007",
+      "inPlanNo": "IN20261108012",
+      "outPlanNo": "OUT20261108021",
+      "owner": "海纳食品",
+      "skuCode": "SKU-HN-004",
+      "qty": 320,
+      "dock": "D02",
+      "crossdockStatus": "unpair"
+    },
+    {
+      "crossdockNo": "CD20261108008",
+      "inPlanNo": "IN20261108014",
+      "outPlanNo": "OUT20261108023",
+      "owner": "云途电商",
+      "skuCode": "SKU-YT-014",
+      "qty": 700,
+      "dock": "D02",
+      "crossdockStatus": "shipped"
+    }
+  ]
+}

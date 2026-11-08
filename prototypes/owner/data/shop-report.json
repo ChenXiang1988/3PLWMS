@@ -1,0 +1,58 @@
+{
+  "rows": [
+    {
+      "shop": "海纳食品海外店",
+      "orders": 168,
+      "sales": 128600,
+      "refund": 4200,
+      "profit": 23800,
+      "rate": "18.5%",
+      "owner": "海纳食品"
+    },
+    {
+      "shop": "云途马来店",
+      "orders": 96,
+      "sales": 86400,
+      "refund": 3100,
+      "profit": 15200,
+      "rate": "17.6%",
+      "owner": "海纳食品"
+    },
+    {
+      "shop": "辰星日化跨境店",
+      "orders": 74,
+      "sales": 52300,
+      "refund": 1800,
+      "profit": 9100,
+      "rate": "17.4%",
+      "owner": "辰星日化"
+    },
+    {
+      "shop": "海纳食品美国店",
+      "orders": 41,
+      "sales": 61200,
+      "refund": 2600,
+      "profit": 11800,
+      "rate": "19.3%",
+      "owner": "海纳食品"
+    },
+    {
+      "shop": "云途新加坡店",
+      "orders": 63,
+      "sales": 47800,
+      "refund": 1500,
+      "profit": 8200,
+      "rate": "17.2%",
+      "owner": "海纳食品"
+    },
+    {
+      "shop": "辰星日化海外店",
+      "orders": 28,
+      "sales": 21600,
+      "refund": 900,
+      "profit": 3600,
+      "rate": "16.7%",
+      "owner": "辰星日化"
+    }
+  ]
+}

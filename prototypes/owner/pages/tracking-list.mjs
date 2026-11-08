@@ -1,4 +1,4 @@
-import { ListPage, FormDrawer, DrawerButton, StatusTag, Tag, dash, n, uniq } from '../../shared/ui.mjs';
+import { ListPage, DrawerButton, StatusTag, Tag, dash, n, uniq } from '../../shared/ui.mjs';
 
 export function renderPage(data, ctx) {
   const { rows = [], config = {} } = data[ctx.pageKey] || {};
@@ -27,40 +27,20 @@ export function renderPage(data, ctx) {
   const filters = (config.filters || []).map((f) => (
     f.type === 'select' ? { ...f, options: ['全部', ...uniq(rows.map((r) => r[f.key]))] } : f
   ));
-  const toolbar = config.form
-    ? [
-        { label: '新增', attrs: { 'data-drawer-open': pageId, 'data-drawer-key': '__new__', 'data-form-row': '__new__' } },
-        { label: '导出', ghost: true, toast: '导出（原型示意）' },
-      ]
-    : [{ label: '导出', ghost: true, toast: '导出（原型示意）' }];
-  const overlay = config.form
-    ? FormDrawer({
-        pageId,
-        title: config.form.title,
-        note: config.form.note,
-        groups: config.form.groups,
-        actions: config.form.actions,
-      })
-    : '';
-  return {
-    html: ListPage({
-      unit: config.unit || '条',
-      pageSize: 20,
-      statusTabs: tabs,
-      filters,
-      toolbar,
-      showCount: true,
-      columns,
-      rows,
-      rowAttrs: (r) => ({ 'data-status': r[statusField], 'data-owner': r.owner }),
-      emptyTitle: config.emptyTitle,
-      emptyDesc: '当前筛选条件下没有任何记录。',
-      live: config.form
-        ? { keyField, statusField, storageKey: ctx.pageKey, statusMeta: meta, columns, actionStatus: config.actionStatus }
-        : null,
-    }),
-    overlay,
-  };
+  const toolbar = [{ label: '导出', ghost: true, toast: '导出（原型示意）' }];
+  return ListPage({
+    unit: config.unit || '条',
+    pageSize: 20,
+    statusTabs: tabs,
+    filters,
+    toolbar,
+    showCount: true,
+    columns,
+    rows,
+    rowAttrs: (r) => ({ 'data-status': r[statusField], 'data-owner': r.owner }),
+    emptyTitle: config.emptyTitle,
+    emptyDesc: '当前筛选条件下没有任何记录。',
+  });
 }
 
 export const PAGE_CSS = ``;

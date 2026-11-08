@@ -1,0 +1,92 @@
+{
+  "rows": [
+    {
+      "taskNo": "KT20261109001",
+      "taskType": "组套",
+      "owner": "海纳食品",
+      "srcSku": "SKU-HN-001",
+      "destSku": "SKU-HN-001S",
+      "qty": 120,
+      "consumeQty": 480,
+      "team": "入库一组",
+      "kittingStatus": "doing"
+    },
+    {
+      "taskNo": "KT20261109002",
+      "taskType": "换标",
+      "owner": "云途电商",
+      "srcSku": "SKU-YT-011",
+      "destSku": "SKU-YT-011N",
+      "qty": 300,
+      "consumeQty": 300,
+      "team": "加工组",
+      "kittingStatus": "pending"
+    },
+    {
+      "taskNo": "KT20261109003",
+      "taskType": "拆套",
+      "owner": "辰星日化",
+      "srcSku": "SKU-CX-003S",
+      "destSku": "SKU-CX-003",
+      "qty": 80,
+      "consumeQty": 80,
+      "team": "加工组",
+      "kittingStatus": "done"
+    },
+    {
+      "taskNo": "KT20261109004",
+      "taskType": "贴标",
+      "owner": "海纳食品",
+      "srcSku": "SKU-HN-006",
+      "destSku": "SKU-HN-006",
+      "qty": 500,
+      "consumeQty": 500,
+      "team": "加工组",
+      "kittingStatus": "done"
+    },
+    {
+      "taskNo": "KT20261108005",
+      "taskType": "返工",
+      "owner": "云途电商",
+      "srcSku": "SKU-YT-012",
+      "destSku": "SKU-YT-012",
+      "qty": 60,
+      "consumeQty": 60,
+      "team": "出库二组",
+      "kittingStatus": "done"
+    },
+    {
+      "taskNo": "KT20261108006",
+      "taskType": "组套",
+      "owner": "辰星日化",
+      "srcSku": "SKU-CX-004",
+      "destSku": "SKU-CX-004S",
+      "qty": 90,
+      "consumeQty": 360,
+      "team": "加工组",
+      "kittingStatus": "done"
+    },
+    {
+      "taskNo": "KT20261108007",
+      "taskType": "换标",
+      "owner": "海纳食品",
+      "srcSku": "SKU-HN-004",
+      "destSku": "SKU-HN-004N",
+      "qty": 200,
+      "consumeQty": 200,
+      "team": "加工组",
+      "kittingStatus": "cancelled"
+    },
+    {
+      "taskNo": "KT20261108008",
+      "taskType": "贴标",
+      "owner": "云途电商",
+      "srcSku": "SKU-YT-014",
+      "destSku": "SKU-YT-014",
+      "qty": 450,
+      "consumeQty": 450,
+      "team": "加工组",
+      "kittingStatus": "done"
+    }
+  ]
+}

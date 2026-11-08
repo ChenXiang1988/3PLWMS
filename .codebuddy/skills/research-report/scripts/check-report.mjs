@@ -3,7 +3,7 @@
  * 调研报告结构校验（research-report skill）
  *
  * 只做机械可判定的检查：八节是否齐、章节是否空、封面是否全、来源表与结论表是否合规、
- * 截图索引与图片是否对得上、是否残留填写指引、是否出现空话词。
+ * 截图索引与图片是否对得上、整份或关键节是否没有任何图、是否残留填写指引、是否出现空话词。
  * 语义质量（论据是否成立、结论是否成立）脚本判不了，交给 references/chapter-guide.md。
  *
  * 用法：
@@ -43,6 +43,7 @@ if (flags.has('--help') || !file) {
   E1 八节齐全且有序      E2 章节非空          E3 封面与一句话结论
   E4 对象表可复核        E5 结论可判定        E6 截图与图片路径
   W1 指引与占位符残留    W2 空话词            W3 逐页记录与横向对比有数据
+  W4 整份无图            W5 关键节只有文字
 
 退出码：0 通过 / 1 有错误 / 2 文件或参数错误`);
   process.exit(file ? 0 : 2);
@@ -189,6 +190,20 @@ for (const name of ['逐页记录', '横向对比']) {
   const hasTable = tablesIn(c.body).length > 0;
   const strongs = (c.body.match(/<strong\b/gi) || []).length + (c.body.match(/<b\b/gi) || []).length;
   if (!hasTable && strongs < 3) warn('W3', `「${name}」缺数据支撑（表格 0 张、加粗结论 ${strongs} 处）`, '补一张表，或至少 3 条带数字的加粗结论');
+}
+
+// ---------- W4 整份无图 / W5 关键节无图 ----------
+const CHART_RE = /class="[^"]*\b(bars|stack|steps|band|tree|matrix)\b[^"]*"/;
+const hasVisual = (block) => /<svg\b/i.test(block) || /<figure\b/i.test(block) || CHART_RE.test(block);
+if (!hasVisual(body)) {
+  warn('W4', '整份报告没有任何图', '数据、流程、结构、对比类内容按 chart-guide 配图；确实无需画图时在「缺项」写明理由');
+}
+for (const name of ['覆盖清单', '逐页记录', '横向对比', '结论与落点']) {
+  const c = findChapter(name);
+  if (!c) continue;
+  if (!tablesIn(c.body).length && !hasVisual(c.body)) {
+    warn('W5', `「${name}」只有文字`, '补一张表或一张图；内容确实少时合并到相邻节');
+  }
 }
 
 // ---------- W1 残留 / W2 空话 ----------
