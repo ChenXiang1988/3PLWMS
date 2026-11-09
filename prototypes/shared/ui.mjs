@@ -450,54 +450,58 @@ export function ScanPage({
 
 export const BASE_CSS = `
 .wx-app{height:100vh;overflow:hidden;background:var(--wx-gray-50)}
-.wx-top{position:fixed;top:0;left:0;right:0;height:var(--wx-top-h);z-index:100;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--wx-sp-6);padding:0 var(--wx-sp-6);background:var(--wx-white);border-bottom:var(--wx-border)}
-.wx-brand{display:flex;align-items:center;gap:var(--wx-sp-2)}
+.wx-shell{display:flex;height:100%}
+.wx-rail{flex:0 0 var(--wx-rail-w);width:var(--wx-rail-w);display:flex;flex-direction:column;align-items:center;gap:var(--wx-sp-2);padding:var(--wx-sp-3) var(--wx-sp-1);background:var(--wx-gray-100);border-right:var(--wx-border)}
+.wx-rail-brand{width:40px;height:40px;display:grid;place-items:center;border-radius:var(--wx-r-md);background:var(--wx-primary-500);color:var(--wx-white);font-size:var(--wx-fs-lg);font-weight:600;cursor:default}
+.wx-rail-nav{flex:1;display:flex;flex-direction:column;align-items:center;gap:var(--wx-sp-1);width:100%;min-height:0;overflow-y:auto;overflow-x:hidden;padding:var(--wx-sp-1) 0}
+.wx-rail-item{display:flex;flex-direction:column;align-items:center;gap:var(--wx-sp-1);width:100%;padding:var(--wx-sp-1) 0;border:0;background:transparent;border-radius:var(--wx-r-md);color:var(--wx-gray-500)}
+.wx-rail-item:hover{background:var(--wx-gray-200)}
+.wx-rail-mark{width:40px;height:40px;display:grid;place-items:center;border-radius:var(--wx-r-md);background:var(--wx-white);border:var(--wx-border);color:var(--wx-gray-700);font-size:var(--wx-fs-md);font-weight:600}
+.wx-rail-item.is-active{color:var(--wx-primary-600)}
+.wx-rail-item.is-active .wx-rail-mark{background:var(--wx-primary-50);border-color:var(--wx-primary-100);color:var(--wx-primary-600)}
+.wx-rail-label{max-width:100%;font-size:var(--wx-fs-xs);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wx-rail-foot{display:flex;flex-direction:column;align-items:center;gap:var(--wx-sp-1);width:100%;padding-top:var(--wx-sp-2);border-top:var(--wx-border)}
+.wx-rail-tool{width:48px;height:32px;display:grid;place-items:center;border:0;background:transparent;border-radius:var(--wx-r-sm);font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-rail-tool:hover{background:var(--wx-gray-200);color:var(--wx-gray-900)}
+.wx-rail-expand{display:none}
+.wx-app.is-collapsed .wx-rail-expand{display:grid}
+.wx-rail-user{width:40px;height:40px;justify-content:center;padding:0;border:0;background:transparent}
+.wx-rail-user:hover{background:var(--wx-gray-200)}
+.wx-user{display:flex;align-items:center;gap:var(--wx-sp-2);padding:var(--wx-sp-1) var(--wx-sp-2);border-radius:var(--wx-r-sm);font-size:var(--wx-fs-sm);color:var(--wx-gray-700)}
+.wx-user-avatar{width:26px;height:26px;display:grid;place-items:center;border-radius:var(--wx-r-pill);background:var(--wx-primary-500);color:var(--wx-white);font-size:var(--wx-fs-xs);font-weight:600}
+.wx-rail-user .wx-user-avatar{width:32px;height:32px;font-size:var(--wx-fs-sm)}
 .wx-brand-mark{width:32px;height:32px;display:grid;place-items:center;border-radius:var(--wx-r-md);background:var(--wx-primary-50);color:var(--wx-primary-600);font-size:var(--wx-fs-lg)}
 .wx-brand-copy{display:flex;flex-direction:column;line-height:1.2}
 .wx-brand-copy b{font-size:var(--wx-fs-lg)}
 .wx-brand-copy small{font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
-.wx-global-search{display:flex;align-items:center;max-width:420px;height:36px;padding:0 var(--wx-sp-3);border:var(--wx-border);border-radius:var(--wx-r-pill);background:var(--wx-white)}
-.wx-global-search input{flex:1;min-width:0;border:0;outline:none;background:transparent;font:inherit;font-size:var(--wx-fs-sm)}
-.wx-top-tools{display:flex;align-items:center;gap:var(--wx-sp-1)}
-.wx-top-tool{height:32px;padding:0 var(--wx-sp-2);border:0;background:transparent;border-radius:var(--wx-r-sm);font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
-.wx-top-tool:hover{background:var(--wx-gray-50);color:var(--wx-gray-900)}
-.wx-top-mall{display:inline-flex;align-items:center;height:32px;padding:0 var(--wx-sp-3);border:var(--wx-border);border-radius:var(--wx-r-sm);background:var(--wx-white);font-size:var(--wx-fs-sm);font-weight:600;color:var(--wx-primary-600);text-decoration:none;white-space:nowrap}
-.wx-top-mall:hover{background:var(--wx-primary-50)}
-.wx-user{display:flex;align-items:center;gap:var(--wx-sp-2);padding:var(--wx-sp-1) var(--wx-sp-2);border-radius:var(--wx-r-sm);font-size:var(--wx-fs-sm);color:var(--wx-gray-700)}
-.wx-user-avatar{width:26px;height:26px;display:grid;place-items:center;border-radius:var(--wx-r-pill);background:var(--wx-primary-500);color:var(--wx-white);font-size:var(--wx-fs-xs);font-weight:600}
-.wx-shell{display:flex;margin-top:var(--wx-top-h);height:calc(100vh - var(--wx-top-h))}
-.wx-side{position:fixed;top:var(--wx-top-h);left:0;bottom:0;width:var(--wx-side-w);z-index:90;display:flex;flex-direction:column;background:var(--wx-white);border-right:var(--wx-border);transition:width .2s}
-.wx-app.is-collapsed .wx-side{width:var(--wx-side-collapsed)}
-.wx-side-scroll{flex:1;overflow-y:auto;overflow-x:hidden;padding:var(--wx-sp-2)}
-.wx-nav-group + .wx-nav-group{margin-top:var(--wx-sp-1);padding-top:var(--wx-sp-1);border-top:var(--wx-border)}
-.wx-nav-item{display:flex;align-items:center;width:100%;gap:var(--wx-sp-2);min-height:var(--wx-touch);padding:0 var(--wx-sp-2);border:0;background:transparent;border-radius:var(--wx-r-sm);text-align:left;font-size:var(--wx-fs-md);font-weight:600;color:var(--wx-gray-700)}
-.wx-nav-item:hover{background:var(--wx-gray-50)}
-.wx-nav-item.is-current{color:var(--wx-primary-600);background:var(--wx-primary-50)}
-.wx-nav-label{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.wx-nav-chevron{color:var(--wx-gray-400);font-size:var(--wx-fs-xs)}
-.wx-nav-item[aria-expanded="true"] .wx-nav-chevron{transform:rotate(180deg)}
-.wx-nav-children{padding:var(--wx-sp-1) 0 var(--wx-sp-2)}
-.wx-nav-children[hidden]{display:none !important}
-.wx-side-item{display:block;width:100%;min-height:38px;padding:var(--wx-sp-2) var(--wx-sp-3) var(--wx-sp-2) var(--wx-sp-8);text-align:left;border:0;background:transparent;border-radius:var(--wx-r-sm);font-size:var(--wx-fs-sm);color:var(--wx-gray-700);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.wx-side-item:hover{background:var(--wx-gray-50)}
-.wx-side-item.is-active{background:var(--wx-primary-50);color:var(--wx-primary-600);font-weight:600}
-.wx-side-footer{display:flex;justify-content:flex-end;padding:var(--wx-sp-2);border-top:var(--wx-border)}
-.wx-side-toggle{width:32px;height:32px;display:grid;place-items:center;border:0;background:transparent;border-radius:var(--wx-r-sm);color:var(--wx-gray-500)}
-.wx-app.is-collapsed .wx-nav-label,.wx-app.is-collapsed .wx-nav-chevron,.wx-app.is-collapsed .wx-nav-children{display:none}
-.wx-app.is-collapsed .wx-nav-item{justify-content:center;padding:0}
-.wx-app.is-collapsed .wx-nav-group + .wx-nav-group{border-top:0}
-.wx-main{flex:1;margin-left:var(--wx-side-w);display:flex;flex-direction:column;min-width:0;min-height:0;transition:margin-left .2s}
-.wx-app.is-collapsed .wx-main{margin-left:var(--wx-side-collapsed)}
-.wx-page-header{position:relative;z-index:10;flex:0 0 auto;display:flex;align-items:center;gap:var(--wx-sp-6);min-height:var(--wx-head-h);padding:0 var(--wx-sp-6);background:var(--wx-white);border-bottom:var(--wx-border)}
-.wx-head-tabs{display:flex;align-items:center;flex:1;min-width:0;flex-wrap:wrap;column-gap:var(--wx-sp-6)}
-.wx-head-tabs[hidden]{display:none !important}
-.wx-head-tab{position:relative;min-height:var(--wx-head-h);border:0;background:transparent;padding:0 2px;font-size:var(--wx-fs-md);color:var(--wx-gray-700);white-space:nowrap}
-.wx-head-tab:hover{color:var(--wx-primary-600)}
-.wx-head-tab.is-active{color:var(--wx-primary-600);font-weight:700}
-.wx-head-tab.is-active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--wx-primary-500);border-radius:3px 3px 0 0}
-.wx-scope{display:flex;align-items:center;gap:var(--wx-sp-2);flex:0 0 auto;font-size:var(--wx-fs-sm);color:var(--wx-gray-500);white-space:nowrap}
-.wx-scope[hidden]{display:none !important}
-.wx-scope select{height:32px;padding:0 var(--wx-sp-2);border:var(--wx-border);border-radius:var(--wx-r-sm);background:var(--wx-white);font-size:var(--wx-fs-sm)}
+.wx-panel{flex:0 0 var(--wx-panel-w);width:var(--wx-panel-w);display:flex;flex-direction:column;min-width:0;background:var(--wx-white);border-right:var(--wx-border);transition:width .2s,flex-basis .2s}
+.wx-app.is-collapsed .wx-panel{flex-basis:0;width:0;border-right:0;overflow:hidden}
+.wx-panel-head{flex:0 0 auto;padding:var(--wx-sp-4) var(--wx-sp-4) var(--wx-sp-3);border-bottom:var(--wx-border)}
+.wx-panel-title{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--wx-sp-2)}
+.wx-panel-name{display:block;font-size:var(--wx-fs-lg);font-weight:600;line-height:1.3;color:var(--wx-gray-900)}
+.wx-panel-sub{display:block;margin-top:var(--wx-sp-1);font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-panel-mall{display:inline-flex;align-items:center;flex:0 0 auto;height:26px;padding:0 var(--wx-sp-2);border:var(--wx-border);border-radius:var(--wx-r-sm);background:var(--wx-white);font-size:var(--wx-fs-xs);font-weight:600;color:var(--wx-primary-600);text-decoration:none;white-space:nowrap}
+.wx-panel-mall:hover{background:var(--wx-primary-50)}
+.wx-panel-search{display:flex;align-items:center;height:32px;margin-top:var(--wx-sp-3);padding:0 var(--wx-sp-2);border:var(--wx-border);border-radius:var(--wx-r-sm);background:var(--wx-white)}
+.wx-panel-search input{flex:1;min-width:0;border:0;outline:none;background:transparent;font-size:var(--wx-fs-sm)}
+.wx-panel-body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:var(--wx-sp-2)}
+.wx-panel-group[hidden]{display:none !important}
+.wx-panel-section{padding:var(--wx-sp-1) 0}
+.wx-panel-section[hidden]{display:none !important}
+.wx-panel-label{padding:var(--wx-sp-2) var(--wx-sp-3) var(--wx-sp-1);font-size:var(--wx-fs-xs);color:var(--wx-gray-400);letter-spacing:.04em}
+.wx-panel-item{display:flex;align-items:center;gap:var(--wx-sp-2);width:100%;min-height:36px;padding:0 var(--wx-sp-3);border:0;background:transparent;border-radius:var(--wx-r-sm);text-align:left;font-size:var(--wx-fs-sm);color:var(--wx-gray-700)}
+.wx-panel-item:hover{background:var(--wx-gray-50)}
+.wx-panel-item.is-active{background:var(--wx-primary-50);color:var(--wx-primary-600);font-weight:600}
+.wx-panel-item > span:first-child{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wx-panel-dot{width:4px;height:4px;flex:0 0 auto;border-radius:var(--wx-r-pill);background:var(--wx-primary-500);visibility:hidden}
+.wx-panel-item.is-active .wx-panel-dot{visibility:visible}
+.wx-panel-empty{padding:var(--wx-sp-3);font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
+.wx-panel-foot{flex:0 0 auto;display:flex;justify-content:flex-end;padding:var(--wx-sp-2);border-top:var(--wx-border)}
+.wx-app.is-collapsed .wx-panel-foot{display:none}
+.wx-panel-toggle{width:32px;height:32px;display:grid;place-items:center;border:0;background:transparent;border-radius:var(--wx-r-sm);color:var(--wx-gray-500)}
+.wx-panel-toggle:hover{background:var(--wx-gray-50);color:var(--wx-gray-900)}
+.wx-rail-item:focus-visible,.wx-rail-tool:focus-visible,.wx-rail-user:focus-visible,.wx-panel-item:focus-visible,.wx-panel-toggle:focus-visible{outline:2px solid var(--wx-primary-500);outline-offset:2px}
+.wx-main{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0}
 .wx-page-body{flex:1;min-height:0;overflow:auto;padding:var(--wx-sp-6);background:var(--wx-gray-50)}
 .page{display:none}
 .page:not([hidden]){display:block}
@@ -634,7 +638,7 @@ export const BASE_CSS = `
 .wx-dag-note{font-size:var(--wx-fs-xs);color:var(--wx-gray-500);margin-top:var(--wx-sp-2)}
 .wx-toast{position:fixed;left:50%;bottom:var(--wx-sp-8);transform:translateX(-50%);padding:var(--wx-sp-3) var(--wx-sp-4);border-radius:var(--wx-r-sm);background:var(--wx-gray-900);color:var(--wx-white);font-size:var(--wx-fs-sm);box-shadow:var(--wx-shadow)}
 @media (max-width:1080px){.wx-page-body{overflow-x:auto}.wx-detail-grid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:900px){.wx-global-search{display:none}}
+@media (max-width:900px){.wx-panel-search{display:none}}
 .wx-form{display:flex;flex-direction:column;gap:var(--wx-sp-4)}
 .wx-form-note{font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
 .wx-form-group-title{font-size:var(--wx-fs-sm);color:var(--wx-gray-700);margin-bottom:var(--wx-sp-2);padding-bottom:var(--wx-sp-1);border-bottom:var(--wx-border)}
@@ -747,6 +751,33 @@ export const SHELL_SCRIPT = `
       if (id) activate(id, false);
     }
   }
+  function applyPanelSearch(){
+    var gs2 = document.querySelector('[data-global-search]');
+    var q = gs2 ? (gs2.value || '').trim() : '';
+    var group = document.querySelector('.wx-panel-group:not([hidden])');
+    if (!group) return;
+    var any = false;
+    Array.prototype.slice.call(group.querySelectorAll('.wx-panel-section')).forEach(function(sec){
+      var hits = 0;
+      Array.prototype.slice.call(sec.querySelectorAll('.wx-panel-item')).forEach(function(b){
+        var on = q ? (b.textContent || '').indexOf(q) !== -1 : true;
+        b.hidden = !on;
+        if (on) hits++;
+      });
+      sec.hidden = hits === 0;
+      if (hits) any = true;
+    });
+    var empty = document.querySelector('.wx-panel-empty');
+    if (empty) empty.hidden = any;
+  }
+  function syncNavToggle(collapsed){
+    Array.prototype.slice.call(document.querySelectorAll('[data-side-toggle]')).forEach(function(b){
+      b.setAttribute('title', collapsed ? '展开导航' : '收起导航');
+      b.setAttribute('aria-label', collapsed ? '展开导航' : '收起导航');
+      b.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      b.textContent = collapsed ? '›' : '‹';
+    });
+  }
   function activate(id, push){
     var hit = null;
     var view = activeView();
@@ -758,28 +789,29 @@ export const SHELL_SCRIPT = `
     });
     if (!hit) return;
     closeDrawer();
-    var groupId = hit.getAttribute('data-nav-group') || id.split('/')[0];
-    Array.prototype.slice.call(document.querySelectorAll('.wx-side-item')).forEach(function(b){
-      b.classList.toggle('is-active', b.getAttribute('data-target') === id);
-    });
-    Array.prototype.slice.call(document.querySelectorAll('.wx-nav-item')).forEach(function(b){
-      var on = b.getAttribute('data-nav') === groupId;
-      b.classList.toggle('is-current', on);
-      b.setAttribute('aria-expanded', on ? 'true' : 'false');
-    });
-    Array.prototype.slice.call(document.querySelectorAll('.wx-nav-children')).forEach(function(box){
-      box.hidden = box.getAttribute('data-children') !== groupId;
-    });
-    Array.prototype.slice.call(document.querySelectorAll('.wx-head-tabs')).forEach(function(row){
-      row.hidden = row.getAttribute('data-tabs') !== groupId;
-      if (!row.hidden) {
-        Array.prototype.slice.call(row.querySelectorAll('.wx-head-tab')).forEach(function(b){
-          b.classList.toggle('is-active', b.getAttribute('data-target') === id);
-        });
+    var domainId = '';
+    Array.prototype.slice.call(document.querySelectorAll('.wx-panel-item')).forEach(function(b){
+      var on = b.getAttribute('data-target') === id;
+      b.classList.toggle('is-active', on);
+      if (on) {
+        b.setAttribute('aria-current', 'page');
+        var box = b.closest('.wx-panel-group');
+        domainId = box ? box.getAttribute('data-domain-panel') : '';
+      } else {
+        b.removeAttribute('aria-current');
       }
     });
-    var scope = document.querySelector('.wx-scope');
-    if (scope) scope.hidden = hit.getAttribute('data-owner-scoped') !== 'true';
+    if (domainId) {
+      Array.prototype.slice.call(document.querySelectorAll('.wx-panel-group')).forEach(function(box){
+        box.hidden = box.getAttribute('data-domain-panel') !== domainId;
+      });
+      Array.prototype.slice.call(document.querySelectorAll('.wx-rail-item')).forEach(function(b){
+        var on = b.getAttribute('data-domain') === domainId;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-current', on ? 'page' : 'false');
+      });
+      applyPanelSearch();
+    }
     setNo(hit, 1); applyFilters(hit);
     if (push !== false) { try { location.hash = id; } catch(e){} }
   }
@@ -873,7 +905,11 @@ export const SHELL_SCRIPT = `
   function fillForm(panel, row, isNew){
     Array.prototype.slice.call(panel.querySelectorAll('[data-form-key]')).forEach(function(el){
       var k = el.getAttribute('data-form-key');
-      el.value = isNew || !row || row[k] == null ? '' : String(row[k]);
+      if (isNew || !row || row[k] == null) {
+        if (!el.hasAttribute('readonly')) el.value = '';
+        return;
+      }
+      el.value = String(row[k]);
     });
     Array.prototype.slice.call(panel.querySelectorAll('[data-form-check-group]')).forEach(function(group){
       var k = group.getAttribute('data-form-check-group');
@@ -981,28 +1017,18 @@ export const SHELL_SCRIPT = `
     var el = e.target.closest ? e.target.closest('button, [data-toast]') : null;
     if (!el) return;
     if (el.hasAttribute('data-confirm') && !window.confirm(el.getAttribute('data-confirm'))) return;
-    if (el.hasAttribute('data-nav')) {
-      var box2 = el.nextElementSibling;
-      if (box2 && box2.classList.contains('wx-nav-children')) {
-        var isCur = el.classList.contains('is-current');
-        var open = !box2.hidden;
-        Array.prototype.slice.call(document.querySelectorAll('.wx-nav-children')).forEach(function(b){
-          if (b === box2) return;
-          b.hidden = true;
-          if (b.previousElementSibling) b.previousElementSibling.setAttribute('aria-expanded', 'false');
-        });
-        box2.hidden = open && !isCur;
-        el.setAttribute('aria-expanded', box2.hidden ? 'false' : 'true');
-      }
+    if (el.hasAttribute('data-domain')) {
+      var domain = el.getAttribute('data-domain');
+      var firstOfDomain = document.querySelector('[data-domain-panel="' + domain + '"] [data-target]');
+      if (firstOfDomain) activate(firstOfDomain.getAttribute('data-target'));
       return;
     }
     if (el.hasAttribute('data-side-toggle')) {
       var appEl = document.querySelector('.wx-app');
       var folded = !appEl.classList.contains('is-collapsed');
       appEl.classList.toggle('is-collapsed', folded);
-      el.setAttribute('title', folded ? '展开侧栏' : '收起侧栏');
-      el.setAttribute('aria-label', folded ? '展开侧栏' : '收起侧栏');
-      el.textContent = folded ? '›' : '‹';
+      syncNavToggle(folded);
+      try { window.sessionStorage.setItem('wx-nav-collapsed', folded ? '1' : '0'); } catch(err){}
       return;
     }
     if (el.hasAttribute('data-target')) { activate(el.getAttribute('data-target')); return; }
@@ -1062,6 +1088,15 @@ export const SHELL_SCRIPT = `
             if (String(allRows[ri][curCfg.keyField]) === String(rowKeyValue)) { currentRow = allRows[ri]; break; }
           }
         }
+        if (!currentRow && curPage && rowKeyValue !== '__new__') {
+          var trs = curPage.querySelectorAll('tbody tr[data-row]');
+          for (var ti = 0; ti < trs.length && !currentRow; ti++) {
+            var rd = rowData(trs[ti]);
+            for (var rk in rd) {
+              if (Object.prototype.hasOwnProperty.call(rd, rk) && String(rd[rk]) === String(rowKeyValue)) { currentRow = rd; break; }
+            }
+          }
+        }
         fillForm(formPanel, currentRow, rowKeyValue === '__new__');
       }
       openDrawer(openId, openKey);
@@ -1081,17 +1116,12 @@ export const SHELL_SCRIPT = `
     }
   });
   var gs = document.querySelector('[data-global-search]');
-  if (gs) gs.addEventListener('input', function(){
-    var q = (gs.value || '').trim();
-    Array.prototype.slice.call(document.querySelectorAll('.wx-side-item,.wx-head-tab')).forEach(function(b){
-      b.hidden = q ? (b.textContent || '').indexOf(q) === -1 : false;
-    });
-  });
+  if (gs) gs.addEventListener('input', applyPanelSearch);
   window.addEventListener('hashchange', function(){
     var want = (location.hash || '').replace('#','');
     if (want) activate(want, false);
   });
-  var first = document.querySelector('.wx-side-item');
+  var first = document.querySelector('.wx-panel-item');
   var initial = (location.hash || '').replace('#','');
   var valid = initial && pages().some(function(p){ return p.getAttribute('data-page-id') === initial; });
   var ownerSelect = document.querySelector('[data-login-owner]');
@@ -1101,6 +1131,14 @@ export const SHELL_SCRIPT = `
     var ownerOptions = Array.prototype.slice.call(ownerSelect.options);
     if (savedOwner && ownerOptions.some(function(o){ return o.value === savedOwner; })) ownerSelect.value = savedOwner;
     applyOwnerView(ownerSelect.value, false);
+  }
+  var foldApp = document.querySelector('.wx-app');
+  if (foldApp) {
+    var savedFold = null;
+    try { savedFold = window.sessionStorage.getItem('wx-nav-collapsed'); } catch(err){}
+    var foldNow = savedFold === null ? window.innerWidth < 1280 : savedFold === '1';
+    foldApp.classList.toggle('is-collapsed', foldNow);
+    syncNavToggle(foldNow);
   }
   activate(valid ? initial : (first ? first.getAttribute('data-target') : ''));
 })();
@@ -1178,7 +1216,7 @@ export const LOGIN_CSS = `
 .wx-login-error[hidden]{display:none !important}
 .wx-login-error button{border:0;background:transparent;color:var(--wx-error-500);font-size:var(--wx-fs-sm);font-weight:600}
 .wx-login-note,.wx-login-safe{margin-top:var(--wx-sp-3);font-size:var(--wx-fs-xs);line-height:1.6;color:var(--wx-gray-400)}
-.wx-session{position:fixed;top:calc(var(--wx-top-h) + 8px);right:var(--wx-sp-6);z-index:1100;width:280px;padding:var(--wx-sp-4);background:var(--wx-white);border:var(--wx-border);border-radius:var(--wx-r-md);box-shadow:var(--wx-shadow)}
+.wx-session{position:fixed;top:var(--wx-sp-2);right:var(--wx-sp-4);z-index:1100;width:280px;padding:var(--wx-sp-4);background:var(--wx-white);border:var(--wx-border);border-radius:var(--wx-r-md);box-shadow:var(--wx-shadow)}
 .wx-session[hidden]{display:none !important}
 .wx-session-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--wx-sp-3)}
 .wx-session-head button{border:0;background:transparent;font-size:var(--wx-fs-lg);color:var(--wx-gray-500)}
@@ -1416,11 +1454,14 @@ export function moneyOrDash(v) {
   return (v == null || v === '') ? dash(v) : money(v);
 }
 
-export function ShopPrice(value, { tag = 'b', cls = '', attrs = '' } = {}) {
+export function ShopPrice(value, { tag = 'b', cls = '', attrs = '', publicPrice = false } = {}) {
   const text = typeof value === 'string' ? value : money(value);
   const klass = ['wx-shop-price-value', cls].filter(Boolean).join(' ');
+  const guest = publicPrice
+    ? ''
+    : `<button type="button" class="wx-shop-price-guest" data-login-open>登录可见价格</button>`;
   return `<span class="wx-shop-price"><${tag} class="${klass}"${attrs ? ` ${attrs}` : ''}>${esc(text)}</${tag}>`
-    + `<button type="button" class="wx-shop-price-guest" data-login-open>登录可见价格</button></span>`;
+    + guest + `</span>`;
 }
 
 export function ShopPage({ title = '', note = '', body = '' } = {}) {
@@ -1429,13 +1470,16 @@ export function ShopPage({ title = '', note = '', body = '' } = {}) {
     + `<div class="wx-shop-page-body">${body}</div></div>`;
 }
 
-export function ShopHero({ title = '', note = '', marks = [], action = '继续选货', guest = false } = {}) {
+export function ShopHero({ title = '', note = '', marks = [], action = '继续选货', actionTarget = 'mall/search', guest = false } = {}) {
   const cards = marks.map((m) => `<div class="wx-shop-hero-mark"><span>${esc(m.label)}</span><b>${esc(m.value)}</b></div>`).join('');
   const guestBar = guest
     ? `<div class="wx-shop-hero-guest" data-auth-guest><span>登录后查看批发价</span><button type="button" class="wx-shop-btn" data-login-open>登录</button></div>`
     : '';
+  const actionBtn = action
+    ? `<button type="button" class="wx-shop-btn" data-target="${esc(actionTarget)}">${esc(action)}</button>`
+    : '';
   return `<div class="wx-shop-hero"><div><h2>${esc(title)}</h2><p>${esc(note)}</p>`
-    + `<div class="wx-shop-hero-actions"><button type="button" class="wx-shop-btn" data-target="mall/search">${esc(action)}</button>${guestBar}</div></div>`
+    + `<div class="wx-shop-hero-actions">${actionBtn}${guestBar}</div></div>`
     + `<div class="wx-shop-hero-marks">${cards}</div></div>`;
 }
 
@@ -1449,24 +1493,43 @@ export function ProductCard(p = {}) {
   const tone = p.tone || 'food';
   const short = String(p.skuName || '货').slice(0, 1);
   const badge = p.badge ? `<em class="wx-shop-badge">${esc(p.badge)}</em>` : '';
+  const detailTarget = p.detailTarget || 'mall/product-detail';
+  const meta = p.meta != null
+    ? p.meta
+    : `起批 ${p.minQty} ${p.unit} · 可售 ${p.stock}`;
+  const price = `<div class="wx-shop-card-price">${ShopPrice(p.price, { publicPrice: p.publicPrice === true })}`
+    + `<span class="wx-shop-price-value">/ ${esc(p.unit)}</span></div>`;
+  const shopRow = p.owner && p.showOwner !== false
+    ? `<div class="wx-shop-card-shop"><span>${esc(p.owner)}</span><em>店铺评分 ${esc(p.score)}</em></div>`
+    : '';
+  const actions = Array.isArray(p.actions)
+    ? `<div class="wx-shop-card-actions">${p.actions.map((i) => {
+      const attrs = [
+        i.target ? `data-target="${esc(i.target)}"` : '',
+        i.toast ? `data-toast="${esc(i.toast)}"` : '',
+      ].filter(Boolean).join(' ');
+      return `<button type="button" class="wx-shop-btn${i.ghost ? ' wx-shop-btn--ghost' : ''}" ${attrs}>${esc(i.label)}</button>`;
+    }).join('')}</div>`
+    : `<div class="wx-shop-card-actions">`
+      + `<button type="button" class="wx-shop-btn" data-shop-add data-shop-sku="${esc(p.skuCode || '')}">加入进货单</button>`
+      + `<button type="button" class="wx-shop-btn wx-shop-btn--ghost" data-target="${esc(detailTarget)}">查看商品</button>`
+      + `</div>`;
   return `<article class="wx-shop-card" data-shop-card data-cat="${esc(p.category || '')}" `
     + `data-shop-name="${esc(p.skuName || '')}" data-shop-owner="${esc(p.owner || '')}">`
     + `<div class="wx-shop-thumb wx-shop-thumb--${esc(tone)}">${esc(short)}${badge}</div>`
     + `<div class="wx-shop-card-body">`
-    + `<button type="button" class="wx-shop-card-title" data-target="mall/product-detail">${esc(p.skuName)}</button>`
+    + `<button type="button" class="wx-shop-card-title" data-target="${esc(detailTarget)}">${esc(p.skuName)}</button>`
     + `<span class="wx-shop-card-spec">${esc(p.spec)} · ${esc(p.unit)}</span>`
-    + `<div class="wx-shop-card-price">${ShopPrice(p.price)}<span class="wx-shop-price-value">/ ${esc(p.unit)}</span></div>`
-    + `<div class="wx-shop-card-meta"><span>起批 ${esc(p.minQty)} ${esc(p.unit)}</span><span>可售 ${esc(p.stock)}</span></div>`
-    + `<div class="wx-shop-card-shop"><span>${esc(p.owner)}</span><em>店铺评分 ${esc(p.score)}</em></div>`
-    + `<div class="wx-shop-card-actions">`
-    + `<button type="button" class="wx-shop-btn" data-shop-add data-shop-sku="${esc(p.skuCode || '')}">加入进货单</button>`
-    + `<button type="button" class="wx-shop-btn wx-shop-btn--ghost" data-target="mall/product-detail">查看商品</button>`
-    + `</div></div></article>`;
+    + price
+    + `<div class="wx-shop-card-meta"><span>${esc(meta)}</span></div>`
+    + shopRow
+    + actions
+    + `</div></article>`;
 }
 
-export function ShopFloor({ title = '', note = '', more = '继续选货', cards = [] } = {}) {
+export function ShopFloor({ title = '', note = '', more = '继续选货', moreTarget = 'mall/search', cards = [] } = {}) {
   return `<section class="wx-shop-floor"><div class="wx-shop-floor-head"><h2>${esc(title)}</h2>`
-    + `<span>${esc(note)}</span>${more ? `<button type="button" data-target="mall/search">${esc(more)}</button>` : ''}</div>`
+    + `<span>${esc(note)}</span>${more ? `<button type="button" data-target="${esc(moreTarget)}">${esc(more)}</button>` : ''}</div>`
     + `<div class="wx-shop-grid">${cards.join('')}</div></section>`;
 }
 
@@ -1525,12 +1588,14 @@ export function OrderCard(o = {}) {
 export function ShopFilter({ categories = [], owners = [] } = {}) {
   const cats = categories.map((c) => `<button type="button" class="wx-shop-chip" data-shop-cat="${esc(c)}">${esc(c)}</button>`).join('');
   const shops = owners.map((o) => `<button type="button" class="wx-shop-chip" data-toast="${esc(o)}（原型示意）">${esc(o)}</button>`).join('');
-  return `<div class="wx-shop-filter"><span class="wx-shop-filter-label">商品类目</span>${cats}`
-    + `<span class="wx-shop-filter-label">货主店铺</span>${shops}</div>`;
+  const ownerBlock = owners.length
+    ? `<span class="wx-shop-filter-label">货主店铺</span>${shops}`
+    : '';
+  return `<div class="wx-shop-filter"><span class="wx-shop-filter-label">商品类目</span>${cats}${ownerBlock}</div>`;
 }
 
 /**
- * PDA 作业端外壳：仿工业 PDA 机身，状态栏 + 顶栏 + 内容区 + 六键键盘。
+ * 作业 APP 外壳：仿工业 PDA 机身，状态栏 + 顶栏 + 内容区 + 六键键盘。
  * 页面靠 data-pda-tab 切换，「主页 / 菜单」回作业首页，「返回」回上一屏。
  * 窄屏（<=480px）铺满，不显示机身；不渲染侧栏与货主下拉。
  */
@@ -1590,7 +1655,7 @@ export const PDA_CSS = `
 .wx-pda-body .wx-device{padding:0}
 .wx-pda-body .wx-device-screen{width:100%;min-height:0;border:0;border-radius:0;box-shadow:none;padding:0;gap:var(--wx-sp-2)}
 .wx-pda-toast{position:absolute;left:50%;bottom:var(--wx-sp-6);z-index:20;transform:translateX(-50%);padding:var(--wx-sp-2) var(--wx-sp-4);border-radius:var(--wx-r-pill);background:var(--wx-gray-900);color:var(--wx-white);font-size:var(--wx-fs-sm)}
-.wx-pda-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:var(--wx-border);background:var(--wx-white)}
+.wx-pda-tabs{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:0;border-top:var(--wx-border);background:var(--wx-white)}
 .wx-pda-tab{min-height:34px;border:0;background:transparent;color:var(--wx-gray-500);font-size:var(--wx-fs-xs)}
 .wx-pda-tab.is-active{color:var(--wx-primary-600);font-weight:600;box-shadow:inset 0 2px 0 var(--wx-primary-500)}
 .wx-pda-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:10px 8px 6px}
@@ -1957,7 +2022,7 @@ export function ShopEmpty() {
 
 export function ShopTable({ columns = [], rows = [] } = {}) {
   const head = columns.map((c) => `<th>${esc(c.label)}</th>`).join('');
-  const body = rows.map((r) => `<tr>${columns.map((c) => `<td>${c.price ? ShopPrice(r[c.key]) : dash(r[c.key])}</td>`).join('')}</tr>`).join('');
+  const body = rows.map((r) => `<tr>${columns.map((c) => `<td>${c.price ? ShopPrice(r[c.key], { publicPrice: c.publicPrice === true }) : dash(r[c.key])}</td>`).join('')}</tr>`).join('');
   return `<div class="wx-shop-table"><table class="wx-table"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
 }
 
@@ -1972,16 +2037,238 @@ export function ShopActions({ items = [] } = {}) {
 }
 
 export function ShopDetailHero(p = {}) {
+  const unit = p.unit || '';
+  const owner = p.owner && p.showOwner !== false ? ` · ${esc(p.owner)}` : '';
+  const meta = p.meta != null
+    ? p.meta
+    : `起批 ${p.minQty} ${unit} · 可售 ${p.stock} · 店铺评分 ${p.score}`;
+  const actions = Array.isArray(p.actions)
+    ? `<div class="wx-shop-card-actions">${p.actions.map((i) => {
+      const attrs = [
+        i.target ? `data-target="${esc(i.target)}"` : '',
+        i.toast ? `data-toast="${esc(i.toast)}"` : '',
+      ].filter(Boolean).join(' ');
+      return `<button type="button" class="wx-shop-btn${i.ghost ? ' wx-shop-btn--ghost' : ''}" ${attrs}>${esc(i.label)}</button>`;
+    }).join('')}</div>`
+    : `<div class="wx-shop-card-actions">`
+      + `<button type="button" class="wx-shop-btn" data-shop-add data-shop-sku="${esc(p.skuCode || '')}">加入进货单</button>`
+      + `<button type="button" class="wx-shop-btn wx-shop-btn--ghost" data-target="mall/checkout">立即下单</button>`
+      + `</div>`;
   return `<div class="wx-shop-detail"><div class="wx-shop-thumb wx-shop-thumb--${esc(p.tone || 'food')} wx-shop-thumb--lg">${esc(String(p.skuName || '货').slice(0, 1))}</div>`
     + `<div class="wx-shop-detail-copy"><b>${esc(p.skuName)}</b>`
-    + `<span>${esc(p.spec)} · ${esc(p.unit)} · ${esc(p.owner)}</span>`
-    + `<div class="wx-shop-card-price">${ShopPrice(p.price)}<span class="wx-shop-price-value">/ ${esc(p.unit)}</span></div>`
-    + `<span>起批 ${esc(p.minQty)} ${esc(p.unit)} · 可售 ${esc(p.stock)} · 店铺评分 ${esc(p.score)}</span>`
-    + `<div class="wx-shop-card-actions">`
-    + `<button type="button" class="wx-shop-btn" data-shop-add data-shop-sku="${esc(p.skuCode || '')}">加入进货单</button>`
-    + `<button type="button" class="wx-shop-btn wx-shop-btn--ghost" data-target="mall/checkout">立即下单</button>`
+    + `<span>${esc(p.spec)} · ${esc(unit)}${owner}</span>`
+    + `<div class="wx-shop-card-price">${ShopPrice(p.price, { publicPrice: p.publicPrice === true })}<span class="wx-shop-price-value">/ ${esc(unit)}</span></div>`
+    + `<span>${esc(meta)}</span>`
+    + actions
+    + `</div></div>`;
+}
+
+/* ---------------- 独立站前台外壳（site / mobile） ---------------- */
+
+/**
+ * 货主独立站 Web 外壳：站点品牌顶栏 + 页面导航 + 内容区 + 页脚。
+ * 页面靠 data-target 切换；无侧栏、无货主下拉、无进货单角标。
+ */
+export function renderSiteShell({ product = '', appName = '', siteName = '', siteMark = '', nav = [], userLabel = '', content = '' } = {}) {
+  const first = nav[0] || {};
+  const mark = siteMark || String(siteName || '站').slice(0, 1);
+  const links = nav.map((n) => `<button type="button" class="wx-site-nav-item${n.id === first.id ? ' is-active' : ''}" data-target="${esc(n.id)}">${esc(n.name)}</button>`).join('');
+  return `<div class="wx-site-app" data-boot="${esc(first.id || '')}">\n`
+    + `<header class="wx-site-top"><div class="wx-site-top-inner">`
+    + `<button type="button" class="wx-site-brand" data-target="${esc(first.id || '')}">`
+    + `<span class="wx-site-mark" aria-hidden="true">${esc(mark)}</span>`
+    + `<span class="wx-site-brand-copy"><b>${esc(siteName)}</b><small>${esc(appName)}</small></span></button>`
+    + `<nav class="wx-site-nav">${links}</nav>`
+    + `<div class="wx-site-tools">`
+    + `<button type="button" class="wx-site-user" data-session-toggle data-auth-member>${esc(userLabel || '会员')}</button>`
+    + `<button type="button" class="wx-site-login" data-auth-guest data-login-open>登录</button>`
+    + `</div></div></header>\n`
+    + `<main class="wx-site-main">${content}</main>\n`
+    + `<footer class="wx-site-foot"><span>${esc(product)}</span><span>${esc(siteName)} · ${esc(appName)}</span></footer>\n`
+    + `</div>`;
+}
+
+export const SITE_CSS = `
+.wx-site-app{min-height:100vh;background:var(--wx-white);color:var(--wx-gray-900)}
+.wx-site-top{position:sticky;top:0;z-index:100;background:var(--wx-white);border-bottom:var(--wx-border)}
+.wx-site-top-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:var(--wx-sp-6);padding:var(--wx-sp-3) var(--wx-sp-6)}
+.wx-site-brand{display:flex;align-items:center;gap:var(--wx-sp-2);border:0;background:transparent;padding:0;cursor:pointer}
+.wx-site-mark{width:36px;height:36px;display:grid;place-items:center;border-radius:var(--wx-r-sm);background:var(--wx-gray-900);color:var(--wx-white);font-size:var(--wx-fs-lg);font-weight:700}
+.wx-site-brand-copy{display:flex;flex-direction:column;line-height:1.2;text-align:left}
+.wx-site-brand-copy b{font-size:var(--wx-fs-lg)}
+.wx-site-brand-copy small{font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-site-nav{display:flex;align-items:center;gap:var(--wx-sp-2);flex:1;flex-wrap:wrap}
+.wx-site-nav-item{min-height:var(--wx-touch);border:0;background:transparent;padding:0 var(--wx-sp-3);font-size:var(--wx-fs-md);color:var(--wx-gray-500)}
+.wx-site-nav-item:hover{color:var(--wx-gray-900)}
+.wx-site-nav-item.is-active{color:var(--wx-gray-900);font-weight:600;box-shadow:inset 0 -2px 0 var(--wx-gray-900)}
+.wx-site-tools{display:flex;align-items:center;gap:var(--wx-sp-3)}
+.wx-site-user{border:0;background:transparent;font-size:var(--wx-fs-sm);color:var(--wx-gray-700);padding:var(--wx-sp-2)}
+.wx-site-login{border:var(--wx-border);border-radius:var(--wx-r-sm);background:var(--wx-white);padding:var(--wx-sp-2) var(--wx-sp-4);font-size:var(--wx-fs-sm);color:var(--wx-gray-900)}
+.wx-site-main{max-width:1200px;margin:0 auto;padding:var(--wx-sp-8) var(--wx-sp-6)}
+.wx-site-foot{max-width:1200px;margin:0 auto;padding:var(--wx-sp-6);border-top:var(--wx-border);display:flex;justify-content:space-between;gap:var(--wx-sp-4);font-size:var(--wx-fs-xs);color:var(--wx-gray-400)}
+.wx-site-app .wx-shop-page-head h1{font-size:var(--wx-fs-2xl)}
+.wx-site-app .wx-shop-hero{background:var(--wx-gray-900);border-color:var(--wx-gray-900)}
+.wx-site-app .wx-shop-hero h2{color:var(--wx-white)}
+.wx-site-app .wx-shop-hero p{color:var(--wx-gray-200)}
+.wx-site-app .wx-shop-hero-mark{background:var(--wx-gray-700);color:var(--wx-gray-200)}
+.wx-site-app .wx-shop-hero-mark b{color:var(--wx-white)}
+.wx-site-app .wx-shop-btn{background:var(--wx-gray-900);color:var(--wx-white);min-height:var(--wx-touch)}
+.wx-site-app .wx-shop-hero .wx-shop-btn{background:var(--wx-white);color:var(--wx-gray-900)}
+.wx-site-app .wx-shop-btn--ghost{background:var(--wx-white);color:var(--wx-gray-900);border:var(--wx-border)}
+.wx-site-app .wx-shop-card-price b{color:var(--wx-gray-900)}
+.wx-site-app .wx-shop-floor-head button{color:var(--wx-gray-900)}
+.wx-site-app .wx-shop-cats button:hover,.wx-site-app .wx-shop-cats button.is-active{background:var(--wx-gray-100);color:var(--wx-gray-900)}
+.wx-site-app .wx-shop-chip.is-active{background:var(--wx-gray-100);border-color:var(--wx-gray-900);color:var(--wx-gray-900)}
+.wx-site-app .wx-shop-badge{background:var(--wx-gray-900)}
+.wx-site-app .wx-shop-shop-row em{color:var(--wx-gray-700)}
+.wx-site-app .wx-shop-link{color:var(--wx-gray-900)}
+@media (max-width:1080px){.wx-site-app .wx-shop-grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:800px){.wx-site-top-inner{flex-wrap:wrap}.wx-site-nav{order:3;flex:1 0 100%;width:100%}.wx-site-main{padding:var(--wx-sp-6) var(--wx-sp-4)}.wx-site-app .wx-shop-cats{display:none}}
+`;
+
+/**
+ * 独立站 APP 外壳：消费端手机壳，状态条 + 导航 + 内容区 + 底部四 tab。
+ * 没有按键区、没有扫码语义；页面靠 data-target 切换，返回走 data-mobile-back。
+ */
+export function renderMobileShell({ product = '', appName = '', siteName = '', siteMark = '', tabs = [], userLabel = '', content = '', bootId = '' } = {}) {
+  const boot = bootId || (tabs[0] && tabs[0].pages[0]) || '';
+  const mark = siteMark || String(siteName || '站').slice(0, 1);
+  const tabHtml = tabs.map((t) => `<button type="button" class="wx-mobile-tab" data-target="${esc(t.pages[0])}" data-mobile-group="${esc(t.pages.join('|'))}">${esc(t.name)}</button>`).join('');
+  return `<div class="wx-mobile-app" data-boot="${esc(boot)}" data-site="${esc(siteName)}">\n`
+    + `<div class="wx-mobile-device"><span class="wx-mobile-notch" aria-hidden="true"></span>`
+    + `<div class="wx-mobile-screen">`
+    + `<div class="wx-mobile-status"><span>${esc(siteName)}</span><span>${esc(appName)}</span></div>`
+    + `<header class="wx-mobile-nav"><button type="button" class="wx-mobile-back" data-mobile-back aria-label="返回" hidden>‹</button>`
+    + `<b data-mobile-title>${esc((tabs[0] && tabs[0].name) || '')}</b>`
+    + `<span class="wx-mobile-brand" aria-hidden="true">${esc(mark)}</span></header>`
+    + `<main class="wx-mobile-body">${content}</main>`
+    + `<nav class="wx-mobile-tabs">${tabHtml}</nav>`
     + `</div></div></div>`;
 }
+
+export const MOBILE_CSS = `
+.wx-mobile-app{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:var(--wx-sp-8) var(--wx-sp-4);background:var(--wx-gray-100)}
+.wx-mobile-device{position:relative;flex:0 0 auto;margin:0 auto;width:405px;padding:14px 15px 15px;border-radius:30px;background:var(--wx-gray-900);box-shadow:var(--wx-shadow),var(--wx-shadow)}
+.wx-mobile-notch{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:56px;height:4px;border-radius:2px;background:var(--wx-gray-700)}
+.wx-mobile-screen{position:relative;display:flex;flex-direction:column;width:375px;height:720px;overflow:hidden;border-radius:8px;background:var(--wx-white)}
+.wx-mobile-status{display:flex;align-items:center;justify-content:space-between;height:28px;padding:0 var(--wx-sp-3);background:var(--wx-white);font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-mobile-nav{display:flex;align-items:center;gap:var(--wx-sp-2);height:44px;padding:0 var(--wx-sp-3);border-bottom:var(--wx-border);background:var(--wx-white)}
+.wx-mobile-back{width:32px;height:32px;border:0;background:transparent;font-size:var(--wx-fs-lg);color:var(--wx-gray-700)}
+.wx-mobile-nav b{flex:1;font-size:var(--wx-fs-md);font-weight:600;color:var(--wx-gray-900)}
+.wx-mobile-brand{width:28px;height:28px;display:grid;place-items:center;border-radius:var(--wx-r-sm);background:var(--wx-gray-900);color:var(--wx-white);font-size:var(--wx-fs-sm);font-weight:700}
+.wx-mobile-body{flex:1;overflow-y:auto;padding:var(--wx-sp-3);background:var(--wx-gray-50)}
+.wx-mobile-body .page{padding:0}
+.wx-mobile-tabs{display:grid;grid-template-columns:repeat(4,1fr);border-top:var(--wx-border);background:var(--wx-white)}
+.wx-mobile-tab{min-height:var(--wx-touch);border:0;background:transparent;font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-mobile-tab.is-active{color:var(--wx-gray-900);font-weight:600;box-shadow:inset 0 2px 0 var(--wx-gray-900)}
+.wx-mobile-app .wx-shop-page-head{display:none}
+.wx-mobile-app .wx-shop-hero{grid-template-columns:1fr;padding:var(--wx-sp-4);gap:var(--wx-sp-4);background:var(--wx-gray-900);border-color:var(--wx-gray-900)}
+.wx-mobile-app .wx-shop-hero h2{color:var(--wx-white)}
+.wx-mobile-app .wx-shop-hero p{color:var(--wx-gray-200);font-size:var(--wx-fs-sm)}
+.wx-mobile-app .wx-shop-hero-mark{background:var(--wx-gray-700);color:var(--wx-gray-200)}
+.wx-mobile-app .wx-shop-hero-mark b{color:var(--wx-white)}
+.wx-mobile-app .wx-shop-grid{grid-template-columns:repeat(2,1fr);gap:var(--wx-sp-3)}
+.wx-mobile-app .wx-shop-card-price b{color:var(--wx-gray-900)}
+.wx-mobile-app .wx-shop-btn{background:var(--wx-gray-900);color:var(--wx-white);min-height:var(--wx-touch)}
+.wx-mobile-app .wx-shop-hero .wx-shop-btn{background:var(--wx-white);color:var(--wx-gray-900)}
+.wx-mobile-app .wx-shop-btn--ghost{background:var(--wx-white);color:var(--wx-gray-900);border:var(--wx-border)}
+.wx-mobile-app .wx-shop-floor{padding:var(--wx-sp-3)}
+.wx-mobile-app .wx-shop-card-actions{margin-top:auto}
+.wx-mobile-app .wx-shop-panel{padding:var(--wx-sp-3)}
+.wx-mobile-app .wx-shop-shop-row em{color:var(--wx-gray-700)}
+.wx-mobile-app .wx-shop-cats,.wx-mobile-app .wx-shop-home-grid{display:none}
+.wx-mobile-app .wx-shop-detail{grid-template-columns:1fr;padding:var(--wx-sp-3)}
+.wx-mobile-app .wx-shop-thumb--lg{height:180px}
+.wx-mobile-app .wx-shop-detail-copy{min-width:0}
+.wx-mobile-app .wx-shop-detail-copy .wx-shop-card-actions{max-width:none}
+.wx-mobile-app .wx-shop-floor-head h2{font-size:var(--wx-fs-md)}
+.wx-mobile-app .wx-shop-thumb{height:110px}
+@media (max-width:480px){.wx-mobile-app{padding:0;align-items:stretch}.wx-mobile-device{width:100%;padding:0;border-radius:0;background:var(--wx-gray-50)}.wx-mobile-notch{display:none}.wx-mobile-screen{width:100%;height:100vh;border-radius:0}}
+`;
+
+/* 独立站前台交互：切页、tab 高亮、返回栈、类目筛选、示意提示。 */
+export const STOREFRONT_SCRIPT = `
+(function(){
+  var root = document.querySelector('.wx-site-app, .wx-mobile-app');
+  if (!root) return;
+  var mobile = root.classList.contains('wx-mobile-app');
+  var pages = Array.prototype.slice.call(root.querySelectorAll('.page[data-page-id]'));
+  var targets = Array.prototype.slice.call(root.querySelectorAll('[data-target]'));
+  var tabs = Array.prototype.slice.call(root.querySelectorAll('.wx-mobile-tab'));
+  var navs = Array.prototype.slice.call(root.querySelectorAll('.wx-site-nav-item'));
+  var title = root.querySelector('[data-mobile-title]');
+  var back = root.querySelector('[data-mobile-back]');
+  var body = root.querySelector('.wx-mobile-body');
+  var stack = [];
+  var current = '';
+  function pageOf(id){
+    for (var i = 0; i < pages.length; i++) if (pages[i].getAttribute('data-page-id') === id) return pages[i];
+    return null;
+  }
+  function toast(text){
+    var t = document.querySelector('.wx-toast');
+    if (!t) return;
+    t.textContent = text; t.hidden = false;
+    window.setTimeout(function(){ t.hidden = true; }, 2200);
+  }
+  function sync(id){
+    tabs.forEach(function(t){
+      var group = (t.getAttribute('data-mobile-group') || '').split('|');
+      var on = group.indexOf(id) !== -1;
+      t.classList.toggle('is-active', on);
+    });
+    navs.forEach(function(b){ b.classList.toggle('is-active', b.getAttribute('data-target') === id); });
+    var p = pageOf(id);
+    if (title && p) title.textContent = p.getAttribute('data-page-name') || title.textContent;
+    if (back) back.hidden = !mobile || stack.length === 0;
+  }
+  function show(id, push){
+    var p = pageOf(id);
+    if (!p) return;
+    pages.forEach(function(x){ x.hidden = x !== p; });
+    if (push && current && current !== id) stack.push(current);
+    current = id;
+    sync(id);
+    if (mobile && body) body.scrollTop = 0; else window.scrollTo(0, 0);
+  }
+  targets.forEach(function(el){
+    el.addEventListener('click', function(e){
+      if (el.hasAttribute('data-login-open')) return;
+      var id = el.getAttribute('data-target');
+      if (!id) return;
+      e.preventDefault();
+      if (el.classList.contains('wx-mobile-tab')) {
+        stack = [];
+        show(id, false);
+        return;
+      }
+      show(id, true);
+    });
+  });
+  if (back) back.addEventListener('click', function(){
+    var prev = stack.pop();
+    if (prev) show(prev, false);
+  });
+  root.addEventListener('click', function(e){
+    var btn = e.target.closest ? e.target.closest('[data-shop-cat]') : null;
+    if (btn) {
+      var cat = btn.getAttribute('data-shop-cat') || '全部商品';
+      var page = btn.closest('.page');
+      if (!page) return;
+      Array.prototype.slice.call(page.querySelectorAll('.wx-shop-cats button, .wx-shop-chip')).forEach(function(b){
+        b.classList.toggle('is-active', b.getAttribute('data-shop-cat') === cat);
+      });
+      Array.prototype.slice.call(page.querySelectorAll('[data-shop-card]')).forEach(function(c){
+        c.hidden = !(cat === '全部商品' || c.getAttribute('data-cat') === cat);
+      });
+      return;
+    }
+    var toastBtn = e.target.closest ? e.target.closest('[data-toast]') : null;
+    if (toastBtn) toast(toastBtn.getAttribute('data-toast'));
+  });
+  show(root.getAttribute('data-boot') || (pages[0] && pages[0].getAttribute('data-page-id')), false);
+})();
+`;
 
 /* ---------------- 商城前台交互（构建内联一份） ---------------- */
 

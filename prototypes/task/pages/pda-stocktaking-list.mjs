@@ -20,8 +20,8 @@ export function renderPage(data, ctx) {
     rows,
     card: (r) => PdaTaskCard({
       row: r,
-      tab: 'warehouse/count-scan',
-      tabName: '盘点作业',
+      tab: 'task/pda-stocktaking-detail',
+      tabName: '盘点任务详情',
       status: StatusTag(labelOf(r.taskStatus), toneOf(r.taskStatus)),
       codeKey: 'countNo',
       binLabel: '库位',

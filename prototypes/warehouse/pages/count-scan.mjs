@@ -7,7 +7,8 @@ export function renderPage(data, ctx) {
 
   return ScanPage({
     process: '盘点作业',
-    docNo: task.countNo || '—',
+    docNo: task.taskNo || '—',
+    refNo: task.countNo || '',
     state: '作业中',
     stateTone: 'enabled',
     owner: task.owner,

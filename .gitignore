@@ -1,4 +1,5 @@
 # 货灵供应链运营平台原型产物不入库（huoling-proto）
 prototypes/dist/
 prototypes/*/dist/
+.playwright-cli/
 .DS_Store

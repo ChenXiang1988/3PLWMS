@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="topic" content="微信小店服务商API能力调研">
+<meta name="survey-window" content="2026-11-09T09:20 / 2026-11-09T18:00">
+<meta name="survey-objects" content="微信小店">
+<title>微信小店服务商API能力调研</title>
+<style>
+:root{--bg:#f4f6f9;--paper:#fff;--ink:#1c2430;--muted:#5a6675;--faint:#8792a1;--line:#e2e7ee;--accent:#1d5f8c;--accent-soft:#eaf2f9;--warn:#9a5b16;--warn-soft:#fdf3e5;--red:#9c3b3b;--red-soft:#fbeded;--shadow:0 1px 2px rgba(20,32,48,.05),0 10px 32px rgba(20,32,48,.06)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.78 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+.layout{display:grid;grid-template-columns:224px minmax(0,1fr);gap:24px;max-width:1360px;margin:0 auto;padding:24px}
+aside{position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:18px 14px;box-shadow:var(--shadow)}
+aside .side-title{font-size:12px;letter-spacing:.08em;color:var(--faint);font-weight:600;margin:0 0 10px 4px}
+aside a{display:block;color:var(--muted);text-decoration:none;font-size:13.5px;padding:5px 9px;border-radius:5px;border-left:2px solid transparent}
+aside a:hover{background:var(--accent-soft);color:var(--accent)}
+main{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:48px 56px 64px;box-shadow:var(--shadow);min-width:0}
+.cover{border-bottom:2px solid var(--ink);padding-bottom:24px;margin-bottom:30px}
+.kicker{font-size:12.5px;letter-spacing:.14em;color:var(--accent);font-weight:700;margin:0 0 10px}
+h1{font-size:29px;line-height:1.35;margin:0 0 12px;letter-spacing:-.01em}
+.sub{font-size:16px;color:var(--muted);margin:0 0 20px}
+.meta{display:flex;flex-wrap:wrap;gap:10px 24px;font-size:13px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600;margin-right:4px}
+h2{font-size:21px;margin:48px 0 6px;padding-bottom:10px;border-bottom:1px solid var(--line);scroll-margin-top:20px}
+h2 .num{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.04em;margin-right:8px}
+h3{font-size:16.5px;margin:28px 0 8px;scroll-margin-top:20px}
+h4{font-size:14.5px;margin:18px 0 6px;color:var(--accent)}
+p{margin:8px 0 12px}
+ul,ol{margin:8px 0 14px;padding-left:22px}
+li{margin:4px 0}
+code{font:13px/1.5 ui-monospace,Consolas,monospace;background:#f0f2f5;padding:1px 5px;border-radius:3px}
+table{width:100%;border-collapse:collapse;font-size:13.6px;margin:12px 0 20px}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:#f3f6fa;font-weight:650}
+tbody tr:nth-child(even){background:#fafbfd}
+td:first-child{font-weight:600}
+.callout{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 16px;border-radius:0 6px 6px 0;margin:16px 0;font-size:14px}
+.callout.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.callout.caution{border-left-color:var(--red);background:var(--red-soft)}
+figure{margin:16px 0 22px}
+figure img{max-width:100%;border:1px solid var(--line);border-radius:6px}
+figcaption{font-size:12.5px;color:var(--faint);margin-top:6px;line-height:1.6}
+.bars{display:grid;gap:8px;margin:14px 0 18px;font-size:13.6px}
+.bar-row{display:grid;grid-template-columns:120px minmax(0,1fr) 76px;align-items:center;gap:10px}
+.bar-label{color:var(--muted);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{height:10px;background:var(--accent-soft);border-radius:2px}
+.bar{display:block;height:10px;background:var(--accent);border-radius:2px}
+.bar-row.muted .bar{background:#b9c8d6}
+.bar-num{font-variant-numeric:tabular-nums;text-align:right;color:var(--ink)}
+.steps{display:flex;flex-wrap:wrap;align-items:center;gap:6px;list-style:none;padding:0;margin:14px 0 18px;font-size:13px}
+.steps li{background:var(--accent-soft);border:1px solid #cfe1ef;color:#194f75;border-radius:6px;padding:5px 10px;white-space:nowrap}
+.steps li:not(:first-child)::before{content:"→";color:var(--faint);margin-right:6px}
+.steps li.end{font-weight:650}
+.steps li.alt{background:#fff;border-style:dashed;color:var(--muted)}
+.band{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 6px;font-size:13px}
+.band .st{border:1px solid var(--line);border-radius:4px;padding:4px 9px;background:#fcfdfe}
+.band .st.end{border-bottom:2px solid var(--ink);font-weight:650}
+.band .ar{color:var(--faint)}
+.band-note{margin:0 0 6px;font-size:12.5px;color:var(--muted)}
+.tree,.tree ul{list-style:none;margin:0;padding-left:14px}
+.tree{font-size:13.6px;margin:12px 0 18px;color:var(--ink)}
+.tree ul{border-left:1px solid var(--line)}
+.tree li{position:relative;padding:3px 0 3px 12px;white-space:nowrap}
+.tree li::before{content:"";position:absolute;left:0;top:15px;width:8px;border-top:1px solid var(--line)}
+.tree > li{padding-left:0}
+.tree > li::before{display:none}
+.matrix td.m-y{background:#e9f4ed;color:#2b6c49}
+.matrix td.m-n{background:#fbeded;color:#9c3b3b}
+.matrix td.m-u{background:#fdf3e5;color:#9a5b16}
+.tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:3px;background:#e5f0f8;color:var(--accent);font-weight:600;margin-right:4px}
+@media(max-width:980px){.layout{grid-template-columns:1fr;padding:12px}aside{position:static;max-height:none}main{padding:28px 20px 44px}h1{font-size:24px}table{font-size:12.8px}}
+@media print{body{background:#fff;font-size:11.5pt}.layout{display:block;padding:0;max-width:none}aside{display:none}main{border:0;box-shadow:none;padding:0}table,figure,.callout,.bars,.steps,.band,.tree{page-break-inside:avoid}a{text-decoration:none;color:inherit}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+  <p class="side-title">目录</p>
+  <nav>
+    <a href="#s1">1 口径与证据</a>
+    <a href="#s2">2 覆盖清单</a>
+    <a href="#s3">3 逐模块记录</a>
+    <a href="#s4">4 术语对照</a>
+    <a href="#s5">5 横向对比</a>
+    <a href="#s6">6 结论与落点</a>
+    <a href="#s7">7 缺项</a>
+    <a href="#s8">8 截图索引</a>
+  </nav>
+</aside>
+<main>
+
+<div class="cover">
+  <p class="kicker">调研报告</p>
+  <h1>微信小店服务商（ISV）API 能力调研</h1>
+  <p class="sub">微信小店以「事件通知驱动 + 权限集（129/130/131/132/138/141/192）约束 ISV 代调用」为核心接入范式；订单、物流发货、商品与库存、售后四类接口可直接支撑货灵 ERP 拉单与货灵 WMS 打单履约，但字段级细节与隐私号需授权账号复核。</p>
+  <div class="meta">
+    <span><b>日期</b>2026-11-09</span>
+    <span><b>状态</b>草案</span>
+    <span><b>版本</b>v0.1</span>
+    <span><b>作者</b>货灵集成调研</span>
+    <span><b>报告对象</b>微信小店服务商（ISV）开放 API</span>
+  </div>
+</div>
+
+<h2 id="s1"><span class="num">1</span> 口径与证据</h2>
+
+<p>本轮覆盖 1 个对象，全部为只读访问，未在目标系统执行任何写操作。证据级别分三档：<b>A</b> 本人在目标系统实见（页面、字段、状态、操作）；<b>B</b> 官方帮助中心或源码原文；<b>C</b> 第三方文章与搜索摘要，只作范围参考。</p>
+
+<h3>1.1 调研对象</h3>
+
+<table>
+<thead><tr><th>对象</th><th>简称</th><th>访问时刻</th><th>账号条件</th><th>覆盖端</th><th>证据级</th><th>未验证项</th></tr></thead>
+<tbody>
+<tr><td>微信小店服务商（ISV）开放 API</td><td>微信小店</td><td>2026-11-09 09:20 ~ 18:00</td><td>未授权任何店铺，仅访问公开官方文档站与第三方解读，未执行写操作</td><td>Web（官方文档站 developers.weixin.qq.com）</td><td>B（官方文档原文）为主，C（点三网、GitHub 报告等第三方解读）为辅</td><td>接口详情页字段、买家真实隐私号、代发奇门协议报文、资金结算字段</td></tr>
+</tbody>
+</table>
+
+<h3>1.2 只读声明</h3>
+<p>本轮仅读取微信小店开放文档与公开第三方解读，未注册服务商账号、未获取任何商家授权、未调用任何接口、未落库任何数据。所有「字段」「枚举」「权限集 id」均来自公开文档片段，标注证据级；凡详情页正文未被抓取到的，一律记为「未验证」，不臆测。字段级细节（订单详情 / 电子面单取号 / 订单发货的请求响应字段）通过无头浏览器渲染官方 JS 文档页取得，仍属 B 级公开文档，不涉及任何登录或写操作。</p>
+
+<h2 id="s2"><span class="num">2</span> 覆盖清单</h2>
+
+<p>覆盖清单回答「看了哪些能力、没看哪些」。微信小店 API 共 26 个一级模块（来源：官方 API 文档目录树，B 级）。下图给出全量模块树，<b>加粗</b>为与 3PL 履约链路（货灵 ERP 拉单 / 货灵 WMS 打单发货 / 库存对账 / 逆向）直接相关的模块。</p>
+
+<h3>2.1 模块树</h3>
+
+<figure>
+<ul class="tree" role="img" aria-label="微信小店 API 26 个一级模块；加粗为与履约集成相关">
+  <li><b>通用（apimgnt）</b>
+    <ul><li>资源管理（resource）</li></ul>
+  </li>
+  <li><b>店铺管理（storemanage）</b></li>
+  <li>主页管理（homepage）
+    <ul><li>商品排序 / 背景图 / 精选展示位 / 商品分类</li></ul>
+  </li>
+  <li><b>商品管理（channels-shop-product）</b>
+    <ul><li>库存（stock）</li><li>赠品 / 买赠 / 限时抢购</li></ul>
+  </li>
+  <li>收藏管理（favorite）</li>
+  <li>类目管理（channels-shop-category）</li>
+  <li>类目规则（category-rule）</li>
+  <li><b>订单管理（channels-shop-order）</b></li>
+  <li><b>资金结算（funds）</b>
+    <ul><li>资金账户 / 银行卡 / 资金二维码</li></ul>
+  </li>
+  <li>营销管理（coupon）</li>
+  <li><b>售后管理（channels-shop-aftersale）</b>
+    <ul><li>纠纷单（complaint）/ 保障单（guarantee）</li></ul>
+  </li>
+  <li>商家客服（kf）</li>
+  <li>质检管理（qic）</li>
+  <li><b>物流发货（channels-shop-delivery）</b>
+    <ul><li>地址管理 / 运费模板 / 电子面单（ewaybill）/ 发货（delivery）</li></ul>
+  </li>
+  <li><b>区域仓库（warehouse）</b></li>
+  <li>优选联盟（league）</li>
+  <li><b>代发管理（supplier）</b>
+    <ul><li>关联代发合作供货商 / 自动分配设置 / 代发单管理</li></ul>
+  </li>
+  <li>供货管理（supply）</li>
+  <li>企业微信（wecom）</li>
+  <li>连接小程序（miniandstore）</li>
+  <li>罗盘商家版（compass）</li>
+  <li>会员营销（vip）</li>
+  <li>小程序会员服务（wxamember）</li>
+  <li>国补管理（subsidy）</li>
+  <li>客诉工单（platformkf）</li>
+  <li><b>事件通知（notify）</b></li>
+</ul>
+<figcaption>图 1 ｜ 微信小店 API 共 26 个一级模块，其中 9 个与货灵履约集成直接相关（加粗），其余 17 个为店铺运营 / 营销 / 会员类能力，本轮仅目录级覆盖。</figcaption>
+</figure>
+
+<h3>2.2 逐模块覆盖表</h3>
+
+<table>
+<thead><tr><th>模块</th><th>类型</th><th>集成相关</th><th>覆盖状态</th><th>记录节号</th><th>证据级</th></tr></thead>
+<tbody>
+<tr><td>通用 / 接入与鉴权</td><td>基础设施</td><td>是</td><td>已看（文档级）</td><td>3.1</td><td>B/C</td></tr>
+<tr><td>事件通知</td><td>回调</td><td>是</td><td>已看（事件清单级）</td><td>3.2</td><td>B/C</td></tr>
+<tr><td>订单管理</td><td>核心</td><td>是</td><td>已看（接口清单 + 状态枚举 + 列表参数 + 详情字段级）</td><td>3.3</td><td>B/C</td></tr>
+<tr><td>物流发货</td><td>核心</td><td>是</td><td>已看（接口清单 + 取号 / 发货真实字段级）</td><td>3.4</td><td>B/C</td></tr>
+<tr><td>商品管理 / 库存</td><td>核心</td><td>是</td><td>已看（接口清单 + 双库存体系）</td><td>3.5</td><td>B/C</td></tr>
+<tr><td>售后管理</td><td>核心</td><td>是</td><td>已看（接口清单 + 退款字段）</td><td>3.6</td><td>B/C</td></tr>
+<tr><td>区域仓库</td><td>核心</td><td>是</td><td>已看（双库存体系说明）</td><td>3.7</td><td>B/C</td></tr>
+<tr><td>代发管理</td><td>核心</td><td>是</td><td>已看（接口清单 + 奇门协议映射）</td><td>3.8</td><td>B/C</td></tr>
+<tr><td>店铺管理</td><td>基础</td><td>部分</td><td>已看（店铺基本信息接口级）</td><td>3.9</td><td>B/C</td></tr>
+<tr><td>资金结算</td><td>财务</td><td>部分</td><td>目录级，字段未验证</td><td>3.9</td><td>C</td></tr>
+<tr><td>类目管理 / 类目规则</td><td>基础</td><td>部分</td><td>目录级</td><td>—</td><td>C</td></tr>
+<tr><td>主页管理 / 收藏管理</td><td>运营</td><td>否</td><td>目录级，未展开</td><td>—</td><td>C</td></tr>
+<tr><td>营销 / 会员营销 / 小程序会员</td><td>营销</td><td>否</td><td>目录级，未展开</td><td>—</td><td>C</td></tr>
+<tr><td>国补 / 优选联盟 / 供货 / 企业微信</td><td>生态</td><td>否</td><td>目录级，未展开</td><td>—</td><td>C</td></tr>
+<tr><td>商家客服 / 客诉 / 质检 / 罗盘 / 连接小程序</td><td>运营</td><td>否</td><td>目录级，未展开</td><td>—</td><td>C</td></tr>
+</tbody>
+</table>
+
+<h3>2.3 非页面能力</h3>
+<p>对集成最关键的能力不在「页面」而在「开放接口与回调」，逐项确认：</p>
+<ul>
+  <li><b>事件通知（回调）</b>：订单生命周期 8 类事件主动推送（见 3.2），是 ERP 实时拉单的主要通道。</li>
+  <li><b>ISV 代调用</b>：服务商经 <code>authorizer_access_token</code> 代商家调用，受权限集（129/130/131/132/138/141/192）约束。</li>
+  <li><b>电子面单</b>：取号、预取号、取消、打印报文，是 WMS 打单核心。</li>
+  <li><b>隐私号 / 虚拟号</b>：收件人真实号码自 2026-01-19 起不返回，需「售后单兑换虚拟号」等接口履约联系（B 级公告）。</li>
+  <li><b>奇门协议</b>：代发模式下 ERP↔WMS 协同的标准映射（ds_order_id / supplier_appid / product_id+sku_id）。</li>
+</ul>
+
+<h3>2.4 未覆盖项</h3>
+<p>17 个运营 / 营销 / 生态类模块仅目录级覆盖，不展开；资金结算、类目管理等字段未验证。详见第 7 节。</p>
+
+<h2 id="s3"><span class="num">3</span> 逐页记录</h2>
+
+<h3>3.1 微信小店 › 接入与鉴权（ISV 模式）</h3>
+<h4>入口</h4>
+<p>微信小店支持两种接入模式：商家自研（用自己的 <code>access_token</code>）与第三方服务商 ISV（商家授权后用 <code>authorizer_access_token</code> 代调用）。本次命题聚焦后者。服务商需先成为微信开放平台「平台型第三方平台」并全网发布，申请对应权限集后，商家在服务市场订购即触发授权。来源：官方「服务市场接入指引」「第三方服务商调用模式介绍」（B 级）+ 百度百科服务市场词条（C 级）。</p>
+<h4>结构分区</h4>
+<p>授权链路为：服务商创建第三方平台 → 申请权限集并发布 → 商家订购 → 平台静默授权权限集并推送授权变更消息 → 服务商用 <code>authorizer_access_token</code> 代调用；退款成功后平台解除授权关系（C 级，服务市场词条）。</p>
+<h4>权限集矩阵</h4>
+<p>不同服务类型授予的权限集 id 不同（B 级，官方服务市场接入指引）：</p>
+<table class="matrix">
+<thead><tr><th>服务类型</th><th>权限集 id</th><th>与履约的关系</th></tr></thead>
+<tbody>
+<tr><td>商品服务</td><td>129、130、131、132</td><td>商品 / 库存同步</td></tr>
+<tr><td>订单服务</td><td>129、130、131、132</td><td>拉单 / 发货</td></tr>
+<tr><td>ERP</td><td>129、130、131、132、138、141</td><td>覆盖订单 + 物流 + 商品全链路</td></tr>
+<tr><td>厂商代发</td><td>129、130、131、132</td><td>代发协同</td></tr>
+<tr><td>会员工具</td><td>129、130、131、132、167、185、186</td><td>会员，与履约无关</td></tr>
+<tr><td>供货商代发</td><td>192</td><td>供货商侧代发 API</td></tr>
+<tr><td>带货工具</td><td>129、130、131、132、141、167</td><td>带货，与履约无关</td></tr>
+</tbody>
+</table>
+<h4>交互与异常</h4>
+<p>典型的「静默失败」：授权时若未勾选「订单」「售后」相关权限，即便应用已上线，订单 / 售后事件也不会推送（C 级，点三网解读 + 官方 FAQ）。因此接入前必须确认权限集 131 已授权、回调 URL 已配置并返回 200。</p>
+
+<h3>3.2 微信小店 › 事件通知（回调）</h3>
+<h4>入口</h4>
+<p>文档地址 <code>developers.weixin.qq.com/doc/store/shop/notify/</code>。微信小店以事件通知驱动为核心，而非轮询（C 级，点三网「事件通知体系」）。订单相关事件清单（B 级，官方 notify/order_callback）：</p>
+<table>
+<thead><tr><th>事件英文名</th><th>说明</th><th>对货灵的意义</th></tr></thead>
+<tbody>
+<tr><td>channels_ec_order_new</td><td>订单下单</td><td>建单起点（未支付）</td></tr>
+<tr><td>channels_ec_order_cancel</td><td>订单取消</td><td>逆向：关闭平台订单</td></tr>
+<tr><td>channels_ec_order_pay</td><td>订单支付成功</td><td>触发 ERP 拉详情 + WMS 备货</td></tr>
+<tr><td>channels_ec_order_wait_shipping</td><td>订单待发货</td><td>进入履约队列</td></tr>
+<tr><td>channels_ec_order_deliver</td><td>订单发货</td><td>回传运单后平台推送</td></tr>
+<tr><td>channels_ec_order_confirm</td><td>订单确认收货</td><td>完结</td></tr>
+<tr><td>channels_ec_order_settle</td><td>订单结算成功</td><td>财务对账</td></tr>
+<tr><td>售后单更新通知</td><td>售后状态变更</td><td>逆向履约</td></tr>
+<tr><td>api_diff</td><td>API 变更日志</td><td>接口变动预警</td></tr>
+</tbody>
+</table>
+<h4>结构分区</h4>
+<p>事件经回调 URL（POST）推送，需校验 <code>msg_signature</code> / <code>timestamp</code> / <code>nonce</code> 与 <code>EncodingAESKey</code> 签名，返回 200 OK 才视为成功，否则平台重试（C 级，CSDN 实现示例）。订单 / 售后事件需要权限集 131（B 级，点三网 + 官方 FAQ）。</p>
+<figure>
+<ul class="steps" role="img" aria-label="事件驱动同步：支付回调触发拉单，发货回传触发平台推送">
+  <li>用户支付</li>
+  <li>channels_ec_order_pay 回调</li>
+  <li>ERP 拉取订单详情</li>
+  <li>生成平台订单</li>
+  <li>WMS 拣货</li>
+  <li>电子面单取号</li>
+  <li>订单发货回传</li>
+  <li class="end">channels_ec_order_deliver 推送</li>
+</ul>
+<figcaption>图 2 ｜ 事件为主、查询为辅：支付回调是履约起点，发货回传后由平台确认推送，避免纯轮询。</figcaption>
+</figure>
+
+<h3>3.3 微信小店 › 订单管理</h3>
+<h4>入口</h4>
+<p>模块路径 <code>API/channels-shop-order/</code>，共 27 个接口（B 级，官方目录）。核心：获取订单列表、获取订单详情、订单搜索、改价 / 改址 / 备注、发货协商、隐私号（解密收货信息、申请真实号、虚拟号延期）。</p>
+<h4>获取订单列表（关键入参，B 级）</h4>
+<table>
+<thead><tr><th>参数</th><th>类型</th><th>必填</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>access_token</td><td>string</td><td>是</td><td>可用商家 access_token 或服务商 authorizer_access_token</td></tr>
+<tr><td>create_time_range</td><td>object</td><td>是（与更新时间二选一）</td><td>订单创建时间区间，含 start_time / end_time</td></tr>
+<tr><td>update_time_range</td><td>object</td><td>是（与创建时间二选一）</td><td>订单更新时间区间</td></tr>
+<tr><td>status</td><td>number</td><td>否</td><td>订单状态过滤（枚举见下）</td></tr>
+<tr><td>openid</td><td>string</td><td>否</td><td>买家身份标识</td></tr>
+<tr><td>page_size</td><td>number</td><td>否</td><td>每页数量，不超过 100</td></tr>
+<tr><td>next_key</td><td>string</td><td>是</td><td>分页游标</td></tr>
+</tbody>
+</table>
+<p>返回：<code>order_id_list</code>（订单号数组）、<code>next_key</code>、<code>has_more</code>（B 级）。</p>
+<h4>订单状态枚举（B 级，获取订单列表文档）</h4>
+<figure>
+<div class="band" role="img" aria-label="订单状态：待付款10 → 待发货20 → 待收货30 → 完成100；含 17 支付成功待核销、21 部分发货、200 全部售后取消、250 取消终态">
+  <span class="st">待付款 10</span><span class="ar">→</span>
+  <span class="st">待发货 20</span><span class="ar">→</span>
+  <span class="st">待收货 30</span><span class="ar">→</span>
+  <span class="st end">完成 100</span>
+  <span class="st">部分发货 21</span>
+  <span class="st end">取消 250</span>
+</div>
+<p class="band-note">官方完整枚举（B 级，获取订单详情 api_getorder 文档）：10 待付款、12 礼物待收下、13 一起买待成团、17 支付成功待核销、20 待发货、21 部分发货、30 待收货、100 完成、200 全部商品售后之后订单取消、250 未付款用户主动取消或超时未付款订单自动取消。21 部分发货可并存于 20/30；200 与 250 均为终态。第三方开源库曾出现的 190（超卖商家取消）在官方文档中不存在，已订正。</p>
+<figcaption>图 3 ｜ 订单主状态以 10→20→30→100 推进，21 为部分发货，250 为不可逆终态；货灵平台订单状态机需对齐这套枚举。</figcaption>
+</figure>
+<h4>隐私与合规</h4>
+<p>收货信息为敏感字段，需 <code>解密订单中的详细收货信息</code> 接口；售后场景自 2026-01-19 起不再返回买家真实手机号，需调用「售后单兑换虚拟号」履约联系（B 级公告）。</p>
+<h4>获取订单详情（api_getorder）真实字段（B 级，无头浏览器渲染官方文档取得）</h4>
+<p>接口路径 <code>POST api.weixin.qq.com/channels/ec/order/get</code>。下列为与履约落库最相关的字段（完整 74 张子结构表见官方源页，本节只收集成关键项）。</p>
+<h4>请求参数</h4>
+<table>
+<thead><tr><th>参数</th><th>类型</th><th>必填</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>access_token</td><td>string</td><td>是</td><td>可用商家 access_token 或服务商 authorizer_access_token（B 级）</td></tr>
+<tr><td>order_id</td><td>string</td><td>是</td><td>订单 ID，示例 3700000000000000001，经获取订单列表取得</td></tr>
+</tbody>
+</table>
+<h4>响应顶层与 order 核心字段</h4>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>errcode / errmsg</td><td>number / string</td><td>错误码 / 信息；48001 无权调用、100002 订单不存在</td></tr>
+<tr><td>order</td><td>object</td><td>订单结构根</td></tr>
+<tr><td>order.order_id</td><td>number</td><td>订单 ID</td></tr>
+<tr><td>order.create_time / update_time</td><td>number</td><td>秒级时间戳</td></tr>
+<tr><td>order.status</td><td>number</td><td>订单状态（枚举见下）</td></tr>
+<tr><td>order.openid / unionid</td><td>string</td><td>买家身份标识；unionid 需店铺绑定开放平台后返回</td></tr>
+<tr><td>order.is_present</td><td>boolean</td><td>是否礼物订单</td></tr>
+<tr><td>order.order_detail</td><td>object</td><td>订单详细数据</td></tr>
+<tr><td>order.aftersale_detail</td><td>object</td><td>售后信息</td></tr>
+</tbody>
+</table>
+<h4>order_detail 关键子对象</h4>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明（与货灵映射）</th></tr></thead>
+<tbody>
+<tr><td>product_infos</td><td>objarray</td><td>商品列表 → 平台订单明细</td></tr>
+<tr><td>pay_info</td><td>object</td><td>支付信息（payment_method、pay_time、transaction_id）</td></tr>
+<tr><td>price_info</td><td>object</td><td>价格信息（product_price、order_price、freight 等，单位分）</td></tr>
+<tr><td>delivery_info</td><td>object</td><td>配送信息（收货地址、物流、发货方式）</td></tr>
+<tr><td>settle_info</td><td>object</td><td>结算信息</td></tr>
+<tr><td>agent_info</td><td>object</td><td>授权账号信息</td></tr>
+<tr><td>source_infos</td><td>objarray</td><td>订单来源信息</td></tr>
+<tr><td>refund_info</td><td>object</td><td>订单退款信息</td></tr>
+</tbody>
+</table>
+<h4>product_infos[].sku 关键字段（落库主数据映射）</h4>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明（与货灵映射）</th></tr></thead>
+<tbody>
+<tr><td>product_id / sku_id</td><td>number</td><td>平台商品 / 规格 ID → 货灵 SPU / SKU</td></tr>
+<tr><td>sale_price</td><td>number</td><td>售卖单价，单位分</td></tr>
+<tr><td>sku_cnt</td><td>number</td><td>sku 数量</td></tr>
+<tr><td>title</td><td>string</td><td>商品标题</td></tr>
+<tr><td>sku_code</td><td>string</td><td>商家自定义 SKU 编码</td></tr>
+<tr><td>out_product_id / out_sku_id</td><td>string</td><td>商品 / SKU 外部编码（商家系统主键）→ 货灵外部单号映射键</td></tr>
+<tr><td>out_warehouse_id</td><td>string</td><td>区域库存 id → 货灵 实体仓</td></tr>
+<tr><td>dropship_info</td><td>object</td><td>代发单相关信息（含 ds_order_id）</td></tr>
+<tr><td>product_unique_id / item_unique_id</td><td>string</td><td>商品 / 单件常量编号，下单后不变 → 货灵 行级唯一标识</td></tr>
+</tbody>
+</table>
+<h4>delivery_info 与收货地址（含隐私号）</h4>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明（与货灵映射）</th></tr></thead>
+<tbody>
+<tr><td>address_info</td><td>object</td><td>收货地址（user_name / province_name / city_name / county_name / detail_info / tel_number / house_number / hash_code）</td></tr>
+<tr><td>address_info.tel_number_ext_info</td><td>object</td><td>额外联系方式；含 real_tel_number（脱敏手机号）、virtual_tel_number（完整虚拟号码）、virtual_tel_expire_time、has_delay_times</td></tr>
+<tr><td>delivery_product_info[]</td><td>objarray</td><td>发货物流：waybill_id（快递单号）、delivery_id（快递公司编码）、delivery_name、delivery_time、deliver_type</td></tr>
+<tr><td>ship_done_time / deliver_method</td><td>number</td><td>发货完成时间；发货方式 0 普通物流 / 1、3 虚拟发货</td></tr>
+<tr><td>ewaybill_order_code</td><td>string</td><td>电子面单跨店铺取号订单密钥</td></tr>
+<tr><td>dropship_flag</td><td>number</td><td>代发标记：0 不可 / 1 未分配 / 2 部分分配 / 3 已分配</td></tr>
+<tr><td>delivery_time_type</td><td>number</td><td>发货时效：1 正常 / 2 协商 / 3 报备 / 4 预约 / 100 预约暂不发</td></tr>
+</tbody>
+</table>
+<h4>订单状态官方枚举（B 级，api_getorder）</h4>
+<table>
+<thead><tr><th>枚举值</th><th>描述</th></tr></thead>
+<tbody>
+<tr><td>10</td><td>待付款</td></tr>
+<tr><td>12</td><td>礼物待收下</td></tr>
+<tr><td>13</td><td>一起买待成团</td></tr>
+<tr><td>17</td><td>支付成功待核销</td></tr>
+<tr><td>20</td><td>待发货</td></tr>
+<tr><td>21</td><td>部分发货</td></tr>
+<tr><td>30</td><td>待收货</td></tr>
+<tr><td>100</td><td>完成</td></tr>
+<tr><td>200</td><td>全部商品售后之后，订单取消</td></tr>
+<tr><td>250</td><td>未付款用户主动取消或超时未付款订单自动取消</td></tr>
+</tbody>
+</table>
+
+<h3>3.4 微信小店 › 物流发货</h3>
+<h4>入口</h4>
+<p>模块路径 <code>API/channels-shop-delivery/</code>，分四组（B 级目录）：地址管理、运费模板、电子面单（ewaybill）、发货（delivery）。</p>
+<h4>电子面单（ewaybill）</h4>
+<p>核心接口：电子面单预取号 <code>api_ewaybill_precreateorder</code>、<b>电子面单取号</b> <code>api_ewaybill_createorder</code> POST <code>api.weixin.qq.com/channels/ec/logistics/ewaybill/biz/...</code>、查询面单详情、取消下单、获取打印报文、打印成功通知。权限集 130 / 159 / 192（B 级，取号接口页）。2026-07 起取号接口新增 <code>consolidation_waybill_info</code>（集运运单），DBKD 枚举新增小件特快 / 大件特快（B 级周报）。</p>
+<h4>电子面单取号（api_ewaybill_createorder）真实字段（B 级）</h4>
+<table>
+<thead><tr><th>位置</th><th>字段</th><th>类型</th><th>必填</th><th>说明（与货灵映射）</th></tr></thead>
+<tbody>
+<tr><td>请求</td><td>access_token</td><td>string</td><td>是</td><td>商家 access_token 或 authorizer_access_token</td></tr>
+<tr><td>请求</td><td>ewaybill_order_id</td><td>string</td><td>是</td><td>电子面单订单 id，全局唯一；内容为 Uint64 用字符串传</td></tr>
+<tr><td>请求</td><td>delivery_id</td><td>string</td><td>是</td><td>快递公司 id（JD / SF / EMS / DBKD / CNSD / ZTO / STO…，经获取快递公司列表取得）</td></tr>
+<tr><td>请求</td><td>ewaybill_acct_id</td><td>string</td><td>是</td><td>物流账号编码（网点 / 月结账号，经 ewaybill_getacct 取得）</td></tr>
+<tr><td>请求</td><td>sender / receiver</td><td>object</td><td>是</td><td>寄 / 收件人（name / mobile / province / city / county / street / address）；receiver 实际取小店订单内地址</td></tr>
+<tr><td>请求</td><td>ec_order_list[]</td><td>objarray</td><td>是</td><td>订单信息，合并寄件需 address_info.hash_code 一致</td></tr>
+<tr><td>请求</td><td>shop_id</td><td>string</td><td>是</td><td>面单主体 ID（店铺唯一）</td></tr>
+<tr><td>请求</td><td>template_id</td><td>string</td><td>否</td><td>填则返回 print_info 打印报文</td></tr>
+<tr><td>ec_order_list[]</td><td>ec_order_id / goods_list[]</td><td>—</td><td>—</td><td>订单 id 与商品列表</td></tr>
+<tr><td>goods_list[]</td><td>product_id / sku_id / good_count</td><td>number</td><td>是</td><td>商品与数量；可带 out_product_id / out_sku_id 商家自定义编码</td></tr>
+<tr><td>响应</td><td>waybill_id</td><td>string</td><td>—</td><td>快递单号 → 货灵 运单号</td></tr>
+<tr><td>响应</td><td>print_info</td><td>string</td><td>—</td><td>打印报文，传打印组件打面单</td></tr>
+<tr><td>响应</td><td>consolidation_waybill_info</td><td>objarray</td><td>—</td><td>偏远中转集运 B 段运单补充信息</td></tr>
+<tr><td>响应</td><td>waybill_id_list</td><td>objarray</td><td>—</td><td>子母单号列表</td></tr>
+</tbody>
+</table>
+<p>关键错误码：10025047 订单已分配给供货商代发、10025087 / 10025088 不满足「跨店铺取号代发」条件、268545060 国补订单需 sn 码。</p>
+<h4>发货（delivery）</h4>
+<p>核心接口：<b>订单发货</b> <code>api_senddelivery</code>、订单补发货 <code>api_delivery_compensation</code>、获取快递公司列表。订单发货为回传运单、关闭平台发货动作的核心接口（字段见下，B 级）。</p>
+<h4>订单发货（api_senddelivery）真实字段（B 级）</h4>
+<table>
+<thead><tr><th>位置</th><th>字段</th><th>类型</th><th>必填</th><th>说明（与货灵映射）</th></tr></thead>
+<tbody>
+<tr><td>请求</td><td>access_token</td><td>string</td><td>是</td><td>商家 access_token 或 authorizer_access_token</td></tr>
+<tr><td>请求</td><td>order_id</td><td>number</td><td>是</td><td>订单 id</td></tr>
+<tr><td>请求</td><td>delivery_list[]</td><td>objarray</td><td>是</td><td>物流信息数组</td></tr>
+<tr><td>delivery_list[]</td><td>waybill_id</td><td>string</td><td>deliver_type=1 必填</td><td>快递单号</td></tr>
+<tr><td>delivery_list[]</td><td>delivery_id</td><td>string</td><td>deliver_type=1 必填</td><td>快递公司 id（非主流填 OTHER）</td></tr>
+<tr><td>delivery_list[]</td><td>product_infos[]</td><td>objarray</td><td>是</td><td>包裹商品：product_id / sku_id / product_cnt</td></tr>
+<tr><td>delivery_list[]</td><td>deliver_type</td><td>number</td><td>是</td><td>1 自寄快递发货；3 虚拟商品无需物流（仅 deliver_method=1 可用）</td></tr>
+<tr><td>响应</td><td>errcode / errmsg</td><td>number / string</td><td>—</td><td>错误码 / 信息</td></tr>
+</tbody>
+</table>
+<p>关键错误码：101100 当前订单状态不允许发货、108009 有未完成售后单不允许发货、109001 已发货完成不能重复发货、606003 商家无默认退货地址不可发货、606046 请使用电子面单发货、606051 虚拟商品必须整单发货、606060 国补订单需要 sn 码。</p>
+
+<h3>3.5 微信小店 › 商品管理与库存</h3>
+<h4>入口</h4>
+<p>商品模块 <code>API/channels-shop-product/</code>：添加商品、更新商品、获取商品、上架 / 下架 / 删除，另有赠品、买赠、限时抢购。库存子模块 <code>stock</code>：获取库存、批量获取库存、快速更新库存、获取库存流水（B 级目录）。</p>
+<h4>库存双体系（B 级，官方库存管理指南）</h4>
+<table>
+<thead><tr><th>对比项</th><th>通用库存</th><th>区域仓库库存</th></tr></thead>
+<tbody>
+<tr><td>适用场景</td><td>单仓发货、库存统一管理</td><td>多仓就近发货、库存分仓管理</td></tr>
+<tr><td>数量</td><td>每 SKU 有且仅有 1 个（必须）</td><td>每 SKU 可选关联 0~N 个</td></tr>
+<tr><td>设置时机</td><td>发品时经添加商品 skus.stock_num / sku_deliver_info</td><td>仓库创建后经更新区域仓库存数量 updatewarehousestock</td></tr>
+<tr><td>更新接口</td><td>快速更新库存 updatestock（diff_type：1 增加 / 2 减少 / 3 直接设置）</td><td>更新区域仓库存数量</td></tr>
+<tr><td>发货匹配</td><td>直接从通用仓发货</td><td>按收货地址匹配优先级最高且有库存的仓库</td></tr>
+</tbody>
+</table>
+<p>第三方服务商操作库存需权限集 129（B 级，官方库存管理指南）。</p>
+
+<h3>3.6 微信小店 › 售后管理</h3>
+<h4>入口</h4>
+<p>模块 <code>API/channels-shop-aftersale/</code>，含纠纷单、保障单。核心接口 <b>获取售后单</b> <code>getaftersaleorder</code> POST <code>api.weixin.qq.com/channels/ec/aftersale/getaftersaleorder</code>，权限集 131，关联「售后单更新通知」事件（B 级接口页）。</p>
+<h4>关键字段</h4>
+<p>退款状态经 <code>refund_resp.result_code</code> 与 <code>refund_resp.return_code</code> 判断（均为 SUCCESS 表示成功，B 级官方社区答）。售后类型 <code>type</code>：1 退款、2 退款退货、3 换货（C 级接口示例）。2026-07 起获取售后单新增 aftersale_voucher_type / voucher_list / vourcher_code 等字段（B 级周报）。</p>
+
+<h3>3.7 微信小店 › 区域仓库</h3>
+<h4>入口</h4>
+<p>模块 <code>API/warehouse/</code>，与 3.5 的「区域仓库库存」配套，提供区域仓的创建与库存管理（B 级库存管理指南）。多仓就近发货由平台按收货地址匹配优先级最高且有库存的仓库，与货灵 WMS「实体仓 + 库存分仓」模型可对应。</p>
+
+<h3>3.8 微信小店 › 代发管理</h3>
+<h4>入口</h4>
+<p>模块 <code>API/supplier/</code>，分三组（B 级目录）：关联代发合作供货商（获取供货商列表 get_supplier_list、申请关联 invite_supplier）、自动分配设置（获取分配方式 get_distribute、设置手动 / 全店自动 / 按商品自动分配）、代发单管理（代发单列表、代发单详情含商品与发货状态、电子面单取号、代发单发货）。</p>
+<h4>奇门协议（ERP↔WMS 协同，C 级点三网解读）</h4>
+<p>代发模式要解决三个工程问题：身份映射、结果分组、职责划分。关键映射：代发单唯一标识 <code>ds_order_id</code>、供货商以 <code>supplier_appid</code> 标识、平台商品以 <code>product_id + sku_id</code> 标识。取号与发货职责由 ERP 或 WMS 显式约定。</p>
+
+<h3>3.9 微信小店 › 店铺管理与资金结算（目录级）</h3>
+<p>店铺管理 <code>storemanage</code>：获取店铺基本信息 <code>mmecapi_basicinfo</code>（权限集 129/131/192）、店铺口令等，用于 ERP 店铺档案落库。资金结算 <code>funds</code>：资金账户、银行卡、资金二维码，与货灵 ERP 财务对账相关，但字段级未验证（见第 7 节）。</p>
+
+<h2 id="s4"><span class="num">4</span> 术语对照</h2>
+
+<p>同名不同义必须先对照，避免把微信小店的对象当成货灵的对象。</p>
+
+<table>
+<thead><tr><th>对象</th><th>原生叫法</th><th>该对象下的判定口径</th><th>我方叫法</th></tr></thead>
+<tbody>
+<tr><td>微信小店</td><td>order_id</td><td>平台订单唯一号，贯穿支付 / 发货 / 售后</td><td>货灵 ERP 平台订单号（order-center）</td></tr>
+<tr><td>微信小店</td><td>sku_id / product_id</td><td>平台商品与规格唯一标识</td><td>货灵 商品 SKU / SPU</td></tr>
+<tr><td>微信小店</td><td>通用库存</td><td>每 SKU 仅 1 个、必须，单仓统一</td><td>货灵 可用库存（主仓口径）</td></tr>
+<tr><td>微信小店</td><td>区域仓库</td><td>每 SKU 可选 0~N，按地址就近发货</td><td>货灵 实体仓 / 分仓库存</td></tr>
+<tr><td>微信小店</td><td>代发单 ds_order_id</td><td>商家分配给供货商执行的发货单据</td><td>货灵 发货单 / 履约单（云仓协同）</td></tr>
+<tr><td>微信小店</td><td>电子面单 waybill_id</td><td>快递公司运单号</td><td>货灵 运单号</td></tr>
+<tr><td>微信小店</td><td>售后单 / after_sale</td><td>退款 / 退款退货 / 换货三类</td><td>货灵 售后单 / 退货单</td></tr>
+<tr><td>微信小店</td><td>权限集（129/130/131…）</td><td>按服务类型授权的能力包</td><td>货灵 角色权限点 / 店铺授权范围</td></tr>
+<tr><td>微信小店</td><td>隐私号 / 虚拟号</td><td>售后起不返真实号，需兑换虚拟号联系</td><td>货灵 收件人联系方式（合规脱敏）</td></tr>
+<tr><td>微信小店</td><td>authorizer_access_token</td><td>服务商代商家调用的凭证</td><td>货灵 店铺授权令牌（平台接入）</td></tr>
+</tbody>
+</table>
+
+<h2 id="s5"><span class="num">5</span> 横向对比</h2>
+
+<p>本轮仅一个对象（微信小店），不做多对象横向对比。下表为「微信小店能力 × 货灵履约所需维度」的覆盖矩阵，用于判断可直接复用的接口。</p>
+
+<table class="matrix">
+<thead><tr><th>能力维度</th><th>微信小店</th><th>货灵需要的形态</th><th>是否可直接复用</th></tr></thead>
+<tbody>
+<tr><td>订单拉取</td><td>事件通知 + 获取订单列表 / 详情</td><td>ERP 订单中心</td><td class="m-y">有</td></tr>
+<tr><td>订单状态机</td><td>10/12/13/17/20/21/30/100/200/250 枚举</td><td>平台订单状态映射</td><td class="m-y">有</td></tr>
+<tr><td>打单发货</td><td>电子面单取号 + 订单发货</td><td>WMS 发货回传</td><td class="m-y">有</td></tr>
+<tr><td>库存同步</td><td>通用 + 区域仓双体系</td><td>多仓库存模型</td><td class="m-y">有</td></tr>
+<tr><td>逆向履约</td><td>获取售后单 + 退款字段</td><td>退货 / 退款流程</td><td class="m-y">有</td></tr>
+<tr><td>隐私合规联系</td><td>虚拟号兑换</td><td>履约联系脱敏</td><td class="m-u">未验证</td></tr>
+<tr><td>资金对账</td><td>资金结算模块</td><td>ERP 财务对账</td><td class="m-u">未验证</td></tr>
+<tr><td>代发协同</td><td>代发管理 + 奇门协议</td><td>云仓 / 供货商协同</td><td class="m-y">有</td></tr>
+<tr><td>多店铺授权</td><td>权限集 129/130/131/138/141/192</td><td>店铺授权范围</td><td class="m-y">有</td></tr>
+</tbody>
+</table>
+
+<h2 id="s6"><span class="num">6</span> 结论与落点</h2>
+
+<p>每条结论只允许三种判定：可借鉴、不跟随、待定。落不到具体落点的是描述，不是结论。</p>
+
+<table>
+<thead><tr><th>编号</th><th>判定</th><th>结论</th><th>落点</th></tr></thead>
+<tbody>
+<tr><td>C1</td><td>可借鉴</td><td>以「事件通知驱动 + 查询为辅」替代纯轮询，支付回调 channels_ec_order_pay 作履约起点</td><td><code>erp-app/order-center</code> 接入层（参考《ERP订单体系与平台接入方案》）</td></tr>
+<tr><td>C2</td><td>可借鉴</td><td>订单状态枚举 10/12/13/17/20/21/30/100/200/250 直接映射平台订单状态机，200 与 250 为终态</td><td><code>data-dict/platform-order</code> 状态枚举；参考《多平台一致性字典对照清单》</td></tr>
+<tr><td>C3</td><td>可借鉴</td><td>库存双体系（通用仓必选 + 区域仓就近发货）与货灵「实体仓 + 分仓库存」模型对齐</td><td><code>wms/stock</code>、<code>wms/warehouse</code>（参考《单仓端三模块设计方案》）</td></tr>
+<tr><td>C4</td><td>可借鉴</td><td>电子面单取号（返回 waybill_id）+ 订单发货回传，可直接支撑 WMS 打单发货闭环</td><td><code>wms/ship</code> 发货回传（参考《ERP履约控制台优化方案》）</td></tr>
+<tr><td>C5</td><td>可借鉴</td><td>代发奇门协议的 ds_order_id / supplier_appid / product_id+sku_id 映射，可作为云仓协同标准</td><td><code>wms/drop-ship</code> 代发协同（参考《运营中台与WMS功能方案》）</td></tr>
+<tr><td>C6</td><td>可借鉴</td><td>权限集 129/130/131/132/138/141/192 按服务类型授权，可映射为货灵店铺授权范围（订单 / 物流 / 商品 / 售后）</td><td><code>acct/permission</code> 店铺授权（参考《账号与权限方案》）</td></tr>
+<tr><td>C7</td><td>不跟随</td><td>服务商市场「静默授权 + 退款解除授权」的强商业绑定，不适用于货灵单实例单主体、不引服务市场授权模型</td><td><code>acct/permission</code>（参考《账号与权限方案》）</td></tr>
+<tr><td>C8</td><td>待定</td><td>隐私号兑换（售后不再返真实号）要求履约联系走虚拟号，需确认货灵 ERP/WMS 联系买家流程</td><td>待定：履约联系流程需产品确认，影响 <code>wms/ship</code> 与 <code>erp-app/order-center</code></td></tr>
+<tr><td>C9</td><td>可借鉴</td><td>订单详情（api_getorder）、电子面单取号（api_ewaybill_createorder）、订单发货（api_senddelivery）三接口的真实请求 / 响应字段已通过无头浏览器渲染官方文档取得（B 级），含 out_sku_id / out_product_id 商家外部编码、out_warehouse_id 区域仓、ds_order_id 代发单、virtual_tel_number 隐私号、waybill_id / delivery_id 物流，可直接落数据字典</td><td><code>data-dict/platform-order</code> 与 <code>wms/ship</code> 实体字段，已附 3.3 / 3.4 节，落库即可</td></tr>
+<tr><td>C10</td><td>待定</td><td>资金结算接口字段未验证，是否接入货灵 ERP 财务对账需财务确认</td><td>待定：财务确认后决定 <code>erp-app/finance</code> 是否接</td></tr>
+</tbody>
+</table>
+
+<h3>6.1 建议</h3>
+
+<table>
+<thead><tr><th>编号</th><th>动作</th><th>前置</th><th>判据</th></tr></thead>
+<tbody>
+<tr><td>R1</td><td>在货灵 ERP 订单中心实现事件回调接收（channels_ec_order_pay 等）并做幂等</td><td>C1 落点确认、回调 URL 与签名校验就绪</td><td>支付事件到平台订单生成时延 &lt; 1 分钟、重复事件不重复建单</td></tr>
+<tr><td>R2</td><td>把订单状态枚举 10/12/13/17/20/21/30/100/200/250 写入数据字典平台订单状态</td><td>C2 落点确认</td><td>数据字典出现 10 个枚举且映射货灵内部态</td></tr>
+<tr><td>R3</td><td>将 3.3 / 3.4 已取得的三个接口字段表落入 data-dict/platform-order 与 wms/ship 实体</td><td>C9 已转「可借鉴」</td><td>字段表进数据字典，无「未验证」残留</td></tr>
+<tr><td>R4</td><td>确认隐私号兑换在履约联系流程的落点</td><td>C8 产品确认</td><td>WMS 打单 / ERP 联系买家的号码来源明确</td></tr>
+</tbody>
+</table>
+
+<h2 id="s7"><span class="num">7</span> 缺项</h2>
+
+<table>
+<thead><tr><th>项</th><th>原因</th><th>影响</th></tr></thead>
+<tbody>
+<tr><td>接口详情页字段（订单详情 / 电子面单取号 / 订单发货）</td><td>已通过无头浏览器渲染官方文档取得真实字段（B 级），见 3.3 / 3.4</td><td>已解决：C9 转「可借鉴」，字段落数据字典即可</td></tr>
+<tr><td>买家真实隐私号与虚拟号兑换报文</td><td>需授权账号调用，本轮未授权</td><td>影响 C8 履约联系流程</td></tr>
+<tr><td>代发奇门协议完整报文与字段</td><td>仅第三方解读（C 级），无官方报文样例</td><td>影响 C5 云仓协同落地细节</td></tr>
+<tr><td>资金结算接口字段</td><td>仅目录级覆盖</td><td>影响 C10 财务对账是否接入</td></tr>
+<tr><td>营销 / 会员 / 国补 / 优选联盟等 17 个模块</td><td>与 3PL 履约集成无关，仅目录级覆盖</td><td>不影响本命题结论</td></tr>
+</tbody>
+</table>
+
+<h2 id="s8"><span class="num">8</span> 截图索引</h2>
+
+<p>本轮调研对象为开放 API 文档（非 UI 系统），证据来自官方文档原文（B 级）与第三方解读（C 级），无页面实见截图；不虚构 A 级证据。</p>
+
+<table>
+<thead><tr><th>图号</th><th>文件</th><th>对象</th><th>菜单路径</th><th>证明什么</th><th>数据状态</th></tr></thead>
+<tbody>
+<tr><td>无截图</td><td>—</td><td>微信小店</td><td>API 文档站（developers.weixin.qq.com/doc/store/shop）</td><td>无页面实见；能力来自官方文档原文与第三方解读</td><td>官方文档 B 级 / 第三方 C 级</td></tr>
+</tbody>
+</table>
+
+</main>
+</div>
+</body>
+</html>

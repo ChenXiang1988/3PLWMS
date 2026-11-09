@@ -80,6 +80,34 @@ function validateRegistry() {
     }
     for (const id of own) if (!seen.has(id)) bad('装配清单', `端 ${a.id} 的页面 ${id} 未落入任何导航段`);
   }
+  for (const a of apps) {
+    if (a.shell !== 'admin') {
+      if (a.rail) bad('装配清单', `端 ${a.id} 配了 rail，但只有 admin 外壳使用双栏导航`);
+      continue;
+    }
+    if (!Array.isArray(a.rail) || !a.rail.length) { bad('装配清单', `后台端 ${a.id} 缺 rail 业务域`); continue; }
+    const groupIds = new Set((a.nav || []).map((g) => g.id));
+    const railIds = new Set();
+    const covered = new Set();
+    for (const r of a.rail) {
+      if (!/^[a-z][a-z0-9-]*$/.test(r.id || '')) bad('装配清单', `端 ${a.id} 业务域 id 非法：${r.id}`);
+      if (!r.name) bad('装配清单', `端 ${a.id} 业务域 ${r.id} 缺 name`);
+      if (!r.mark || Array.from(String(r.mark)).length !== 1) bad('装配清单', `端 ${a.id} 业务域 ${r.id} 的 mark 必须是单字`);
+      if (railIds.has(r.id)) bad('装配清单', `端 ${a.id} 业务域 id 重复：${r.id}`);
+      railIds.add(r.id);
+      if (!Array.isArray(r.navs) || !r.navs.length) { bad('装配清单', `端 ${a.id} 业务域 ${r.id} 缺 navs`); continue; }
+      let pageCount = 0;
+      for (const nid of r.navs) {
+        if (!groupIds.has(nid)) bad('装配清单', `端 ${a.id} 业务域 ${r.id} 引用了不存在的导航段 ${nid}`);
+        if (covered.has(nid)) bad('装配清单', `端 ${a.id} 导航段 ${nid} 被多个业务域引用`);
+        covered.add(nid);
+        const g = (a.nav || []).find((x) => x.id === nid);
+        pageCount += g && Array.isArray(g.pages) ? g.pages.length : 0;
+      }
+      if (!pageCount) bad('装配清单', `端 ${a.id} 业务域 ${r.id} 未含任何页面`);
+    }
+    for (const gid of groupIds) if (!covered.has(gid)) bad('装配清单', `端 ${a.id} 导航段 ${gid} 未归入任何业务域`);
+  }
 }
 validateRegistry();
 
@@ -369,11 +397,25 @@ function navGroups(app, entries) {
   }));
 }
 
+function railGroups(app, groups) {
+  const byId = new Map(groups.map((g) => [g.id, g]));
+  if (!Array.isArray(app.rail) || !app.rail.length) {
+    return [{ id: 'rail-all', name: app.name, mark: app.name.slice(0, 1), sections: groups }];
+  }
+  return app.rail.map((r) => ({
+    id: r.id,
+    name: r.name,
+    mark: r.mark,
+    sections: (r.navs || []).map((id) => byId.get(id)).filter(Boolean),
+  }));
+}
+
 function buildHtml(app, entries, built, sharedUi) {
   if (app.shell === 'mall') return buildMallHtml(app, entries, built, sharedUi);
   if (app.shell === 'pda') return buildPdaHtml(app, entries, built, sharedUi);
   const esc = sharedUi.esc;
   const groups = navGroups(app, entries);
+  const rails = railGroups(app, groups);
   const groupOf = new Map();
   for (const g of groups) for (const p of g.pages) groupOf.set(p.id, g.id);
   const sections = built.sections.map((s) => {
@@ -381,19 +423,20 @@ function buildHtml(app, entries, built, sharedUi) {
     const gid = m && groupOf.get(m[1]);
     return gid ? s.replace('<section class="page"', `<section class="page" data-nav-group="${esc(gid)}"`) : s;
   });
-  const side = groups.map((g) => `<div class="wx-nav-group">`
-    + `<button type="button" class="wx-nav-item" data-nav="${esc(g.id)}" aria-expanded="false"><span class="wx-nav-label">${esc(g.name)}</span><span class="wx-nav-chevron">⌄</span></button>`
-    + `<div class="wx-nav-children" data-children="${esc(g.id)}" hidden>`
-    + g.pages.map((p) => `<button type="button" class="wx-side-item" data-target="${esc(p.id)}">${esc(p.name)}</button>`).join('')
-    + `</div></div>`).join('');
-  const headTabs = groups.map((g) => `<div class="wx-head-tabs" data-tabs="${esc(g.id)}" hidden>`
-    + g.pages.map((p) => `<button type="button" class="wx-head-tab" data-target="${esc(p.id)}">${esc(p.name)}</button>`).join('')
-    + `</div>`).join('');
+  const itemOf = (p) => `<button type="button" class="wx-panel-item" data-target="${esc(p.id)}"><span>${esc(p.name)}</span><span class="wx-panel-dot" aria-hidden="true"></span></button>`;
+  const railHtml = rails.map((r) => `<button type="button" class="wx-rail-item" data-domain="${esc(r.id)}" title="${esc(r.name)}" aria-label="${esc(r.name)}" aria-current="false">`
+    + `<span class="wx-rail-mark" aria-hidden="true">${esc(r.mark)}</span><span class="wx-rail-label">${esc(r.name)}</span></button>`).join('');
+  const panels = rails.map((r) => {
+    const body = r.sections.map((s) => `<section class="wx-panel-section" data-section="${esc(s.id)}">`
+      + (r.sections.length > 1 ? `<div class="wx-panel-label">${esc(s.name)}</div>` : '')
+      + s.pages.map(itemOf).join('') + `</section>`).join('');
+    return `<div class="wx-panel-group" data-domain-panel="${esc(r.id)}" hidden>${body}</div>`;
+  }).join('');
   const isOwnerApp = app.id === 'erp-app';
   const userLabel = isOwnerApp ? (demoOwners()[0] || '') : reg.subject;
   const mall = mallTarget();
   const mallEntry = isOwnerApp && mall
-    ? `<a class="wx-top-mall" href="${encodeURI(mall.href)}?owner=${encodeURIComponent(demoOwners()[0] || '')}" target="_blank" rel="noopener" data-mall-entry data-mall-base="${encodeURI(mall.href)}">前往商城</a>`
+    ? `<a class="wx-panel-mall" href="${encodeURI(mall.href)}?owner=${encodeURIComponent(demoOwners()[0] || '')}" target="_blank" rel="noopener" data-mall-entry data-mall-base="${encodeURI(mall.href)}">前往商城</a>`
     : '';
   const css = [sharedUi.TOKENS_CSS, sharedUi.BASE_CSS, sharedUi.LOGIN_CSS, ...built.styles].join('\n');
   const overlay = built.overlays.length
@@ -403,16 +446,23 @@ function buildHtml(app, entries, built, sharedUi) {
     + `<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n`
     + `<title>${esc(app.name)} · ${esc(reg.product)}</title>\n<style>\n${css}\n</style>\n</head>\n<body>\n`
     + `<div class="wx-app">\n`
-    + `<header class="wx-top">`
-    + `<div class="wx-brand"><span class="wx-brand-mark">仓</span><span class="wx-brand-copy"><b>${esc(reg.product)}</b><small>${esc(app.name)}</small></span></div>`
-    + `<div class="wx-global-search"><input type="text" placeholder="搜索页面" aria-label="搜索页面" data-global-search></div>`
-    + `<div class="wx-top-tools">${mallEntry}<button type="button" class="wx-top-tool" title="帮助" data-toast="帮助（原型示意）">帮助</button>`
-    + `<button type="button" class="wx-top-tool" title="通知" data-toast="通知（原型示意）">通知</button>`
-    + `<button type="button" class="wx-user" data-session-toggle title="账号与会话"><span class="wx-user-avatar" data-top-avatar>${esc(userLabel ? userLabel.slice(0, 1) : '·')}</span><span data-top-user>${esc(userLabel)}</span></button></div></header>\n`
-    + `<div class="wx-shell"><aside class="wx-side"><div class="wx-side-scroll">${side}</div>`
-    + `<div class="wx-side-footer"><button type="button" class="wx-side-toggle" data-side-toggle title="收起侧栏" aria-label="收起侧栏">‹</button></div></aside>\n`
-    + `<main class="wx-main"><div class="wx-page-header">${headTabs}</div>\n`
-    + `<div class="wx-page-body">${sections.join('\n')}</div></main></div>\n`
+    + `<div class="wx-shell">`
+    + `<aside class="wx-rail"><span class="wx-rail-brand" title="${esc(reg.product)}">仓</span>`
+    + `<div class="wx-rail-nav">${railHtml}</div>`
+    + `<div class="wx-rail-foot">`
+    + `<button type="button" class="wx-rail-tool wx-rail-expand" data-side-toggle="rail" aria-expanded="false" title="展开导航" aria-label="展开导航">›</button>`
+    + `<button type="button" class="wx-rail-tool" title="帮助" data-toast="帮助（原型示意）">帮助</button>`
+    + `<button type="button" class="wx-rail-tool" title="通知" data-toast="通知（原型示意）">通知</button>`
+    + `<button type="button" class="wx-user wx-rail-user" data-session-toggle title="账号与会话" aria-label="账号与会话"><span class="wx-user-avatar" data-top-avatar>${esc(userLabel ? userLabel.slice(0, 1) : '·')}</span></button>`
+    + `</div></aside>\n`
+    + `<aside class="wx-panel"><div class="wx-panel-head">`
+    + `<div class="wx-panel-title"><span class="wx-panel-name">${esc(app.name)}</span>${mallEntry}</div>`
+    + `<span class="wx-panel-sub">${esc(reg.product)}</span>`
+    + `<div class="wx-panel-search"><input type="text" placeholder="搜索本域页面" aria-label="搜索本域页面" data-global-search></div>`
+    + `</div><div class="wx-panel-body">${panels}<div class="wx-panel-empty" hidden>本域无匹配页面</div></div>`
+    + `<div class="wx-panel-foot"><button type="button" class="wx-panel-toggle" data-side-toggle="panel" aria-expanded="true" title="收起导航" aria-label="收起导航">‹</button></div>`
+    + `</aside>\n`
+    + `<main class="wx-main"><div class="wx-page-body">${sections.join('\n')}</div></main></div>\n`
     + `<div class="wx-toast" hidden></div></div>\n`
     + overlay + `\n` + sharedUi.renderLogin({ product: reg.product, appName: app.name, userLabel, demoOwners: isOwnerApp ? demoOwners() : [] })
     + `\n<script>\n${sharedUi.SHELL_SCRIPT}\n${sharedUi.LOGIN_SCRIPT}\n</script>\n</body>\n</html>\n`;
@@ -446,6 +496,21 @@ function checkProduct(html, entries, app) {
     if (!boot) bad('PDA', `${app.name} 产物缺首屏启动页 data-boot`);
     else if (!html.includes(`data-page-id="${boot}"`)) bad('PDA', `${app.name} 的 data-boot=${boot} 不在产物页清单内`);
     if (!html.includes("getAttribute('data-boot')")) bad('PDA', `${app.name} 外壳脚本未消费 data-boot，打开会停留在空白首屏`);
+  }
+  if (app.shell === 'admin') {
+    if (html.includes('class="wx-top"')) bad('双栏', `${app.name} 产物仍带顶栏`);
+    if (html.includes('wx-head-tabs')) bad('双栏', `${app.name} 产物仍带页头页签`);
+    if (!html.includes('class="wx-rail"')) bad('双栏', `${app.name} 产物缺业务域首栏`);
+    if (!html.includes('class="wx-panel"')) bad('双栏', `${app.name} 产物缺导航面板`);
+    const domains = [...new Set([...html.matchAll(/data-domain="([a-z][a-z0-9-]*)"/g)].map((m) => m[1]))];
+    const panels = [...new Set([...html.matchAll(/data-domain-panel="([a-z][a-z0-9-]*)"/g)].map((m) => m[1]))];
+    for (const d of domains) if (!panels.includes(d)) bad('双栏', `${app.name} 首栏域 ${d} 没有对应面板`);
+    for (const p of panels) if (!domains.includes(p)) bad('双栏', `${app.name} 面板域 ${p} 不在首栏`);
+    for (const e of entries) {
+      const needle = `class="wx-panel-item" data-target="${e.pageId}"`;
+      const count = html.split(needle).length - 1;
+      if (count !== 1) bad('双栏', `${app.name} 页面 ${e.pageId} 在面板中出现 ${count} 次，应为 1 次`);
+    }
   }
   if (app.id === 'erp-app') {
     if (html.includes('<select class="wx-owner-select"')) bad('货灵ERP', `${app.name} 产物不应出现货主切换下拉`);

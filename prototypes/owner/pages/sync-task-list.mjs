@@ -1,7 +1,13 @@
 import { ListPage, FormDrawer, DrawerButton, StatusTag, dash, n, uniq } from '../../shared/ui.mjs';
+import { platformOfKey } from '../platform-platforms.mjs';
 
 export function renderPage(data, ctx) {
-  const { rows = [], config = {} } = data[ctx.pageKey] || {};
+  const block = data[ctx.pageKey] || {};
+  const config = block.config || {};
+  const pf = platformOfKey(ctx.pageKey);
+  const PF_FIELD = 'platform';
+  const rowsAll = block.rows || [];
+  const rows = pf ? rowsAll.filter(r => String(r[PF_FIELD] || '') === String(pf)) : rowsAll;
   const pageId = `${ctx.moduleId}/${ctx.pageKey}`;
   const statusField = config.statusField;
   const keyField = config.keyField;

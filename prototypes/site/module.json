@@ -1,0 +1,18 @@
+{
+  "id": "site",
+  "name": "独立站",
+  "version": "0.2.0",
+  "owner": "产品组",
+  "tier": "core",
+  "deployed": true,
+  "dependsOn": [
+    "shared"
+  ],
+  "scope": "货主独立站多站点档案、配置、域名证书、内容、商品、订单、多端发布与成员权限",
+  "deliverables": [
+    "pages/",
+    "data/"
+  ],
+  "status": "delivered",
+  "note": "首批交付：9 页，含多端发布与站点成员权限"
+}

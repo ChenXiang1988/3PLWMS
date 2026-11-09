@@ -168,6 +168,21 @@ function checkProduct() {
       if (!html.includes('data-shop-cart-count')) bad.push(`${rel(dist)} 缺进货单入口`);
       if (!html.includes('class="wx-login-layer"')) bad.push(`${rel(dist)} 缺登录层`);
     }
+    if (app.shell === 'site') {
+      if (!html.includes('class="wx-site-app"')) bad.push(`${rel(dist)} 缺品牌站外壳`);
+      if (html.includes('class="wx-app"') || html.includes('class="wx-pda"')) bad.push(`${rel(dist)} 混用了后台或作业终端外壳`);
+      if (html.includes('class="wx-owner-select"')) bad.push(`${rel(dist)} 出现货主切换下拉`);
+      if (!html.includes('data-login-gate="0"')) bad.push(`${rel(dist)} 未启用访客浏览`);
+    }
+    if (app.shell === 'mobile') {
+      if (!html.includes('class="wx-mobile-app"')) bad.push(`${rel(dist)} 缺手机外壳`);
+      if (!html.includes('class="wx-mobile-status"') || !html.includes('class="wx-mobile-tabs"')) bad.push(`${rel(dist)} 缺状态条或底部 tab`);
+      if (html.includes('data-pda-key=')) bad.push(`${rel(dist)} 出现作业按键区`);
+      if (html.includes('class="wx-app"')) bad.push(`${rel(dist)} 混用了后台外壳`);
+      if (html.includes('class="wx-owner-select"')) bad.push(`${rel(dist)} 出现货主切换下拉`);
+      const tabCount = (html.match(/class="wx-mobile-tab"/g) || []).length;
+      if (tabCount < 4) bad.push(`${rel(dist)} 底部 tab 不足 4 个（当前 ${tabCount} 个）`);
+    }
     if (/https?:\/\//i.test(html)) bad.push(`${rel(dist)} 出现 http(s) 外链`);
     if (/<script[^>]+src\s*=/i.test(html) || /<link[^>]+href\s*=/i.test(html) || /@import/i.test(html)) bad.push(`${rel(dist)} 出现外部脚本 / 样式引用`);
     for (const w of SAAS_WORDS) if (html.includes(w)) bad.push(`${rel(dist)} 出现 SaaS 红线词「${w}」`);

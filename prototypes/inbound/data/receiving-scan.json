@@ -1,11 +1,11 @@
 {
   "task": {
-    "taskNo": "RT20261106001",
+    "taskNo": "PUT20261106001",
     "processNo": "RC20261106001",
     "owner": "海纳食品",
     "operator": "张伟",
     "device": "PDA-07",
-    "location": "收货月台 1"
+    "location": "A-01-01"
   },
   "line": {
     "lineNo": 1,
@@ -13,12 +13,12 @@
     "skuName": "海纳全脂牛奶 250ml×24",
     "batchNo": "",
     "planQty": 600,
-    "doneQty": 420,
+    "doneQty": 380,
     "unit": "箱"
   },
   "logs": [
     { "time": "09:42", "text": "扫描 SKU100231", "qty": "120 箱" },
     { "time": "09:45", "text": "扫描 SKU100231", "qty": "180 箱" },
-    { "time": "09:48", "text": "扫描 SKU100231", "qty": "120 箱" }
+    { "time": "09:48", "text": "扫描 SKU100231", "qty": "80 箱" }
   ]
 }

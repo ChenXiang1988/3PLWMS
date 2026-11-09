@@ -1395,6 +1395,57 @@
           }
         ]
       }
+    },
+    "ADP-WXSHOP-POP": {
+      "fieldMapCount": 4,
+      "statusMapCount": 3,
+      "capabilityCount": 6,
+      "mappings": [
+        { "mapType": "字段映射", "platformSide": "order_id", "erpSide": "平台订单号", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "字段映射", "platformSide": "sku_id", "erpSide": "平台商品编码", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "字段映射", "platformSide": "quantity", "erpSide": "购买数量", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "字段映射", "platformSide": "amount", "erpSide": "商品金额", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "状态映射", "platformSide": "PAID", "erpSide": "已付款", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "状态映射", "platformSide": "SHIPPED", "erpSide": "已发货", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "状态映射", "platformSide": "REFUND", "erpSide": "退款", "support": "支持", "appVersion": "2026.11" }
+      ],
+      "timeline": [
+        { "time": "2026-11-01 10:00", "text": "适配器发布", "operator": "产品组" }
+      ]
+    },
+    "ADP-JD-SELF": {
+      "fieldMapCount": 4,
+      "statusMapCount": 3,
+      "capabilityCount": 6,
+      "mappings": [
+        { "mapType": "字段映射", "platformSide": "order_id", "erpSide": "平台订单号", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "字段映射", "platformSide": "sku_id", "erpSide": "平台商品编码", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "字段映射", "platformSide": "quantity", "erpSide": "购买数量", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "字段映射", "platformSide": "amount", "erpSide": "商品金额", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "状态映射", "platformSide": "PAID", "erpSide": "已付款", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "状态映射", "platformSide": "SHIPPED", "erpSide": "已发货", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "状态映射", "platformSide": "REFUND", "erpSide": "退款", "support": "支持", "appVersion": "2026.11" }
+      ],
+      "timeline": [
+        { "time": "2026-11-01 10:00", "text": "适配器发布", "operator": "产品组" }
+      ]
+    },
+    "ADP-TB-SELF": {
+      "fieldMapCount": 4,
+      "statusMapCount": 3,
+      "capabilityCount": 6,
+      "mappings": [
+        { "mapType": "字段映射", "platformSide": "order_id", "erpSide": "平台订单号", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "字段映射", "platformSide": "sku_id", "erpSide": "平台商品编码", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "字段映射", "platformSide": "quantity", "erpSide": "购买数量", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "字段映射", "platformSide": "amount", "erpSide": "商品金额", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "状态映射", "platformSide": "PAID", "erpSide": "已付款", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "状态映射", "platformSide": "SHIPPED", "erpSide": "已发货", "support": "支持", "appVersion": "2026.11" },
+        { "mapType": "状态映射", "platformSide": "REFUND", "erpSide": "退款", "support": "支持", "appVersion": "2026.11" }
+      ],
+      "timeline": [
+        { "time": "2026-11-01 10:00", "text": "适配器发布", "operator": "产品组" }
+      ]
     }
   },
   "rows": [
@@ -1657,6 +1708,45 @@
       "rateLimit": "100 次/分钟",
       "releaseStatus": "released",
       "adapterVersion": "2026.10"
+    },
+    {
+      "owner": "海纳食品",
+      "adapterCode": "ADP-WXSHOP-POP",
+      "platform": "微信小店",
+      "platformMode": "POP",
+      "authMode": "OAuth",
+      "rawOrder": "有原单",
+      "labelSource": "平台面单",
+      "fulfillDuty": "卖家",
+      "rateLimit": "100 QPS",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.11"
+    },
+    {
+      "owner": "海纳食品",
+      "adapterCode": "ADP-JD-SELF",
+      "platform": "京东",
+      "platformMode": "自营",
+      "authMode": "OAuth",
+      "rawOrder": "有原单",
+      "labelSource": "平台面单",
+      "fulfillDuty": "卖家",
+      "rateLimit": "100 QPS",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.11"
+    },
+    {
+      "owner": "海纳食品",
+      "adapterCode": "ADP-TB-SELF",
+      "platform": "淘宝",
+      "platformMode": "自营",
+      "authMode": "OAuth",
+      "rawOrder": "有原单",
+      "labelSource": "平台面单",
+      "fulfillDuty": "卖家",
+      "rateLimit": "100 QPS",
+      "releaseStatus": "released",
+      "adapterVersion": "2026.11"
     }
   ]
 }

@@ -27,7 +27,7 @@
 | 圆角 / 阴影 / 边框 | `--wx-r-sm`(6) / `--wx-r-md`(8) / `--wx-r-pill`(999)、`--wx-shadow`、`--wx-border` |
 | 字号 | `--wx-fs-xs`(12) / `sm`(13) / `md`(14) / `lg`(16) / `xl`(20) / `2xl`(24) |
 | 间距 | `--wx-sp-1`(4) / `2`(8) / `3`(12) / `4`(16) / `6`(24) / `8`(32) |
-| 布局尺寸 | `--wx-top-h`(54) / `--wx-side-w`(188) / `--wx-side-collapsed`(64) / `--wx-head-h`(54) / `--wx-touch`(44) |
+| 布局尺寸 | `--wx-rail-w`(76) / `--wx-panel-w`(256) / `--wx-touch`(44) |
 | 商城强调 | `--wx-mall-50` / `--wx-mall-500` / `--wx-mall-600` |
 
 **取值只有这些档位**：圆角只用 6 / 8 / 999 / 0，字号只用 12 / 13 / 14 / 16 / 20 / 24，间距只用 4 / 8 / 12 / 16 / 24 / 32。10、14、18、20px 这类插值一律不许，`rpx` 一律不许。
@@ -73,7 +73,8 @@
 | `ScanPage` | 只给 PDA 作业页，见 `references/shells/pda.md` |
 | `ShopPage` / `ShopHero` / `ShopCategory` / `ShopFloor` / `ProductCard` / `ShopHomeGrid` / `ShopRow` / `ShopPanel` / `ShopFilter` / `ShopResult` / `ShopEmpty` / `ShopDetailHero` / `OrderCard` | 仅 `shop` 页 |
 | `ShopPrice` / `CartTable` / `ShopSummary` / `ShopTable` / `ShopFields` / `ShopActions` | 仅 `shop` 页；金额一律由 `ShopPrice` → `money()` 从单价与数量派生，访客态由组件出「登录可见价格」，`ShopTable` 金额列标 `price: true` |
-| `renderShopShell` / `renderPdaShell` / `renderLogin` | 只由构建调用一次，页面模块不调 |
+| `renderShopShell` / `renderSiteShell` / `renderMobileShell` / `renderPdaShell` / `renderLogin` | 只由构建调用一次，页面模块不调 |
+| `STOREFRONT_SCRIPT` / `SITE_CSS` / `MOBILE_CSS` | 独立站两端的切页、类目筛选、返回栈与结构样式，构建内联一份，页面模块不引 |
 
 状态中文名与色型的映射登记在 `references/core/glossary.md` 第 3 节，照抄不自造。
 
@@ -97,13 +98,12 @@
 | `data-owner` | `<tr>` | 货主筛选作用域 |
 | `data-filter-key` | 筛选控件 | 对应行字段名 |
 | `data-toast` | 按钮 | 原型示意动作的提示文案 |
-| `data-target` | 侧栏二级 / 页头页签 / 商城导航 | 指向 `data-page-id`，唯一换页入口 |
-| `data-nav` / `data-children` | 侧栏一级按钮 / 二级容器 | 分组展开与收起；值取模块 ID 或 `apps[].nav` 段 id |
-| `data-mall-entry` / `data-mall-base` | 货灵ERP顶栏「前往商城」链接 | 全库唯一的跨端入口标记；`href` 取货灵商城产物名相对路径 + `owner` 参数，`data-mall-base` 存不带参数的基准路径，切换演示身份时重拼 `owner`；`target="_blank"` 新开页面，构建期 `[跨端]` 校验 |
+| `data-target` | 面板条目 / 商城导航 | 指向 `data-page-id`，唯一换页入口 |
+| `data-domain` / `data-domain-panel` | 首栏业务域按钮 / 面板里的域容器 | 值取 `apps[].rail[].id`，两者一一对应；点首栏切到该域面板并激活该域首页，同一时刻只显示当前域 |
+| `data-mall-entry` / `data-mall-base` | 货灵ERP面板表头「前往商城」链接 | 全库唯一的跨端入口标记；`href` 取货灵商城产物名相对路径 + `owner` 参数，`data-mall-base` 存不带参数的基准路径，切换演示身份时重拼 `owner`；`target="_blank"` 新开页面，构建期 `[跨端]` 校验 |
 | `data-buyer-owner` | 货灵商城 `<html>` | 货灵商城读链接 `owner` 参数写入，顶栏与会话面板显示买家货主名称；加购与分组提交时拦截同货主商品 |
 | `data-shop-group` | 结算页店铺分组容器 | 一页多组结算，金额按组独立求和；组内提交带 `data-shop-submit-group` |
-| `data-tabs` | 页头页签组 | 只显示当前分组那组页签 |
-| `data-nav-group` | `.page` 页面容器 | 本页所属导航段；外壳脚本据此高亮并只展开当前段，缺省回退到 `data-page-id` 的模块段 |
+| `data-nav-group` | `.page` 页面容器 | 本页所属导航段；外壳脚本据此反查所属业务域并同步首栏与面板当前态，缺省回退到 `data-page-id` 的模块段 |
 | `data-drawer-open` / `data-drawer-key` | 列表操作列按钮 | 值为页 id 与行主键，打开 `data-drawer-panel` 对应的那块面板 |
 | `data-drawer-panel` / `data-drawer-close` | 抽屉面板 / 关闭按钮与遮罩 | 面板挂 `.wx-overlay` 并默认 `hidden`；切页、点关闭按钮或遮罩都统一收起 |
 | `data-form-key` | 表单输入控件 | 对应行字段名；`SHELL_SCRIPT` 收集表单值、做必填校验并回写内存行 |
@@ -113,17 +113,19 @@
 | `data-form-check-group` / `data-form-check` | 多选勾选组 / 单个复选 | 组上存字段名，复选上存选项值；`SHELL_SCRIPT` 以「、」拼接回写，`fillForm` 按「、」拆分回显 |
 | `data-live` | `.wx-list` | 本页状态机配置 JSON：`keyField` / `statusField` / `statusMeta` / `columns` / `storageKey`；行数据取 `data-row`，状态动作只在内存与 `sessionStorage` 中生效 |
 | `data-status-cell` | 状态列 `<td>` | 状态动作后由 `SHELL_SCRIPT` 按 `statusMeta` 重绘该单元格 |
-| `data-side-toggle` | 侧栏底部按钮 | 侧栏收起 / 展开 |
-| `data-global-search` | 顶栏搜索框 | 按页面名过滤侧栏与页头页签 |
-| `data-pda-tab` / `data-pda-group` / `data-pda-key` / `data-pda-title` | PDA 外壳与入口卡 | 屏内切页、四分组 tab 高亮（值为组内 `data-page-id` 竖线分隔）、按键区、导航标题 |
+| `data-side-toggle` | 面板底部按钮 | 折叠 / 展开导航面板，收起后只剩首栏；状态写 `sessionStorage` 的 `wx-nav-collapsed` |
+| `data-global-search` | 面板表头搜索框 | 按页面名过滤当前域的面板条目，段标签无命中时一并隐藏 |
+| `data-pda-tab` / `data-pda-group` / `data-pda-key` / `data-pda-title` | PDA 外壳与入口卡 | 屏内切页、分组 tab 高亮（值为组内 `data-page-id` 竖线分隔）、按键区、导航标题 |
+| `data-mobile-tab` / `data-mobile-group` / `data-mobile-back` | 独立站 APP 外壳 | 底部 tab、组内高亮（值为组内 `data-page-id` 竖线分隔）与返回栈；`data-mobile-tab` 切页时清空返回栈 |
+| `data-page-name` | 独立站与独立站 APP 的 `.page` | 构建期按注册表页面名写入，外壳脚本据此切换导航标题 |
 | `data-login-tab` / `data-login-panel` | 登录方式页签 / 面板 | 切换登录方式 |
 | `data-login-submit` / `data-login-retry` | 登录按钮 / 重试按钮 | 统一提交与重试 |
 | `data-login-error` | 登录错误条 | 统一错误提示 |
 | `data-login-open` / `data-login-close` | 商城登录入口 / 登录层关闭按钮 | 唤起与关闭 `entry` 模式登录层 |
-| `data-login-gate` | 登录层 | `1` 后台三端与 PDA 全屏覆盖，`0` 货灵商城入口唤起 |
+| `data-login-gate` | 登录层 | `1` 后台三端与 PDA 全屏覆盖，`0` 货灵商城与独立站入口唤起 |
 | `data-auth` | `<html>` | `guest` / `member`，由登录状态机写入，驱动商城金额与登录入口显隐 |
 | `data-auth-guest` / `data-auth-member` | 访客 / 已登录专属元素 | 按 `data-auth` 显隐 |
-| `data-session-toggle` / `data-session-*` | 顶栏用户块 / 会话面板 | 登录态、令牌刷新与退出 |
+| `data-session-toggle` / `data-session-*` | 首栏用户块 / 会话面板 | 登录态、令牌刷新与退出 |
 | `data-shop-*` | 商城外壳与卡片 | 切页统一用 `data-target`；`data-shop-cat` 类目筛选、`data-shop-search` 商品搜索、`data-shop-add` 加入进货单、`data-shop-qty` 数量增减、`data-shop-remove` 移除、`data-shop-submit` 提交订单、`data-shop-cart-count` 进货单角标、`data-shop-total` 合计 |
 
 ## 6. 页面模块的边界

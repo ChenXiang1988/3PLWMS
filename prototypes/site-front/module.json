@@ -1,0 +1,18 @@
+{
+  "id": "site-front",
+  "name": "独立站前台",
+  "version": "0.2.0",
+  "owner": "产品组",
+  "tier": "core",
+  "deployed": true,
+  "dependsOn": [
+    "shared"
+  ],
+  "scope": "品牌站首页、商品、商品详情、品牌故事与门店网点，分属货主独立站与独立站 APP",
+  "deliverables": [
+    "pages/",
+    "data/"
+  ],
+  "status": "delivered",
+  "note": "首批交付：Web 5 页与 APP 5 页，只展示品牌站"
+}

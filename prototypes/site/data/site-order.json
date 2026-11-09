@@ -1,0 +1,11 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "orderNo": "SO20261109001", "siteCode": "SITE002", "siteName": "海纳采销", "siteType": "采销站", "buyer": "华东便利连锁", "amount": 12800, "payStatus": "已付款", "fulfillStatus": "待发货", "createdAt": "2026-11-09 08:42", "fulfillNo": "OB20261109001" },
+    { "owner": "海纳食品", "orderNo": "SO20261109002", "siteCode": "SITE002", "siteName": "海纳采销", "siteType": "采销站", "buyer": "苏南商超", "amount": 8600, "payStatus": "已付款", "fulfillStatus": "已发货", "createdAt": "2026-11-09 07:15", "fulfillNo": "OB20261108012" },
+    { "owner": "海纳食品", "orderNo": "SO20261108003", "siteCode": "SITE002", "siteName": "海纳采销", "siteType": "采销站", "buyer": "皖北批发部", "amount": 4200, "payStatus": "待付款", "fulfillStatus": "待发货", "createdAt": "2026-11-08 16:08", "fulfillNo": "—" },
+    { "owner": "海纳食品", "orderNo": "SO20261108004", "siteCode": "SITE002", "siteName": "海纳采销", "siteType": "采销站", "buyer": "沪西零售", "amount": 19800, "payStatus": "已付款", "fulfillStatus": "已完成", "createdAt": "2026-11-08 11:20", "fulfillNo": "OB20261107009" },
+    { "owner": "海纳食品", "orderNo": "SO20261107005", "siteCode": "SITE002", "siteName": "海纳采销", "siteType": "采销站", "buyer": "浙北商贸", "amount": 2600, "payStatus": "已退款", "fulfillStatus": "已取消", "createdAt": "2026-11-07 09:55", "fulfillNo": "—" },
+    { "owner": "辰星日化", "orderNo": "SO20261108011", "siteCode": "SITE003", "siteName": "星漾", "siteType": "品牌站", "buyer": "陈女士", "amount": 198, "payStatus": "已付款", "fulfillStatus": "已完成", "createdAt": "2026-11-08 15:30", "fulfillNo": "OB20261108003" },
+    { "owner": "辰星日化", "orderNo": "SO20261109012", "siteCode": "SITE003", "siteName": "星漾", "siteType": "品牌站", "buyer": "李先生", "amount": 264, "payStatus": "已付款", "fulfillStatus": "待发货", "createdAt": "2026-11-09 10:05", "fulfillNo": "—" }
+  ]
+}

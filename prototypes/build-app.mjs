@@ -15,7 +15,8 @@ const DIST = path.join(PROTO, 'dist');
 const ROOT = path.dirname(PROTO);
 const CHECK = process.argv.slice(2).includes('--check');
 const PAGE_TYPES = new Set(['list', 'detail', 'report', 'scan', 'shop']);
-const SHELLS = new Set(['admin', 'mall', 'pda']);
+const SHELLS = new Set(['admin', 'mall', 'pda', 'site', 'mobile']);
+const FRONT_SHELLS = new Set(['mall', 'site', 'mobile']);
 const TONES = ['disabled', 'enabled', 'info', 'pending', 'rejected'];
 const TAG_TONES = ['default', 'info', 'danger'];
 const SAAS_WORDS = ['租户', '账号空间', '按租户分库', '订阅', '套餐', '充值', '续费', '试用到期', '升级专业版', '平台运营后台', '主体切换器'];
@@ -36,14 +37,14 @@ const mallTarget = () => {
 function validateRegistry() {
   const apps = reg.apps || [];
   const ids = new Set();
-  const mallIds = new Set();
+  const frontIds = new Set();
   for (const a of apps) {
     if (!/^[a-z][a-z0-9-]*$/.test(a.id || '')) bad('装配清单', `端 id 非法：${a.id}`);
     if (!a.name) bad('装配清单', `端 ${a.id} 缺 name`);
     if (a.shell && !SHELLS.has(a.shell)) bad('装配清单', `端 ${a.id} 的 shell=${a.shell} 不在外壳清单内`);
     if (ids.has(a.id)) bad('装配清单', `端 id 重复：${a.id}`);
     ids.add(a.id);
-    if (a.shell === 'mall') mallIds.add(a.id);
+    if (FRONT_SHELLS.has(a.shell)) frontIds.add(a.id);
   }
   const keys = new Set();
   for (const m of reg.modules) {
@@ -53,8 +54,8 @@ function validateRegistry() {
       if (!PAGE_TYPES.has(p.type)) bad('装配清单', `${p.key} 的 type=${p.type} 不在五类骨架内`);
       if (!String(p.file || '').startsWith('pages/')) bad('装配清单', `${p.key} 的 file 必须落在 pages/`);
       if (p.app && !ids.has(p.app)) bad('装配清单', `${p.key} 的 app=${p.app} 不在端清单内`);
-      if (p.type === 'shop' && (!p.app || !mallIds.has(p.app))) bad('装配清单', `${p.key} 是 shop 页，必须归属 shell=mall 的端`);
-      if (p.type !== 'shop' && p.app && mallIds.has(p.app)) bad('装配清单', `${p.key} 归属商城端却不是 shop 页`);
+      if (p.type === 'shop' && (!p.app || !frontIds.has(p.app))) bad('装配清单', `${p.key} 是 shop 页，必须归属 mall / site / mobile 外壳的端`);
+      if (p.type !== 'shop' && p.app && frontIds.has(p.app)) bad('装配清单', `${p.key} 归属前台端却不是 shop 页`);
       if (p.type === 'shop' && p.ownerScoped) bad('装配清单', `${p.key} shop 页不响应货主下拉`);
       if (p.ownerScoped && p.type !== 'list') bad('装配清单', `${p.key} 只有 list 页可设 ownerScoped`);
       if (p.app && !fs.existsSync(path.join(PROTO, m.id, p.file))) bad('装配清单', `${p.key} 找不到页面文件`);
@@ -80,13 +81,41 @@ function validateRegistry() {
     }
     for (const id of own) if (!seen.has(id)) bad('装配清单', `端 ${a.id} 的页面 ${id} 未落入任何导航段`);
   }
+  for (const a of apps) {
+    if (a.shell !== 'admin') {
+      if (a.rail) bad('装配清单', `端 ${a.id} 配了 rail，但只有 admin 外壳使用双栏导航`);
+      continue;
+    }
+    if (!Array.isArray(a.rail) || !a.rail.length) { bad('装配清单', `后台端 ${a.id} 缺 rail 业务域`); continue; }
+    const groupIds = new Set((a.nav || []).map((g) => g.id));
+    const railIds = new Set();
+    const covered = new Set();
+    for (const r of a.rail) {
+      if (!/^[a-z][a-z0-9-]*$/.test(r.id || '')) bad('装配清单', `端 ${a.id} 业务域 id 非法：${r.id}`);
+      if (!r.name) bad('装配清单', `端 ${a.id} 业务域 ${r.id} 缺 name`);
+      if (!r.mark || Array.from(String(r.mark)).length !== 1) bad('装配清单', `端 ${a.id} 业务域 ${r.id} 的 mark 必须是单字`);
+      if (railIds.has(r.id)) bad('装配清单', `端 ${a.id} 业务域 id 重复：${r.id}`);
+      railIds.add(r.id);
+      if (!Array.isArray(r.navs) || !r.navs.length) { bad('装配清单', `端 ${a.id} 业务域 ${r.id} 缺 navs`); continue; }
+      let pageCount = 0;
+      for (const nid of r.navs) {
+        if (!groupIds.has(nid)) bad('装配清单', `端 ${a.id} 业务域 ${r.id} 引用了不存在的导航段 ${nid}`);
+        if (covered.has(nid)) bad('装配清单', `端 ${a.id} 导航段 ${nid} 被多个业务域引用`);
+        covered.add(nid);
+        const g = (a.nav || []).find((x) => x.id === nid);
+        pageCount += g && Array.isArray(g.pages) ? g.pages.length : 0;
+      }
+      if (!pageCount) bad('装配清单', `端 ${a.id} 业务域 ${r.id} 未含任何页面`);
+    }
+    for (const gid of groupIds) if (!covered.has(gid)) bad('装配清单', `端 ${a.id} 导航段 ${gid} 未归入任何业务域`);
+  }
 }
 validateRegistry();
 
 /* 共享演示主档：货主 / 商品 / 仓库 / 批次的唯一事实源。
    页面 data/*.json 可写成 { ref, keys, fields, target } 引用声明，构建期还原成完整数据。 */
-const MASTER_FILES = ['owners', 'skus', 'warehouses', 'batches', 'applies', 'platformShops'];
-const FK_OF = { skus: 'skuCode', batches: 'batchNo', warehouses: 'warehouseCode', owners: 'ownerCode', applies: 'applyNo', platformShops: 'shopCode' };
+const MASTER_FILES = ['owners', 'skus', 'warehouses', 'batches', 'applies', 'platformShops', 'sites'];
+const FK_OF = { skus: 'skuCode', batches: 'batchNo', warehouses: 'warehouseCode', owners: 'ownerCode', applies: 'applyNo', platformShops: 'shopCode', sites: 'siteCode' };
 
 function loadMaster() {
   const out = {};
@@ -118,7 +147,17 @@ function loadMaster() {
 }
 
 function hydrate(value, m, where) {
-  if (!value || typeof value !== 'object' || Array.isArray(value) || !value.ref) return value;
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return value;
+  if (value.refs && typeof value.refs === 'object') {
+    const out = {};
+    for (const [k, v] of Object.entries(value)) if (k !== 'refs') out[k] = v;
+    for (const [k, spec] of Object.entries(value.refs)) {
+      const res = hydrate({ ...spec }, m, where);
+      out[k] = res && Array.isArray(res.rows) ? res.rows : [];
+    }
+    return out;
+  }
+  if (!value.ref) return value;
   const spec = value;
   const [name, sub] = String(spec.ref).split('.');
   const entry = m[name];
@@ -140,6 +179,10 @@ function hydrate(value, m, where) {
   } else if (Array.isArray(spec.drop) && rows.length && typeof rows[0] === 'object') {
     rows = rows.map((r) => { const o = { ...r }; for (const f of spec.drop) delete o[f]; return o; });
   }
+  if (spec.overlay && typeof spec.overlay === 'object' && rows.length && typeof rows[0] === 'object') {
+    const fk = FK_OF[name];
+    rows = rows.map((r) => ({ ...r, ...(spec.overlay[String(r[fk])] || {}) }));
+  }
   const out = {};
   for (const [k, v] of Object.entries(spec)) if (!['ref', 'keys', 'fields', 'drop', 'target'].includes(k)) out[k] = v;
   out[spec.target || 'rows'] = rows;
@@ -157,7 +200,7 @@ function entriesOf(appId) {
       out.push({
         module: m, page: p,
         file: path.join(PROTO, m.id, p.file),
-        dataFile: path.join(PROTO, m.id, 'data', `${p.key}.json`),
+        dataFile: path.join(PROTO, m.id, 'data', `${(p.data || p.key)}.json`),
         pageId: `${m.id}/${p.key}`,
       });
     }
@@ -302,6 +345,75 @@ function buildMallHtml(app, entries, built, sharedUi) {
     + `\n<script>\n${sharedUi.MALL_SCRIPT}\n${sharedUi.LOGIN_SCRIPT}\n</script>\n</body>\n</html>\n`;
 }
 
+function storefrontSections(entries, built, esc) {
+  const names = new Map(entries.map((e) => [e.pageId, e.page.name]));
+  return built.sections.map((s) => s.replace(/data-page-id="([^"]+)"/, (m, id) => (
+    `data-page-id="${id}" data-page-name="${esc(names.get(id) || '')}"`
+  ))).join('\n');
+}
+
+function siteOfMaster() {
+  const rows = (master.sites && master.sites.rows) || [];
+  return rows.find((s) => s.siteType === '品牌站') || rows[0] || {};
+}
+
+function buildSiteHtml(app, entries, built, sharedUi) {
+  const esc = sharedUi.esc;
+  const byId = new Map(entries.map((e) => [e.pageId, e]));
+  const nav = (app.nav || []).map((g) => {
+    const first = (g.pages || []).find((id) => byId.has(id));
+    return first ? { id: first, name: g.name } : null;
+  }).filter(Boolean);
+  const site = siteOfMaster();
+  const css = [sharedUi.TOKENS_CSS, sharedUi.BASE_CSS, sharedUi.LOGIN_CSS, sharedUi.MALL_CSS, sharedUi.SITE_CSS, ...built.styles].join('\n');
+  const overlay = built.overlays.length
+    ? `<div class="wx-overlay" hidden><button type="button" class="wx-drawer" data-drawer-close aria-label="关闭抽屉"></button>${built.overlays.join('')}</div>`
+    : '';
+  const shell = sharedUi.renderSiteShell({
+    product: reg.product,
+    appName: app.name,
+    siteName: site.siteName || '',
+    siteMark: site.siteMark || '',
+    nav,
+    userLabel: '会员',
+    content: storefrontSections(entries, built, esc),
+  });
+  return `<!DOCTYPE html>\n<html lang="zh-CN" data-build="__FINGERPRINT__" data-auth="guest">\n<head>\n`
+    + `<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n`
+    + `<title>${esc(app.name)} · ${esc(reg.product)}</title>\n<style>\n${css}\n</style>\n</head>\n<body>\n`
+    + shell + overlay + `\n<div class="wx-toast" hidden></div>\n`
+    + sharedUi.renderLogin({ product: reg.product, appName: app.name, userLabel: '会员', gate: false })
+    + `\n<script>\n${sharedUi.STOREFRONT_SCRIPT}\n${sharedUi.LOGIN_SCRIPT}\n</script>\n</body>\n</html>\n`;
+}
+
+function buildMobileHtml(app, entries, built, sharedUi) {
+  const esc = sharedUi.esc;
+  const byId = new Map(entries.map((e) => [e.pageId, e]));
+  const tabs = (app.nav || []).map((g) => ({
+    name: g.name,
+    pages: (g.pages || []).filter((id) => byId.has(id)),
+  })).filter((t) => t.pages.length);
+  const site = siteOfMaster();
+  const boot = (tabs[0] && tabs[0].pages[0]) || '';
+  const css = [sharedUi.TOKENS_CSS, sharedUi.BASE_CSS, sharedUi.LOGIN_CSS, sharedUi.MALL_CSS, sharedUi.MOBILE_CSS, ...built.styles].join('\n');
+  const shell = sharedUi.renderMobileShell({
+    product: reg.product,
+    appName: app.name,
+    siteName: site.siteName || '',
+    siteMark: site.siteMark || '',
+    tabs,
+    userLabel: '会员',
+    bootId: boot,
+    content: storefrontSections(entries, built, esc),
+  });
+  return `<!DOCTYPE html>\n<html lang="zh-CN" data-build="__FINGERPRINT__" data-auth="guest">\n<head>\n`
+    + `<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n`
+    + `<title>${esc(app.name)} · ${esc(reg.product)}</title>\n<style>\n${css}\n</style>\n</head>\n<body>\n`
+    + shell + `\n<div class="wx-toast" hidden></div>\n`
+    + sharedUi.renderLogin({ product: reg.product, appName: app.name, userLabel: '会员', gate: false })
+    + `\n<script>\n${sharedUi.STOREFRONT_SCRIPT}\n${sharedUi.LOGIN_SCRIPT}\n</script>\n</body>\n</html>\n`;
+}
+
 function buildPdaHtml(app, entries, built, sharedUi) {
   const esc = sharedUi.esc;
   const css = [sharedUi.TOKENS_CSS, sharedUi.BASE_CSS, sharedUi.LOGIN_CSS, sharedUi.PDA_CSS, ...built.styles].join('\n');
@@ -369,11 +481,27 @@ function navGroups(app, entries) {
   }));
 }
 
+function railGroups(app, groups) {
+  const byId = new Map(groups.map((g) => [g.id, g]));
+  if (!Array.isArray(app.rail) || !app.rail.length) {
+    return [{ id: 'rail-all', name: app.name, mark: app.name.slice(0, 1), sections: groups }];
+  }
+  return app.rail.map((r) => ({
+    id: r.id,
+    name: r.name,
+    mark: r.mark,
+    sections: (r.navs || []).map((id) => byId.get(id)).filter(Boolean),
+  }));
+}
+
 function buildHtml(app, entries, built, sharedUi) {
   if (app.shell === 'mall') return buildMallHtml(app, entries, built, sharedUi);
+  if (app.shell === 'site') return buildSiteHtml(app, entries, built, sharedUi);
+  if (app.shell === 'mobile') return buildMobileHtml(app, entries, built, sharedUi);
   if (app.shell === 'pda') return buildPdaHtml(app, entries, built, sharedUi);
   const esc = sharedUi.esc;
   const groups = navGroups(app, entries);
+  const rails = railGroups(app, groups);
   const groupOf = new Map();
   for (const g of groups) for (const p of g.pages) groupOf.set(p.id, g.id);
   const sections = built.sections.map((s) => {
@@ -381,19 +509,20 @@ function buildHtml(app, entries, built, sharedUi) {
     const gid = m && groupOf.get(m[1]);
     return gid ? s.replace('<section class="page"', `<section class="page" data-nav-group="${esc(gid)}"`) : s;
   });
-  const side = groups.map((g) => `<div class="wx-nav-group">`
-    + `<button type="button" class="wx-nav-item" data-nav="${esc(g.id)}" aria-expanded="false"><span class="wx-nav-label">${esc(g.name)}</span><span class="wx-nav-chevron">⌄</span></button>`
-    + `<div class="wx-nav-children" data-children="${esc(g.id)}" hidden>`
-    + g.pages.map((p) => `<button type="button" class="wx-side-item" data-target="${esc(p.id)}">${esc(p.name)}</button>`).join('')
-    + `</div></div>`).join('');
-  const headTabs = groups.map((g) => `<div class="wx-head-tabs" data-tabs="${esc(g.id)}" hidden>`
-    + g.pages.map((p) => `<button type="button" class="wx-head-tab" data-target="${esc(p.id)}">${esc(p.name)}</button>`).join('')
-    + `</div>`).join('');
+  const itemOf = (p) => `<button type="button" class="wx-panel-item" data-target="${esc(p.id)}"><span>${esc(p.name)}</span><span class="wx-panel-dot" aria-hidden="true"></span></button>`;
+  const railHtml = rails.map((r) => `<button type="button" class="wx-rail-item" data-domain="${esc(r.id)}" title="${esc(r.name)}" aria-label="${esc(r.name)}" aria-current="false">`
+    + `<span class="wx-rail-mark" aria-hidden="true">${esc(r.mark)}</span><span class="wx-rail-label">${esc(r.name)}</span></button>`).join('');
+  const panels = rails.map((r) => {
+    const body = r.sections.map((s) => `<section class="wx-panel-section" data-section="${esc(s.id)}">`
+      + (r.sections.length > 1 ? `<div class="wx-panel-label">${esc(s.name)}</div>` : '')
+      + s.pages.map(itemOf).join('') + `</section>`).join('');
+    return `<div class="wx-panel-group" data-domain-panel="${esc(r.id)}" hidden>${body}</div>`;
+  }).join('');
   const isOwnerApp = app.id === 'erp-app';
   const userLabel = isOwnerApp ? (demoOwners()[0] || '') : reg.subject;
   const mall = mallTarget();
   const mallEntry = isOwnerApp && mall
-    ? `<a class="wx-top-mall" href="${encodeURI(mall.href)}?owner=${encodeURIComponent(demoOwners()[0] || '')}" target="_blank" rel="noopener" data-mall-entry data-mall-base="${encodeURI(mall.href)}">前往商城</a>`
+    ? `<a class="wx-panel-mall" href="${encodeURI(mall.href)}?owner=${encodeURIComponent(demoOwners()[0] || '')}" target="_blank" rel="noopener" data-mall-entry data-mall-base="${encodeURI(mall.href)}">前往商城</a>`
     : '';
   const css = [sharedUi.TOKENS_CSS, sharedUi.BASE_CSS, sharedUi.LOGIN_CSS, ...built.styles].join('\n');
   const overlay = built.overlays.length
@@ -403,16 +532,23 @@ function buildHtml(app, entries, built, sharedUi) {
     + `<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n`
     + `<title>${esc(app.name)} · ${esc(reg.product)}</title>\n<style>\n${css}\n</style>\n</head>\n<body>\n`
     + `<div class="wx-app">\n`
-    + `<header class="wx-top">`
-    + `<div class="wx-brand"><span class="wx-brand-mark">仓</span><span class="wx-brand-copy"><b>${esc(reg.product)}</b><small>${esc(app.name)}</small></span></div>`
-    + `<div class="wx-global-search"><input type="text" placeholder="搜索页面" aria-label="搜索页面" data-global-search></div>`
-    + `<div class="wx-top-tools">${mallEntry}<button type="button" class="wx-top-tool" title="帮助" data-toast="帮助（原型示意）">帮助</button>`
-    + `<button type="button" class="wx-top-tool" title="通知" data-toast="通知（原型示意）">通知</button>`
-    + `<button type="button" class="wx-user" data-session-toggle title="账号与会话"><span class="wx-user-avatar" data-top-avatar>${esc(userLabel ? userLabel.slice(0, 1) : '·')}</span><span data-top-user>${esc(userLabel)}</span></button></div></header>\n`
-    + `<div class="wx-shell"><aside class="wx-side"><div class="wx-side-scroll">${side}</div>`
-    + `<div class="wx-side-footer"><button type="button" class="wx-side-toggle" data-side-toggle title="收起侧栏" aria-label="收起侧栏">‹</button></div></aside>\n`
-    + `<main class="wx-main"><div class="wx-page-header">${headTabs}</div>\n`
-    + `<div class="wx-page-body">${sections.join('\n')}</div></main></div>\n`
+    + `<div class="wx-shell">`
+    + `<aside class="wx-rail"><span class="wx-rail-brand" title="${esc(reg.product)}">仓</span>`
+    + `<div class="wx-rail-nav">${railHtml}</div>`
+    + `<div class="wx-rail-foot">`
+    + `<button type="button" class="wx-rail-tool wx-rail-expand" data-side-toggle="rail" aria-expanded="false" title="展开导航" aria-label="展开导航">›</button>`
+    + `<button type="button" class="wx-rail-tool" title="帮助" data-toast="帮助（原型示意）">帮助</button>`
+    + `<button type="button" class="wx-rail-tool" title="通知" data-toast="通知（原型示意）">通知</button>`
+    + `<button type="button" class="wx-user wx-rail-user" data-session-toggle title="账号与会话" aria-label="账号与会话"><span class="wx-user-avatar" data-top-avatar>${esc(userLabel ? userLabel.slice(0, 1) : '·')}</span></button>`
+    + `</div></aside>\n`
+    + `<aside class="wx-panel"><div class="wx-panel-head">`
+    + `<div class="wx-panel-title"><span class="wx-panel-name">${esc(app.name)}</span>${mallEntry}</div>`
+    + `<span class="wx-panel-sub">${esc(reg.product)}</span>`
+    + `<div class="wx-panel-search"><input type="text" placeholder="搜索本域页面" aria-label="搜索本域页面" data-global-search></div>`
+    + `</div><div class="wx-panel-body">${panels}<div class="wx-panel-empty" hidden>本域无匹配页面</div></div>`
+    + `<div class="wx-panel-foot"><button type="button" class="wx-panel-toggle" data-side-toggle="panel" aria-expanded="true" title="收起导航" aria-label="收起导航">‹</button></div>`
+    + `</aside>\n`
+    + `<main class="wx-main"><div class="wx-page-body">${sections.join('\n')}</div></main></div>\n`
     + `<div class="wx-toast" hidden></div></div>\n`
     + overlay + `\n` + sharedUi.renderLogin({ product: reg.product, appName: app.name, userLabel, demoOwners: isOwnerApp ? demoOwners() : [] })
     + `\n<script>\n${sharedUi.SHELL_SCRIPT}\n${sharedUi.LOGIN_SCRIPT}\n</script>\n</body>\n</html>\n`;
@@ -435,6 +571,29 @@ function checkProduct(html, entries, app) {
   } else if (html.includes('class="wx-shop-app"')) {
     bad('商城', `${app.name} 后台端混用了商城外壳`);
   }
+  if (app.shell === 'site') {
+    if (!html.includes('class="wx-site-app"')) bad('独立站', `${app.name} 产物缺品牌站外壳`);
+    if (html.includes('class="wx-app"')) bad('独立站', `${app.name} 产物混用了后台外壳`);
+    if (html.includes('class="wx-pda"')) bad('独立站', `${app.name} 产物混用了作业终端外壳`);
+    if (html.includes('class="wx-owner-select"')) bad('独立站', `${app.name} 产物不应出现货主切换下拉`);
+    if (!html.includes('data-login-gate="0"')) bad('独立站', `${app.name} 产物未启用访客浏览`);
+    const navCount = (html.match(/class="wx-site-nav-item/g) || []).length;
+    if (navCount < (app.nav || []).length) bad('独立站', `${app.name} 顶栏入口不足（当前 ${navCount} 个）`);
+  }
+  if (app.shell === 'mobile') {
+    if (!html.includes('class="wx-mobile-app"')) bad('独立站 APP', `${app.name} 产物缺手机外壳`);
+    if (!html.includes('class="wx-mobile-status"')) bad('独立站 APP', `${app.name} 产物缺状态条`);
+    if (!html.includes('class="wx-mobile-tabs"')) bad('独立站 APP', `${app.name} 产物缺底部 tab`);
+    if (html.includes('data-pda-key=')) bad('独立站 APP', `${app.name} 产物不应出现作业按键区`);
+    if (html.includes('class="wx-app"')) bad('独立站 APP', `${app.name} 产物混用了后台外壳`);
+    if (html.includes('class="wx-owner-select"')) bad('独立站 APP', `${app.name} 产物不应出现货主切换下拉`);
+    const tabCount = (html.match(/class="wx-mobile-tab"/g) || []).length;
+    if (tabCount < 4) bad('独立站 APP', `${app.name} 底部 tab 不足 4 个（当前 ${tabCount} 个）`);
+    const boot = (html.match(/class="wx-mobile-app"[^>]*data-boot="([^"]+)"/) || [])[1];
+    if (!boot) bad('独立站 APP', `${app.name} 产物缺首屏启动页 data-boot`);
+    else if (!html.includes(`data-page-id="${boot}"`)) bad('独立站 APP', `${app.name} 的 data-boot=${boot} 不在产物页清单内`);
+    if (!html.includes("getAttribute('data-boot')")) bad('独立站 APP', `${app.name} 外壳脚本未消费 data-boot，打开会停留在空白首屏`);
+  }
   if (app.shell === 'pda') {
     if (!html.includes('class="wx-pda"')) bad('PDA', `${app.name} 产物缺手机外壳`);
     if (html.includes('class="wx-shell"')) bad('PDA', `${app.name} 产物不应出现后台侧栏`);
@@ -446,6 +605,21 @@ function checkProduct(html, entries, app) {
     if (!boot) bad('PDA', `${app.name} 产物缺首屏启动页 data-boot`);
     else if (!html.includes(`data-page-id="${boot}"`)) bad('PDA', `${app.name} 的 data-boot=${boot} 不在产物页清单内`);
     if (!html.includes("getAttribute('data-boot')")) bad('PDA', `${app.name} 外壳脚本未消费 data-boot，打开会停留在空白首屏`);
+  }
+  if (app.shell === 'admin') {
+    if (html.includes('class="wx-top"')) bad('双栏', `${app.name} 产物仍带顶栏`);
+    if (html.includes('wx-head-tabs')) bad('双栏', `${app.name} 产物仍带页头页签`);
+    if (!html.includes('class="wx-rail"')) bad('双栏', `${app.name} 产物缺业务域首栏`);
+    if (!html.includes('class="wx-panel"')) bad('双栏', `${app.name} 产物缺导航面板`);
+    const domains = [...new Set([...html.matchAll(/data-domain="([a-z][a-z0-9-]*)"/g)].map((m) => m[1]))];
+    const panels = [...new Set([...html.matchAll(/data-domain-panel="([a-z][a-z0-9-]*)"/g)].map((m) => m[1]))];
+    for (const d of domains) if (!panels.includes(d)) bad('双栏', `${app.name} 首栏域 ${d} 没有对应面板`);
+    for (const p of panels) if (!domains.includes(p)) bad('双栏', `${app.name} 面板域 ${p} 不在首栏`);
+    for (const e of entries) {
+      const needle = `class="wx-panel-item" data-target="${e.pageId}"`;
+      const count = html.split(needle).length - 1;
+      if (count !== 1) bad('双栏', `${app.name} 页面 ${e.pageId} 在面板中出现 ${count} 次，应为 1 次`);
+    }
   }
   if (app.id === 'erp-app') {
     if (html.includes('<select class="wx-owner-select"')) bad('货灵ERP', `${app.name} 产物不应出现货主切换下拉`);

@@ -1,0 +1,5 @@
+{
+  "refs": {
+    "site": { "ref": "sites", "keys": ["SITE001"] }
+  }
+}

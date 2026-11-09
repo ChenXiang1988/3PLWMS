@@ -1,23 +1,23 @@
 {
   "task": {
-    "taskNo": "PT20261106001",
+    "taskNo": "PCK20261106001",
     "processNo": "PK20261106001",
     "owner": "海纳食品",
     "operator": "李娜",
     "device": "PDA-05",
-    "location": "拣货区 A-03"
+    "location": "A-01-01"
   },
   "line": {
     "lineNo": 1,
-    "skuCode": "SKU100255",
-    "skuName": "海纳低脂牛奶 250ml×24",
+    "skuCode": "SKU100231",
+    "skuName": "海纳全脂牛奶 250ml×24",
     "batchNo": "B20261018",
-    "planQty": 480,
-    "doneQty": 300,
+    "planQty": 240,
+    "doneQty": 120,
     "unit": "箱"
   },
   "logs": [
-    { "time": "10:12", "text": "扫描 SKU100255", "qty": "120 箱" },
-    { "time": "10:15", "text": "扫描 SKU100255", "qty": "180 箱" }
+    { "time": "10:12", "text": "扫描 SKU100231", "qty": "60 箱" },
+    { "time": "10:15", "text": "扫描 SKU100231", "qty": "60 箱" }
   ]
 }

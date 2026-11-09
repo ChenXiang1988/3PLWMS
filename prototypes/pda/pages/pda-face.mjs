@@ -9,7 +9,7 @@ export function renderPage(data, ctx) {
 
   const body = `<div data-pda-steps>`
     + block('scan', '☻', '人脸识别', `识别到账号 ${esc(doc.staffName)}，正在核验面部特征`,
-      `<button type="button" class="wx-btn wx-btn--primary" data-pda-tab="task/pda-invite" data-pda-tab-name="接入自带手机">识别通过</button>`
+      `<button type="button" class="wx-btn wx-btn--primary" data-pda-tab="pda/pda-invite" data-pda-tab-name="接入自带手机">识别通过</button>`
       + `<button type="button" class="wx-btn wx-btn--ghost" data-pda-step-to="noface">未登记人脸</button>`, false)
     + block('noface', '!', '未登记人脸', '本账号还没有面部底片，需要先采集一次',
       `<button type="button" class="wx-btn wx-btn--primary" data-pda-step-to="capture">去登记</button>`

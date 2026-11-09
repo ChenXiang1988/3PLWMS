@@ -1,0 +1,13 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "member": "周敏", "account": "zhoumin@haina", "role": "站长", "scope": "本站点", "status": "启用", "lastLogin": "2026-11-09 09:20", "siteCode": "SITE001", "siteName": "鲜集", "permissions": "查看、编辑、发布、退款、导出" },
+    { "owner": "海纳食品", "member": "陈立", "account": "chenli@haina", "role": "内容", "scope": "本站点", "status": "启用", "lastLogin": "2026-11-09 09:15", "siteCode": "SITE001", "siteName": "鲜集", "permissions": "查看、编辑" },
+    { "owner": "海纳食品", "member": "王珂", "account": "wangke@haina", "role": "客服", "scope": "本站点", "status": "启用", "lastLogin": "2026-11-08 18:40", "siteCode": "SITE001", "siteName": "鲜集", "permissions": "查看" },
+    { "owner": "海纳食品", "member": "周敏", "account": "zhoumin@haina", "role": "站长", "scope": "本站点", "status": "启用", "lastLogin": "2026-11-09 09:20", "siteCode": "SITE002", "siteName": "海纳采销", "permissions": "查看、编辑、发布、退款、导出" },
+    { "owner": "海纳食品", "member": "李帆", "account": "lifan@haina", "role": "运营", "scope": "本站点", "status": "启用", "lastLogin": "2026-11-09 08:30", "siteCode": "SITE002", "siteName": "海纳采销", "permissions": "查看、编辑、导出" },
+    { "owner": "海纳食品", "member": "赵晴", "account": "zhaoqing@haina", "role": "财务", "scope": "本站点", "status": "停用", "lastLogin": "2026-10-30 14:10", "siteCode": "SITE002", "siteName": "海纳采销", "permissions": "查看、导出" },
+    { "owner": "辰星日化", "member": "林悦", "account": "linyue@chenxing", "role": "站长", "scope": "本站点", "status": "启用", "lastLogin": "2026-11-09 09:50", "siteCode": "SITE003", "siteName": "星漾", "permissions": "查看、编辑、发布、退款、导出" },
+    { "owner": "辰星日化", "member": "郑楠", "account": "zhengnan@chenxing", "role": "运营", "scope": "本站点", "status": "启用", "lastLogin": "2026-11-09 10:02", "siteCode": "SITE003", "siteName": "星漾", "permissions": "查看、编辑、导出" },
+    { "owner": "辰星日化", "member": "苏晨", "account": "suchen@chenxing", "role": "客服", "scope": "本站点", "status": "启用", "lastLogin": "2026-11-08 19:25", "siteCode": "SITE003", "siteName": "星漾", "permissions": "查看" }
+  ]
+}

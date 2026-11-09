@@ -1,0 +1,17 @@
+{
+  "task": {
+    "taskNo": "PUT20261106001",
+    "taskStatus": "busy",
+    "owner": "海纳食品",
+    "skuCode": "SKU100231",
+    "skuName": "海纳全脂牛奶 250ml×24",
+    "bin": "A-01-01",
+    "planQty": 600,
+    "doneQty": 380,
+    "qtyUnit": "箱",
+    "operator": "张伟",
+    "device": "PDA-07"
+  },
+  "back": { "tab": "task/pda-putaway-list", "name": "上架作业任务" },
+  "scan": { "tab": "inbound/receiving-scan", "name": "收货验收" }
+}

@@ -18,20 +18,22 @@ export function renderPage(data, ctx) {
     + `<small>${esc(doc.roleName)} · ${esc(doc.warehouseScope)}</small>`
     + `<small>设备 ${esc(doc.device)}</small></span></div>`;
 
+  const entry = (tab, name, icon, sub) => `<button type="button" class="wx-pda-entry" data-pda-tab="${tab}" data-pda-tab-name="${name}">`
+    + `<span class="wx-pda-entry-icon">${icon}</span>`
+    + `<span class="wx-pda-entry-body"><b>${name}</b>${sub ? `<small>${sub}</small>` : ''}</span>`
+    + `<span class="wx-pda-entry-arrow">›</span></button>`;
+
   const entries = `<div class="wx-pda-stack">`
     + `<button type="button" class="wx-pda-entry" data-toast="我的权限（原型示意）">`
     + `<span class="wx-pda-entry-icon">◈</span>`
     + `<span class="wx-pda-entry-body"><b>我的权限</b><small>${esc(doc.roleName)} · ${esc(doc.warehouseScope)}</small></span>`
     + `<span class="wx-pda-entry-arrow">›</span></button>`
-    + `<button type="button" class="wx-pda-entry" data-toast="我的设备（原型示意）">`
-    + `<span class="wx-pda-entry-icon">▣</span>`
-    + `<span class="wx-pda-entry-body"><b>我的设备</b><small>${esc(doc.device)} · 序列号与换机</small></span>`
-    + `<span class="wx-pda-entry-arrow">›</span></button>`
-    + `<button type="button" class="wx-pda-entry" data-toast="版本与更新（原型示意）">`
-    + `<span class="wx-pda-entry-icon">⤓</span>`
-    + `<span class="wx-pda-entry-body"><b>版本与更新</b><small>当前 v1.0.4 · 检查更新</small></span>`
-    + `<span class="wx-pda-entry-arrow">›</span></button>`
-    + `<button type="button" class="wx-btn wx-btn--ghost" data-toast="退出登录（原型示意）">退出登录</button>`
+    + entry('pda/pda-my-device', '我的设备', '▣', '')
+    + entry('pda/pda-face', '人脸识别', '☻', '')
+    + entry('pda/pda-invite', '接入自带手机', '⇄', '')
+    + entry('pda/pda-activate', '激活本机', '✓', '')
+    + entry('pda/pda-version', '版本与更新', '⤓', '')
+    + `<button type="button" class="wx-btn wx-btn--ghost" data-pda-tab="pda/pda-login" data-pda-tab-name="登录">退出登录</button>`
     + `</div>`;
 
   return ReportPage({ hero: head, stats, blocks: [Block({ title: '明细', note: '', body: entries })] });

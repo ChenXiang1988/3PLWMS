@@ -1,0 +1,155 @@
+{
+  "rows": [
+    {
+      "siteCode": "SITE001",
+      "siteName": "鲜集",
+      "siteMark": "鲜",
+      "siteType": "品牌站",
+      "owner": "海纳食品",
+      "domain": "shop.xianji.cn",
+      "template": "编辑式",
+      "status": "营业中",
+      "visitorToday": 1280,
+      "orderCount": 0,
+      "updatedAt": "2026-11-09 09:20",
+      "origin": "上海",
+      "siteIntro": "2012 年建厂，主产常温乳品，华东 36 家门店。",
+      "facts": [
+        { "label": "始创", "value": "2012" },
+        { "label": "门店", "value": "36" },
+        { "label": "在售商品", "value": "5" }
+      ],
+      "story": [
+        { "year": "2012", "text": "第一条常温奶生产线投产" },
+        { "year": "2016", "text": "华东冷链仓配中心启用" },
+        { "year": "2021", "text": "门店突破 30 家，覆盖 6 个城市" },
+        { "year": "2026", "text": "独立站上线，门店与商品同源" }
+      ],
+      "certs": [
+        { "name": "食品生产许可证", "no": "SC10131011500123", "validTo": "2028-06-30" },
+        { "name": "食品经营许可证", "no": "JY13101150004567", "validTo": "2027-12-31" }
+      ],
+      "stores": [
+        { "name": "静安门店", "city": "上海", "address": "南京西路 1266 号 1 层", "hours": "09:00-21:00", "phone": "021-62001266" },
+        { "name": "徐汇门店", "city": "上海", "address": "漕溪北路 88 号 B1", "hours": "09:30-21:30", "phone": "021-64008888" },
+        { "name": "西湖门店", "city": "杭州", "address": "延安路 385 号 2 层", "hours": "10:00-22:00", "phone": "0571-87001266" },
+        { "name": "鼓楼门店", "city": "南京", "address": "中山北路 12 号 1 层", "hours": "09:00-21:00", "phone": "025-83201266" }
+      ],
+      "skuCodes": ["SKU100231", "SKU100175", "SKU100402", "SKU100236", "SKU100238"],
+      "channels": [
+        { "end": "Web", "status": "已发布", "version": "v1.4.0", "coverage": "全量", "sync": "已同步", "updatedAt": "2026-11-09 09:10" },
+        { "end": "APP", "status": "已发布", "version": "v1.4.0", "coverage": "全量", "sync": "已同步", "updatedAt": "2026-11-09 09:10" },
+        { "end": "微信小程序", "status": "待审核", "version": "v1.5.0", "coverage": "精简", "sync": "同步中", "updatedAt": "2026-11-09 09:18" },
+        { "end": "支付宝小程序", "status": "未发布", "version": "—", "coverage": "仅展示", "sync": "已同步", "updatedAt": "2026-11-08 18:40" }
+      ]
+    },
+    {
+      "siteCode": "SITE002",
+      "siteName": "海纳采销",
+      "siteMark": "海",
+      "siteType": "采销站",
+      "owner": "海纳食品",
+      "domain": "trade.haina-food.cn",
+      "template": "交易版",
+      "status": "营业中",
+      "visitorToday": 640,
+      "orderCount": 128,
+      "updatedAt": "2026-11-09 08:45",
+      "origin": "上海",
+      "siteIntro": "面向经销商的采销站，在仓现货直发。",
+      "facts": [
+        { "label": "在售商品", "value": "5" },
+        { "label": "本月订单", "value": "128" },
+        { "label": "发货仓", "value": "2" }
+      ],
+      "story": [
+        { "year": "2024", "text": "采销站试运行，承接华东经销商订单" },
+        { "year": "2026", "text": "接入货灵ERP订单中心" }
+      ],
+      "certs": [
+        { "name": "食品经营许可证", "no": "JY13101150004567", "validTo": "2027-12-31" }
+      ],
+      "stores": [
+        { "name": "华东中心仓", "city": "上海", "address": "嘉定区兴顺路 88 号", "hours": "08:00-18:00", "phone": "021-59901266" }
+      ],
+      "skuCodes": ["SKU100231", "SKU100175", "SKU100402", "SKU100236", "SKU100238"],
+      "channels": [
+        { "end": "Web", "status": "已发布", "version": "v2.1.0", "coverage": "全量", "sync": "已同步", "updatedAt": "2026-11-09 08:30" },
+        { "end": "APP", "status": "已发布", "version": "v2.1.0", "coverage": "全量", "sync": "已同步", "updatedAt": "2026-11-09 08:30" },
+        { "end": "微信小程序", "status": "已发布", "version": "v2.1.0", "coverage": "全量", "sync": "已同步", "updatedAt": "2026-11-08 20:12" },
+        { "end": "支付宝小程序", "status": "发布失败", "version": "v2.1.0", "coverage": "全量", "sync": "同步失败", "updatedAt": "2026-11-09 08:32" }
+      ]
+    },
+    {
+      "siteCode": "SITE003",
+      "siteName": "星漾",
+      "siteMark": "星",
+      "siteType": "品牌站",
+      "owner": "辰星日化",
+      "domain": "www.xingyang.cn",
+      "template": "编辑式",
+      "status": "营业中",
+      "visitorToday": 860,
+      "orderCount": 0,
+      "updatedAt": "2026-11-09 10:02",
+      "origin": "广州",
+      "siteIntro": "日用清洁品牌，覆盖衣物洗护与厨房清洁两类产品。",
+      "facts": [
+        { "label": "始创", "value": "2015" },
+        { "label": "门店", "value": "12" },
+        { "label": "在售商品", "value": "5" }
+      ],
+      "story": [
+        { "year": "2015", "text": "洗衣液产线投产" },
+        { "year": "2020", "text": "进入华南 8 个城市商超" },
+        { "year": "2026", "text": "品牌独立站上线" }
+      ],
+      "certs": [
+        { "name": "化妆品生产许可证", "no": "粤妆 20150088", "validTo": "2027-09-30" }
+      ],
+      "stores": [
+        { "name": "天河门店", "city": "广州", "address": "天河路 208 号 3 层", "hours": "10:00-22:00", "phone": "020-38001266" },
+        { "name": "南山门店", "city": "深圳", "address": "深南大道 9668 号 B1", "hours": "10:00-22:00", "phone": "0755-86001266" }
+      ],
+      "skuCodes": ["SKU100232", "SKU100142", "SKU100355", "SKU100244", "SKU100246"],
+      "channels": [
+        { "end": "Web", "status": "已发布", "version": "v1.2.0", "coverage": "全量", "sync": "已同步", "updatedAt": "2026-11-09 09:50" },
+        { "end": "APP", "status": "已发布", "version": "v1.2.0", "coverage": "全量", "sync": "已同步", "updatedAt": "2026-11-09 09:50" },
+        { "end": "微信小程序", "status": "已发布", "version": "v1.2.0", "coverage": "精简", "sync": "已同步", "updatedAt": "2026-11-08 19:20" },
+        { "end": "支付宝小程序", "status": "待审核", "version": "v1.3.0", "coverage": "仅展示", "sync": "同步中", "updatedAt": "2026-11-09 10:00" }
+      ]
+    },
+    {
+      "siteCode": "SITE004",
+      "siteName": "云途优选",
+      "siteMark": "云",
+      "siteType": "采销站",
+      "owner": "云途电商",
+      "domain": "youxuan.yuntu.cn",
+      "template": "交易版",
+      "status": "草稿",
+      "visitorToday": 0,
+      "orderCount": 0,
+      "updatedAt": "2026-11-07 16:20",
+      "origin": "北京",
+      "siteIntro": "家居百货采销站，站点资料尚未发布。",
+      "facts": [
+        { "label": "在售商品", "value": "3" },
+        { "label": "本月订单", "value": "0" },
+        { "label": "发货仓", "value": "1" }
+      ],
+      "story": [],
+      "certs": [],
+      "stores": [
+        { "name": "华北中心仓", "city": "北京", "address": "顺义区物流园 6 号", "hours": "08:00-18:00", "phone": "010-69401266" }
+      ],
+      "skuCodes": ["SKU100198", "SKU100206", "SKU100268"],
+      "channels": [
+        { "end": "Web", "status": "未发布", "version": "—", "coverage": "全量", "sync": "已同步", "updatedAt": "2026-11-07 16:20" },
+        { "end": "APP", "status": "未发布", "version": "—", "coverage": "全量", "sync": "已同步", "updatedAt": "2026-11-07 16:20" },
+        { "end": "微信小程序", "status": "未发布", "version": "—", "coverage": "精简", "sync": "已同步", "updatedAt": "2026-11-07 16:20" },
+        { "end": "支付宝小程序", "status": "未发布", "version": "—", "coverage": "仅展示", "sync": "已同步", "updatedAt": "2026-11-07 16:20" }
+      ]
+    }
+  ]
+}

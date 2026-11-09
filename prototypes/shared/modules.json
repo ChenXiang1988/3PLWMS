@@ -13,6 +13,17 @@
       "id": "erp-app",
       "name": "货灵ERP",
       "shell": "admin",
+      "rail": [
+        { "id": "rail-workbench", "name": "工作台", "mark": "工", "navs": ["nav-workbench"] },
+        { "id": "rail-trade", "name": "交易", "mark": "交", "navs": ["nav-order", "nav-fulfillment", "nav-aftersale"] },
+        { "id": "rail-merch", "name": "商品", "mark": "商", "navs": ["nav-sku"] },
+        { "id": "rail-domestic", "name": "国内电商", "mark": "内", "navs": ["nav-domestic", "nav-jd", "nav-taobao"] },
+        { "id": "rail-crossborder", "name": "跨境电商", "mark": "跨", "navs": ["nav-lazada", "nav-amazon", "nav-temu", "nav-tiktok", "nav-aliexpress"] },
+        { "id": "rail-dist", "name": "分销平台", "mark": "销", "navs": ["nav-shop"] },
+        { "id": "rail-stock", "name": "仓储", "mark": "仓", "navs": ["nav-warehouse", "nav-reconcile", "nav-inventory"] },
+        { "id": "rail-site", "name": "独立站", "mark": "站", "navs": ["nav-site", "nav-site-ops"] },
+        { "id": "rail-finance", "name": "财务与设置", "mark": "财", "navs": ["nav-billing", "nav-setting"] }
+      ],
       "nav": [
         {
           "id": "nav-workbench",
@@ -97,15 +108,120 @@
           ]
         },
         {
-          "id": "nav-platform",
-          "name": "平台接入",
+          "id": "nav-site",
+          "name": "独立站",
           "pages": [
-            "owner/platform-shop-list",
-            "owner/platform-adapter-list",
-            "owner/sync-task-list",
-            "owner/platform-order-list",
-            "owner/platform-replenish-list",
-            "owner/platform-aftersale-list"
+            "site/site-overview",
+            "site/site-list",
+            "site/site-config",
+            "site/site-domain"
+          ]
+        },
+        {
+          "id": "nav-site-ops",
+          "name": "站点运营",
+          "pages": [
+            "site/site-content",
+            "site/site-sku",
+            "site/site-order",
+            "site/site-channel",
+            "site/site-member"
+          ]
+        },
+        {
+          "id": "nav-domestic",
+          "name": "微信小店",
+          "pages": [
+            "owner/wx-shop-list",
+            "owner/wx-adapter-list",
+            "owner/wx-sync-list",
+            "owner/wx-order-list",
+            "owner/wx-replenish-list",
+            "owner/wx-aftersale-list"
+          ]
+        },
+        {
+          "id": "nav-jd",
+          "name": "京东",
+          "pages": [
+            "owner/jd-shop-list",
+            "owner/jd-adapter-list",
+            "owner/jd-sync-list",
+            "owner/jd-order-list",
+            "owner/jd-replenish-list",
+            "owner/jd-aftersale-list"
+          ]
+        },
+        {
+          "id": "nav-taobao",
+          "name": "淘宝",
+          "pages": [
+            "owner/taobao-shop-list",
+            "owner/taobao-adapter-list",
+            "owner/taobao-sync-list",
+            "owner/taobao-order-list",
+            "owner/taobao-replenish-list",
+            "owner/taobao-aftersale-list"
+          ]
+        },
+        {
+          "id": "nav-lazada",
+          "name": "Lazada",
+          "pages": [
+            "owner/lazada-shop-list",
+            "owner/lazada-adapter-list",
+            "owner/lazada-sync-list",
+            "owner/lazada-order-list",
+            "owner/lazada-replenish-list",
+            "owner/lazada-aftersale-list"
+          ]
+        },
+        {
+          "id": "nav-amazon",
+          "name": "Amazon",
+          "pages": [
+            "owner/amazon-shop-list",
+            "owner/amazon-adapter-list",
+            "owner/amazon-sync-list",
+            "owner/amazon-order-list",
+            "owner/amazon-replenish-list",
+            "owner/amazon-aftersale-list"
+          ]
+        },
+        {
+          "id": "nav-temu",
+          "name": "Temu",
+          "pages": [
+            "owner/temu-shop-list",
+            "owner/temu-adapter-list",
+            "owner/temu-sync-list",
+            "owner/temu-order-list",
+            "owner/temu-replenish-list",
+            "owner/temu-aftersale-list"
+          ]
+        },
+        {
+          "id": "nav-tiktok",
+          "name": "TikTok Shop",
+          "pages": [
+            "owner/tiktok-shop-list",
+            "owner/tiktok-adapter-list",
+            "owner/tiktok-sync-list",
+            "owner/tiktok-order-list",
+            "owner/tiktok-replenish-list",
+            "owner/tiktok-aftersale-list"
+          ]
+        },
+        {
+          "id": "nav-aliexpress",
+          "name": "速卖通",
+          "pages": [
+            "owner/aliexpress-shop-list",
+            "owner/aliexpress-adapter-list",
+            "owner/aliexpress-sync-list",
+            "owner/aliexpress-order-list",
+            "owner/aliexpress-replenish-list",
+            "owner/aliexpress-aftersale-list"
           ]
         },
         {
@@ -136,6 +252,13 @@
       "id": "network-app",
       "name": "货灵运营中台管理端",
       "shell": "admin",
+      "rail": [
+        { "id": "rail-overview", "name": "总览", "mark": "总", "navs": ["nav-workbench", "nav-service"] },
+        { "id": "rail-network", "name": "仓网", "mark": "网", "navs": ["nav-archive", "nav-dispatch", "nav-resource"] },
+        { "id": "rail-sku-stock", "name": "库存与商品", "mark": "库", "navs": ["nav-inventory", "nav-sku"] },
+        { "id": "rail-mall", "name": "商城", "mark": "城", "navs": ["nav-mall"] },
+        { "id": "rail-platform", "name": "平台与系统", "mark": "平", "navs": ["nav-erp-ops", "nav-account", "nav-billing", "nav-setting"] }
+      ],
       "nav": [
         {
           "id": "nav-workbench",
@@ -269,6 +392,14 @@
       "id": "warehouse-app",
       "name": "货灵WMS",
       "shell": "admin",
+      "rail": [
+        { "id": "rail-task", "name": "任务中心", "mark": "任", "navs": ["nav-workbench"] },
+        { "id": "rail-inbound", "name": "入库", "mark": "入", "navs": ["nav-inbound"] },
+        { "id": "rail-outbound", "name": "出库与发货", "mark": "出", "navs": ["nav-outbound", "nav-shipping"] },
+        { "id": "rail-inner", "name": "库内作业", "mark": "内", "navs": ["nav-inner", "nav-count"] },
+        { "id": "rail-stock-resource", "name": "库存与资源", "mark": "库", "navs": ["nav-inventory", "nav-resource"] },
+        { "id": "rail-staff", "name": "人员与配置", "mark": "人", "navs": ["nav-staff", "nav-config", "nav-base"] }
+      ],
       "nav": [
         {
           "id": "nav-workbench",
@@ -440,7 +571,7 @@
     },
     {
       "id": "pda-app",
-      "name": "PDA 作业端",
+      "name": "作业 APP",
       "shell": "pda",
       "nav": [
         {
@@ -449,23 +580,21 @@
           "pages": [
             "task/pda-home",
             "task/pda-putaway-list",
+            "task/pda-putaway-detail",
             "task/pda-picking-list",
-            "task/pda-stocktaking-list"
-          ]
-        },
-        {
-          "id": "nav-scan",
-          "name": "扫码",
-          "pages": [
+            "task/pda-picking-detail",
+            "task/pda-stocktaking-list",
+            "task/pda-stocktaking-detail",
             "inbound/receiving-scan",
             "outbound/picking-scan",
             "warehouse/count-scan"
           ]
         },
         {
-          "id": "nav-terminal",
-          "name": "终端",
+          "id": "nav-mine",
+          "name": "我的",
           "pages": [
+            "task/pda-mine",
             "pda/pda-login",
             "pda/pda-face",
             "pda/pda-invite",
@@ -473,12 +602,83 @@
             "pda/pda-my-device",
             "pda/pda-version"
           ]
+        }
+      ]
+    },
+    {
+      "id": "site-app",
+      "name": "货主独立站",
+      "shell": "site",
+      "nav": [
+        {
+          "id": "nav-home",
+          "name": "站点首页",
+          "pages": [
+            "site-front/sf-home"
+          ]
         },
         {
-          "id": "nav-mine",
-          "name": "我的",
+          "id": "nav-products",
+          "name": "站点商品",
           "pages": [
-            "task/pda-mine"
+            "site-front/sf-products"
+          ]
+        },
+        {
+          "id": "nav-product",
+          "name": "站点商品详情",
+          "pages": [
+            "site-front/sf-product"
+          ]
+        },
+        {
+          "id": "nav-brand",
+          "name": "品牌故事",
+          "pages": [
+            "site-front/sf-brand"
+          ]
+        },
+        {
+          "id": "nav-stores",
+          "name": "门店网点",
+          "pages": [
+            "site-front/sf-stores"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "site-mobile-app",
+      "name": "独立站 APP",
+      "shell": "mobile",
+      "nav": [
+        {
+          "id": "m-nav-home",
+          "name": "站点首页",
+          "pages": [
+            "site-front/sf-m-home"
+          ]
+        },
+        {
+          "id": "m-nav-products",
+          "name": "站点商品",
+          "pages": [
+            "site-front/sf-m-products",
+            "site-front/sf-m-product"
+          ]
+        },
+        {
+          "id": "m-nav-brand",
+          "name": "品牌故事",
+          "pages": [
+            "site-front/sf-m-brand"
+          ]
+        },
+        {
+          "id": "m-nav-stores",
+          "name": "门店网点",
+          "pages": [
+            "site-front/sf-m-stores"
           ]
         }
       ]
@@ -1121,6 +1321,14 @@
           "app": "pda-app"
         },
         {
+          "key": "pda-putaway-detail",
+          "name": "上架任务详情",
+          "type": "list",
+          "file": "pages/pda-putaway-detail.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
           "key": "pda-picking-list",
           "name": "拣货任务",
           "type": "list",
@@ -1129,10 +1337,26 @@
           "app": "pda-app"
         },
         {
+          "key": "pda-picking-detail",
+          "name": "拣货任务详情",
+          "type": "list",
+          "file": "pages/pda-picking-detail.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
           "key": "pda-stocktaking-list",
           "name": "盘点作业任务",
           "type": "list",
           "file": "pages/pda-stocktaking-list.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
+          "key": "pda-stocktaking-detail",
+          "name": "盘点任务详情",
+          "type": "list",
+          "file": "pages/pda-stocktaking-detail.mjs",
           "ownerScoped": false,
           "app": "pda-app"
         },
@@ -1673,7 +1897,7 @@
     },
     {
       "id": "pda",
-      "name": "PDA 终端",
+      "name": "终端壳层",
       "prefix": "pd-",
       "tier": "core",
       "deployed": true,
@@ -1827,14 +2051,7 @@
           "ownerScoped": false,
           "app": "erp-app"
         },
-        {
-          "key": "platform-order-list",
-          "name": "平台订单",
-          "type": "list",
-          "file": "pages/platform-order-list.mjs",
-          "ownerScoped": false,
-          "app": "erp-app"
-        },
+
         {
           "key": "order-center",
           "name": "订单中心",
@@ -1851,11 +2068,436 @@
           "ownerScoped": false,
           "app": "erp-app"
         },
+
         {
-          "key": "platform-replenish-list",
+          "key": "wx-shop-list",
+          "name": "平台店铺",
+          "type": "list",
+          "file": "pages/platform-shop-list.mjs",
+          "data": "platform-shop-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "wx-adapter-list",
+          "name": "平台适配器",
+          "type": "list",
+          "file": "pages/platform-adapter-list.mjs",
+          "data": "platform-adapter-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "wx-sync-list",
+          "name": "同步任务",
+          "type": "list",
+          "file": "pages/sync-task-list.mjs",
+          "data": "sync-task-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "wx-order-list",
+          "name": "平台订单",
+          "type": "list",
+          "file": "pages/platform-order-list.mjs",
+          "data": "platform-order-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "wx-replenish-list",
           "name": "平台备货单",
           "type": "list",
           "file": "pages/platform-replenish-list.mjs",
+          "data": "platform-replenish-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "wx-aftersale-list",
+          "name": "平台售后单",
+          "type": "list",
+          "file": "pages/platform-aftersale-list.mjs",
+          "data": "platform-aftersale-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "jd-shop-list",
+          "name": "平台店铺",
+          "type": "list",
+          "file": "pages/platform-shop-list.mjs",
+          "data": "platform-shop-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "jd-adapter-list",
+          "name": "平台适配器",
+          "type": "list",
+          "file": "pages/platform-adapter-list.mjs",
+          "data": "platform-adapter-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "jd-sync-list",
+          "name": "同步任务",
+          "type": "list",
+          "file": "pages/sync-task-list.mjs",
+          "data": "sync-task-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "jd-order-list",
+          "name": "平台订单",
+          "type": "list",
+          "file": "pages/platform-order-list.mjs",
+          "data": "platform-order-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "jd-replenish-list",
+          "name": "平台备货单",
+          "type": "list",
+          "file": "pages/platform-replenish-list.mjs",
+          "data": "platform-replenish-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "jd-aftersale-list",
+          "name": "平台售后单",
+          "type": "list",
+          "file": "pages/platform-aftersale-list.mjs",
+          "data": "platform-aftersale-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "taobao-shop-list",
+          "name": "平台店铺",
+          "type": "list",
+          "file": "pages/platform-shop-list.mjs",
+          "data": "platform-shop-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "taobao-adapter-list",
+          "name": "平台适配器",
+          "type": "list",
+          "file": "pages/platform-adapter-list.mjs",
+          "data": "platform-adapter-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "taobao-sync-list",
+          "name": "同步任务",
+          "type": "list",
+          "file": "pages/sync-task-list.mjs",
+          "data": "sync-task-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "taobao-order-list",
+          "name": "平台订单",
+          "type": "list",
+          "file": "pages/platform-order-list.mjs",
+          "data": "platform-order-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "taobao-replenish-list",
+          "name": "平台备货单",
+          "type": "list",
+          "file": "pages/platform-replenish-list.mjs",
+          "data": "platform-replenish-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "taobao-aftersale-list",
+          "name": "平台售后单",
+          "type": "list",
+          "file": "pages/platform-aftersale-list.mjs",
+          "data": "platform-aftersale-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "lazada-shop-list",
+          "name": "平台店铺",
+          "type": "list",
+          "file": "pages/platform-shop-list.mjs",
+          "data": "platform-shop-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "lazada-adapter-list",
+          "name": "平台适配器",
+          "type": "list",
+          "file": "pages/platform-adapter-list.mjs",
+          "data": "platform-adapter-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "lazada-sync-list",
+          "name": "同步任务",
+          "type": "list",
+          "file": "pages/sync-task-list.mjs",
+          "data": "sync-task-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "lazada-order-list",
+          "name": "平台订单",
+          "type": "list",
+          "file": "pages/platform-order-list.mjs",
+          "data": "platform-order-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "lazada-replenish-list",
+          "name": "平台备货单",
+          "type": "list",
+          "file": "pages/platform-replenish-list.mjs",
+          "data": "platform-replenish-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "lazada-aftersale-list",
+          "name": "平台售后单",
+          "type": "list",
+          "file": "pages/platform-aftersale-list.mjs",
+          "data": "platform-aftersale-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "amazon-shop-list",
+          "name": "平台店铺",
+          "type": "list",
+          "file": "pages/platform-shop-list.mjs",
+          "data": "platform-shop-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "amazon-adapter-list",
+          "name": "平台适配器",
+          "type": "list",
+          "file": "pages/platform-adapter-list.mjs",
+          "data": "platform-adapter-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "amazon-sync-list",
+          "name": "同步任务",
+          "type": "list",
+          "file": "pages/sync-task-list.mjs",
+          "data": "sync-task-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "amazon-order-list",
+          "name": "平台订单",
+          "type": "list",
+          "file": "pages/platform-order-list.mjs",
+          "data": "platform-order-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "amazon-replenish-list",
+          "name": "平台备货单",
+          "type": "list",
+          "file": "pages/platform-replenish-list.mjs",
+          "data": "platform-replenish-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "amazon-aftersale-list",
+          "name": "平台售后单",
+          "type": "list",
+          "file": "pages/platform-aftersale-list.mjs",
+          "data": "platform-aftersale-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "temu-shop-list",
+          "name": "平台店铺",
+          "type": "list",
+          "file": "pages/platform-shop-list.mjs",
+          "data": "platform-shop-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "temu-adapter-list",
+          "name": "平台适配器",
+          "type": "list",
+          "file": "pages/platform-adapter-list.mjs",
+          "data": "platform-adapter-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "temu-sync-list",
+          "name": "同步任务",
+          "type": "list",
+          "file": "pages/sync-task-list.mjs",
+          "data": "sync-task-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "temu-order-list",
+          "name": "平台订单",
+          "type": "list",
+          "file": "pages/platform-order-list.mjs",
+          "data": "platform-order-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "temu-replenish-list",
+          "name": "平台备货单",
+          "type": "list",
+          "file": "pages/platform-replenish-list.mjs",
+          "data": "platform-replenish-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "temu-aftersale-list",
+          "name": "平台售后单",
+          "type": "list",
+          "file": "pages/platform-aftersale-list.mjs",
+          "data": "platform-aftersale-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "tiktok-shop-list",
+          "name": "平台店铺",
+          "type": "list",
+          "file": "pages/platform-shop-list.mjs",
+          "data": "platform-shop-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "tiktok-adapter-list",
+          "name": "平台适配器",
+          "type": "list",
+          "file": "pages/platform-adapter-list.mjs",
+          "data": "platform-adapter-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "tiktok-sync-list",
+          "name": "同步任务",
+          "type": "list",
+          "file": "pages/sync-task-list.mjs",
+          "data": "sync-task-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "tiktok-order-list",
+          "name": "平台订单",
+          "type": "list",
+          "file": "pages/platform-order-list.mjs",
+          "data": "platform-order-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "tiktok-replenish-list",
+          "name": "平台备货单",
+          "type": "list",
+          "file": "pages/platform-replenish-list.mjs",
+          "data": "platform-replenish-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "tiktok-aftersale-list",
+          "name": "平台售后单",
+          "type": "list",
+          "file": "pages/platform-aftersale-list.mjs",
+          "data": "platform-aftersale-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "aliexpress-shop-list",
+          "name": "平台店铺",
+          "type": "list",
+          "file": "pages/platform-shop-list.mjs",
+          "data": "platform-shop-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "aliexpress-adapter-list",
+          "name": "平台适配器",
+          "type": "list",
+          "file": "pages/platform-adapter-list.mjs",
+          "data": "platform-adapter-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "aliexpress-sync-list",
+          "name": "同步任务",
+          "type": "list",
+          "file": "pages/sync-task-list.mjs",
+          "data": "sync-task-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "aliexpress-order-list",
+          "name": "平台订单",
+          "type": "list",
+          "file": "pages/platform-order-list.mjs",
+          "data": "platform-order-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "aliexpress-replenish-list",
+          "name": "平台备货单",
+          "type": "list",
+          "file": "pages/platform-replenish-list.mjs",
+          "data": "platform-replenish-list",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "aliexpress-aftersale-list",
+          "name": "平台售后单",
+          "type": "list",
+          "file": "pages/platform-aftersale-list.mjs",
+          "data": "platform-aftersale-list",
           "ownerScoped": false,
           "app": "erp-app"
         },
@@ -1867,38 +2509,10 @@
           "ownerScoped": false,
           "app": "erp-app"
         },
-        {
-          "key": "platform-aftersale-list",
-          "name": "平台售后单",
-          "type": "list",
-          "file": "pages/platform-aftersale-list.mjs",
-          "ownerScoped": false,
-          "app": "erp-app"
-        },
-        {
-          "key": "platform-shop-list",
-          "name": "平台店铺",
-          "type": "list",
-          "file": "pages/platform-shop-list.mjs",
-          "ownerScoped": false,
-          "app": "erp-app"
-        },
-        {
-          "key": "platform-adapter-list",
-          "name": "平台适配器",
-          "type": "list",
-          "file": "pages/platform-adapter-list.mjs",
-          "ownerScoped": false,
-          "app": "erp-app"
-        },
-        {
-          "key": "sync-task-list",
-          "name": "同步任务",
-          "type": "list",
-          "file": "pages/sync-task-list.mjs",
-          "ownerScoped": false,
-          "app": "erp-app"
-        },
+
+
+
+
         {
           "key": "dropship-list",
           "name": "代发采购单",
@@ -2021,6 +2635,180 @@
           "file": "pages/erp-global-audit.mjs",
           "ownerScoped": false,
           "app": "network-app"
+        }
+      ]
+    },
+    {
+      "id": "site",
+      "name": "独立站",
+      "prefix": "st-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "货主独立站多站点档案、配置、域名证书、内容、商品、订单、多端发布与成员权限",
+      "pages": [
+        {
+          "key": "site-overview",
+          "name": "独立站总览",
+          "type": "report",
+          "file": "pages/site-overview.mjs",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "site-list",
+          "name": "独立站列表",
+          "type": "list",
+          "file": "pages/site-list.mjs",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "site-config",
+          "name": "站点配置",
+          "type": "list",
+          "file": "pages/site-config.mjs",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "site-domain",
+          "name": "域名与证书",
+          "type": "list",
+          "file": "pages/site-domain.mjs",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "site-content",
+          "name": "站点内容",
+          "type": "list",
+          "file": "pages/site-content.mjs",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "site-sku",
+          "name": "站点商品",
+          "type": "list",
+          "file": "pages/site-sku.mjs",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "site-order",
+          "name": "站点订单",
+          "type": "list",
+          "file": "pages/site-order.mjs",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "site-channel",
+          "name": "多端发布",
+          "type": "list",
+          "file": "pages/site-channel.mjs",
+          "ownerScoped": false,
+          "app": "erp-app"
+        },
+        {
+          "key": "site-member",
+          "name": "成员与权限",
+          "type": "list",
+          "file": "pages/site-member.mjs",
+          "ownerScoped": false,
+          "app": "erp-app"
+        }
+      ]
+    },
+    {
+      "id": "site-front",
+      "name": "独立站前台",
+      "prefix": "sf-",
+      "tier": "core",
+      "deployed": true,
+      "owner": "产品组",
+      "scope": "品牌站首页、商品、商品详情、品牌故事与门店网点，分属货主独立站与独立站 APP",
+      "pages": [
+        {
+          "key": "sf-home",
+          "name": "站点首页",
+          "type": "shop",
+          "file": "pages/sf-home.mjs",
+          "ownerScoped": false,
+          "app": "site-app"
+        },
+        {
+          "key": "sf-products",
+          "name": "站点商品",
+          "type": "shop",
+          "file": "pages/sf-products.mjs",
+          "ownerScoped": false,
+          "app": "site-app"
+        },
+        {
+          "key": "sf-product",
+          "name": "站点商品详情",
+          "type": "shop",
+          "file": "pages/sf-product.mjs",
+          "ownerScoped": false,
+          "app": "site-app"
+        },
+        {
+          "key": "sf-brand",
+          "name": "品牌故事",
+          "type": "shop",
+          "file": "pages/sf-brand.mjs",
+          "ownerScoped": false,
+          "app": "site-app"
+        },
+        {
+          "key": "sf-stores",
+          "name": "门店网点",
+          "type": "shop",
+          "file": "pages/sf-stores.mjs",
+          "ownerScoped": false,
+          "app": "site-app"
+        },
+        {
+          "key": "sf-m-home",
+          "name": "站点首页",
+          "type": "shop",
+          "file": "pages/sf-m-home.mjs",
+          "ownerScoped": false,
+          "app": "site-mobile-app"
+        },
+        {
+          "key": "sf-m-products",
+          "name": "站点商品",
+          "type": "shop",
+          "file": "pages/sf-m-products.mjs",
+          "ownerScoped": false,
+          "app": "site-mobile-app"
+        },
+        {
+          "key": "sf-m-product",
+          "name": "站点商品详情",
+          "type": "shop",
+          "file": "pages/sf-m-product.mjs",
+          "ownerScoped": false,
+          "app": "site-mobile-app"
+        },
+        {
+          "key": "sf-m-brand",
+          "name": "品牌故事",
+          "type": "shop",
+          "file": "pages/sf-m-brand.mjs",
+          "ownerScoped": false,
+          "app": "site-mobile-app"
+        },
+        {
+          "key": "sf-m-stores",
+          "name": "门店网点",
+          "type": "shop",
+          "file": "pages/sf-m-stores.mjs",
+          "ownerScoped": false,
+          "app": "site-mobile-app"
         }
       ]
     }

@@ -10,8 +10,8 @@
  *   不要在页面模块里「顺手补一个颜色」，也不要把色表复制进文档。
  *
  * 本文件同时承载全局 reset 与 [hidden] 规则。[hidden] 必须带 !important：
- *   .wx-scope{display:flex}、.page:not([hidden]){display:block} 这类规则
- *   会压过浏览器默认的 [hidden]{display:none}，漏写会出现「该隐藏的下拉照样显示」。
+ *   .wx-panel{display:flex}、.page:not([hidden]){display:block} 这类规则
+ *   会压过浏览器默认的 [hidden]{display:none}，漏写会出现「该隐藏的面板照样显示」。
  */
 export const TOKENS_CSS = `
 :root{
@@ -55,10 +55,8 @@ export const TOKENS_CSS = `
   --wx-r-pill:999px;
   --wx-border:1px solid var(--wx-gray-200);
   --wx-shadow:0 1px 3px rgba(15,23,42,.08);
-  --wx-side-w:188px;
-  --wx-side-collapsed:64px;
-  --wx-top-h:54px;
-  --wx-head-h:54px;
+  --wx-rail-w:76px;
+  --wx-panel-w:256px;
   --wx-touch:44px;
 }
 *{box-sizing:border-box}

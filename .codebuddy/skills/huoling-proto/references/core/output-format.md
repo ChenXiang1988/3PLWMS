@@ -10,29 +10,31 @@
 | --- | --- |
 | 单文件自包含 | CSS、脚本、演示数据全部内联；无 `<script src>`、无 `<link href>`、无 CDN、无 `http(s)://` 引用 |
 | 编码与可打开性 | `<meta charset="utf-8">`；双击本地文件即可浏览该端全部页面 |
-| 独立交付 | 产物不引用其它模块的文件路径；唯一例外是货灵ERP顶栏「前往商城」，用相对路径指向同目录的货灵商城产物、带 `owner` 参数，在新页面打开 |
+| 独立交付 | 产物不引用其它模块的文件路径；唯一例外是货灵ERP面板表头「前往商城」，用相对路径指向同目录的货灵商城产物、带 `owner` 参数，在新页面打开 |
 | 页面容器 | 每页一个 `<section class="page" data-page-id="<模块ID>/<页key>" hidden>`，切页由内联脚本用 `.page[data-page-id]` 完成 |
 | 源指纹 | `<html data-build="<sha256>">`，由构建对全部源文件算出；`--check` 比对 |
 | 不入库 | `.gitignore` 忽略 `prototypes/dist/` |
-| 交付物 | `dist/<端名>.html` × 5 + 各模块 `pages/`、`data/`、`module.json` 源 |
+| 交付物 | `dist/<端名>.html` × 7 + 各模块 `pages/`、`data/`、`module.json` 源 |
 
 外壳不同，骨架不同，骨架由构建按 `apps[].shell` 生成，不手写：
 
 | 外壳 | 根容器 | 骨架要点 | 视觉法 |
 | --- | --- | --- | --- |
-| `admin` | `.wx-app` | 顶栏 → 侧栏 + 页头页签 → 页面容器 | `references/shells/admin.md` |
+| `admin` | `.wx-app` | 业务域首栏 + 导航面板 → 页面容器（无顶栏、无页头页签） | `references/shells/admin.md` |
 | `mall` | `.wx-shop-app` | 商城顶栏 → 页面 + 类目导航 → 页面容器 → 页脚 | `references/shells/mall.md` |
 | `pda` | `.wx-pda` | 机身 → 状态条 + 导航 + 页面容器 + 按键区 | `references/shells/pda.md` |
+| `site` | `.wx-site-app` | 站点顶栏 → 页面导航 → 页面容器 → 页脚 | `references/shells/site.md` |
+| `mobile` | `.wx-mobile-app` | 机身 → 状态条 + 导航 + 页面容器 + 底部四 tab | `references/shells/mobile.md` |
 
-三套外壳共用同一份页面容器语义、同一套 `data-*` 交互契约（见 `references/implementation.md` 第 5 节）与同一份登录状态机。表单动作与状态流转只在本端产物的内存与 `sessionStorage` 内生效，不写后端、不做跨文件通信；两端共享的初始数据由构建期的一份共享主档还原，产物之间不互相读写。演示状态与真实系统行为在文档里分开说明。
+五套外壳共用同一份页面容器语义、同一套 `data-*` 交互契约（见 `references/implementation.md` 第 5 节）与同一份登录状态机。表单动作与状态流转只在本端产物的内存与 `sessionStorage` 内生效，不写后端、不做跨文件通信；两端共享的初始数据由构建期的一份共享主档还原，产物之间不互相读写。演示状态与真实系统行为在文档里分开说明。
 
-## 2. 五端共性
+## 2. 七端共性
 
-- **登录层与会话面板**：每个端产物都带同一份，挂在外壳之后、`<script>` 之前，由 `ui.mjs` 的 `renderLogin` / `LOGIN_CSS` / `LOGIN_SCRIPT` 生成。五端的流程、错误码与提示逐字一致。
-- **唤起方式分三种**：后台三端是 `gate` 模式，登录前全屏覆盖；货灵商城与 PDA 是 `entry` 模式，登录层默认隐藏。商城由顶栏「登录」入口唤起；PDA 的登录本身是 `pda-login` 页的设备登录（扫工号牌 / 工号 + PIN / 人脸），共享登录层只留会话与错误表，不再叠一层账号密码表单。模式由 `data-login-gate` 区分。
+- **登录层与会话面板**：每个端产物都带同一份，挂在外壳之后、`<script>` 之前，由 `ui.mjs` 的 `renderLogin` / `LOGIN_CSS` / `LOGIN_SCRIPT` 生成。七端的流程、错误码与提示逐字一致。
+- **唤起方式分三种**：后台三端是 `gate` 模式，登录前全屏覆盖；货灵商城、独立站 Web、独立站 APP 与 PDA 是 `entry` 模式，登录层默认隐藏。商城与独立站由顶栏 / 导航入口唤起；PDA 的登录本身是 `pda-login` 页的设备登录（扫工号牌 / 工号 + PIN / 人脸），共享登录层只留会话与错误表，不再叠一层账号密码表单。模式由 `data-login-gate` 区分。
 - **账号密码、验证码、第三方登录**共用一套提交状态机：加载 → 成功或失败 → 重试；连续失败 5 次锁定 60 秒；错误提示只从统一错误表取，不在各端另写一份。
-- **令牌**：有效期 60 分钟，五端共用同一个 `TOKEN_SECONDS`；会话面板按「分:秒」展示剩余，刷新重新计时；到期或退出后，后台三端与 PDA 回到登录层，货灵商城回到访客态首页。
-- **货主作用域**：端不渲染顶栏货主下拉；需要收窄的页在筛选区自带「货主」下拉，取值域来自注册表 `owners`。货灵ERP按登录身份限定数据范围，构建期为每个演示身份各渲染一套页面，不渲染货主筛选。
+- **令牌**：有效期 60 分钟，七端共用同一个 `TOKEN_SECONDS`；会话面板按「分:秒」展示剩余，刷新重新计时；到期或退出后，后台三端与 PDA 回到登录层，货灵商城与独立站回到访客态首页。
+- **货主作用域**：端不渲染货主下拉；需要收窄的页在筛选区自带「货主」下拉，取值域来自注册表 `owners`。货灵ERP按登录身份限定数据范围，构建期为每个演示身份各渲染一套页面，不渲染货主筛选。
 - **商城价格随登录态切换**：`html[data-auth="guest"]` 隐藏金额并显示「登录可见价格」，`member` 显示金额；金额一律由 `ShopPrice` 输出。
 - **原型不发起网络请求**：判定规则用本地演示凭据，产物保持单文件自包含。
 
@@ -63,7 +65,7 @@ export const PAGE_CSS = ``;
 
 文件名必须等于页 key：构建以 `data/<页key>.json` 装载，并以页 key 作为 `data` 对象的键。改文件名等于改页 key，会连带改 `data-page-id`、侧栏与文案登记。
 
-`data/*.json` 也可以是**引用声明**：`{ "ref": "skus", "keys": [...], "fields": [...] }` 或 `{ "ref": "owners" }`。`ref` 指向 `shared/data/` 共享主档，`keys` 按编码过滤并保持声明顺序，`fields` 投影字段，`drop` 排除字段；其余顶层键（如 `categories`、`floors`）原样保留。构建期补齐成完整 `rows` 再交给页面模块，**页面模块与产物不感知主档**。
+`data/*.json` 也可以是**引用声明**：`{ "ref": "skus", "keys": [...], "fields": [...] }` 或 `{ "ref": "owners" }`。`ref` 指向 `shared/data/` 共享主档，`keys` 按编码过滤并保持声明顺序，`fields` 投影字段，`drop` 排除字段，`overlay` 按主键给单行追加演示字段；其余顶层键（如 `categories`、`floors`）原样保留。一页要同时取多份主档时用 `refs`：`{ "refs": { "site": { "ref": "sites", "keys": ["SITE001"] }, "products": { "ref": "skus", "keys": [...] } } }`，构建期把每个子引用还原成同名数组。构建期补齐成完整 `rows` 再交给页面模块，**页面模块与产物不感知主档**。
 
 ### 3.3 模板占位符
 
@@ -82,7 +84,7 @@ node prototypes/build-app.mjs --check    # 只做源与产物的漂移检查，�
 
 | 标签 | 拦什么 |
 | --- | --- |
-| `[装配清单]` | 端 id 非法、shell 不在 `admin/mall/pda` 内、页面 key 跨模块重复、type 不在五类、app 不在端清单、shop 页归了非货灵商城、非 shop 页归了货灵商城、页面文件缺失、数据文件非法 JSON |
+| `[装配清单]` | 端 id 非法、shell 不在 `admin/mall/pda/site/mobile` 内、页面 key 跨模块重复、type 不在五类、app 不在端清单、shop 页归了非前台端、非 shop 页归了前台端、页面文件缺失、数据文件非法 JSON |
 | `[模块边界]` | 页面模块跨模块 import |
 | `[页面装配]` | 缺 `renderPage`、返回空、页数对不上 |
 | `[取值越界]` | 页面模块出现令牌外的 hex、出现 `rpx` |
@@ -94,6 +96,8 @@ node prototypes/build-app.mjs --check    # 只做源与产物的漂移检查，�
 | `[非SaaS]` | 红线词（租户、订阅、套餐等） |
 | `[文案]` | 过程文字（TODO、占位符、本期不做等）、残留占位符 |
 | `[商城]` | 货灵商城缺前台外壳 / 进货单入口 / 登录入口，或前台端混用后台外壳 |
+| `[独立站]` | 货灵独立站缺品牌站外壳 / 页面导航 / 登录入口，或混用后台与商城外壳 |
+| `[独立站 APP]` | 独立站 APP 缺手机外壳、底部四 tab 或状态条，出现按键区 / 侧栏 / 货主下拉 |
 | `[PDA]` | PDA 端缺手机外壳、出现侧栏或货主下拉、键位数不足 6、缺状态栏 |
 | `[登录]` | 产物缺登录层或统一错误提示表 |
 | `[货灵ERP]` | 货灵ERP出现货主下拉与货主筛选，或演示身份视图缺失 |
@@ -115,8 +119,8 @@ node prototypes/build-app.mjs --check    # 只做源与产物的漂移检查，�
 | 项 | 判据 |
 | --- | --- |
 | 源文件 | 各模块 `module.json`、全部 `pages/*.mjs` 与 `data/*.json`，加上 `build-app.mjs` 与 `shared/`（含主档） |
-| 产物 | `prototypes/dist/` 下五个端 HTML 齐全，`--check` 逐端 `check ok` |
+| 产物 | `prototypes/dist/` 下七个端 HTML 齐全，`--check` 逐端 `check ok` |
 | 验收 | `verify-delivery.mjs`（不带 `--fast`）退出码 0 |
 | 人工核对 | `references/core/acceptance.md` A、B 两组逐条打勾，C 组不扩大 |
 | 清单字段 | `module.json` 的 `version` 已递增、`owner` 已填、`status` 置 `delivered` |
-| 独立交付 | 把单个端 HTML 拷到空目录双击，该端全部页面可浏览、无页面内死链；跨端入口随五端产物同目录交付才生效 |
+| 独立交付 | 把单个端 HTML 拷到空目录双击，该端全部页面可浏览、无页面内死链；跨端入口随七端产物同目录交付才生效 |

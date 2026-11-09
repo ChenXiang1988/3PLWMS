@@ -1,0 +1,22 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "siteCode": "SITE001", "siteName": "鲜集", "itemKey": "SITE001-trade", "item": "交易开关", "value": "关闭", "scope": "全端", "updatedAt": "2026-11-08 16:20" },
+    { "owner": "海纳食品", "siteCode": "SITE001", "siteName": "鲜集", "itemKey": "SITE001-pay", "item": "支付方式", "value": "未开启", "scope": "全端", "updatedAt": "2026-11-08 16:20" },
+    { "owner": "海纳食品", "siteCode": "SITE001", "siteName": "鲜集", "itemKey": "SITE001-delivery", "item": "配送方式", "value": "门店自提", "scope": "Web、APP", "updatedAt": "2026-11-06 10:05" },
+    { "owner": "海纳食品", "siteCode": "SITE001", "siteName": "鲜集", "itemKey": "SITE001-phone", "item": "客服电话", "value": "021-62001266", "scope": "全端", "updatedAt": "2026-11-06 10:05" },
+    { "owner": "海纳食品", "siteCode": "SITE001", "siteName": "鲜集", "itemKey": "SITE001-icp", "item": "备案号", "value": "沪ICP备2026001234号", "scope": "Web", "updatedAt": "2026-10-22 09:40" },
+    { "owner": "海纳食品", "siteCode": "SITE001", "siteName": "鲜集", "itemKey": "SITE001-template", "item": "站点模板", "value": "编辑式", "scope": "全端", "updatedAt": "2026-10-22 09:40" },
+    { "owner": "海纳食品", "siteCode": "SITE002", "siteName": "海纳采销", "itemKey": "SITE002-trade", "item": "交易开关", "value": "开启", "scope": "全端", "updatedAt": "2026-11-09 08:30" },
+    { "owner": "海纳食品", "siteCode": "SITE002", "siteName": "海纳采销", "itemKey": "SITE002-pay", "item": "支付方式", "value": "微信支付、支付宝", "scope": "全端", "updatedAt": "2026-11-09 08:30" },
+    { "owner": "海纳食品", "siteCode": "SITE002", "siteName": "海纳采销", "itemKey": "SITE002-delivery", "item": "配送方式", "value": "快递发货、物流自提", "scope": "全端", "updatedAt": "2026-11-02 14:10" },
+    { "owner": "海纳食品", "siteCode": "SITE002", "siteName": "海纳采销", "itemKey": "SITE002-phone", "item": "客服电话", "value": "021-59901266", "scope": "全端", "updatedAt": "2026-11-02 14:10" },
+    { "owner": "海纳食品", "siteCode": "SITE002", "siteName": "海纳采销", "itemKey": "SITE002-icp", "item": "备案号", "value": "沪ICP备2026001235号", "scope": "Web", "updatedAt": "2026-09-18 11:25" },
+    { "owner": "海纳食品", "siteCode": "SITE002", "siteName": "海纳采销", "itemKey": "SITE002-template", "item": "站点模板", "value": "交易版", "scope": "全端", "updatedAt": "2026-09-18 11:25" },
+    { "owner": "辰星日化", "siteCode": "SITE003", "siteName": "星漾", "itemKey": "SITE003-trade", "item": "交易开关", "value": "开启", "scope": "全端", "updatedAt": "2026-11-09 09:50" },
+    { "owner": "辰星日化", "siteCode": "SITE003", "siteName": "星漾", "itemKey": "SITE003-pay", "item": "支付方式", "value": "微信支付", "scope": "全端", "updatedAt": "2026-11-09 09:50" },
+    { "owner": "辰星日化", "siteCode": "SITE003", "siteName": "星漾", "itemKey": "SITE003-delivery", "item": "配送方式", "value": "门店自提", "scope": "Web、APP", "updatedAt": "2026-10-30 15:35" },
+    { "owner": "辰星日化", "siteCode": "SITE003", "siteName": "星漾", "itemKey": "SITE003-phone", "item": "客服电话", "value": "020-38001266", "scope": "全端", "updatedAt": "2026-10-30 15:35" },
+    { "owner": "辰星日化", "siteCode": "SITE003", "siteName": "星漾", "itemKey": "SITE003-icp", "item": "备案号", "value": "粤ICP备2026005678号", "scope": "Web", "updatedAt": "2026-10-12 10:08" },
+    { "owner": "辰星日化", "siteCode": "SITE003", "siteName": "星漾", "itemKey": "SITE003-template", "item": "站点模板", "value": "编辑式", "scope": "全端", "updatedAt": "2026-10-12 10:08" }
+  ]
+}

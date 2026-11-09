@@ -1,0 +1,6 @@
+{
+  "refs": {
+    "site": { "ref": "sites", "keys": ["SITE001"] },
+    "products": { "ref": "skus", "keys": ["SKU100231", "SKU100175", "SKU100402", "SKU100236", "SKU100238"], "overlay": { "SKU100231": { "price": 39.9 } } }
+  }
+}

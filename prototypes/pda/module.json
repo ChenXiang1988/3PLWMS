@@ -1,6 +1,6 @@
 {
   "id": "pda",
-  "name": "PDA 终端",
+  "name": "终端壳层",
   "version": "0.2.0",
   "owner": "产品组",
   "tier": "core",

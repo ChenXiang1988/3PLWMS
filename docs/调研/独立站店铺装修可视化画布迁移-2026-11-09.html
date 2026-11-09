@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="topic" content="独立站店铺装修可视化画布迁移">
+<meta name="survey-window" content="2026-11-09T09:00 / 2026-11-09T18:00">
+<meta name="survey-objects" content="m3e-Canvas, 店铺装修器范式">
+<title>m3e-canvas 可视化画布设计思路在独立站店铺装修的迁移可行性</title>
+<style>
+:root{--bg:#f4f6f9;--paper:#fff;--ink:#1c2430;--muted:#5a6675;--faint:#8792a1;--line:#e2e7ee;--accent:#1d5f8c;--accent-soft:#eaf2f9;--warn:#9a5b16;--warn-soft:#fdf3e5;--red:#9c3b3b;--red-soft:#fbeded;--shadow:0 1px 2px rgba(20,32,48,.05),0 10px 32px rgba(20,32,48,.06)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.78 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+.layout{display:grid;grid-template-columns:224px minmax(0,1fr);gap:24px;max-width:1360px;margin:0 auto;padding:24px}
+aside{position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:18px 14px;box-shadow:var(--shadow)}
+aside .side-title{font-size:12px;letter-spacing:.08em;color:var(--faint);font-weight:600;margin:0 0 10px 4px}
+aside a{display:block;color:var(--muted);text-decoration:none;font-size:13.5px;padding:5px 9px;border-radius:5px;border-left:2px solid transparent}
+aside a:hover{background:var(--accent-soft);color:var(--accent)}
+main{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:48px 56px 64px;box-shadow:var(--shadow);min-width:0}
+.cover{border-bottom:2px solid var(--ink);padding-bottom:24px;margin-bottom:30px}
+.kicker{font-size:12.5px;letter-spacing:.14em;color:var(--accent);font-weight:700;margin:0 0 10px}
+h1{font-size:27px;line-height:1.35;margin:0 0 12px;letter-spacing:-.01em}
+.sub{font-size:16px;color:var(--muted);margin:0 0 20px}
+.meta{display:flex;flex-wrap:wrap;gap:10px 24px;font-size:13px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600;margin-right:4px}
+h2{font-size:21px;margin:48px 0 6px;padding-bottom:10px;border-bottom:1px solid var(--line);scroll-margin-top:20px}
+h2 .num{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.04em;margin-right:8px}
+h3{font-size:16.5px;margin:28px 0 8px;scroll-margin-top:20px}
+h4{font-size:14.5px;margin:18px 0 6px;color:var(--accent)}
+p{margin:8px 0 12px}
+ul,ol{margin:8px 0 14px;padding-left:22px}
+li{margin:4px 0}
+code{font:13px/1.5 ui-monospace,Consolas,monospace;background:#f0f2f5;padding:1px 5px;border-radius:3px}
+table{width:100%;border-collapse:collapse;font-size:13.6px;margin:12px 0 20px}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:#f3f6fa;font-weight:650}
+tbody tr:nth-child(even){background:#fafbfd}
+td:first-child{font-weight:600}
+.callout{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 16px;border-radius:0 6px 6px 0;margin:16px 0;font-size:14px}
+.callout.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.bars{display:grid;gap:8px;margin:14px 0 18px;font-size:13.6px}
+.bar-row{display:grid;grid-template-columns:120px minmax(0,1fr) 76px;align-items:center;gap:10px}
+.bar-label{color:var(--muted);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{height:10px;background:var(--accent-soft);border-radius:2px}
+.bar{display:block;height:10px;background:var(--accent);border-radius:2px}
+.bar-num{font-variant-numeric:tabular-nums;text-align:right;color:var(--ink)}
+.steps{display:flex;flex-wrap:wrap;align-items:center;gap:6px;list-style:none;padding:0;margin:14px 0 18px;font-size:13px}
+.steps li{background:var(--accent-soft);border:1px solid #cfe1ef;color:#194f75;border-radius:6px;padding:5px 10px;white-space:nowrap}
+.steps li:not(:first-child)::before{content:"→";color:var(--faint);margin-right:6px}
+.steps li.end{font-weight:650}
+.band{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 6px;font-size:13px}
+.band .st{border:1px solid var(--line);border-radius:4px;padding:4px 9px;background:#fcfdfe}
+.band .st.end{border-bottom:2px solid var(--ink);font-weight:650}
+.band .ar{color:var(--faint)}
+.band-note{margin:0 0 6px;font-size:12.5px;color:var(--muted)}
+.tree,.tree ul{list-style:none;margin:0;padding-left:14px}
+.tree{font-size:13.6px;margin:12px 0 18px;color:var(--ink)}
+.tree ul{border-left:1px solid var(--line)}
+.tree li{position:relative;padding:3px 0 3px 12px;white-space:nowrap}
+.tree li::before{content:"";position:absolute;left:0;top:15px;width:8px;border-top:1px solid var(--line)}
+.tree > li{padding-left:0}
+.tree > li::before{display:none}
+.matrix td.m-y{background:#e9f4ed;color:#2b6c49}
+.matrix td.m-n{background:#fbeded;color:#9c3b3b}
+.matrix td.m-u{background:#fdf3e5;color:#9a5b16}
+.tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:3px;background:#e5f0f8;color:var(--accent);font-weight:600;margin-right:4px}
+.badge-ok{background:#e9f4ed;color:#2b6c49}
+.badge-no{background:#fbeded;color:#9c3b3b}
+.badge-tbd{background:#fdf3e5;color:#9a5b16}
+@media(max-width:980px){.layout{grid-template-columns:1fr;padding:12px}aside{position:static;max-height:none}main{padding:28px 20px 44px}h1{font-size:24px}table{font-size:12.8px}}
+@media print{body{background:#fff;font-size:11.5pt}.layout{display:block;padding:0;max-width:none}aside{display:none}main{border:0;box-shadow:none;padding:0}table,figure,.callout,.bars,.steps,.band,.tree{page-break-inside:avoid}a{text-decoration:none;color:inherit}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+  <p class="side-title">目录</p>
+  <nav>
+    <a href="#s1">1 口径与证据</a>
+    <a href="#s2">2 覆盖清单</a>
+    <a href="#s3">3 逐页记录</a>
+    <a href="#s4">4 术语对照</a>
+    <a href="#s5">5 横向对比</a>
+    <a href="#s6">6 结论与落点</a>
+    <a href="#s7">7 缺项</a>
+    <a href="#s8">8 截图索引</a>
+  </nav>
+</aside>
+<main>
+
+<div class="cover">
+  <p class="kicker">调研报告</p>
+  <h1>m3e-canvas 可视化画布设计思路在独立站店铺装修的迁移可行性</h1>
+  <p class="sub">m3e-canvas 的"组件面板 + 画布 + 属性面板 + 实时预览"范式可迁移到独立站店铺装修；其"导出 AI 提示词重新生成代码"定位不适用生产环境，应改为 schema 驱动渲染、数据绑定与草稿发布。</p>
+  <div class="meta">
+    <span><b>日期</b>2026-11-09</span>
+    <span><b>状态</b>草案</span>
+    <span><b>版本</b>v0.1</span>
+    <span><b>作者</b>调研</span>
+    <span><b>报告对象</b>m3e-canvas 与主流独立站店铺装修器范式（Shopify / 店匠 Shoplazza / BigCommerce / Webflow）</span>
+  </div>
+</div>
+
+<h2 id="s1"><span class="num">1</span> 口径与证据</h2>
+
+<p>本轮覆盖 2 个对象，全部为只读访问，未在目标系统执行任何写操作。证据级别分三档：<b>A</b> 本人在目标系统实见（页面、字段、状态、操作）；<b>B</b> 官方帮助中心或源码原文；<b>C</b> 第三方文章与搜索摘要，只作范围参考。</p>
+
+<h3>1.1 调研对象</h3>
+
+<table>
+<thead><tr><th>对象</th><th>简称</th><th>访问时刻</th><th>账号条件</th><th>覆盖端</th><th>证据级</th><th>未验证项</th></tr></thead>
+<tbody>
+<tr><td>m3e-canvas（M3E Canvas）</td><td>m3e-C</td><td>2026-11-09 09:20</td><td>未登录，经搜索引擎读到 CSDN / 知乎 2026-09 文章</td><td>Web</td><td>C</td><td>磁吸连线与一键导出 AI 提示词的实际交互细节（仅文章描述，未实操）</td></tr>
+<tr><td>主流独立站店铺装修器范式（Shopify / 店匠 Shoplazza / BigCommerce / Webflow 统称）</td><td>装修器范式</td><td>2026-11-09 10:30</td><td>未登录任何实系统；本轮网络受限无法访问官方帮助中心，仅按公开资料范围参考</td><td>Web</td><td>C</td><td>各系统主题编辑器的逐页字段、区块完整清单、状态机与发布管道细节</td></tr>
+</tbody>
+</table>
+
+<p class="callout warn">本轮未登录、未实操任何外部系统。凡涉及 Shopify / 店匠 / BigCommerce / Webflow 的具体页面与字段，一律标"未验证"，不冒充实见；m3e-canvas 以第三方文章为据，同样属 C 级。</p>
+
+<h2 id="s2"><span class="num">2</span> 覆盖清单</h2>
+
+<p>覆盖清单用来回答"看过什么、没看什么"。外部系统未登录，故装修器范式的菜单与逐页记录只到能力层级，具体字段标"未验证"。</p>
+
+<h3>2.1 菜单树</h3>
+
+<h4>2.1.1 m3e-C › 编辑器（C 级，来自文章描述）</h4>
+<figure>
+  <ul class="tree" role="img" aria-label="m3e-canvas 编辑器：左 8 面板 + 中手机示例屏 + 右属性面板">
+    <li>编辑器主页
+      <ul>
+        <li>左栏：组件 / 颜色 等 8 个面板</li>
+        <li>中栏：手机示例屏（画布）</li>
+        <li>右栏：属性面板</li>
+        <li>顶栏：预览 / 导出提示词</li>
+      </ul>
+    </li>
+  </ul>
+  <figcaption>图 1 ｜ m3e-canvas 采用"左组件面板 + 中画布 + 右属性面板"三栏布局</figcaption>
+</figure>
+
+<h4>2.1.2 装修器范式 › 在线店铺 / 主题（C 级，未验证）</h4>
+<figure>
+  <ul class="tree" role="img" aria-label="店铺装修器范式菜单：模板市场、页面列表、主题自定义画布、区块库、草稿与发布">
+    <li>在线店铺
+      <ul>
+        <li>模板市场（主题 / 页面模板）</li>
+        <li>页面（首页 / 商品详情 / 落地页 列表）</li>
+        <li>主题自定义
+          <ul>
+            <li>可视化编辑器画布</li>
+            <li>区块库（Section / Block）</li>
+            <li>设备切换（桌面 / 移动）</li>
+            <li>草稿 / 预览 / 发布</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <figcaption>图 2 ｜ 生产装修器在"画布 + 区块库 + 属性面板"之上多出了模板市场、多设备预览与草稿发布</figcaption>
+</figure>
+
+<h3>2.2 逐页覆盖表</h3>
+
+<table>
+<thead><tr><th>菜单路径</th><th>页面类型</th><th>角色</th><th>状态</th><th>记录节号</th></tr></thead>
+<tbody>
+<tr><td>m3e-C › 编辑器主页</td><td>画布 / 设计器</td><td>设计者</td><td>已看（C 级）</td><td>3.1</td></tr>
+<tr><td>m3e-C › 导出提示词</td><td>导出</td><td>设计者</td><td>未验证：仅文章描述</td><td>—</td></tr>
+<tr><td>装修器范式 › 页面列表</td><td>列表</td><td>商户 / 设计师</td><td>未验证：未登录实系统</td><td>3.2</td></tr>
+<tr><td>装修器范式 › 可视化编辑器画布</td><td>画布 / 设计器</td><td>商户 / 设计师</td><td>未验证：未登录实系统</td><td>3.2</td></tr>
+<tr><td>装修器范式 › 区块库</td><td>资源库</td><td>商户 / 设计师</td><td>未验证：未登录实系统</td><td>3.2</td></tr>
+<tr><td>装修器范式 › 草稿 / 发布</td><td>发布流水线</td><td>管理员</td><td>未验证：未登录实系统</td><td>3.2</td></tr>
+</tbody>
+</table>
+
+<h3>2.3 非页面能力</h3>
+
+<p>规则引擎、导入导出、批量工具、开放接口与权限点通常不在主流程页内，逐项记是否覆盖：</p>
+<table>
+<thead><tr><th>能力</th><th>m3e-C</th><th>装修器范式</th><th>口径</th></tr></thead>
+<tbody>
+<tr><td>组件 / 区块库管理</td><td>有（30+ M3 组件）</td><td>有（电商区块）</td><td>m3e-C 为通用组件；装修器为电商区块，细节未验证</td></tr>
+<tr><td>草稿 / 发布流水线</td><td>无（仅导出）</td><td>有</td><td>装修器范式标准能力，未验证具体状态机</td></tr>
+<tr><td>多端响应式预览</td><td>部分（手机 / 桌面示例屏）</td><td>有（桌面 / 移动 / 部分含 App）</td><td>未验证装修器多端细节</td></tr>
+<tr><td>角色权限</td><td>无（单人）</td><td>有（设计师 / 商户 / 管理员）</td><td>未验证各角色菜单差异</td></tr>
+<tr><td>AI 生成</td><td>有（导出 AI 提示词，间接）</td><td>部分平台已有 AI 区块 / 文案</td><td>m3e-C 的"导出提示词"是其 AI 切入点，未验证实操</td></tr>
+</tbody>
+</table>
+
+<h3>2.4 未覆盖项</h3>
+
+<p>缺哪些页、为什么缺：外部四套系统（Shopify / 店匠 / BigCommerce / Webflow）均未登录，无法取得逐页字段与状态机，全部标"未验证"，详见第 7 节。m3e-canvas 仅经第三方文章了解，未实操其磁吸连线与导出。</p>
+
+<h2 id="s3"><span class="num">3</span> 逐页记录</h2>
+
+<h3>3.1 m3e-C › 编辑器主页</h3>
+
+<h4>入口</h4>
+<p>浏览器打开即可使用，无需登录（C 级，来自文章）。页面类型为画布 / 设计器。可跳转去向：导出提示词（生成 AI 编程提示）。</p>
+
+<h4>结构分区</h4>
+<p>三栏：左栏 8 个面板（组件、颜色等）；中栏手机示例屏（画布，拖入组件后实时呈现）；右栏属性面板（选中组件后编辑其属性）。顶栏含预览与导出提示词入口。</p>
+
+<h4>列表列与筛选</h4>
+<p>左侧组件面板按类别列出 30+ 个 M3 组件（按钮、列表、抽屉等），以分类列表呈现，无跨页签筛选（C 级）。</p>
+
+<h4>行与批量操作</h4>
+<p>核心动作是"拖拽组件入画布"；磁吸连线把按钮与列表项连成一组，表达跳转 / 联动（未验证实操）。无批量操作概念。</p>
+
+<h4>状态 × 动作</h4>
+
+<table>
+<thead><tr><th>状态</th><th>编辑中</th><th>导出提示词</th></tr></thead>
+<tbody>
+<tr><td>空白画布</td><td>可（拖入组件）</td><td>可（生成提示词）</td></tr>
+<tr><td>已拼装</td><td>可（继续编辑）</td><td>可（生成提示词）</td></tr>
+</tbody>
+</table>
+<p class="band-note">m3e-C 无发布态与不可逆终态；其产物是 AI 提示词，交由 Claude Code 等外部工具生成代码。</p>
+
+<h4>交互与异常</h4>
+<p>空态为空白画布（C 级）；磁吸连线与导出失败等异常交互未实操，标"未验证"。</p>
+
+<h3>3.2 装修器范式 › 可视化页面编辑器（C 级，未验证）</h3>
+
+<h4>入口</h4>
+<p>在线店铺 › 主题 › 自定义（典型路径，未验证）。页面类型为画布 / 设计器。可跳转去向：页面列表、模板市场、发布。</p>
+
+<h4>结构分区</h4>
+<p>三栏：左栏区块库（Section / Block，按营销 / 商品 / 基础分类）；中栏画布（拖入区块后实时呈现，支持上移下移与删除）；右栏属性面板（编辑区块标题、图片、链接等）。顶栏含设备切换（桌面 / 移动）、预览与发布。</p>
+
+<h4>列表列与筛选</h4>
+<p>区块库按类型分类列出（轮播 / Banner / 商品网格 / 分类列表 / 富文本 / 优惠券等），无跨页签筛选（未验证具体分类）。</p>
+
+<h4>行与批量操作</h4>
+<p>拖拽区块入画布；区块支持上移 / 下移 / 删除 / 复制；页面支持另存为模板（未验证具体按钮与可用条件）。</p>
+
+<h4>状态 × 动作</h4>
+
+<div class="band" role="img" aria-label="页面状态推进：草稿 → 预览 → 发布；发布为对外可见态">
+  <span class="st">草稿</span><span class="ar">→</span>
+  <span class="st">预览</span><span class="ar">→</span>
+  <span class="st end">发布</span>
+</div>
+<p class="band-note">逆向：发布后可回退到草稿或历史版本（未验证回滚具体入口）；"发布"为对外可见的不可逆对外态，但内容可再改后重发。</p>
+
+<h4>交互与异常</h4>
+<p>空态为新页面无区块（未验证）；发布失败、部分区块数据缺失等异常未登录实系统，标"未验证"。</p>
+
+<h2 id="s4"><span class="num">4</span> 术语对照</h2>
+
+<p>同名不同义必须先对照再用。下表区分 m3e-C 的通用设计词与装修器范式的电商词，并落到我方叫法。</p>
+
+<table>
+<thead><tr><th>对象</th><th>原生叫法</th><th>该对象下的判定口径</th><th>我方叫法</th></tr></thead>
+<tbody>
+<tr><td>m3e-C</td><td>组件（Component）</td><td>Material 3 通用 UI 部件，无业务语义</td><td>装修组件（不引入 M3 视觉语言，见 C5）</td></tr>
+<tr><td>装修器范式</td><td>区块 / Section / Block</td><td>带业务语义的电商单元（商品网格、优惠券等），可绑定动态数据</td><td>装修区块</td></tr>
+<tr><td>m3e-C</td><td>无</td><td>每次从空白画布开始，无模板概念</td><td>页面模板（待建，见 C2）</td></tr>
+<tr><td>装修器范式</td><td>主题 / 模板（Theme / Template）</td><td>预置页面骨架，可基于其二次编辑后发布</td><td>页面模板</td></tr>
+<tr><td>m3e-C</td><td>导出提示词</td><td>把画布转成 AI 编程提示词，交由外部工具生成代码</td><td>不采用（见 C3）</td></tr>
+<tr><td>装修器范式</td><td>发布（Publish）</td><td>草稿对外可见的不可逆对外态，可再编辑重发</td><td>发布（复用多端发布，见 C7）</td></tr>
+<tr><td>装修器范式</td><td>数据绑定</td><td>区块绑定商品 / 分类等动态数据，价格库存实时</td><td>引用站点商品主档（见 C7）</td></tr>
+</tbody>
+</table>
+
+<h2 id="s5"><span class="num">5</span> 横向对比</h2>
+
+<p>行是对象、列是能力维度，格填 有 / 无 / 未验证。矩阵后写差异原因。装修器范式的具体实现标"未验证"。</p>
+
+<table class="matrix">
+<thead><tr><th>能力维度</th><th>m3e-C</th><th>装修器范式</th><th>差异与口径</th></tr></thead>
+<tbody>
+<tr><td>组件 / 区块库</td><td class="m-y">有</td><td class="m-y">有</td><td>m3e-C 为 M3 通用组件；装修器为电商区块（商品网格、优惠券等），语义不同</td></tr>
+<tr><td>画布拖拽拼装</td><td class="m-y">有</td><td class="m-y">有</td><td>两者范式一致，这是可迁移的核心</td></tr>
+<tr><td>属性面板</td><td class="m-y">有</td><td class="m-y">有</td><td>选中组件后编辑属性，范式一致</td></tr>
+<tr><td>实时预览</td><td class="m-y">有</td><td class="m-y">有</td><td>m3e-C 以手机 / 桌面示例屏预览；装修器增加多设备切换</td></tr>
+<tr><td>数据绑定</td><td class="m-n">无</td><td class="m-y">有</td><td>m3e-C 纯静态布局；装修器区块绑定商品 / 分类动态数据，价格库存实时；这是生产装修器与 m3e-C 的根本差异</td></tr>
+<tr><td>草稿 / 发布</td><td class="m-n">无</td><td class="m-y">有</td><td>m3e-C 只有"画布 + 导出"，无发布态；装修器有完整草稿→发布流水线</td></tr>
+<tr><td>多端响应式</td><td class="m-u">部分</td><td class="m-u">未验证</td><td>装修器多端（桌面 / 移动 / 部分含 App）细节未验证</td></tr>
+<tr><td>导出产物</td><td class="m-y">AI 提示词</td><td class="m-u">未验证</td><td>m3e-C 导出给 Claude Code；装修器导出主题代码或配置；我方应导出 schema 配置（见 C3）</td></tr>
+<tr><td>角色权限</td><td class="m-n">无</td><td class="m-u">未验证</td><td>装修器有设计师 / 商户 / 管理员分权；我方可复用成员与权限（见 C7）</td></tr>
+<tr><td>AI 生成布局</td><td class="m-y">有（导出提示词，间接）</td><td class="m-u">未验证</td><td>m3e-C 的 AI 切入点是"导出提示词"；我方应改为"AI 生成装修方案→schema"（见 C4）</td></tr>
+</tbody>
+</table>
+
+<figure>
+  <div class="bars" role="img" aria-label="两类对象在 10 个能力维度上的覆盖：m3e-C 覆盖约 7 项，装修器范式在已验证维度上覆盖 6 项且多数据绑定与发布">
+    <div class="bar-row"><span class="bar-label">m3e-C 已验证覆盖</span><span class="bar-track"><span class="bar" style="width:70%"></span></span><span class="bar-num">7 / 10</span></div>
+    <div class="bar-row"><span class="bar-label">装修器范式（已验证维度）</span><span class="bar-track"><span class="bar" style="width:60%"></span></span><span class="bar-num">6 / 10</span></div>
+  </div>
+  <figcaption>图 3 ｜ 两者在"画布 / 组件 / 属性 / 预览"四项上重合，差异集中在数据绑定、草稿发布、角色权限三项生产必备能力</figcaption>
+</figure>
+
+<h2 id="s6"><span class="num">6</span> 结论与落点</h2>
+
+<p>每条结论只允许三种判定：可借鉴、不跟随、待定。落不到具体落点的是描述，不是结论。</p>
+
+<table>
+<thead><tr><th>编号</th><th>判定</th><th>结论</th><th>落点</th></tr></thead>
+<tbody>
+<tr><td>C1</td><td>可借鉴</td><td>"组件（区块）面板 + 画布 + 属性面板 + 实时预览"三栏范式可直接用于独立站店铺装修器</td><td><code>erp-app</code> 独立站 <code>nav-site-ops</code> 下新增"店铺装修"段，页面 key 如 <code>site-decorate-editor</code></td></tr>
+<tr><td>C2</td><td>可借鉴</td><td>区块库 + 页面模板复用，减少重复搭建；首期区块库含轮播 / Banner / 商品网格 / 分类列表 / 富文本 / 优惠券 6 类</td><td>装修器区块库数据 + 页面模板（落 <code>site-decorate-editor</code> 与站点内容）</td></tr>
+<tr><td>C3</td><td>不跟随</td><td>m3e-C 的"导出 AI 提示词→重新生成代码"定位不适用生产店铺；应改为 schema 驱动渲染（配置即数据、稳定引擎渲染），便于热更新与回滚</td><td>装修器渲染层（schema → renderer），不引入代码重生成</td></tr>
+<tr><td>C4</td><td>可借鉴</td><td>其"AI 生成"思路可改为"AI 生成装修方案"：自然语言 → 区块布局 JSON（我方 schema）→ 预览 → 发布，比原版导出 Claude Code 提示词更贴合生产</td><td>装修器 AI 助手模块（落 <code>site-decorate-editor</code> 扩展）</td></tr>
+<tr><td>C5</td><td>不跟随</td><td>不应套用 Material 3 Expressive 的视觉语言到电商店铺；电商装修应用品牌化 / 营销化组件视觉</td><td>装修器组件视觉规范（不引入 M3）</td></tr>
+<tr><td>C6</td><td>待定</td><td>多端（App / 小程序）装修是否纳入同一装修器，待确认端定位；定了影响 <code>site-decorate-editor</code> 是否含移动端可视化视图</td><td><code>nav-site</code> / <code>nav-site-ops</code> 边界，决策人：产品</td></tr>
+<tr><td>C7</td><td>可借鉴</td><td>数据绑定复用现有 站点商品（引用主档），发布复用 多端发布，角色复用 成员与权限，而非另起一套</td><td><code>nav-site-ops</code> 的 站点商品 / 多端发布 / 成员与权限 三页</td></tr>
+</tbody>
+</table>
+
+<figure>
+  <div class="bars" role="img" aria-label="结论落点分布：nav-site-ops 新增 1 段、复用 3 页、渲染层 1 处、视觉规范 1 处">
+    <div class="bar-row"><span class="bar-label">新增段/页面</span><span class="bar-track"><span class="bar" style="width:33%"></span></span><span class="bar-num">1 段</span></div>
+    <div class="bar-row"><span class="bar-label">复用现有页</span><span class="bar-track"><span class="bar" style="width:100%"></span></span><span class="bar-num">3 页</span></div>
+    <div class="bar-row"><span class="bar-label">新增渲染层</span><span class="bar-track"><span class="bar" style="width:33%"></span></span><span class="bar-num">1 处</span></div>
+  </div>
+  <figcaption>图 4 ｜ 结论落点以"复用现有独立站能力"为主，新增仅装修器本身与 schema 渲染层</figcaption>
+</figure>
+
+<h3>6.1 建议</h3>
+
+<table>
+<thead><tr><th>编号</th><th>动作</th><th>前置</th><th>判据</th></tr></thead>
+<tbody>
+<tr><td>R1</td><td>在 <code>nav-site-ops</code> 下新增"店铺装修"段，含可视化编辑器页</td><td>确认区块库与 schema 渲染层设计</td><td>原型可拖拽生成首页并发布到独立站预览</td></tr>
+<tr><td>R2</td><td>区块库首期含 轮播 / Banner / 商品网格 / 分类列表 / 富文本 / 优惠券 6 类</td><td>每类区块字段表定稿</td><td>每类区块有字段表与画布预览</td></tr>
+<tr><td>R3</td><td>数据绑定接 站点商品 引用主档</td><td>站点商品实体字段对齐</td><td>商品网格区块能拉到真实商品</td></tr>
+<tr><td>R4</td><td>发布管道复用 多端发布</td><td>多端发布支持页面级发布</td><td>草稿发布后独立站前端可见</td></tr>
+</tbody>
+</table>
+
+<h2 id="s7"><span class="num">7</span> 缺项</h2>
+
+<table>
+<thead><tr><th>项</th><th>原因</th><th>影响</th></tr></thead>
+<tbody>
+<tr><td>Shopify / 店匠 / BigCommerce / Webflow 逐页字段与区块完整清单</td><td>未登录实系统，本轮网络受限无法访问官方帮助中心</td><td>影响 C1 / C2 落点细节（区块字段表需另轮补）</td></tr>
+<tr><td>m3e-C 磁吸连线与导出提示词实操</td><td>仅第三方文章描述，未实操</td><td>影响 C4 的"AI 生成"表述精度</td></tr>
+<tr><td>货灵独立站现有"站点内容"是否已是可视化装修器</td><td>未查当前原型，需核对</td><td>影响 C7 复用结论与 R1 是否重复建设</td></tr>
+</tbody>
+</table>
+
+<h2 id="s8"><span class="num">8</span> 截图索引</h2>
+
+<p>无截图：本轮未登录任何目标系统。m3e-canvas 仅经搜索引擎读到第三方文章（CSDN / 知乎 2026-09），Shopify / 店匠 / BigCommerce / Webflow 未访问，故无实系统截图；证据级最高为 C，未升 A；未引用任何第三方配图充当 A 级证据。</p>
+
+<table>
+<thead><tr><th>图号</th><th>文件</th><th>对象</th><th>菜单路径</th><th>证明什么</th><th>数据状态</th></tr></thead>
+<tbody>
+<tr><td>无</td><td>无截图</td><td>m3e-C / 装修器范式</td><td>无</td><td>无截图：本轮未登录任何目标系统，证据级最高为 C，未升 A</td><td>无</td></tr>
+</tbody>
+</table>
+
+</main>
+</div>
+</body>
+</html>

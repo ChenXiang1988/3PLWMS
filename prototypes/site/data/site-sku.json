@@ -1,0 +1,13 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "rowKey": "SITE001-SKU100231", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "siteCode": "SITE001", "siteName": "鲜集", "siteType": "品牌站", "price": 39.9, "stock": 320, "status": "在售", "updatedAt": "2026-11-08 16:20" },
+    { "owner": "海纳食品", "rowKey": "SITE001-SKU100175", "skuCode": "SKU100175", "skuName": "海纳酸奶 100g×12", "siteCode": "SITE001", "siteName": "鲜集", "siteType": "品牌站", "price": 28.5, "stock": 180, "status": "在售", "updatedAt": "2026-11-08 16:20" },
+    { "owner": "海纳食品", "rowKey": "SITE001-SKU100402", "skuCode": "SKU100402", "skuName": "海纳常温酸奶礼盒 200g×12", "siteCode": "SITE001", "siteName": "鲜集", "siteType": "品牌站", "price": 45, "stock": 210, "status": "待上架", "updatedAt": "2026-11-09 09:15" },
+    { "owner": "海纳食品", "rowKey": "SITE002-SKU100231", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "siteCode": "SITE002", "siteName": "海纳采销", "siteType": "采销站", "price": 62, "stock": 320, "status": "在售", "updatedAt": "2026-11-09 08:30" },
+    { "owner": "海纳食品", "rowKey": "SITE002-SKU100236", "skuCode": "SKU100236", "skuName": "海纳咖啡燕麦 350g", "siteCode": "SITE002", "siteName": "海纳采销", "siteType": "采销站", "price": 58, "stock": 260, "status": "在售", "updatedAt": "2026-11-09 08:30" },
+    { "owner": "海纳食品", "rowKey": "SITE002-SKU100238", "skuCode": "SKU100238", "skuName": "海纳坚果脆 300g", "siteCode": "SITE002", "siteName": "海纳采销", "siteType": "采销站", "price": 72, "stock": 180, "status": "已下架", "updatedAt": "2026-11-07 17:40" },
+    { "owner": "辰星日化", "rowKey": "SITE003-SKU100232", "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "siteCode": "SITE003", "siteName": "星漾", "siteType": "品牌站", "price": 96, "stock": 180, "status": "在售", "updatedAt": "2026-11-09 09:50" },
+    { "owner": "辰星日化", "rowKey": "SITE003-SKU100355", "skuCode": "SKU100355", "skuName": "辰星柔顺剂 1kg×12", "siteCode": "SITE003", "siteName": "星漾", "siteType": "品牌站", "price": 88, "stock": 130, "status": "在售", "updatedAt": "2026-11-09 09:50" },
+    { "owner": "辰星日化", "rowKey": "SITE003-SKU100244", "skuCode": "SKU100244", "skuName": "辰星洗衣凝珠 30 颗", "siteCode": "SITE003", "siteName": "星漾", "siteType": "品牌站", "price": 66, "stock": 220, "status": "待上架", "updatedAt": "2026-11-09 10:00" }
+  ]
+}

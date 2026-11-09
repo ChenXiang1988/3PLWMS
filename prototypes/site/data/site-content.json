@@ -1,0 +1,12 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "title": "首页首屏", "siteCode": "SITE001", "siteName": "鲜集", "columnName": "首页", "contentType": "轮播", "status": "已发布", "publisher": "陈立", "publishAt": "2026-11-08 18:20" },
+    { "owner": "海纳食品", "title": "品牌故事页", "siteCode": "SITE001", "siteName": "鲜集", "columnName": "品牌故事", "contentType": "页面", "status": "已发布", "publisher": "陈立", "publishAt": "2026-10-28 11:05" },
+    { "owner": "海纳食品", "title": "门店网点页", "siteCode": "SITE001", "siteName": "鲜集", "columnName": "门店网点", "contentType": "页面", "status": "已发布", "publisher": "王珂", "publishAt": "2026-10-28 11:08" },
+    { "owner": "海纳食品", "title": "冬季新品图文", "siteCode": "SITE001", "siteName": "鲜集", "columnName": "站点商品", "contentType": "图文", "status": "待发布", "publisher": "陈立", "publishAt": "2026-11-09 09:15" },
+    { "owner": "海纳食品", "title": "采销站首页", "siteCode": "SITE002", "siteName": "海纳采销", "columnName": "首页", "contentType": "轮播", "status": "已发布", "publisher": "李帆", "publishAt": "2026-11-09 08:30" },
+    { "owner": "海纳食品", "title": "供货政策页", "siteCode": "SITE002", "siteName": "海纳采销", "columnName": "站点商品", "contentType": "页面", "status": "已发布", "publisher": "李帆", "publishAt": "2026-11-02 14:12" },
+    { "owner": "辰星日化", "title": "品牌故事页", "siteCode": "SITE003", "siteName": "星漾", "columnName": "品牌故事", "contentType": "页面", "status": "已发布", "publisher": "郑楠", "publishAt": "2026-10-30 15:40" },
+    { "owner": "辰星日化", "title": "年度新品图文", "siteCode": "SITE003", "siteName": "星漾", "columnName": "站点商品", "contentType": "图文", "status": "草稿", "publisher": "郑楠", "publishAt": "—" }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "task": {
+    "taskNo": "PDT20261106001",
+    "taskStatus": "busy",
+    "owner": "海纳食品",
+    "countNo": "PD20261106001",
+    "bin": "A-01-01",
+    "skuName": "海纳全脂牛奶 250ml×24",
+    "planQty": 72,
+    "doneQty": 48,
+    "qtyUnit": "箱",
+    "operator": "孙倩",
+    "device": "PDA-05"
+  },
+  "back": { "tab": "task/pda-stocktaking-list", "name": "盘点作业任务" },
+  "scan": { "tab": "warehouse/count-scan", "name": "盘点作业" }
+}

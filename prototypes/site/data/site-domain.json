@@ -1,0 +1,11 @@
+{
+  "rows": [
+    { "owner": "海纳食品", "domain": "shop.xianji.cn", "siteCode": "SITE001", "siteName": "鲜集", "end": "Web", "resolve": "已生效", "cert": "有效", "expireAt": "2027-03-18" },
+    { "owner": "海纳食品", "domain": "api.xianji.cn", "siteCode": "SITE001", "siteName": "鲜集", "end": "微信小程序", "resolve": "已生效", "cert": "有效", "expireAt": "2027-03-18" },
+    { "owner": "海纳食品", "domain": "pay.xianji.cn", "siteCode": "SITE001", "siteName": "鲜集", "end": "支付宝小程序", "resolve": "待解析", "cert": "即将到期", "expireAt": "2026-12-20" },
+    { "owner": "海纳食品", "domain": "trade.haina-food.cn", "siteCode": "SITE002", "siteName": "海纳采销", "end": "Web", "resolve": "已生效", "cert": "有效", "expireAt": "2027-05-06" },
+    { "owner": "海纳食品", "domain": "api.haina-food.cn", "siteCode": "SITE002", "siteName": "海纳采销", "end": "微信小程序", "resolve": "已生效", "cert": "有效", "expireAt": "2027-05-06" },
+    { "owner": "辰星日化", "domain": "www.xingyang.cn", "siteCode": "SITE003", "siteName": "星漾", "end": "Web", "resolve": "已生效", "cert": "有效", "expireAt": "2027-08-11" },
+    { "owner": "辰星日化", "domain": "api.xingyang.cn", "siteCode": "SITE003", "siteName": "星漾", "end": "微信小程序", "resolve": "已生效", "cert": "即将到期", "expireAt": "2026-12-01" }
+  ]
+}
