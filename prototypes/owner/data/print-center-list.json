@@ -1,0 +1,138 @@
+{
+  "config": {
+    "unit": "个",
+    "statusField": "printStatus",
+    "keyField": "taskNo",
+    "statusMeta": {
+      "pending": { "label": "待打印", "tone": "pending" },
+      "running": { "label": "打印中", "tone": "info" },
+      "success": { "label": "已完成", "tone": "enabled" },
+      "partial": { "label": "部分失败", "tone": "pending" },
+      "failed": { "label": "打印失败", "tone": "rejected" }
+    },
+    "tabs": [
+      { "label": "待打印", "value": "pending" },
+      { "label": "打印中", "value": "running" },
+      { "label": "已完成", "value": "success" },
+      { "label": "部分失败", "value": "partial" },
+      { "label": "打印失败", "value": "failed" }
+    ],
+    "columns": [
+      { "key": "taskNo", "label": "打印任务号", "width": "160px", "cls": "wx-col-strong" },
+      { "key": "sourceDocNo", "label": "来源单号", "width": "160px" },
+      { "key": "sourceDocType", "label": "单据类型", "width": "108px" },
+      { "key": "printType", "label": "打印类型", "width": "108px" },
+      { "key": "templateName", "label": "模板", "width": "150px" },
+      { "key": "printCount", "label": "份数", "width": "72px", "align": "right", "type": "num" },
+      { "key": "successCount", "label": "成功数", "width": "80px", "align": "right", "type": "num" },
+      { "key": "printStatus", "label": "打印状态", "width": "108px", "type": "status" },
+      { "key": "createdTime", "label": "创建时间", "width": "156px" },
+      { "key": "failReason", "label": "失败原因", "width": "210px" },
+      { "key": "handle", "label": "处理", "width": "92px", "type": "action", "actionMode": "form-status", "buttonByStatus": { "pending": "打印", "running": "完成打印", "success": "重打", "partial": "重打失败项", "failed": "重试" } },
+      { "key": "detail", "label": "详情", "width": "92px", "type": "action", "actionMode": "detail", "button": "查看详情" },
+      { "key": "preview", "label": "预览", "width": "72px", "type": "action", "actionMode": "preview", "button": "预览" }
+    ],
+    "filters": [
+      { "label": "来源单号", "key": "sourceDocNo", "type": "text", "placeholder": "请输入来源单号" },
+      { "label": "打印类型", "key": "printType", "type": "select" },
+      { "label": "承运商", "key": "carrierName", "type": "select" },
+      { "label": "创建时间", "key": "createdTime", "type": "daterange" }
+    ],
+    "actionStatus": {
+      "startPrint": "running",
+      "finishPrint": "success",
+      "retryPrint": "running",
+      "reprintFailed": "success",
+      "reprintCompleted": "success"
+    },
+    "forms": {
+      "pending": {
+        "title": "开始打印",
+        "groups": [{ "title": "打印任务", "fields": [
+          { "label": "打印任务号", "key": "taskNo", "readonly": true },
+          { "label": "来源单号", "key": "sourceDocNo", "readonly": true },
+          { "label": "打印类型", "key": "printType", "readonly": true },
+          { "label": "模板", "key": "templateName", "readonly": true },
+          { "label": "份数", "key": "printCount", "readonly": true }
+        ] }],
+        "actions": [
+          { "label": "打印", "primary": true, "attrs": { "data-form-action": "startPrint" } },
+          { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+        ]
+      },
+      "running": {
+        "title": "完成打印",
+        "groups": [{ "title": "打印任务", "fields": [
+          { "label": "打印任务号", "key": "taskNo", "readonly": true },
+          { "label": "模板", "key": "templateName", "readonly": true },
+          { "label": "请求份数", "key": "printCount", "readonly": true },
+          { "label": "成功数", "key": "successCount", "readonly": true }
+        ] }],
+        "actions": [
+          { "label": "完成打印", "primary": true, "attrs": { "data-form-action": "finishPrint" } },
+          { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+        ]
+      },
+      "success": {
+        "title": "重打已完成任务",
+        "groups": [{ "title": "打印任务", "fields": [
+          { "label": "打印任务号", "key": "taskNo", "readonly": true },
+          { "label": "打印类型", "key": "printType", "readonly": true },
+          { "label": "模板", "key": "templateName", "readonly": true },
+          { "label": "历史成功数", "key": "successCount", "readonly": true }
+        ] }],
+        "actions": [
+          { "label": "重打", "primary": true, "attrs": { "data-form-action": "reprintCompleted" } },
+          { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+        ]
+      },
+      "partial": {
+        "title": "重打失败项",
+        "groups": [{ "title": "失败明细", "fields": [
+          { "label": "打印任务号", "key": "taskNo", "readonly": true },
+          { "label": "打印类型", "key": "printType", "readonly": true },
+          { "label": "失败数", "key": "failCount", "readonly": true },
+          { "label": "失败原因", "key": "failReason", "type": "textarea", "readonly": true }
+        ] }],
+        "actions": [
+          { "label": "重打失败项", "primary": true, "attrs": { "data-form-action": "reprintFailed" } },
+          { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+        ]
+      },
+      "failed": {
+        "title": "重试打印任务",
+        "groups": [{ "title": "失败信息", "fields": [
+          { "label": "打印任务号", "key": "taskNo", "readonly": true },
+          { "label": "打印类型", "key": "printType", "readonly": true },
+          { "label": "模板", "key": "templateName", "readonly": true },
+          { "label": "失败原因", "key": "failReason", "type": "textarea", "readonly": true }
+        ] }],
+        "actions": [
+          { "label": "重试", "primary": true, "attrs": { "data-form-action": "retryPrint" } },
+          { "label": "关闭", "ghost": true, "attrs": { "data-drawer-close": "" } }
+        ]
+      }
+    },
+    "emptyTitle": "暂无打印任务"
+  },
+  "rows": [
+    {
+      "owner": "海纳食品", "taskNo": "PT20261110001", "sourceDocNo": "SS20261108001", "sourceDocType": "自发货单", "printType": "面单", "templateName": "标准面单", "paperSize": "100 × 150 mm", "carrierName": "FedEx", "printCount": 1, "successCount": 0, "failCount": 0, "printStatus": "pending", "createdTime": "2026-11-10 09:20", "completedTime": "", "failReason": "", "previewData": "收货方 / 运单号 / 条码", "previewRows": [{ "field": "收货方", "value": "王女士 · San Francisco" }, { "field": "运单号", "value": "待生成" }, { "field": "服务产品", "value": "FedEx International Priority" }, { "field": "条码", "value": "示例条码  PT20261110001" }], "items": [{ "itemNo": "01", "packageNo": "PK20261108001-01", "waybillNo": "待生成", "status": "待打印", "fileName": "", "failReason": "" }], "timeline": [{ "time": "2026-11-10 09:20", "text": "创建打印任务", "operator": "林晓" }]
+    },
+    {
+      "owner": "海纳食品", "taskNo": "PT20261110002", "sourceDocNo": "SS20261107002", "sourceDocType": "自发货单", "printType": "标签", "templateName": "包裹标签", "paperSize": "100 × 100 mm", "carrierName": "顺丰速运", "printCount": 2, "successCount": 2, "failCount": 0, "printStatus": "success", "createdTime": "2026-11-10 09:12", "completedTime": "2026-11-10 09:13", "failReason": "", "previewData": "包裹号 / 运单号 / SKU", "previewRows": [{ "field": "包裹号", "value": "PK20261107002-01 / PK20261107002-02" }, { "field": "运单号", "value": "SF261107001" }, { "field": "商品", "value": "海苔薄饼 × 8" }, { "field": "条码", "value": "示例条码  SF261107001" }], "items": [{ "itemNo": "01", "packageNo": "PK20261107002-01", "waybillNo": "SF261107001", "status": "成功", "fileName": "标签-SS20261107002-01.pdf", "failReason": "" }, { "itemNo": "02", "packageNo": "PK20261107002-02", "waybillNo": "SF261107001", "status": "成功", "fileName": "标签-SS20261107002-02.pdf", "failReason": "" }], "timeline": [{ "time": "2026-11-10 09:13", "text": "打印完成", "operator": "林晓" }, { "time": "2026-11-10 09:12", "text": "创建打印任务", "operator": "林晓" }]
+    },
+    {
+      "owner": "辰星日化", "taskNo": "PT20261110003", "sourceDocNo": "PR20261108001", "sourceDocType": "平台备货单", "printType": "箱唛", "templateName": "平台仓箱唛", "paperSize": "100 × 150 mm", "carrierName": "云途物流", "printCount": 4, "successCount": 3, "failCount": 1, "printStatus": "partial", "createdTime": "2026-11-10 08:48", "completedTime": "2026-11-10 08:50", "failReason": "箱号 CX20261108004 条码数据缺失", "previewData": "平台仓 / 箱号 / 箱数", "previewRows": [{ "field": "平台仓", "value": "Amazon FBA US" }, { "field": "箱号", "value": "CX20261108001 / CX20261108002 / CX20261108003" }, { "field": "箱数", "value": "4 箱" }, { "field": "异常", "value": "CX20261108004 缺少条码数据" }], "items": [{ "itemNo": "01", "packageNo": "CX20261108001", "waybillNo": "—", "status": "成功", "fileName": "箱唛-PR20261108001-01.pdf", "failReason": "" }, { "itemNo": "02", "packageNo": "CX20261108002", "waybillNo": "—", "status": "成功", "fileName": "箱唛-PR20261108001-02.pdf", "failReason": "" }, { "itemNo": "03", "packageNo": "CX20261108003", "waybillNo": "—", "status": "成功", "fileName": "箱唛-PR20261108001-03.pdf", "failReason": "" }, { "itemNo": "04", "packageNo": "CX20261108004", "waybillNo": "—", "status": "失败", "fileName": "", "failReason": "条码数据缺失" }], "timeline": [{ "time": "2026-11-10 08:50", "text": "3 份输出成功，1 份输出失败", "operator": "周敏" }, { "time": "2026-11-10 08:48", "text": "创建打印任务", "operator": "周敏" }]
+    },
+    {
+      "owner": "海纳食品", "taskNo": "PT20261110004", "sourceDocNo": "PR20261107002", "sourceDocType": "平台备货单", "printType": "装箱单", "templateName": "平台仓装箱单", "paperSize": "A4", "carrierName": "顺丰速运", "printCount": 1, "successCount": 0, "failCount": 1, "printStatus": "failed", "createdTime": "2026-11-10 08:30", "completedTime": "2026-11-10 08:31", "failReason": "模板字段缺少平台仓地址", "previewData": "平台仓 / 商品明细 / 箱号", "previewRows": [{ "field": "平台仓", "value": "Amazon FBA US" }, { "field": "商品明细", "value": "海苔夹心脆 × 24" }, { "field": "箱号", "value": "CX20261107001" }, { "field": "异常", "value": "缺少平台仓地址" }], "items": [{ "itemNo": "01", "packageNo": "CX20261107001", "waybillNo": "—", "status": "失败", "fileName": "", "failReason": "模板字段缺少平台仓地址" }], "timeline": [{ "time": "2026-11-10 08:31", "text": "打印失败", "operator": "系统" }, { "time": "2026-11-10 08:30", "text": "创建打印任务", "operator": "周敏" }]
+    },
+    {
+      "owner": "辰星日化", "taskNo": "PT20261110005", "sourceDocNo": "FL20261108008", "sourceDocType": "履约单", "printType": "面单", "templateName": "标准面单", "paperSize": "100 × 150 mm", "carrierName": "云途物流", "printCount": 1, "successCount": 0, "failCount": 0, "printStatus": "running", "createdTime": "2026-11-10 08:10", "completedTime": "", "failReason": "", "previewData": "收货方 / 运单号 / 条码", "previewRows": [{ "field": "收货方", "value": "Linda · New York" }, { "field": "运单号", "value": "YT261107002" }, { "field": "服务产品", "value": "YunExpress Standard" }, { "field": "条码", "value": "示例条码  YT261107002" }], "items": [{ "itemNo": "01", "packageNo": "PK20261108008-01", "waybillNo": "YT261107002", "status": "打印中", "fileName": "", "failReason": "" }], "timeline": [{ "time": "2026-11-10 08:10", "text": "打印任务执行中", "operator": "系统" }, { "time": "2026-11-10 08:10", "text": "创建打印任务", "operator": "系统" }]
+    },
+    {
+      "owner": "海纳食品", "taskNo": "PT20261110006", "sourceDocNo": "SS20261106003", "sourceDocType": "自发货单", "printType": "标签", "templateName": "包裹标签", "paperSize": "100 × 100 mm", "carrierName": "京东物流", "printCount": 1, "successCount": 0, "failCount": 0, "printStatus": "pending", "createdTime": "2026-11-10 07:55", "completedTime": "", "failReason": "", "previewData": "包裹号 / 运单号 / SKU", "previewRows": [{ "field": "包裹号", "value": "PK20261106003-01" }, { "field": "运单号", "value": "JD261106889" }, { "field": "商品", "value": "海苔脆片 × 3" }, { "field": "条码", "value": "示例条码  JD261106889" }], "items": [{ "itemNo": "01", "packageNo": "PK20261106003-01", "waybillNo": "JD261106889", "status": "待打印", "fileName": "", "failReason": "" }], "timeline": [{ "time": "2026-11-10 07:55", "text": "创建打印任务", "operator": "林晓" }]
+    }
+  ]
+}
