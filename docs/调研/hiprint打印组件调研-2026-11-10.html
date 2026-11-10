@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="topic" content="hiprint打印组件调研">
+<meta name="survey-window" content="2026-11-10T09:00 / 2026-11-10T09:03">
+<meta name="survey-objects" content="hiprint,本项目打印链路">
+<title>hiprint 打印组件调研</title>
+<style>
+:root{--bg:#f4f6f9;--paper:#fff;--ink:#1c2430;--muted:#5a6675;--faint:#8792a1;--line:#e2e7ee;--accent:#1d5f8c;--accent-soft:#eaf2f9;--warn:#9a5b16;--warn-soft:#fdf3e5;--red:#9c3b3b;--red-soft:#fbeded;--green:#2b6c49;--green-soft:#e9f4ed;--shadow:0 1px 2px rgba(20,32,48,.05),0 10px 32px rgba(20,32,48,.06)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.78 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}.layout{display:grid;grid-template-columns:224px minmax(0,1fr);gap:24px;max-width:1360px;margin:0 auto;padding:24px}aside{position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:18px 14px;box-shadow:var(--shadow)}aside .side-title{font-size:12px;letter-spacing:.08em;color:var(--faint);font-weight:600;margin:0 0 10px 4px}aside a{display:block;color:var(--muted);text-decoration:none;font-size:13.5px;padding:5px 9px;border-radius:5px;border-left:2px solid transparent}aside a:hover{background:var(--accent-soft);color:var(--accent)}main{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:48px 56px 64px;box-shadow:var(--shadow);min-width:0}.cover{border-bottom:2px solid var(--ink);padding-bottom:24px;margin-bottom:30px}.kicker{font-size:12.5px;letter-spacing:.14em;color:var(--accent);font-weight:700;margin:0 0 10px}h1{font-size:29px;line-height:1.35;margin:0 0 12px;letter-spacing:-.01em}.sub{font-size:16px;color:var(--muted);margin:0 0 20px}.meta{display:flex;flex-wrap:wrap;gap:10px 24px;font-size:13px;color:var(--muted)}.meta b{color:var(--ink);font-weight:600;margin-right:4px}h2{font-size:21px;margin:48px 0 6px;padding-bottom:10px;border-bottom:1px solid var(--line);scroll-margin-top:20px}h2 .num{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.04em;margin-right:8px}h3{font-size:16.5px;margin:28px 0 8px;scroll-margin-top:20px}h4{font-size:14.5px;margin:18px 0 6px;color:var(--accent)}p{margin:8px 0 12px}ul,ol{margin:8px 0 14px;padding-left:22px}li{margin:4px 0}code{font:13px/1.5 ui-monospace,Consolas,monospace;background:#f0f2f5;padding:1px 5px;border-radius:3px}a{color:var(--accent)}table{width:100%;border-collapse:collapse;font-size:13.6px;margin:12px 0 20px}th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}th{background:#f3f6fa;font-weight:650}tbody tr:nth-child(even){background:#fafbfd}td:first-child{font-weight:600}.callout{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 16px;border-radius:0 6px 6px 0;margin:16px 0;font-size:14px}.callout.warn{border-left-color:var(--warn);background:var(--warn-soft)}.callout.caution{border-left-color:var(--red);background:var(--red-soft)}.bars{display:grid;gap:8px;margin:14px 0 18px;font-size:13.6px}.bar-row{display:grid;grid-template-columns:118px minmax(0,1fr) 130px;align-items:center;gap:10px}.bar-label{color:var(--muted);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bar-track{height:10px;background:var(--accent-soft);border-radius:2px}.bar{display:block;height:10px;background:var(--accent);border-radius:2px}.bar-row.muted .bar{background:#b9c8d6}.bar-num{font-variant-numeric:tabular-nums;text-align:right;color:var(--ink)}.tree,.tree ul{list-style:none;margin:0;padding-left:14px}.tree{font-size:13.6px;margin:12px 0 18px;color:var(--ink)}.tree ul{border-left:1px solid var(--line)}.tree li{position:relative;padding:3px 0 3px 12px;white-space:nowrap}.tree li::before{content:"";position:absolute;left:0;top:15px;width:8px;border-top:1px solid var(--line)}.tree>li{padding-left:0}.tree>li::before{display:none}.matrix td.m-y{background:var(--green-soft);color:var(--green)}.matrix td.m-n{background:var(--red-soft);color:var(--red)}.matrix td.m-u{background:var(--warn-soft);color:var(--warn)}.tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:3px;background:#e5f0f8;color:var(--accent);font-weight:600;margin-right:4px}.badge-ok{background:var(--green-soft);color:var(--green)}.badge-no{background:var(--red-soft);color:var(--red)}.badge-tbd{background:var(--warn-soft);color:var(--warn)}.source{font-size:12.5px;color:var(--muted);word-break:break-word}.nowrap{white-space:nowrap}@media(max-width:980px){.layout{grid-template-columns:1fr;padding:12px}aside{position:static;max-height:none}main{padding:28px 20px 44px}h1{font-size:24px}table{font-size:12.8px}}@media print{body{background:#fff;font-size:11.5pt}.layout{display:block;padding:0;max-width:none}aside{display:none}main{border:0;box-shadow:none;padding:0}table,.callout,.bars,.tree{page-break-inside:avoid}a{text-decoration:none;color:inherit}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+<p class="side-title">目录</p>
+<nav>
+<a href="#s1">1 口径与证据</a>
+<a href="#s2">2 覆盖清单</a>
+<a href="#s3">3 逐页记录</a>
+<a href="#s4">4 术语对照</a>
+<a href="#s5">5 横向对比</a>
+<a href="#s6">6 结论与落点</a>
+<a href="#s7">7 缺项</a>
+<a href="#s8">8 截图索引</a>
+</nav>
+</aside>
+<main>
+<div class="cover">
+<p class="kicker">调研报告</p>
+<h1>hiprint 打印组件调研</h1>
+<p class="sub">hiprint 能把 JSON 模板渲染为已分页 HTML，并交给浏览器打印；适合作为面单、标签与箱唛的前端渲染参考，但当前证据不足以直接选定为生产依赖，许可证、发布渠道、浏览器打印一致性和 PDF 生成链仍需复核。</p>
+<div class="meta">
+<span><b>日期</b>2026-11-10</span><span><b>状态</b>草案</span><span><b>版本</b>v0.1</span><span><b>作者</b>调研</span><span><b>报告对象</b>hiprint 2.0.1 源码与官方示例、本项目打印链路</span>
+</div>
+</div>
+
+<h2 id="s1"><span class="num">1</span> 口径与证据</h2>
+<p>本轮覆盖 2 个对象，窗口为 2026-11-10 09:00 至 09:03，全部只读访问，未在目标仓库、示例页面或本项目执行写操作。外部对象以官方 GitHub 仓库、Raw 源码和 GitHub API 为主；本项目以本机原型、数据字典和注册表为证据。</p>
+<div class="callout warn">官方 GitHub README 只有项目简介和演示链接，未给出安装命令、API 文档或许可证；npm 页面被 JavaScript/Cookies 拦截，不能据此补写包版本或安装方式。源码头部明确出现 <code>jQuery Hiprint 2.0.1</code> 与 <code>GPL or commercial licenses</code>，但未发现仓库根目录的 <code>package.json</code> 或常见许可证文件。</div>
+<h3>1.1 调研对象</h3>
+<table>
+<thead><tr><th>对象</th><th>简称</th><th>访问时刻</th><th>账号条件</th><th>覆盖端</th><th>证据级</th><th>未验证项</th></tr></thead>
+<tbody>
+<tr><td>GitHub 仓库 <code>CcSimple/hiprint</code>、README、Raw 示例与 bundle</td><td>hiprint</td><td>2026-11-10 09:00–09:02</td><td>未登录，官方公开页面与 Raw/API 只读</td><td>源码、HTML 示例、Web 设计器示例</td><td>B</td><td>真实浏览器交互、实际打印输出、PDF 生成、npm 发布渠道、浏览器兼容矩阵、最新提交时间</td></tr>
+<tr><td>货灵供应链运营平台现有打印相关原型与数据字典</td><td>本项目</td><td>2026-11-10 09:02–09:03</td><td>本机工作区只读</td><td>货主端、WMS 相关出库页面、共享层与数据字典</td><td>A</td><td>真实后端文件生成、打印机调用、打印队列与生产模板版本管理</td></tr>
+</tbody>
+</table>
+<h3>1.2 证据来源</h3>
+<table>
+<thead><tr><th>来源</th><th>能证明什么</th><th>不能证明什么</th></tr></thead>
+<tbody>
+<tr><td><a href="https://github.com/CcSimple/hiprint">官方仓库 README</a></td><td>项目自称 JavaScript 网页打印组件，提到 HTML 构建、PDF 和 Vue/React/Angular 适用性。</td><td>不能证明安装方式、API 完整性、PDF 实现、维护状态或许可证。</td></tr>
+<tr><td><a href="https://raw.githubusercontent.com/CcSimple/hiprint/master/hiprint/custom.html">官方 custom.html</a></td><td>设计器布局、拖拽元素、纸张按钮、JSON 导出、预览与浏览器打印调用的源码流程。</td><td>不能证明运行时在当前浏览器的实际效果、分页误差和异常处理。</td></tr>
+<tr><td><a href="https://raw.githubusercontent.com/CcSimple/hiprint/master/hiprint/index.html">官方 index.html</a></td><td>JSON 模板、字段绑定、<code>PrintTemplate</code>、<code>getSimpleHtml</code>、<code>jqprint</code> 的示例调用。</td><td>不能证明所有模板字段、生产数据校验和打印服务能力。</td></tr>
+<tr><td><a href="https://raw.githubusercontent.com/CcSimple/hiprint/master/hiprint/hiprint.bundle.js">官方 bundle</a></td><td>源码头部版本、版权方与 GPL/商业授权文字。</td><td>当前抓取文本不足以逐项核对 bundle 内完整业务 API。</td></tr>
+<tr><td>本项目原型与字典</td><td>已有面单、标签、箱唛、装箱单字段和打印动作落点。</td><td>不能证明真实 PDF 生成或真实打印机集成已经存在。</td></tr>
+</tbody>
+</table>
+
+<h2 id="s2"><span class="num">2</span> 覆盖清单</h2>
+<p>本轮覆盖 hiprint 官方仓库的 README、示例页面、构建 bundle 头信息，以及本项目当前打印相关页面和实体；未将未运行的示例行为写成已实见能力。</p>
+<h3>2.1 资料与页面树</h3>
+<ul class="tree" role="img" aria-label="hiprint资料覆盖树：仓库下有README、hiprint目录和示例页面">
+<li>hiprint 官方仓库
+<ul>
+<li>README.md：定位、演示链接、框架适用范围</li>
+<li>hiprint/
+<ul>
+<li>index.html：JSON 模板测试、快速预览、测试打印</li>
+<li>custom.html：可视化设计器、拖拽元素、纸张设置、JSON/HTML 导出</li>
+<li>hiprint.bundle.js：核心 bundle、版本与授权文字</li>
+<li>css/：样式目录，具体文件内容本轮未展开</li>
+<li>plugins/：jQuery、条码、二维码、jqprint 等依赖目录</li>
+<li>custom_test/：自定义元素测试目录</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>本项目打印相关链路
+<ul>
+<li><code>owner/selfship-list</code>：打印面单、打印标签</li>
+<li><code>owner/*-replenish-list</code>：打印箱唛、打印装箱单</li>
+<li><code>owner/platform-adapter-list</code>：面单来源与平台能力</li>
+<li><code>outbound/packing-order</code>：打包单数据</li>
+<li><code>owner/tracking-list</code>：物流运单与签收回单</li>
+</ul>
+</li>
+</ul>
+<h3>2.2 逐页覆盖表</h3>
+<table>
+<thead><tr><th>菜单路径 / 来源</th><th>页面类型</th><th>角色</th><th>状态</th><th>记录节号</th></tr></thead>
+<tbody>
+<tr><td>hiprint › 官方 README</td><td>项目说明</td><td>开发者</td><td>已看，B 级源码页面</td><td>3.1</td></tr>
+<tr><td>hiprint › <code>index.html</code></td><td>JSON 模板测试页</td><td>开发者</td><td>已看源码；未执行页面</td><td>3.2</td></tr>
+<tr><td>hiprint › <code>custom.html</code></td><td>可视化设计器</td><td>模板设计者</td><td>已看源码；未执行页面</td><td>3.3</td></tr>
+<tr><td>hiprint › <code>hiprint.bundle.js</code></td><td>构建产物</td><td>开发者</td><td>已看头部与可识别文本</td><td>3.4</td></tr>
+<tr><td>货主端 › 订单/自发货 › <code>owner/selfship-list</code></td><td>列表 + 发货抽屉</td><td>货主端操作人员</td><td>已看，本机 A 级</td><td>3.5</td></tr>
+<tr><td>货主端 › 平台备货 › <code>owner/*-replenish-list</code></td><td>列表 + 备货抽屉</td><td>货主端操作人员</td><td>已看，本机 A 级</td><td>3.6</td></tr>
+<tr><td>货主端 › 平台适配器 › <code>owner/platform-adapter-list</code></td><td>列表 + 详情抽屉</td><td>货主端管理员</td><td>已看，本机 A 级</td><td>3.7</td></tr>
+<tr><td>WMS › 出库 › <code>outbound/packing-order</code></td><td>列表/作业页</td><td>仓内作业人员</td><td>已看，本机 A 级</td><td>3.8</td></tr>
+</tbody>
+</table>
+<h3>2.3 非页面能力</h3>
+<table>
+<thead><tr><th>能力</th><th>hiprint 证据</th><th>本轮判定</th></tr></thead>
+<tbody>
+<tr><td>模板 JSON 导入/导出</td><td><code>custom.html</code> 有“生成json到textarea”“json打印预览”，并用 <code>getSimpleTemplateEntity()</code> 读取设计结果。</td><td>有，源码示例已覆盖。</td></tr>
+<tr><td>HTML 生成与分页</td><td>示例调用 <code>getSimpleHtml(printData)</code>；源码注释称“获取html(已分页)”。</td><td>有，分页实际边界未验证。</td></tr>
+<tr><td>浏览器打印</td><td>示例通过 <code>jqprint</code> 调起打印，传入 <code>print-lock.css</code>。</td><td>有，打印输出未验证。</td></tr>
+<tr><td>PDF 生成/下载</td><td>README 提到 “easy to pdf”；示例仅展示 HTML，可自行后台转 PDF 的注释。</td><td>未验证，不能当作内置 PDF 服务。</td></tr>
+<tr><td>条码/二维码</td><td>示例引入 <code>JsBarcode.all.min.js</code> 与 <code>qrcode.js</code>。</td><td>有依赖提示，具体元素配置未逐项验证。</td></tr>
+<tr><td>权限、通知、定时任务、打印队列</td><td>官方资料未出现相应能力。</td><td>未验证或未提供。</td></tr>
+</tbody>
+</table>
+<h3>2.4 覆盖端与未覆盖项</h3>
+<p>hiprint 官方资料覆盖 Web 浏览器设计器与 JavaScript 集成；没有本轮可复核的移动端、PDA、桌面客户端、浏览器插件或开放平台界面。本项目覆盖货主端和 WMS 相关源码，但没有实际后端文件生成、打印机服务或队列页面。</p>
+
+<h2 id="s3"><span class="num">3</span> 逐页记录</h2>
+<h3>3.1 hiprint › README.md</h3>
+<h4>入口</h4><p>入口为官方 GitHub 仓库说明页，不是运行时页面。README 将 hiprint 定义为 JavaScript 网页打印组件，列出网页打印、HTML 构建和 easy to PDF，并提到 Vue、React、Angular 适用。</p>
+<h4>结构分区</h4><p>页面仅有项目标题、简介、演示链接和效果图，没有菜单、配置表单或错误态。</p>
+<h4>列表列与筛选</h4><p>不适用。本页无列表或筛选。</p>
+<h4>行与批量操作</h4><p>不适用。本页无业务操作。</p>
+<h4>表单字段与可见数据</h4>
+<table><thead><tr><th>字段名</th><th>标识</th><th>类型与长度精度</th><th>枚举与取值口径</th><th>必填 · 只读 · 默认值</th><th>来源</th><th>校验与唯一性</th><th>展示格式</th></tr></thead><tbody><tr><td>项目名称</td><td>—</td><td>字符串</td><td>Hiprint</td><td>只读</td><td>官方 README</td><td>未说明</td><td>标题</td></tr><tr><td>适用框架</td><td>—</td><td>枚举</td><td>Vue、React、Angular；原文还称可用于支持 JavaScript 的环境</td><td>只读</td><td>官方 README</td><td>未说明</td><td>文本</td></tr></tbody></table>
+<h4>状态 × 动作</h4><table class="matrix"><thead><tr><th>状态</th><th>查看 README</th><th>打开演示</th><th>安装组件</th></tr></thead><tbody><tr><td>公开页面可访问</td><td class="m-y">可</td><td class="m-u">有链接，运行效果未验证</td><td class="m-u">未验证，无安装命令</td></tr><tr><td>仓库元数据不完整</td><td class="m-y">可</td><td class="m-u">需浏览器复核</td><td class="m-u">不可据此执行</td></tr></tbody></table>
+<h4>交互与异常</h4><p>README 不含运行时错误提示、版本选择、兼容性说明或回滚方式。npm 页面当前被 JavaScript/Cookies 拦截，不能从该页面确认包发布状态。</p>
+
+<h3>3.2 hiprint › <code>index.html</code></h3>
+<h4>入口</h4><p>源码页面包含一个多行文本框 <code>textarea_test1</code>，用于输入 JSON 模板；点击“快速预览”或“测试打印”进入渲染/打印流程。示例通过 <code>new hiprint.PrintTemplate({ template: JSON.parse(...) })</code> 初始化模板。</p>
+<h4>结构分区</h4><p>顶部是模板 JSON 输入区；中部是“快速预览”“测试打印”按钮；下方是预览容器。页面脚本依赖 jQuery、<code>hiprint.bundle.js</code>、<code>JsBarcode</code>、<code>qrcode.js</code> 和 <code>jquery.jqprint</code>。</p>
+<h4>列表列与筛选</h4><p>不适用。本页是模板测试页，无列表和筛选。</p>
+<h4>行与批量操作</h4><p>不适用。本页没有行选择或批量动作。</p>
+<h4>表单字段</h4>
+<table><thead><tr><th>字段名</th><th>标识</th><th>类型与长度精度</th><th>枚举与取值口径</th><th>必填 · 只读 · 默认值</th><th>来源</th><th>校验与唯一性</th><th>展示格式</th></tr></thead><tbody>
+<tr><td>打印模板 JSON</td><td><code>textarea_test1</code></td><td>JSON 字符串</td><td><code>panels[]</code>、<code>printElements[]</code>、<code>options</code>、<code>printElementType</code></td><td>必填；默认示例模板</td><td>用户编辑</td><td>提交前执行 <code>JSON.parse</code>；解析失败行为未验证</td><td>多行文本</td></tr>
+<tr><td>字段绑定</td><td><code>options.field</code></td><td>字符串</td><td>示例为 <code>name</code>、<code>barcode</code></td><td>按元素需要；默认未说明</td><td>模板配置</td><td>与打印数据属性对应；缺失字段显示未验证</td><td>字段值</td></tr>
+<tr><td>测试数据</td><td>脚本内数组</td><td>对象数组</td><td><code>name</code>、<code>barcode</code></td><td>示例固定五条</td><td>示例脚本</td><td>未说明</td><td>按模板渲染</td></tr>
+<tr><td>元素文本类型</td><td><code>options.textType</code></td><td>字符串/枚举</td><td>示例为 <code>barcode</code></td><td>元素可选；默认未说明</td><td>模板配置</td><td>需加载条码依赖；未验证</td><td>条码或文本外观</td></tr>
+</tbody></table>
+<h4>状态 × 动作</h4><table class="matrix"><thead><tr><th>状态</th><th>快速预览</th><th>测试打印</th><th>继续编辑</th></tr></thead><tbody><tr><td>JSON 可解析</td><td class="m-y">可</td><td class="m-y">可调用 jqprint</td><td class="m-y">可</td></tr><tr><td>JSON 解析失败</td><td class="m-u">行为未验证</td><td class="m-u">行为未验证</td><td class="m-y">可修改文本</td></tr><tr><td>字段缺失或依赖未加载</td><td class="m-u">渲染结果未验证</td><td class="m-u">打印结果未验证</td><td class="m-y">可</td></tr></tbody></table>
+<h4>交互与异常</h4><p>预览和打印使用同一组五条测试数据；模板 JSON 解析失败、字段缺失、条码依赖缺失、打印弹窗被浏览器阻止等异常没有源码级提示或恢复策略，均应在生产接入时补齐。</p>
+
+<h3>3.3 hiprint › <code>custom.html</code></h3>
+<h4>入口</h4><p>页面左侧为拖拽列表，中部为设计画布，右侧为元素属性设置容器。设计器初始化为 <code>hiprint.PrintTemplate({ template: customPrintJson, settingContainer: '#PrintElementOptionSetting', paginationContainer: '.hiprint-printPagination' })</code>，随后调用 <code>design('#hiprint-printTemplate')</code>。</p>
+<h4>结构分区</h4><p>左栏分“拖拽列表”和“辅助”；画布工具栏提供 A3/A4/A5/B3/B4/B5、自定义宽高、旋转、清空、快速预览和打印；画布下方提供生成 JSON、JSON 打印预览、生成 HTML；右栏为属性设置。</p>
+<h4>列表列与筛选</h4><p>不适用。拖拽列表不是数据表，源码明确列出元素：文本、图片、长文、表格、html、横线、竖线、矩形。</p>
+<h4>行与批量操作</h4><p>拖拽元素到画布；点击纸张规格设置纸张；点击“旋转”改变方向；点击“清空”清除模板；点击“生成json到textarea”输出模板实体。源码未提供批量选中、撤销/重做或版本回滚。</p>
+<h4>表单字段</h4>
+<table><thead><tr><th>字段名</th><th>标识</th><th>类型与长度精度</th><th>枚举与取值口径</th><th>必填 · 只读 · 默认值</th><th>来源</th><th>校验与唯一性</th><th>展示格式</th></tr></thead><tbody>
+<tr><td>纸张宽度</td><td><code>customWidth</code></td><td>字符串输入，单位提示 mm</td><td>自定义数值</td><td>自定义纸张时必填；默认空</td><td>用户输入</td><td>数值范围与小数精度未验证</td><td>毫米输入框</td></tr>
+<tr><td>纸张高度</td><td><code>customHeight</code></td><td>字符串输入，单位提示 mm</td><td>自定义数值</td><td>自定义纸张时必填；默认空</td><td>用户输入</td><td>数值范围与小数精度未验证</td><td>毫米输入框</td></tr>
+<tr><td>元素类型</td><td><code>tid</code></td><td>枚举字符串</td><td><code>testModule.text</code>、<code>image</code>、<code>longText</code>、<code>tableCustom</code>、<code>html</code>、<code>hline</code>、<code>vline</code>、<code>rect</code></td><td>拖拽时产生；默认按元素</td><td>元素提供器</td><td>自定义元素提供器示例未验证</td><td>左栏拖拽项</td></tr>
+<tr><td>模板实体</td><td><code>getSimpleTemplateEntity()</code></td><td>JSON 对象</td><td>面板、元素、选项、类型</td><td>系统生成；无默认值</td><td>设计器状态</td><td>JSON 输出格式有示例；字段完整性未验证</td><td>textarea</td>
+<tr><td>HTML 结果</td><td><code>getSimpleHtml(printData)</code></td><td>HTML 节点数组</td><td>已分页 HTML</td><td>系统生成</td><td>模板 + 打印数据</td><td>分页边界与空数据未验证</td><td>textarea 或预览容器</td>
+</tbody></table>
+<h4>状态 × 动作</h4><table class="matrix"><thead><tr><th>状态</th><th>拖拽元素</th><th>设置纸张</th><th>导出 JSON</th><th>预览/打印</th></tr></thead><tbody><tr><td>设计器已初始化</td><td class="m-y">可</td><td class="m-y">可</td><td class="m-y">可</td><td class="m-y">可调用</td></tr><tr><td>自定义宽高为空或非法</td><td class="m-y">可</td><td class="m-u">校验未验证</td><td class="m-y">可</td><td class="m-u">结果未验证</td></tr><tr><td>模板已清空</td><td class="m-y">可重新设计</td><td class="m-y">可</td><td class="m-y">可导出空模板</td><td class="m-u">空模板渲染未验证</td></tr></tbody></table>
+<h4>交互与异常</h4><p>页面把设计结果作为 JSON 暴露，允许人工编辑 formatter、文本变色和单元格背景等特殊化配置；源码未给出撤销/重做、草稿保存、并发编辑、非法 JSON 的现场保留和属性校验提示。打印动作依赖浏览器与 <code>jqprint</code>，不是独立打印服务。</p>
+
+<h3>3.4 hiprint › <code>hiprint.bundle.js</code></h3>
+<h4>入口</h4><p>仓库目录把该文件作为已打包的核心 JavaScript 文件。源码头部可识别 <code>jQuery Hiprint 2.0.1</code>、版权年份 2016–2019、<code>www.hinnn.com</code> 和 <code>GPL or commercial licenses</code>。</p>
+<h4>结构分区</h4><p>当前可读取文本主要是打包器、兼容性代码和 Typed Array polyfill；业务 API 文本不完整，因此不能仅据 bundle 文本重建完整 API 清单。</p>
+<h4>列表列与筛选</h4><p>不适用。</p>
+<h4>行与批量操作</h4><p>不适用。</p>
+<h4>字段记录</h4><table><thead><tr><th>字段名</th><th>标识</th><th>类型与长度精度</th><th>枚举与取值口径</th><th>必填 · 只读 · 默认值</th><th>来源</th><th>校验与唯一性</th><th>展示格式</th></tr></thead><tbody><tr><td>版本</td><td>—</td><td>字符串</td><td>2.0.1</td><td>只读</td><td>bundle 头部</td><td>未说明</td><td>源码注释</td></tr><tr><td>授权模式</td><td>—</td><td>枚举字符串</td><td>GPL 或 commercial licenses</td><td>只读</td><td>bundle 头部</td><td>具体商业条款未验证</td><td>源码注释</td></tr></tbody></table>
+<h4>状态 × 动作</h4><table class="matrix"><thead><tr><th>证据状态</th><th>据此选型</th><th>据此部署</th><th>据此确认授权</th></tr></thead><tbody><tr><td>bundle 头部可读</td><td class="m-u">只能形成候选</td><td class="m-u">需补运行验证</td><td class="m-u">需法务/供应方确认</td></tr><tr><td>完整业务源码未核对</td><td class="m-u">不可直接定案</td><td class="m-n">不应直接作为生产依据</td><td class="m-u">待定</td></tr></tbody></table>
+<h4>交互与异常</h4><p>当前资料没有独立的异常处理 API、日志、版本迁移和兼容性矩阵。选型前必须将 bundle、示例资源、许可证和实际打印输出纳入验证清单。</p>
+
+<h3>3.5 本项目 › 货主端 › <code>owner/selfship-list</code></h3>
+<h4>入口</h4><p>源码路径为 <code>prototypes/owner/pages/selfship-list.mjs</code>，页面通过发货抽屉承接“申请运单号、打印面单、打印标签、发货、签收”。对应数据文件为 <code>prototypes/owner/data/selfship-list.json</code>，数据字典为 <code>docs/数据字典/自发货单.md</code>。</p>
+<h4>结构分区</h4><p>列表页进入发货抽屉；面单和标签以文件字段与动作出现。当前没有模板选择、模板预览、PDF 在线渲染或打印机状态区。</p>
+<h4>列表列与筛选</h4><p>本轮确认打印相关字段为 <code>waybillSource</code>、<code>waybillNo</code>、<code>waybillFile</code>、<code>labelFile</code>、<code>packageCount</code>、<code>shipTime</code>；完整列表列与筛选以原型和字典为准，打印组件不改变列表筛选口径。</p>
+<h4>行与批量操作</h4><p>打印面单、打印标签属于抽屉动作；当前原型记录附件文件名和操作轨迹，不调用真实打印机。批量打印、部分失败、重试和打印队列未出现。</p>
+<h4>表单字段</h4><table><thead><tr><th>字段名</th><th>标识</th><th>类型与长度精度</th><th>枚举与取值口径</th><th>必填 · 只读 · 默认值</th><th>来源</th><th>校验与唯一性</th><th>展示格式</th></tr></thead><tbody><tr><td>面单来源</td><td><code>waybillSource</code></td><td>枚举</td><td>以数据字典取值为准</td><td>只读/由平台或承运商能力产生</td><td>平台适配器或承运商</td><td>与运单号、面单文件联动；具体校验未验证</td><td>文本</td></tr><tr><td>面单文件</td><td><code>waybillFile</code></td><td>附件/文件引用</td><td>示例为 PDF 文件名</td><td>打印面单前应存在；当前原型为字符串</td><td>系统生成或外部同步</td><td>文件是否可下载/预览未验证</td><td>文件名</td></tr><tr><td>标签文件</td><td><code>labelFile</code></td><td>附件/文件引用</td><td>示例为 PDF 文件名</td><td>打印标签前应存在；当前原型为字符串</td><td>系统生成或外部同步</td><td>文件是否可下载/预览未验证</td><td>文件名</td></tr></tbody></table>
+<h4>状态 × 动作</h4><table class="matrix"><thead><tr><th>文件状态</th><th>打印面单</th><th>打印标签</th><th>重新生成</th></tr></thead><tbody><tr><td>文件引用存在</td><td class="m-y">原型动作可见</td><td class="m-y">原型动作可见</td><td class="m-u">生成规则未验证</td></tr><tr><td>文件引用为空</td><td class="m-u">需申请/生成，条件未完整定义</td><td class="m-u">条件未验证</td><td class="m-u">未验证</td></tr></tbody></table>
+<h4>交互与异常</h4><p>当前原型未表达打印失败、文件过期、重复打印、部分成功、浏览器阻止打印和下载失败提示。若引入 hiprint，应在该抽屉或独立打印预览中补充这些状态，不把“打印动作可点击”当作打印成功。</p>
+
+<h3>3.6 本项目 › 货主端 › <code>owner/*-replenish-list</code></h3>
+<h4>入口</h4><p>平台备货页面及其平台变体承接“生成箱唛、打印箱唛、生成装箱单、打印装箱单、预约入仓、发货”。对应字段为 <code>cartonMarkNo</code>、<code>cartonMarkFile</code>、<code>packingListNo</code>、<code>packingListFile</code>。</p>
+<h4>结构分区</h4><p>页面以备货单列表和备货抽屉为主，打印对象为箱唛和装箱单文件。当前未提供模板绑定、纸张尺寸、预览和批量打印面板。</p>
+<h4>列表列与筛选</h4><p>打印相关展示字段是箱唛编号/文件、装箱单编号/文件、预约入仓信息；打印组件接入应复用这些字段，不新建另一套文件状态。</p>
+<h4>行与批量操作</h4><p>“生成”与“打印”分开存在，说明生成文件和输出文件是两个动作；但当前实现没有真实生成服务或打印队列。批量操作和失败重试未验证。</p>
+<h4>表单字段</h4><table><thead><tr><th>字段名</th><th>标识</th><th>类型与长度精度</th><th>枚举与取值口径</th><th>必填 · 只读 · 默认值</th><th>来源</th><th>校验与唯一性</th><th>展示格式</th></tr></thead><tbody><tr><td>箱唛编号</td><td><code>cartonMarkNo</code></td><td>字符串</td><td>示例关联备货单</td><td>生成后只读</td><td>系统生成</td><td>与箱唛文件一一关联；实际唯一性未验证</td><td>编号</td></tr><tr><td>箱唛文件</td><td><code>cartonMarkFile</code></td><td>附件/文件引用</td><td>示例为 PDF 文件名</td><td>生成后存在</td><td>系统生成</td><td>文件内容与模板未验证</td><td>文件名</td></tr><tr><td>装箱单文件</td><td><code>packingListFile</code></td><td>附件/文件引用</td><td>示例为 PDF 文件名</td><td>生成后存在</td><td>系统生成</td><td>文件内容与模板未验证</td><td>文件名</td></tr></tbody></table>
+<h4>状态 × 动作</h4><table class="matrix"><thead><tr><th>文件状态</th><th>生成文件</th><th>打印文件</th><th>预约入仓</th></tr></thead><tbody><tr><td>未生成</td><td class="m-y">原型动作可见</td><td class="m-u">需先生成，具体禁用条件未验证</td><td class="m-u">依赖备货状态，未验证</td></tr><tr><td>已生成</td><td class="m-u">重复生成策略未验证</td><td class="m-y">原型动作可见</td><td class="m-y">原型动作可见</td></tr></tbody></table>
+<h4>交互与异常</h4><p>需明确生成失败、模板缺字段、尺寸不合规、平台要求变化和打印后重打策略。hiprint 只能覆盖前端模板渲染，不自动解决平台面单、箱唛数据来源和文件留存。</p>
+
+<h3>3.7 本项目 › 货主端 › <code>owner/platform-adapter-list</code></h3>
+<h4>入口</h4><p>平台适配器列表/详情用于确认平台能力与面单策略，字段包括 <code>platform</code>、<code>platformMode</code>、<code>authMode</code>、<code>rawOrder</code>、<code>labelSource</code>、<code>fulfillDuty</code>、<code>rateLimit</code>、<code>adapterVersion</code>。</p>
+<h4>结构分区</h4><p>以适配器列表和详情抽屉为主，不是打印设计器。<code>labelSource</code>决定面单来源，hiprint 若接入只能作为其中一种渲染/输出路径。</p>
+<h4>列表列与筛选</h4><p>本轮仅确认面单来源字段及适配器能力字段；具体默认列、筛选控件和排序规则不属于本次 hiprint 评估重点。</p>
+<h4>行与批量操作</h4><p>适配器详情不直接生成或打印面单；其能力结果应被自发货和平台备货链路引用。批量修改适配器能力未验证。</p>
+<h4>表单字段</h4><table><thead><tr><th>字段名</th><th>标识</th><th>类型与长度精度</th><th>枚举与取值口径</th><th>必填 · 只读 · 默认值</th><th>来源</th><th>校验与唯一性</th><th>展示格式</th></tr></thead><tbody><tr><td>面单来源</td><td><code>labelSource</code></td><td>枚举</td><td>平台、承运商、卖家或不支持等口径以字典为准</td><td>只读/适配器配置</td><td>平台适配器</td><td>与能力集联动</td><td>标签</td></tr><tr><td>适配器版本</td><td><code>adapterVersion</code></td><td>字符串</td><td>版本号</td><td>只读</td><td>系统配置</td><td>未说明升级兼容规则</td><td>文本</td></tr></tbody></table>
+<h4>状态 × 动作</h4><table class="matrix"><thead><tr><th>适配器状态</th><th>选择 hiprint 渲染</th><th>申请平台面单</th><th>打印</th></tr></thead><tbody><tr><td>来源为平台</td><td class="m-u">不应覆盖平台原始面单，需定策略</td><td class="m-y">由平台能力决定</td><td class="m-y">由下游文件动作承接</td></tr><tr><td>来源为本地模板</td><td class="m-y">可作为候选</td><td class="m-n">不适用</td><td class="m-y">需生成文件或 HTML</td></tr><tr><td>不支持面单</td><td class="m-n">不可</td><td class="m-n">不可</td><td class="m-n">不可</td></tr></tbody></table>
+<h4>交互与异常</h4><p>核心异常是面单来源与模板渲染职责冲突：平台返回的面单不能未经确认被 hiprint 重排；适配器版本变化也可能使字段映射失效。该页应提供能力状态，而不直接承载模板设计。</p>
+
+<h3>3.8 本项目 › WMS › <code>outbound/packing-order</code></h3>
+<h4>入口</h4><p>打包单页面提供箱号、箱型、箱数、重量、体积、打包人和打包状态等仓内作业数据，是箱唛、装箱单和物流运单的上游数据来源。</p>
+<h4>结构分区</h4><p>页面以打包单列表/作业信息为主，本轮未发现打印箱标签或预览打包单动作。若引入模板渲染，应从该页数据读取，不在打印组件内复制数据。</p>
+<h4>列表列与筛选</h4><p>确认字段包括 <code>packingNo</code>、<code>obNo</code>、<code>cartonNo</code>、<code>boxType</code>、<code>boxCount</code>、<code>weight</code>、<code>volume</code>、<code>packer</code>、<code>packingStatus</code>。</p>
+<h4>行与批量操作</h4><p>本轮未发现打印、批量打印或 PDF 预览动作；hiprint 评估不能推导出 WMS 页面必须增加打印入口。</p>
+<h4>表单字段</h4><table><thead><tr><th>字段名</th><th>标识</th><th>类型与长度精度</th><th>枚举与取值口径</th><th>必填 · 只读 · 默认值</th><th>来源</th><th>校验与唯一性</th><th>展示格式</th></tr></thead><tbody><tr><td>箱号</td><td><code>cartonNo</code></td><td>字符串</td><td>箱级标识</td><td>打包后只读</td><td>打包作业生成</td><td>需与箱唛/运单关联</td><td>文本</td></tr><tr><td>重量</td><td><code>weight</code></td><td>小数，精度未定</td><td>重量值</td><td>打包时录入或称重</td><td>作业录入/设备</td><td>非负校验口径未验证</td><td>带单位</td></tr><tr><td>体积</td><td><code>volume</code></td><td>小数，精度未定</td><td>体积值</td><td>打包时录入或计算</td><td>作业录入/计算</td><td>计算公式未验证</td><td>带单位</td></tr></tbody></table>
+<h4>状态 × 动作</h4><table class="matrix"><thead><tr><th>打包状态</th><th>生成箱唛</th><th>打印箱唛</th><th>修改箱数据</th></tr></thead><tbody><tr><td>未完成</td><td class="m-u">上游页面动作未验证</td><td class="m-n">不应打印最终箱数据</td><td class="m-y">按作业规则</td></tr><tr><td>已完成</td><td class="m-u">由备货链路承接，关联规则未验证</td><td class="m-u">当前页面未提供动作</td><td class="m-u">修改后重生成策略未验证</td></tr></tbody></table>
+<h4>交互与异常</h4><p>打印组件接入前需先确定箱号、重量、体积的过账时点和修改锁定规则，否则会出现已打印标签与实际箱数据不一致。当前原型只提供作业数据，不提供打印闭环。</p>
+
+<h2 id="s4"><span class="num">4</span> 术语对照</h2>
+<table>
+<thead><tr><th>对象</th><th>原生叫法</th><th>该对象下的判定口径</th><th>我方叫法</th></tr></thead>
+<tbody>
+<tr><td>hiprint</td><td><code>PrintTemplate</code></td><td>以模板对象创建渲染器，示例传入 JSON 的 <code>template</code> 属性。</td><td>打印模板渲染器</td></tr>
+<tr><td>hiprint</td><td><code>design</code></td><td>把模板设计器挂载到指定 DOM 容器，支持拖拽和属性设置。</td><td>模板设计态</td></tr>
+<tr><td>hiprint</td><td><code>getSimpleTemplateEntity()</code></td><td>读取设计结果的 JSON 实体，用于保存或编辑模板。</td><td>打印模板 JSON</td></tr>
+<tr><td>hiprint</td><td><code>getSimpleHtml</code></td><td>根据模板和打印数据生成 HTML；示例注释标为“已分页”。</td><td>打印 HTML 渲染结果</td></tr>
+<tr><td>hiprint</td><td><code>paper</code> / <code>setPaper</code></td><td>预置 A3/A4/A5/B3/B4/B5 或输入自定义宽高，具体单位以示例输入 mm。</td><td>纸张规格</td></tr>
+<tr><td>hiprint</td><td><code>jqprint</code></td><td>外部 jQuery 打印插件调用浏览器打印流程，不是打印机队列服务。</td><td>浏览器打印</td></tr>
+<tr><td>本项目</td><td>面单文件</td><td><code>waybillFile</code> 是文件引用/文件名，来源可由平台适配器决定。</td><td>面单文件</td></tr>
+<tr><td>本项目</td><td>标签文件</td><td><code>labelFile</code> 是标签文件引用/文件名，不等同于模板。</td><td>标签文件</td></tr>
+<tr><td>本项目</td><td>箱唛文件</td><td><code>cartonMarkFile</code> 是平台备货链路中的箱唛文件引用。</td><td>箱唛文件</td></tr>
+<tr><td>本项目</td><td>打印</td><td>现有原型动作记录文件与操作轨迹，未实现真实打印机调用。</td><td>打印动作</td></tr>
+</tbody>
+</table>
+
+<h2 id="s5"><span class="num">5</span> 横向对比</h2>
+<p>本轮没有第二个外部打印组件作为竞品对象；以下按“hiprint 官方证据 / 本项目现状”对照能力，格内只使用有、无、未验证三值。</p>
+<table class="matrix">
+<thead><tr><th>能力维度</th><th>hiprint</th><th>本项目现状</th><th>差异与口径</th></tr></thead>
+<tbody>
+<tr><td>可视化模板设计</td><td class="m-y">有</td><td class="m-n">无</td><td>hiprint 的 <code>custom.html</code> 有拖拽设计器；本项目暂无打印模板管理页。</td></tr>
+<tr><td>JSON 模板保存/编辑</td><td class="m-y">有</td><td class="m-n">无</td><td>hiprint 以模板 JSON 作为设计结果；本项目当前只存业务文件引用。</td></tr>
+<tr><td>HTML 渲染</td><td class="m-y">有</td><td class="m-n">无</td><td>hiprint 暴露 <code>getSimpleHtml</code>；本项目无统一渲染器。</td></tr>
+<tr><td>浏览器打印</td><td class="m-y">有</td><td class="m-u">未验证</td><td>hiprint 示例调用 jqprint；本项目动作未接真实打印机。</td></tr>
+<tr><td>分页</td><td class="m-y">有</td><td class="m-n">无</td><td>示例注释称 HTML 已分页，但真实分页边界未验证。</td></tr>
+<tr><td>PDF 生成</td><td class="m-u">未验证</td><td class="m-n">无</td><td>README 仅提 easy to PDF；本项目示例文件名不等于生成能力。</td></tr>
+<tr><td>面单/标签业务数据</td><td class="m-n">无</td><td class="m-y">有</td><td>hiprint 只消费传入数据；本项目已有面单、标签、箱唛、运单实体。</td></tr>
+<tr><td>打印队列与重试</td><td class="m-u">未验证</td><td class="m-n">无</td><td>两侧都没有本轮可复核的生产队列实现。</td></tr>
+<tr><td>授权清晰度</td><td class="m-u">未验证</td><td class="m-u">不适用</td><td>bundle 标注 GPL 或 commercial licenses，但商业条款未取到。</td></tr>
+<tr><td>TypeScript 类型定义</td><td class="m-u">未验证</td><td class="m-u">不适用</td><td>官方目录未见独立 <code>.d.ts</code> 或 <code>types</code> 目录。</td></tr>
+</tbody>
+</table>
+<figure><div class="bars" role="img" aria-label="本轮 hiprint 证据覆盖：官方源码与示例 4 类、本项目打印链路 4 类、PDF和打印服务 2 类未验证"><div class="bar-row"><span class="bar-label">源码与示例</span><span class="bar-track"><span class="bar" style="width:100%"></span></span><span class="bar-num">4 类已取证</span></div><div class="bar-row"><span class="bar-label">本项目链路</span><span class="bar-track"><span class="bar" style="width:100%"></span></span><span class="bar-num">4 类已取证</span></div><div class="bar-row muted"><span class="bar-label">输出服务边界</span><span class="bar-track"><span class="bar" style="width:50%"></span></span><span class="bar-num">2 类未验证</span></div></div><figcaption>图 1 ｜ hiprint 的前端模板渲染证据较完整，但 PDF、打印服务与生产运维边界仍未形成证据。</figcaption></figure>
+
+<h2 id="s6"><span class="num">6</span> 结论与落点</h2>
+<table>
+<thead><tr><th>编号</th><th>判定</th><th>结论</th><th>落点</th></tr></thead>
+<tbody>
+<tr><td>C1</td><td>可借鉴</td><td>以 JSON 模板作为打印布局的唯一配置源，设计态通过拖拽产生 JSON，运行态用业务数据渲染 HTML；该分离方式适合避免在面单页面硬编码坐标。</td><td>货主端打印能力方案；新增打印模板实体字段 <code>templateJson</code>、<code>schemaVersion</code>，落到面单/标签/箱唛模板管理方案，不直接改现有页面。</td></tr>
+<tr><td>C2</td><td>可借鉴</td><td>将“纸张规格、元素设计、JSON 导出、预览、打印”拆为连续动作；示例同时支持预置纸张和自定义宽高。</td><td>货主端模板设计页；面单、标签、箱唛模板的设计器交互与页面状态。</td></tr>
+<tr><td>C3</td><td>可借鉴</td><td><code>getSimpleHtml</code> 先产出 HTML，再由外部打印方式接管，便于把预览、下载和打印分开验收。</td><td>共享打印渲染层；统一输出 <code>html</code> 与文件生成请求，不把 <code>jqprint</code> 作为后端打印队列。</td></tr>
+<tr><td>C4</td><td>可借鉴</td><td>字段通过 <code>options.field</code> 绑定业务数据，示例中的 <code>name</code>、<code>barcode</code> 说明模板可复用同一数据结构。</td><td>自发货单、平台备货单、打包单；字段映射登记到数据字典，禁止在模板内复制一套业务主档。</td></tr>
+<tr><td>C5</td><td>不跟随</td><td>不把外部 <code>jqprint</code> 调用直接视为生产打印服务；它依赖浏览器、CSS 和当前页面资源，无法覆盖队列、重试、打印机状态和审计。</td><td>货主端 <code>owner/selfship-list</code>、<code>owner/*-replenish-list</code>；打印动作应走文件生成/预览/输出状态机，生产服务另行选型。</td></tr>
+<tr><td>C6</td><td>不跟随</td><td>不把 README 的“easy to pdf”当作内置 PDF 生成能力；官方示例主要是 HTML 生成，PDF 转换只出现在注释层。</td><td>架构设计与技术选型；PDF 生成器、字体、分页、文件存储和下载权限单独评估。</td></tr>
+<tr><td>C7</td><td>不跟随</td><td>不把平台返回的原始面单重新套用本地模板；面单来源由平台适配器决定，重排可能破坏平台要求的字段、条码或尺寸。</td><td><code>owner/platform-adapter-list</code> 的 <code>labelSource</code>；平台面单与本地模板渲染分支必须明确。</td></tr>
+<tr><td>C8</td><td>待定</td><td>是否采用 hiprint 作为生产渲染依赖待定：当前缺 npm 包发布信息、完整 API、真实浏览器打印结果、PDF 方案、浏览器兼容矩阵和商业授权条款。</td><td>决策人：技术负责人、法务、仓储业务负责人；影响打印模板管理、文件服务、打印服务和五端打印入口。</td></tr>
+</tbody>
+</table>
+<h3>6.1 建议</h3>
+<table>
+<thead><tr><th>编号</th><th>动作</th><th>前置</th><th>判据</th></tr></thead>
+<tbody>
+<tr><td>R1</td><td>建立 3 个最小验证模板：热敏面单、箱唛、A4 装箱单。</td><td>确认本项目字段映射、纸张尺寸和一条真实脱敏数据。</td><td>三种模板均能导出 JSON、生成分页 HTML，字段缺失有可见错误，不改动业务数据。</td></tr>
+<tr><td>R2</td><td>在 Chromium、Firefox、Safari 各执行预览、系统打印和“打印为 PDF”。</td><td>准备同一模板、同一字体、同一数据和截图/文件比对规则。</td><td>页数、纸张方向、条码可读性、边距和元素坐标差异均有记录，差异超过阈值则不选 hiprint 直出。</td></tr>
+<tr><td>R3</td><td>向维护者或法务核实 GPL/商业授权条款及可发布方式。</td><td>取得完整许可证文本、源码版本、依赖清单和商业授权报价/条款。</td><td>形成书面结论：允许的部署形态、修改义务、闭源系统使用边界和归属声明。</td></tr>
+<tr><td>R4</td><td>先设计本项目打印状态机，再决定是否接 hiprint。</td><td>确定生成、预览、下载、打印、失败、重试、过期和审计字段。</td><td>模板渲染器可替换；hiprint 只承担渲染时仍能保留队列、权限和审计。</td></tr>
+<tr><td>R5</td><td>将 hiprint 验证落在独立试验页，不直接嵌入现有自发货或备货页。</td><td>跨端联动评估打印模板实体、共享渲染层、面单来源和文件字段。</td><td>试验页通过后再提出原型改动清单；现有页面不出现未验收的“打印成功”状态。</td></tr>
+</tbody>
+</table>
+
+<h2 id="s7"><span class="num">7</span> 缺项</h2>
+<table>
+<thead><tr><th>项</th><th>原因</th><th>影响</th></tr></thead>
+<tbody>
+<tr><td>npm 包名、最新发布版本、安装命令和依赖清单</td><td>npm 页面被 JavaScript/Cookies 拦截；官方仓库根目录未发现 <code>package.json</code>。</td><td>影响 C8、R3 的依赖与发布决策。</td></tr>
+<tr><td>完整许可证文本与商业授权条款</td><td>bundle 只有“GPL or commercial licenses”文字，仓库根目录未发现常见 LICENSE 文件。</td><td>影响 C8、R3 的合规结论。</td></tr>
+<tr><td>真实浏览器打印输出、分页、字体和条码一致性</td><td>本轮只读 Raw 源码，未启动官方示例或调用浏览器打印。</td><td>影响 C5、C8、R2 的生产可用性判断。</td></tr>
+<tr><td>PDF 生成实现、字体嵌入、文件下载和存储</td><td>README 只有能力短语；示例只生成 HTML，PDF 转换仅在注释中提及。</td><td>影响 C6、C8 和文件服务架构。</td></tr>
+<tr><td>完整 API、元素属性、分页规则、事件和类型定义</td><td>bundle 文本抓取不足，官方 README 没有 API 文档，目录未见独立类型文件。</td><td>影响 C1、C2、R1 的二次开发成本估算。</td></tr>
+<tr><td>维护活跃度与最新提交时间</td><td>GitHub commits API 触发匿名访问速率限制，未返回提交记录。</td><td>影响 C8 的长期维护风险判断。</td></tr>
+<tr><td>本项目真实生成与打印服务</td><td>当前原型中的 PDF 仅是文件名字符串，打印动作没有真实后端/打印机调用。</td><td>影响所有“接入后可生产打印”的结论；本轮不把原型动作当作实现。</td></tr>
+</tbody>
+</table>
+
+<h2 id="s8"><span class="num">8</span> 截图索引</h2>
+<p>本轮无截图：外部对象采用官方源码与 API 的 B 级证据，本项目采用本机源文件的 A 级证据；未启动官方 demo、未登录目标系统、未进行真实打印，因此没有符合“整窗、宽度 ≥1440、证明页面字段与按钮”的截图。</p>
+<table>
+<thead><tr><th>图号</th><th>文件</th><th>对象</th><th>菜单路径</th><th>证明什么</th><th>数据状态</th></tr></thead>
+<tbody>
+<tr><td>hiprint-01</td><td>无截图：本轮未启动官方 demo</td><td>hiprint</td><td>官方仓库 › <code>custom.html</code></td><td>源码已证明设计器控件与按钮；没有运行截图</td><td>源码示例数据</td></tr>
+<tr><td>hiprint-02</td><td>无截图：本轮未执行浏览器打印</td><td>hiprint</td><td>官方仓库 › <code>index.html</code></td><td>源码已证明 JSON 模板、预览和 jqprint 调用；没有输出截图</td><td>源码内五条测试数据</td></tr>
+<tr><td>本项目-01</td><td>无截图：本轮未打开构建产物</td><td>本项目</td><td>货主端 › 自发货 › <code>owner/selfship-list</code></td><td>源文件已证明打印面单/标签动作和文件字段；没有页面截图</td><td>原型演示数据</td></tr>
+<tr><td>本项目-02</td><td>无截图：本轮未打开构建产物</td><td>本项目</td><td>货主端 › 平台备货 › <code>owner/*-replenish-list</code></td><td>源文件已证明箱唛/装箱单生成与打印动作；没有页面截图</td><td>原型演示数据</td></tr>
+</tbody>
+</table>
+<p class="source">主要来源：<a href="https://github.com/CcSimple/hiprint">GitHub 仓库</a>、<a href="https://raw.githubusercontent.com/CcSimple/hiprint/master/README.md">README Raw</a>、<a href="https://raw.githubusercontent.com/CcSimple/hiprint/master/hiprint/index.html">index.html Raw</a>、<a href="https://raw.githubusercontent.com/CcSimple/hiprint/master/hiprint/custom.html">custom.html Raw</a>、<a href="https://raw.githubusercontent.com/CcSimple/hiprint/master/hiprint/hiprint.bundle.js">bundle Raw</a>。本项目证据见报告中列出的 prototypes 与 docs/数据字典路径。</p>
+</main>
+</div>
+</body>
+</html>
