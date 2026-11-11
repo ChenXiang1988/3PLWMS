@@ -1,0 +1,23 @@
+{
+  "task": {
+    "taskNo": "LD20261111001",
+    "handoverNo": "HO-CK-20261111-001",
+    "owner": "海纳食品",
+    "operator": "王强",
+    "device": "PDA-03",
+    "dock": "月台 3"
+  },
+  "line": {
+    "lineNo": 1,
+    "skuCode": "SKU100402",
+    "skuName": "海纳常温酸奶礼盒 200g×12",
+    "batchNo": "B20261020",
+    "fromLocation": "月台 3 · 车次 SF-2261",
+    "planQty": 80,
+    "doneQty": 32,
+    "unit": "箱"
+  },
+  "logs": [
+    { "time": "16:05", "text": "扫描交接单 HO-CK-20261111-001", "qty": "32 箱" }
+  ]
+}

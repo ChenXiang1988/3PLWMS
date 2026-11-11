@@ -397,8 +397,10 @@
         { "id": "rail-inbound", "name": "入库", "mark": "入", "navs": ["nav-inbound"] },
         { "id": "rail-outbound", "name": "出库与发货", "mark": "出", "navs": ["nav-outbound", "nav-shipping"] },
         { "id": "rail-inner", "name": "库内作业", "mark": "内", "navs": ["nav-inner", "nav-count"] },
-        { "id": "rail-stock-resource", "name": "库存与资源", "mark": "库", "navs": ["nav-inventory", "nav-resource"] },
-        { "id": "rail-staff", "name": "人员与配置", "mark": "人", "navs": ["nav-staff", "nav-config", "nav-base"] }
+        { "id": "rail-stock", "name": "库存", "mark": "库", "navs": ["nav-inventory"] },
+        { "id": "rail-resource", "name": "设备与容器", "mark": "设", "navs": ["nav-resource", "nav-automation"] },
+        { "id": "rail-staff", "name": "人员与班次", "mark": "人", "navs": ["nav-staff"] },
+        { "id": "rail-config", "name": "作业配置", "mark": "配", "navs": ["nav-config", "nav-base"] }
       ],
       "nav": [
         {
@@ -448,8 +450,6 @@
           "id": "nav-inner",
           "name": "库内作业",
           "pages": [
-            "warehouse/location-list",
-            "warehouse/location-capacity",
             "warehouse/move-task",
             "warehouse/replenish-task",
             "warehouse/kitting-task",
@@ -487,7 +487,13 @@
             "resource/hardware-list",
             "resource/exec-unit-list",
             "resource/device-monitor",
-            "resource/device-alarm",
+            "resource/device-alarm"
+          ]
+        },
+        {
+          "id": "nav-automation",
+          "name": "自动化与接口",
+          "pages": [
             "resource/device-driver",
             "resource/device-capability",
             "resource/automation-topology",
@@ -518,6 +524,8 @@
           "id": "nav-base",
           "name": "基础资料",
           "pages": [
+            "warehouse/location-list",
+            "warehouse/location-capacity",
             "base/sku-warehouse-list"
           ]
         }
@@ -590,7 +598,11 @@
             "task/pda-stocktaking-detail",
             "inbound/receiving-scan",
             "outbound/picking-scan",
-            "warehouse/count-scan"
+            "warehouse/count-scan",
+            "warehouse/pda-move-scan",
+            "inbound/pda-tally-scan",
+            "outbound/pda-packing-scan",
+            "outbound/pda-loading-scan"
           ]
         },
         {
@@ -859,6 +871,14 @@
           "file": "pages/crossdock-task.mjs",
           "ownerScoped": true,
           "app": "warehouse-app"
+        },
+        {
+          "key": "pda-tally-scan",
+          "name": "验收清点作业",
+          "type": "scan",
+          "file": "pages/pda-tally-scan.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
         }
       ]
     },
@@ -958,6 +978,22 @@
           "file": "pages/loading-list.mjs",
           "ownerScoped": true,
           "app": "warehouse-app"
+        },
+        {
+          "key": "pda-packing-scan",
+          "name": "打包分播作业",
+          "type": "scan",
+          "file": "pages/pda-packing-scan.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
+        },
+        {
+          "key": "pda-loading-scan",
+          "name": "装车交接作业",
+          "type": "scan",
+          "file": "pages/pda-loading-scan.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
         }
       ]
     },
@@ -1049,6 +1085,14 @@
           "file": "pages/wh-exception-list.mjs",
           "ownerScoped": true,
           "app": "warehouse-app"
+        },
+        {
+          "key": "pda-move-scan",
+          "name": "库内移位作业",
+          "type": "scan",
+          "file": "pages/pda-move-scan.mjs",
+          "ownerScoped": false,
+          "app": "pda-app"
         }
       ]
     },

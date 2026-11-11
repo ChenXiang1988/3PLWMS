@@ -1,7 +1,7 @@
 {
   "id": "warehouse",
   "name": "仓储管理",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "owner": "产品组",
   "tier": "core",
   "deployed": true,
@@ -14,5 +14,5 @@
     "data/"
   ],
   "status": "delivered",
-  "note": "新增库位容量与 ABC、组套加工、冻结解冻、异常登记；补货、移库、盘点入段"
+  "note": "库位新增与详情抽屉、移库与补货批量处置与排序、异常登记批量处置；新增库内移位扫码作业"
 }

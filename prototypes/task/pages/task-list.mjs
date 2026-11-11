@@ -32,8 +32,8 @@ export function renderPage(data, ctx) {
       { label: '执行人', key: 'operator', type: 'text', placeholder: '请输入执行人', extra: true },
     ],
     toolbar: [
-      { label: '批量确认', toast: '批量确认（原型示意）' },
-      { label: '批量异常登记', ghost: true, toast: '批量异常登记（原型示意）' },
+      { label: '确认完成', toast: '确认完成（原型示意）' },
+      { label: '异常登记', ghost: true, toast: '异常登记（原型示意）' },
       { label: '导出', ghost: true, toast: '导出（原型示意）' },
     ],
     showCount: true,

@@ -48,7 +48,7 @@ export function renderPage(data, ctx) {
       { time: r.updateTime, text: '更新 SPU 主数据', operator: '商品组' },
     ],
     actions: [
-      { label: '批量匹配', ghost: true, toast: '批量匹配（原型示意）' },
+      { label: '类目匹配', ghost: true, toast: '类目匹配（原型示意）' },
       { label: '关闭', ghost: true, attrs: { 'data-drawer-close': '' } },
     ],
   })).join('');

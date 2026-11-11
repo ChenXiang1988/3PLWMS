@@ -64,6 +64,7 @@
 | `ProgressCell(done, plan)` | 只展示进度，不自定义颜色 |
 | `EmptyState` | 一页一处，标题 + 一句说明 |
 | `BaseTable` / `ListPage` / `DetailPage` / `ReportHero` / `Block` | 后台外壳使用，见 `references/shells/admin.md` |
+| `ListPage({ selectable, bulk })` / `BaseTable({ selectable, sortable })` | 批量处置与列头排序：`selectable` 出勾选列（需同时给行主键字段），`bulk` 传 `{ label, status }` 数组，点击把选中行的状态字段改成 `status` 并重算页签；列级 `sortable` 挂到 `<th data-sort-key>`，点格三态循环。未声明即不出现勾选列、箭头与批量按钮 |
 | `DrawerButton` / `DrawerDetail` | 列表行下钻：`DrawerButton` 放操作列，`DrawerDetail` 作为 `renderPage` 的 `overlay` 返回；`DetailPage` 只作抽屉内容，不注册独立 `detail` 页 |
 | `DagGraph` / `DagDrawer` | 工序编排类抽屉：`DagGraph` 传 `flowKey` / `nodes` / `edges`，节点给 `id` / `label` / `layer` / `gen` / `subject` / `cond` / `props`，边给 `from` / `to`；坐标与连线由组件算，页面不写位置、不拼 SVG。`DagDrawer` 作为 `renderPage` 的 `overlay` 返回，只承载编排抽屉，宽度 920，不注册独立页面、不新增骨架类型 |
 | `ReportPage` / `BarRows` | 报表页收口：`ReportPage` 组装 `hero` / `stats` / `blocks`，`BarRows` 按 `label` / `value` 对输出构成横条；页面源不写 `wx-report` 外壳、不自带横条 CSS |
@@ -96,6 +97,10 @@
 | `data-row-idx` | `<tr>` | 分页显隐 |
 | `data-row` | `<tr>` | 转义后的行 JSON，页签与筛选的取值来源 |
 | `data-owner` | `<tr>` | 货主筛选作用域 |
+| `data-sort-key` / `data-sort-dir` | 可排序 `<th>` | 排序列字段名与当前方向（`asc` / `desc`），点整格三态循环，方向由箭头表达 |
+| `data-select-all` / `data-select-row` | 表头全选框 / 行勾选格 | `data-select-row` 的值取行主键；勾选集合只存页面内存，切页清空 |
+| `data-bulk` | 批量动作按钮 | 值为 `bulk[].status`；点击把选中行的状态字段改成该值并重算页签计数，选中为 0 时按钮禁用 |
+| `data-print` | 工具条与抽屉底部 | 值为单据名；点击按打印媒体只输出当前页表格，表头补单据名与打印时间 |
 | `data-filter-key` | 筛选控件 | 对应行字段名 |
 | `data-toast` | 按钮 | 原型示意动作的提示文案 |
 | `data-target` | 面板条目 / 商城导航 | 指向 `data-page-id`，唯一换页入口 |

@@ -59,8 +59,9 @@ export function renderPage(data, ctx) {
       ],
       toolbar: [
         { label: '生成交接单', toast: '生成交接单（原型示意）' },
-        { label: '批量补发回执', ghost: true, toast: '已打开批量回执补发确认（原型示意）' },
-        { label: '批量状态重同步', ghost: true, toast: '已打开批量状态重同步确认（原型示意）' },
+        { label: '补发回执', ghost: true, toast: '已提交回执补发（原型示意）' },
+        { label: '状态重同步', ghost: true, toast: '已提交发运状态重同步（原型示意）' },
+        { label: '打印', ghost: true, attrs: { 'data-print': '交接单' } },
         { label: '导出', ghost: true, toast: '导出（原型示意）' },
       ],
       showCount: true,

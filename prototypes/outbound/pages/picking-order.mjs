@@ -30,7 +30,7 @@ export function renderPage(data, ctx) {
       { label: '执行单元', key: 'execUnit', type: 'select', options: ['全部', ...uniq(rows.map((r) => r.execUnit).filter(Boolean))], extra: true },
       { label: '工序单号', key: 'processNo', type: 'text', placeholder: '请输入工序单号', extra: true },
     ],
-    toolbar: [{ label: '生成拣货单', toast: '生成拣货单（原型示意）' }, { label: '拆任务', ghost: true, toast: '拆任务（原型示意）' }, { label: '合并任务', ghost: true, toast: '合并任务（原型示意）' }, { label: '导出', ghost: true, toast: '导出（原型示意）' }],
+    toolbar: [{ label: '生成拣货单', toast: '生成拣货单（原型示意）' }, { label: '拆任务', ghost: true, toast: '拆任务（原型示意）' }, { label: '合并任务', ghost: true, toast: '合并任务（原型示意）' }, { label: '打印', ghost: true, attrs: { 'data-print': '拣货单' } }, { label: '导出', ghost: true, toast: '导出（原型示意）' }],
     columns: [
       { key: 'processNo', label: '工序单号', width: '160px', cls: 'wx-col-strong', render: (r) => DrawerButton({ pageId, rowKey: r.processNo, label: r.processNo }) },
       { key: 'processStatus', label: '工序单状态', width: '105px', render: (r) => StatusTag(labelOf(r.processStatus), toneOf(r.processStatus)) },

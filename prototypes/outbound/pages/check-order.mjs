@@ -34,6 +34,7 @@ export function renderPage(data, ctx) {
     toolbar: [
       { label: '生成复核单', toast: '生成复核单（原型示意）' },
       { label: '拆任务', ghost: true, toast: '拆任务（原型示意）' },
+      { label: '打印', ghost: true, attrs: { 'data-print': '复核单' } },
       { label: '导出', ghost: true, toast: '导出（原型示意）' },
     ],
     showCount: true,

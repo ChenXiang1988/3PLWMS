@@ -1,0 +1,25 @@
+{
+  "task": {
+    "taskNo": "TL20261111001",
+    "receivingNo": "RC20261111002",
+    "owner": "辰星日化",
+    "operator": "张伟",
+    "device": "PDA-07",
+    "location": "暂存区 C-02"
+  },
+  "line": {
+    "lineNo": 1,
+    "skuCode": "SKU100232",
+    "skuName": "辰星洗衣液 2kg×6",
+    "batchNo": "B20261025",
+    "fromLocation": "暂存区 C-02",
+    "planQty": 300,
+    "doneQty": 180,
+    "unit": "箱"
+  },
+  "logs": [
+    { "time": "10:20", "text": "扫描 SKU100232", "qty": "60 箱" },
+    { "time": "10:24", "text": "扫描 SKU100232", "qty": "60 箱" },
+    { "time": "10:31", "text": "扫描 SKU100232", "qty": "60 箱" }
+  ]
+}

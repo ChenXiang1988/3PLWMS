@@ -41,7 +41,7 @@ export function renderPage(data, ctx) {
         { label: '执行单元', key: 'execUnit', type: 'select', options: ['全部', ...uniq(rows.map((r) => r.execUnit).filter(Boolean))], extra: true },
         { label: '更新时间', key: 'updateTime', type: 'daterange', extra: true },
       ],
-      toolbar: [{ label: '批量派工', toast: '已打开批量派工确认（原型示意）' }, { label: '批量重排', ghost: true, toast: '已打开批量重排确认（原型示意）' }, { label: '批量转人工', ghost: true, toast: '已打开人工接管确认（原型示意）' }, { label: '导出', ghost: true, toast: '导出（原型示意）' }],
+      toolbar: [{ label: '派工', toast: '已打开派工确认（原型示意）' }, { label: '重排', ghost: true, toast: '已打开重排确认（原型示意）' }, { label: '转人工', ghost: true, toast: '已打开人工接管确认（原型示意）' }, { label: '导出', ghost: true, toast: '导出（原型示意）' }],
       showCount: true,
       columns: [
         { key: 'taskNo', label: '任务号', width: '150px', cls: 'wx-col-strong', render: (r) => DrawerButton({ pageId, rowKey: r.taskNo, label: r.taskNo }) },

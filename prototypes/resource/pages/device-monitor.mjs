@@ -23,7 +23,7 @@ export function renderPage(data, ctx) {
     unit: '条', pageSize: 10,
     statusTabs: [{ label: '全部', count: rows.length, active: true }, ...Object.entries(STATUS_META).map(([value, meta]) => ({ label: meta.label, count: count(value), field: 'runStatus', value }))],
     filters: [{ label: '区域', key: 'zone', type: 'select', options: ['全部', ...uniq(rows.map((r) => r.zone).filter(Boolean))] }, { label: '设备类型', key: 'deviceType', type: 'select', options: ['全部', ...uniq(rows.map((r) => r.deviceType))] }, { label: '连接状态', key: 'connectionStatus', type: 'select', options: ['全部', ...uniq(rows.map((r) => r.connectionStatus).filter(Boolean))], extra: true }, { label: '业务影响', key: 'businessImpact', type: 'select', options: ['全部', ...uniq(rows.map((r) => r.businessImpact).filter(Boolean))], extra: true }, { label: '更新时间', key: 'updateTime', type: 'daterange', extra: true }],
-    toolbar: [{ label: '查看设备任务', toast: '设备任务队列（原型示意）' }, { label: '批量暂停', ghost: true, toast: '已打开批量暂停确认（原型示意）' }, { label: '导出', ghost: true, toast: '导出（原型示意）' }],
+    toolbar: [{ label: '查看设备任务', toast: '设备任务队列（原型示意）' }, { label: '暂停', ghost: true, toast: '已打开暂停确认（原型示意）' }, { label: '导出', ghost: true, toast: '导出（原型示意）' }],
     columns: [
       { key: 'deviceCode', label: '设备编码', width: '120px', cls: 'wx-col-strong', render: (r) => DrawerButton({ pageId, rowKey: r.deviceCode, label: r.deviceCode }) },
       { key: 'deviceType', label: '设备类型', width: '90px', render: (r) => dash(r.deviceType) },

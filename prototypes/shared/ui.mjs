@@ -81,17 +81,30 @@ function renderButton(b) {
  * 每行都写 data-row-idx 与 data-row（转义后的行 JSON），供筛选与分页使用；
  * 派生列写成纯函数，不往数据文件里加字段。
  */
-export function BaseTable({ columns = [], rows = [], rowAttrs = null, emptyTitle = '暂无记录', emptyDesc = '当前筛选条件下没有任何记录。' } = {}) {
+export function BaseTable({
+  columns = [], rows = [], rowAttrs = null,
+  emptyTitle = '暂无记录', emptyDesc = '当前筛选条件下没有任何记录。',
+  selectable = false, selectKey = '',
+} = {}) {
+  const keyField = selectKey || (columns[0] && columns[0].key) || '';
+  const headCheck = selectable
+    ? `<th class="wx-check-col"><input type="checkbox" data-select-all aria-label="全选当前结果"></th>`
+    : '';
   const head = columns.map((c) => {
     const label = c.label ?? c.title ?? c.key;
     const style = c.width ? ` style="width:${esc(c.width)}"` : '';
-    const cls = c.align === 'right' ? ' class="num"' : '';
+    const cls = [c.align === 'right' ? 'num' : '', c.sortable ? 'wx-sortable' : ''].filter(Boolean).join(' ');
     const tip = c.tipKey ? ` title="${esc(c.tipKey)}"` : '';
-    return `<th${cls}${style}${tip}>${esc(label)}</th>`;
+    const sort = c.sortable ? ` data-sort-key="${esc(c.key)}"` : '';
+    const mark = c.sortable ? `<i class="wx-sort-mark" aria-hidden="true"></i>` : '';
+    return `<th${cls ? ` class="${esc(cls)}"` : ''}${style}${tip}${sort}>${esc(label)}${mark}</th>`;
   }).join('');
   const body = rows.map((r, i) => {
     const extra = rowAttrs
       ? Object.entries(rowAttrs(r) || {}).map(([k, v]) => ` ${k}="${esc(v)}"`).join('')
+      : '';
+    const check = selectable
+      ? `<td class="wx-check-col"><input type="checkbox" data-select-row="${esc(keyField ? r[keyField] : '')}" aria-label="选择该行"></td>`
       : '';
     const cells = columns.map((c) => {
       const content = typeof c.render === 'function'
@@ -100,9 +113,9 @@ export function BaseTable({ columns = [], rows = [], rowAttrs = null, emptyTitle
       const cls = [c.align === 'right' ? 'num' : '', c.cls || ''].filter(Boolean).join(' ');
       return `<td${cls ? ` class="${esc(cls)}"` : ''}>${content}</td>`;
     }).join('');
-    return `<tr data-row-idx="${i}" data-row="${esc(JSON.stringify(r))}"${extra}>${cells}</tr>`;
+    return `<tr data-row-idx="${i}" data-row="${esc(JSON.stringify(r))}"${extra}>${check}${cells}</tr>`;
   }).join('');
-  return `<div class="wx-table-wrap"><table class="wx-table"><thead><tr>${head}</tr></thead>`
+  return `<div class="wx-table-wrap"><table class="wx-table"><thead><tr>${headCheck}${head}</tr></thead>`
     + `<tbody>${body}</tbody></table></div>`
     + `<div class="wx-empty" hidden><b>${esc(emptyTitle)}</b><span>${esc(emptyDesc)}</span></div>`;
 }
@@ -132,6 +145,7 @@ export function ListPage({
   unit = '条', pageSize = 20, statusTabs = [], filters = [], toolbar = [],
   showCount = true, scopeNote = '', columns = [], rows = [], rowAttrs = null,
   card = null, bare = false, before = '', body = '', live = null,
+  selectable = false, selectKey = '', bulk = [],
   emptyTitle = '暂无记录', emptyDesc = '当前筛选条件下没有任何记录。',
 } = {}) {
   const liveAttr = live ? ` data-live="${esc(JSON.stringify(live))}"` : '';
@@ -156,13 +170,15 @@ export function ListPage({
   const table = body || (card
     ? `<div class="wx-list-cards">${rows.map((r, i) => card(r, i)).join('')}</div>`
       + `<div class="wx-empty" hidden><b>${esc(emptyTitle)}</b><span>${esc(emptyDesc)}</span></div>`
-    : BaseTable({ columns, rows, rowAttrs, emptyTitle, emptyDesc }));
+    : BaseTable({ columns, rows, rowAttrs, emptyTitle, emptyDesc, selectable, selectKey }));
+  const bulkBtns = bulk.map((b) => `<button type="button" class="wx-btn wx-btn--ghost" data-bulk="${esc(b.status)}" disabled>${esc(b.label)}</button>`).join('');
+  const bulkNote = bulk.length ? `<span class="wx-bulk-note" hidden>已选 <b data-bulk-count>0</b> 项</span>` : '';
   if (bare) return `<div class="wx-list" data-page-size="${Number(pageSize) || 20}"${liveAttr}>${before}${table}</div>`;
   return `<div class="wx-list" data-page-size="${Number(pageSize) || 20}"${liveAttr}>`
     + tabBar
     + filterBar
-    + `<div class="wx-actionbar"><span class="wx-actionbar-note">${countNote}</span>`
-    + `<span class="wx-btns">${toolbar.map(renderButton).join('')}</span></div>`
+    + `<div class="wx-actionbar"><span class="wx-actionbar-note">${countNote}${bulkNote}</span>`
+    + `<span class="wx-btns">${bulkBtns}${toolbar.map(renderButton).join('')}</span></div>`
     + table
     + `<div class="wx-pager"><span>每页 ${Number(pageSize) || 20} ${esc(unit)}</span>`
     + `<button type="button" class="wx-btn wx-btn--ghost" data-step="-1">上一页</button>`
@@ -530,6 +546,25 @@ export const BASE_CSS = `
 .wx-table td.num,.wx-table th.num{text-align:right;font-variant-numeric:tabular-nums}
 .wx-table td.wx-col-strong{font-weight:600;color:var(--wx-gray-900)}
 .wx-table tr:last-child td{border-bottom:0}
+.wx-check-col{width:40px;text-align:center}
+.wx-check-col input{width:16px;height:16px;cursor:pointer;accent-color:var(--wx-primary-600)}
+.wx-sortable{cursor:pointer;user-select:none}
+.wx-sortable:hover{color:var(--wx-gray-700)}
+.wx-sort-mark{display:inline-block;width:0;height:0;margin-left:var(--wx-sp-1);border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid var(--wx-gray-400);vertical-align:middle;opacity:.6}
+.wx-sortable[data-sort-dir="asc"] .wx-sort-mark{border-top:0;border-bottom:5px solid var(--wx-gray-700);opacity:1}
+.wx-sortable[data-sort-dir="desc"] .wx-sort-mark{border-top:5px solid var(--wx-gray-700);opacity:1}
+.wx-bulk-note{margin-left:var(--wx-sp-3);font-size:var(--wx-fs-sm);color:var(--wx-gray-700)}
+.wx-btn:disabled{opacity:.45;cursor:not-allowed}
+.wx-print-head{display:none;align-items:center;justify-content:space-between;padding:0 0 var(--wx-sp-3);font-size:var(--wx-fs-md);color:var(--wx-gray-900)}
+@media print{
+  .wx-rail,.wx-panel,.wx-tabs,.wx-filters,.wx-link,.wx-actionbar,.wx-pager,.wx-overlay,.wx-toast,.wx-login,.wx-device,.wx-scan-actions{display:none !important}
+  .wx-app,.wx-shell,.wx-main,.wx-page-body{display:block !important;height:auto !important;overflow:visible !important}
+  .page[hidden]{display:none !important}
+  .wx-print-head{display:flex !important}
+  .wx-table-wrap{box-shadow:none;border:0}
+  .wx-table th,.wx-table td{white-space:normal}
+  .wx-check-col{display:none !important}
+}
 .wx-empty{padding:var(--wx-sp-8);text-align:center;background:var(--wx-white);border:var(--wx-border);border-radius:var(--wx-r-md);color:var(--wx-gray-500);display:flex;flex-direction:column;gap:var(--wx-sp-2)}
 .wx-empty b{color:var(--wx-gray-700)}
 .wx-pager{display:flex;align-items:center;justify-content:flex-end;gap:var(--wx-sp-3);padding:var(--wx-sp-4) 0;font-size:var(--wx-fs-sm);color:var(--wx-gray-500)}
@@ -688,7 +723,7 @@ export const SHELL_SCRIPT = `
     var scoped = page.getAttribute('data-owner-scoped') === 'true';
     var owner = '全部';
     var trs = Array.prototype.slice.call(page.querySelectorAll('tbody tr[data-row-idx]'));
-    var matched = 0;
+    var kept = [];
     trs.forEach(function(tr){
       var r = rowData(tr);
       var ok = true;
@@ -716,9 +751,28 @@ export const SHELL_SCRIPT = `
         if (el.getAttribute('data-range-side') === 'to' && c > v) ok = false;
       });
       if (scoped && owner !== '全部' && (tr.getAttribute('data-owner') || '') !== owner) ok = false;
-      var idx = matched;
-      if (ok) matched++;
-      tr.hidden = !(ok && idx >= (pageNo - 1) * size && idx < pageNo * size);
+      if (ok) kept.push(tr);
+    });
+    var sortKey = page.getAttribute('data-sort-key') || '';
+    var sortDir = page.getAttribute('data-sort-dir') || '';
+    if (sortKey && sortDir && kept.length > 1) {
+      var sortTh = page.querySelector('th[data-sort-key="' + sortKey + '"]');
+      var sortNum = sortTh ? sortTh.classList.contains('num') : false;
+      kept.sort(function(a, b){
+        var av = rowData(a)[sortKey], bv = rowData(b)[sortKey];
+        var an = Number(av), bn = Number(bv);
+        var cmp;
+        if (sortNum && av !== '' && av != null && bv !== '' && bv != null && !isNaN(an) && !isNaN(bn)) cmp = an - bn;
+        else cmp = String(av == null ? '' : av).localeCompare(String(bv == null ? '' : bv), 'zh-Hans-CN');
+        return sortDir === 'desc' ? -cmp : cmp;
+      });
+      var sortBody = page.querySelector('tbody');
+      kept.forEach(function(tr){ sortBody.appendChild(tr); });
+    }
+    var matched = kept.length;
+    trs.forEach(function(tr){ tr.hidden = true; });
+    kept.forEach(function(tr, idx){
+      tr.hidden = !(idx >= (pageNo - 1) * size && idx < pageNo * size);
     });
     var count = page.querySelector('[data-count]');
     if (count) count.textContent = String(matched);
@@ -851,6 +905,9 @@ export const SHELL_SCRIPT = `
     }
     if (c.type === 'money') return v == null || v === '' ? '—' : '￥' + Number(v).toFixed(2);
     if (c.type === 'action') {
+      if (c.action === 'detail') {
+        return '<button type="button" class="wx-link" data-' + 'drawer-open="' + escText(pageId) + '" data-drawer-key="' + escText(r[cfg.keyField]) + '">' + escText(c.button || '查看详情') + '</button>';
+      }
       const primary = '<button type="button" class="wx-link" data-' + 'drawer-open="' + escText(pageId) + '" data-drawer-key="__new__" data-form-row="' + escText(r[cfg.keyField]) + '">' + escText(c.button || c.label || '查看') + '</button>';
       const detail = c.detailButton
         ? ' <button type="button" class="wx-link" data-' + 'drawer-open="' + escText(pageId) + '" data-drawer-key="' + escText(r[cfg.keyField]) + '">' + escText(c.detailButton) + '</button>'
@@ -863,9 +920,12 @@ export const SHELL_SCRIPT = `
     var tbody = page.querySelector('tbody');
     if (!tbody) return;
     var pageId = page.getAttribute('data-page-id');
+    var hasCheck = page.querySelector('[data-select-all]');
     var html = '';
     rows.forEach(function(r, i){
-      var cells = '';
+      var cells = hasCheck
+        ? '<td class="wx-check-col"><input type="checkbox" data-select-row="' + escText(r[cfg.keyField]) + '" aria-label="选择该行"></td>'
+        : '';
       (cfg.columns || []).forEach(function(c){
         var cls = c.type === 'num' ? ' class="num"' : '';
         cells += '<td' + cls + (c.type === 'status' ? ' data-status-cell' : '') + '>' + liveCell(r, c, cfg, pageId) + '</td>';
@@ -996,6 +1056,46 @@ export const SHELL_SCRIPT = `
     t.hidden = false;
     window.setTimeout(function(){ t.hidden = true; }, 2200);
   }
+  function selectedKeys(page){
+    return Array.prototype.slice.call(page.querySelectorAll('input[data-select-row]:checked'))
+      .map(function(i){ return i.getAttribute('data-select-row'); });
+  }
+  function visibleChecks(page){
+    return Array.prototype.slice.call(page.querySelectorAll('tbody tr[data-row-idx]:not([hidden]) input[data-select-row]'));
+  }
+  function syncBulk(page){
+    var picked = selectedKeys(page);
+    var note = page.querySelector('[data-bulk-count]');
+    if (note) note.textContent = String(picked.length);
+    var wrap = page.querySelector('.wx-bulk-note');
+    if (wrap) wrap.hidden = picked.length === 0;
+    Array.prototype.slice.call(page.querySelectorAll('[data-bulk]')).forEach(function(b){ b.disabled = picked.length === 0; });
+    var all = page.querySelector('[data-select-all]');
+    if (all) {
+      var vis = visibleChecks(page);
+      var on = vis.filter(function(i){ return i.checked; });
+      all.checked = vis.length > 0 && on.length === vis.length;
+      all.indeterminate = on.length > 0 && on.length < vis.length;
+    }
+  }
+  function printPage(title){
+    var page = currentPage();
+    if (!page) return;
+    var head = document.querySelector('.wx-print-head');
+    if (!head) {
+      head = document.createElement('div');
+      head.className = 'wx-print-head';
+      document.body.appendChild(head);
+    }
+    var d = new Date();
+    function p(x){ return (x < 10 ? '0' : '') + x; }
+    head.innerHTML = '<b>' + escText(title || '单据') + '</b><span>'
+      + d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate())
+      + ' ' + p(d.getHours()) + ':' + p(d.getMinutes()) + '</span>';
+    document.body.classList.add('is-printing');
+    window.print();
+    window.setTimeout(function(){ document.body.classList.remove('is-printing'); }, 0);
+  }
   function closeDrawer(){
     var ov = document.querySelector('.wx-overlay');
     if (!ov) return;
@@ -1014,6 +1114,27 @@ export const SHELL_SCRIPT = `
     ov.hidden = !hit;
   }
   document.addEventListener('click', function(e){
+    var sortTh = e.target.closest ? e.target.closest('th[data-sort-key]') : null;
+    if (sortTh) {
+      var sortPage = sortTh.closest('.page');
+      if (!sortPage) return;
+      var sortField = sortTh.getAttribute('data-sort-key');
+      var prevDir = sortTh.getAttribute('data-sort-dir') || '';
+      var nextDir = prevDir === '' ? 'asc' : (prevDir === 'asc' ? 'desc' : '');
+      Array.prototype.slice.call(sortPage.querySelectorAll('th[data-sort-key]')).forEach(function(t){
+        t.removeAttribute('data-sort-dir');
+        t.removeAttribute('aria-sort');
+      });
+      if (nextDir) {
+        sortTh.setAttribute('data-sort-dir', nextDir);
+        sortTh.setAttribute('aria-sort', nextDir === 'asc' ? 'ascending' : 'descending');
+      }
+      sortPage.setAttribute('data-sort-key', nextDir ? sortField : '');
+      sortPage.setAttribute('data-sort-dir', nextDir || '');
+      setNo(sortPage, 1);
+      applyFilters(sortPage);
+      return;
+    }
     var el = e.target.closest ? e.target.closest('button, [data-toast]') : null;
     if (!el) return;
     if (el.hasAttribute('data-confirm') && !window.confirm(el.getAttribute('data-confirm'))) return;
@@ -1066,6 +1187,23 @@ export const SHELL_SCRIPT = `
       if (extra) { extra.hidden = !extra.hidden; el.textContent = extra.hidden ? '展开全部条件' : '收起条件'; }
       return;
     }
+    if (el.hasAttribute('data-print')) { printPage(el.getAttribute('data-print')); return; }
+    if (el.hasAttribute('data-bulk')) {
+      var bulkPage = el.closest ? el.closest('.page') : null;
+      var bulkCfg = bulkPage ? liveCfg(bulkPage) : null;
+      var pickedKeys = bulkPage ? selectedKeys(bulkPage) : [];
+      if (!bulkPage || !bulkCfg || !pickedKeys.length) return;
+      var bulkRows = readRows(bulkPage, bulkCfg);
+      var bulkTarget = el.getAttribute('data-bulk');
+      bulkRows.forEach(function(r){
+        if (pickedKeys.indexOf(String(r[bulkCfg.keyField])) !== -1) r[bulkCfg.statusField] = bulkTarget;
+      });
+      saveRows(bulkPage, bulkCfg, bulkRows);
+      rebuildRows(bulkPage, bulkCfg, bulkRows);
+      syncBulk(bulkPage);
+      toast('已处理 ' + pickedKeys.length + ' 条');
+      return;
+    }
     if (el.hasAttribute('data-toast')) { toast(el.getAttribute('data-toast')); return; }
     if (el.hasAttribute('data-drawer-close')) { closeDrawer(); return; }
     if (el.hasAttribute('data-form-action')) {
@@ -1108,6 +1246,19 @@ export const SHELL_SCRIPT = `
     if (el.hasAttribute('data-login-owner')) {
       applyOwnerView(el.value, true);
       try { window.sessionStorage.setItem('wx-auth-owner', el.value); } catch(err){}
+      return;
+    }
+    if (el.hasAttribute('data-select-all')) {
+      var selPage = el.closest ? el.closest('.page') : null;
+      if (!selPage) return;
+      var on = el.checked;
+      visibleChecks(selPage).forEach(function(i){ i.checked = on; });
+      syncBulk(selPage);
+      return;
+    }
+    if (el.hasAttribute('data-select-row')) {
+      var rowPage = el.closest ? el.closest('.page') : null;
+      if (rowPage) syncBulk(rowPage);
       return;
     }
     if (el.hasAttribute('data-filter-key') || el.hasAttribute('data-range-key')) {

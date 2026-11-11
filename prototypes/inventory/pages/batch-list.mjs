@@ -39,7 +39,7 @@ export function renderPage(data, ctx) {
       { label: '货主', key: 'owner', type: 'select', options: ['全部', ...uniq(derived.map((r) => r.owner))] },
     ],
     toolbar: [
-      { label: '批量异常登记', toast: '批量异常登记（原型示意）' },
+      { label: '异常登记', toast: '异常登记（原型示意）' },
       { label: '导出', ghost: true, toast: '导出（原型示意）' },
     ],
     showCount: true,

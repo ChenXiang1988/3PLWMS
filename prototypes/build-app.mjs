@@ -236,6 +236,12 @@ function checkPageSource(e) {
     if (!TAG_TONES.includes(m[1])) bad('色型', `${where} Tag 传入未定义色型 ${m[1]}`);
   }
   const has = (name) => new RegExp(`\\b${name}\\s*\\(`).test(s);
+  const declaresSelect = /\bselectable\s*:\s*true/.test(s);
+  const declaresBulk = /\bbulk\s*:\s*\[/.test(s);
+  if (declaresBulk && !declaresSelect) bad('列表能力', `${where} 声明了 bulk 但没有 selectable，批量按钮没有勾选入口`);
+  if (e.page.app === 'warehouse-app' && /label:\s*'批量/.test(s) && !declaresSelect) bad('列表能力', `${where} 出现「批量」文案但没有勾选入口，点了不生效`);
+  if (declaresSelect && !/\bselectKey\s*:/.test(s)) bad('列表能力', `${where} 开了勾选却没给 selectKey，勾选值取不到行主键`);
+  if (/data-print/.test(s) && e.page.type !== 'list') bad('打印', `${where} data-print 只给 list 页`);
   if (e.page.type === 'list') {
     if (!has('ListPage')) bad('骨架', `${where} 声明为 list 却没用 ListPage`);
     if (has('StatRow') || has('ReportHero') || has('PageHeader')) bad('骨架', `${where} list 页不得摆指标卡`);

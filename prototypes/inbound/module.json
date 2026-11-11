@@ -1,7 +1,7 @@
 {
   "id": "inbound",
   "name": "入库管理",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "owner": "产品组",
   "tier": "core",
   "deployed": true,
@@ -14,5 +14,5 @@
     "data/"
   ],
   "status": "delivered",
-  "note": "新增到货预约、质检单、理货任务、越库直发"
+  "note": "收货单、上架单加打印入口；新增验收清点扫码作业，收货后可在现场清点"
 }

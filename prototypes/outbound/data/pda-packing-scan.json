@@ -1,0 +1,24 @@
+{
+  "task": {
+    "taskNo": "PK20261111002",
+    "packingNo": "PK-CK-20261111-002",
+    "owner": "云途电商",
+    "operator": "李娜",
+    "device": "PDA-05",
+    "station": "打包台 2"
+  },
+  "line": {
+    "lineNo": 1,
+    "skuCode": "SKU100206",
+    "skuName": "云途蓝牙耳机 二代",
+    "batchNo": "B20261030",
+    "fromLocation": "打包台 2 · 格口 G-08",
+    "planQty": 120,
+    "doneQty": 45,
+    "unit": "件"
+  },
+  "logs": [
+    { "time": "15:08", "text": "扫描包裹 PKG20261111008", "qty": "24 件" },
+    { "time": "15:12", "text": "扫描包裹 PKG20261111009", "qty": "21 件" }
+  ]
+}

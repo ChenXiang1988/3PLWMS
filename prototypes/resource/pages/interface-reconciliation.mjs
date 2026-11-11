@@ -55,8 +55,8 @@ export function renderPage(data, ctx) {
         { label: '更新时间', key: 'updateTime', type: 'daterange', extra: true },
       ],
       toolbar: [
-        { label: '批量重试', toast: '已打开接口批量重试确认（原型示意）' },
-        { label: '批量重同步', ghost: true, toast: '已打开状态批量重同步（原型示意）' },
+        { label: '重试', toast: '已打开接口重试确认（原型示意）' },
+        { label: '重同步', ghost: true, toast: '已打开状态重同步确认（原型示意）' },
         { label: '导出', ghost: true, toast: '导出（原型示意）' },
       ],
       showCount: true,

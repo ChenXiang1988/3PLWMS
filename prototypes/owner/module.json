@@ -1,7 +1,7 @@
 {
   "id": "owner",
   "name": "货主业务",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "owner": "产品组",
   "tier": "core",
   "deployed": true,
@@ -14,5 +14,5 @@
     "data/"
   ],
   "status": "delivered",
-  "note": "商品中枢 4 页、店铺/利润报表 2 页、订单 360 利润字段与 SPU 抽屉；本货主商品查询迁入仓储委托段"
+  "note": "SPU 列表去掉点了不生效的批量文案"
 }

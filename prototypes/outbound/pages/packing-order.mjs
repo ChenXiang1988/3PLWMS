@@ -27,6 +27,7 @@ export function renderPage(data, ctx) {
       { label: '更新时间', key: 'updateTime', type: 'daterange', extra: true },
     ],
     toolbar: [
+      { label: '打印', ghost: true, attrs: { 'data-print': '装箱单' } },
       { label: '导出', ghost: true, toast: '导出（原型示意）' },
     ],
     showCount: true,
