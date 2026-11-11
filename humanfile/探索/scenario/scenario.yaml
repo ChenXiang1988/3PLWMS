@@ -1,0 +1,9 @@
+scenario:
+  code: WMS-SIM-20261111-001
+  warehouse: warehouse.yaml
+  locations: locations.yaml
+  inventory: inventory.yaml
+  documents: documents.yaml
+  resources: resources.yaml
+  policies: policies.yaml
+  seed: 20261111

@@ -489,6 +489,9 @@
             "resource/device-monitor",
             "resource/device-alarm",
             "resource/device-driver",
+            "resource/device-capability",
+            "resource/automation-topology",
+            "resource/interface-reconciliation",
             "resource/agv-strategy"
           ]
         },
@@ -1737,6 +1740,30 @@
           "name": "驱动与协议",
           "type": "list",
           "file": "pages/device-driver.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "device-capability",
+          "name": "设备能力矩阵",
+          "type": "list",
+          "file": "pages/device-capability.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "automation-topology",
+          "name": "自动化拓扑",
+          "type": "report",
+          "file": "pages/automation-topology.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "interface-reconciliation",
+          "name": "接口对账",
+          "type": "list",
+          "file": "pages/interface-reconciliation.mjs",
           "ownerScoped": false,
           "app": "warehouse-app"
         },

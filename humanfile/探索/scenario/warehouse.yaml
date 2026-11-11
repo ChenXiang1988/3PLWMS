@@ -1,0 +1,21 @@
+warehouse:
+  code: WH-001
+  area: 1000
+  businessDate: 2026-11-11
+  simulationStart: "2026-11-11T08:30:00"
+  simulationEnd: "2026-11-11T22:00:00"
+  shifts:
+    - code: S1
+      start: "08:30"
+      end: "12:00"
+    - code: S2
+      start: "13:00"
+      end: "18:00"
+    - code: S3
+      start: "18:30"
+      end: "22:00"
+  breaks:
+    - start: "12:00"
+      end: "13:00"
+    - start: "18:00"
+      end: "18:30"

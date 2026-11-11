@@ -1,0 +1,34 @@
+{
+  "rows": [
+    {
+      "capabilityCode": "CAP-AGV-PICK-01", "deviceType": "AGV", "operationCapability": "货到人拣选", "direction": "双向",
+      "loadLimit": 500, "loadUnit": "kg", "containerCapability": "料箱 / 托盘", "alternativeResource": "AGV-02、人工叉车",
+      "effectiveVersion": "V3", "capabilityStatus": "enabled", "zones": "A区高位库、拣选区", "checkedAt": "2026-11-09 09:00",
+      "events": [{ "time": "2026-11-09 09:00", "event": "能力校验通过", "operator": "陈晓" }, { "time": "2026-11-01 14:20", "event": "发布 V3", "operator": "陈晓" }]
+    },
+    {
+      "capabilityCode": "CAP-AGV-PUT-02", "deviceType": "AGV", "operationCapability": "整托上架", "direction": "单向",
+      "loadLimit": 1000, "loadUnit": "kg", "containerCapability": "托盘", "alternativeResource": "叉车 F-07",
+      "effectiveVersion": "V2", "capabilityStatus": "enabled", "zones": "A区高位库、B区高位库", "checkedAt": "2026-11-09 08:45",
+      "events": [{ "time": "2026-11-09 08:45", "event": "能力校验通过", "operator": "周敏" }]
+    },
+    {
+      "capabilityCode": "CAP-CONV-SORT-01", "deviceType": "输送线", "operationCapability": "分拣输送", "direction": "单向",
+      "loadLimit": 50, "loadUnit": "kg", "containerCapability": "周转箱 / 料箱", "alternativeResource": "人工分拣台 S-02",
+      "effectiveVersion": "V4", "capabilityStatus": "enabled", "zones": "分拣区、交接点", "checkedAt": "2026-11-08 17:30",
+      "events": [{ "time": "2026-11-08 17:30", "event": "发布 V4", "operator": "吴迪" }]
+    },
+    {
+      "capabilityCode": "CAP-FORK-PUT-03", "deviceType": "叉车", "operationCapability": "整托移库", "direction": "双向",
+      "loadLimit": 1500, "loadUnit": "kg", "containerCapability": "托盘", "alternativeResource": "AGV-PUT-02",
+      "effectiveVersion": "V1", "capabilityStatus": "pending", "zones": "收货月台、暂存区", "checkedAt": "2026-11-07 16:00",
+      "events": [{ "time": "2026-11-07 16:00", "event": "待安全复核", "operator": "李静" }]
+    },
+    {
+      "capabilityCode": "CAP-SCAN-CHECK-01", "deviceType": "扫码枪", "operationCapability": "条码复核", "direction": "单向",
+      "loadLimit": 0, "loadUnit": "kg", "containerCapability": "箱 / 件", "alternativeResource": "PDA 扫码",
+      "effectiveVersion": "V2", "capabilityStatus": "disabled", "zones": "复核区", "checkedAt": "2026-10-29 10:15",
+      "events": [{ "time": "2026-10-29 10:15", "event": "停用 V2", "operator": "周敏" }]
+    }
+  ]
+}

@@ -3,3 +3,7 @@ prototypes/dist/
 prototypes/*/dist/
 .playwright-cli/
 .DS_Store
+
+# Python 运行缓存（仿真脚本与技能脚本产物）
+__pycache__/
+*.pyc

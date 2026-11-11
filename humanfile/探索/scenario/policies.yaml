@@ -1,0 +1,14 @@
+policy:
+  code: budget-reservation-score
+  version: 1
+  maxWip:
+    RB-01: 6
+    PK-01: 12
+    CB-01: 8
+    SB-01: 8
+  scoreWeights:
+    priority: 0.35
+    dueTime: 0.25
+    bottleneckProtection: 0.20
+    travelCost: 0.10
+    loadEfficiency: 0.10

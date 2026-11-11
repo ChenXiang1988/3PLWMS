@@ -1,0 +1,26 @@
+resources:
+  - resourceId: F-01
+    resourceType: forklift
+    capabilities: [forklift, pallet, carton, general]
+    location: RB-01
+    status: available
+  - resourceId: F-02
+    resourceType: forklift
+    capabilities: [forklift, pallet, carton, general]
+    location: SZ-A
+    status: available
+  - resourceId: P-01
+    resourceType: picker
+    capabilities: [picker, general]
+    location: PK-01
+    status: available
+  - resourceId: C-01
+    resourceType: checker
+    capabilities: [checker, general]
+    location: CB-01
+    status: available
+  - resourceId: PK-01
+    resourceType: packer
+    capabilities: [packer, general]
+    location: SHP-01
+    status: available

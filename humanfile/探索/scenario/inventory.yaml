@@ -1,0 +1,56 @@
+inventory:
+  - inventoryId: INV-001
+    owner: OWNER-001
+    sku: SKU-001
+    batchNo: B20261101
+    qualityStatus: available
+    containerType: carton
+    quantity: 900
+    unit: piece
+    location: SZ-A
+    availableQty: 900
+    lockedQty: 0
+  - inventoryId: INV-002
+    owner: OWNER-001
+    sku: SKU-001
+    batchNo: B20261101
+    qualityStatus: available
+    containerType: carton
+    quantity: 420
+    unit: piece
+    location: PK-01
+    availableQty: 420
+    lockedQty: 0
+  - inventoryId: INV-003
+    owner: OWNER-001
+    sku: SKU-002
+    batchNo: B20261102
+    qualityStatus: available
+    containerType: carton
+    quantity: 500
+    unit: piece
+    location: SZ-A
+    availableQty: 500
+    lockedQty: 0
+  - inventoryId: INV-004
+    owner: OWNER-001
+    sku: SKU-002
+    batchNo: B20261102
+    qualityStatus: available
+    containerType: carton
+    quantity: 240
+    unit: piece
+    location: PK-01
+    availableQty: 240
+    lockedQty: 0
+  - inventoryId: INV-005
+    owner: OWNER-001
+    sku: SKU-003
+    batchNo: B20261103
+    qualityStatus: available
+    containerType: pallet
+    quantity: 8
+    unit: pallet
+    location: SZ-A
+    availableQty: 8
+    lockedQty: 0

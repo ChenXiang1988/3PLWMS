@@ -1,92 +1,12 @@
 {
   "rows": [
-    {
-      "taskNo": "TK20261109001",
-      "taskType": "收货",
-      "docNo": "RC20261109001",
-      "taskStatus": "doing",
-      "deviceStatus": "执行中",
-      "assignee": "王强",
-      "priority": "高",
-      "retryCount": 0,
-      "plannedAt": "2026-11-09 09:00"
-    },
-    {
-      "taskNo": "TK20261109002",
-      "taskType": "上架",
-      "docNo": "PU20261109001",
-      "taskStatus": "assigned",
-      "deviceStatus": "待执行",
-      "assignee": "AGV-01",
-      "priority": "中",
-      "retryCount": 0,
-      "plannedAt": "2026-11-09 10:30"
-    },
-    {
-      "taskNo": "TK20261109003",
-      "taskType": "拣货",
-      "docNo": "PK20261109001",
-      "taskStatus": "doing",
-      "deviceStatus": "执行中",
-      "assignee": "赵敏",
-      "priority": "高",
-      "retryCount": 1,
-      "plannedAt": "2026-11-09 10:00"
-    },
-    {
-      "taskNo": "TK20261109004",
-      "taskType": "复核",
-      "docNo": "CK20261109001",
-      "taskStatus": "pending",
-      "deviceStatus": "待执行",
-      "assignee": "",
-      "priority": "中",
-      "retryCount": 0,
-      "plannedAt": "2026-11-09 11:30"
-    },
-    {
-      "taskNo": "TK20261109005",
-      "taskType": "盘点",
-      "docNo": "CT20261109001",
-      "taskStatus": "pending",
-      "deviceStatus": "待执行",
-      "assignee": "",
-      "priority": "低",
-      "retryCount": 0,
-      "plannedAt": "2026-11-09 14:00"
-    },
-    {
-      "taskNo": "TK20261109006",
-      "taskType": "移库",
-      "docNo": "MV20261109001",
-      "taskStatus": "assigned",
-      "deviceStatus": "待执行",
-      "assignee": "AGV-03",
-      "priority": "中",
-      "retryCount": 0,
-      "plannedAt": "2026-11-09 13:00"
-    },
-    {
-      "taskNo": "TK20261108007",
-      "taskType": "打包",
-      "docNo": "PK20261108018",
-      "taskStatus": "done",
-      "deviceStatus": "已完成",
-      "assignee": "黄磊",
-      "priority": "中",
-      "retryCount": 0,
-      "plannedAt": "2026-11-08 16:00"
-    },
-    {
-      "taskNo": "TK20261108008",
-      "taskType": "分播",
-      "docNo": "SR20261108005",
-      "taskStatus": "cancelled",
-      "deviceStatus": "—",
-      "assignee": "",
-      "priority": "低",
-      "retryCount": 0,
-      "plannedAt": "2026-11-08 15:00"
-    }
+    { "taskNo": "TK20261109001", "taskType": "收货", "docNo": "RC20261109001", "taskStatus": "doing", "deviceStatus": "执行中", "assignee": "王强", "execUnit": "人工-收货组A", "owner": "海纳食品", "zone": "收货月台", "priority": "高", "retryCount": 0, "plannedAt": "2026-11-09 09:00", "slaDue": "2026-11-09 11:00", "bottleneck": "收货月台", "blockReason": "", "predecessor": "—", "feedQuota": "12 托/小时", "bufferUsage": "72%", "deviceTaskNo": "—", "confidence": "正常", "alternativeResource": "人工-收货组B", "manualTakeover": "未接管", "rescheduleResult": "无需重排", "events": [{ "time": "2026-11-09 09:02", "event": "收货任务准入", "operator": "WMS" }] },
+    { "taskNo": "TK20261109002", "taskType": "上架", "docNo": "PU20261109001", "taskStatus": "assigned", "deviceStatus": "待执行", "assignee": "AGV-01", "execUnit": "AGV-01 + 上架组B", "owner": "海纳食品", "zone": "A区高位库", "priority": "中", "retryCount": 0, "plannedAt": "2026-11-09 10:30", "slaDue": "2026-11-09 12:00", "bottleneck": "提升机-01", "blockReason": "", "predecessor": "TK20261109001", "feedQuota": "8 托/小时", "bufferUsage": "48%", "deviceTaskNo": "DT20261109002", "confidence": "正常", "alternativeResource": "叉车 F-07", "manualTakeover": "未接管", "rescheduleResult": "已匹配 AGV-01" },
+    { "taskNo": "TK20261109003", "taskType": "拣货", "docNo": "PK20261109001", "taskStatus": "doing", "deviceStatus": "执行中", "assignee": "赵敏", "execUnit": "拣货组-东区", "owner": "海纳食品", "zone": "拣货东区", "priority": "高", "retryCount": 1, "plannedAt": "2026-11-09 10:00", "slaDue": "2026-11-09 12:00", "bottleneck": "交接点-02", "blockReason": "", "predecessor": "TK20261109002", "feedQuota": "18 箱/小时", "bufferUsage": "84%", "deviceTaskNo": "DT20261109003", "confidence": "保守", "alternativeResource": "拣货组-西区", "manualTakeover": "未接管", "rescheduleResult": "已重试 1 次" },
+    { "taskNo": "TK20261109004", "taskType": "复核", "docNo": "CK20261109001", "taskStatus": "blocked", "deviceStatus": "待执行", "assignee": "", "execUnit": "复核组-01", "owner": "辰星日化", "zone": "复核区", "priority": "中", "retryCount": 0, "plannedAt": "2026-11-09 11:30", "slaDue": "2026-11-09 12:10", "bottleneck": "复核工作站", "blockReason": "前置任务未完成", "predecessor": "TK20261109003", "feedQuota": "—", "bufferUsage": "96%", "deviceTaskNo": "—", "confidence": "保守", "alternativeResource": "复核工作站 02", "manualTakeover": "未接管", "rescheduleResult": "等待前置任务", "events": [{ "time": "2026-11-09 11:30", "event": "因前置任务未完成而阻塞", "operator": "规则引擎" }] },
+    { "taskNo": "TK20261109005", "taskType": "盘点", "docNo": "CT20261109001", "taskStatus": "pending", "deviceStatus": "待执行", "assignee": "", "execUnit": "盘点组-南区", "owner": "云途电商", "zone": "南区库位", "priority": "低", "retryCount": 0, "plannedAt": "2026-11-09 14:00", "slaDue": "2026-11-09 16:00", "bottleneck": "人员资质", "blockReason": "待分配执行单元", "predecessor": "—", "feedQuota": "—", "bufferUsage": "32%", "deviceTaskNo": "—", "confidence": "正常", "alternativeResource": "盘点组-北区", "manualTakeover": "未接管", "rescheduleResult": "待分配" },
+    { "taskNo": "TK20261109006", "taskType": "移库", "docNo": "MV20261109001", "taskStatus": "blocked", "deviceStatus": "故障", "assignee": "AGV-03", "execUnit": "AGV-03 + 人工接管", "owner": "海纳食品", "zone": "垂直输送区", "priority": "中", "retryCount": 2, "plannedAt": "2026-11-09 13:00", "slaDue": "2026-11-09 13:40", "bottleneck": "提升机-02", "blockReason": "设备故障影响", "predecessor": "—", "feedQuota": "0 托/小时", "bufferUsage": "91%", "deviceTaskNo": "DT20261109006", "confidence": "冻结", "impactAlarmNo": "DA20261109001", "alternativeResource": "人工叉车 F-07", "manualTakeover": "已接管", "rescheduleResult": "重排失败，已转人工", "events": [{ "time": "2026-11-09 10:25", "event": "暂停任务并转人工接管", "operator": "李静" }] },
+    { "taskNo": "TK20261108007", "taskType": "打包", "docNo": "PK20261108018", "taskStatus": "done", "deviceStatus": "已完成", "assignee": "黄磊", "execUnit": "打包组-01", "owner": "云途电商", "zone": "打包区", "priority": "中", "retryCount": 0, "plannedAt": "2026-11-08 16:00", "slaDue": "2026-11-08 18:00", "bottleneck": "—", "blockReason": "", "predecessor": "TK20261108006", "feedQuota": "—", "bufferUsage": "40%", "deviceTaskNo": "DT20261108007", "confidence": "正常", "alternativeResource": "打包组-02", "manualTakeover": "未接管", "rescheduleResult": "已完成" },
+    { "taskNo": "TK20261108008", "taskType": "分播", "docNo": "SR20261108005", "taskStatus": "cancelled", "deviceStatus": "—", "assignee": "", "execUnit": "—", "owner": "辰星日化", "zone": "分播区", "priority": "低", "retryCount": 0, "plannedAt": "2026-11-08 15:00", "slaDue": "2026-11-08 17:00", "bottleneck": "—", "blockReason": "订单取消", "predecessor": "—", "feedQuota": "—", "bufferUsage": "—", "deviceTaskNo": "—", "confidence": "正常", "alternativeResource": "—", "manualTakeover": "不适用", "rescheduleResult": "已取消" }
   ]
 }

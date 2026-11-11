@@ -1,0 +1,49 @@
+locations:
+  - code: DOCK-01
+    zone: DOCK
+    type: staging_location
+    capacity: {pallet: 8, carton: 40, piece: 1000}
+    occupied: {pallet: 0, carton: 0, piece: 0}
+    reserved: {pallet: 0, carton: 0, piece: 0}
+  - code: RCV-01
+    zone: RCV-01
+    type: receiving_location
+    capacity: {pallet: 4, carton: 20, piece: 500}
+    occupied: {pallet: 0, carton: 0, piece: 0}
+    reserved: {pallet: 0, carton: 0, piece: 0}
+  - code: RB-01
+    zone: RB-01
+    type: receiving_buffer
+    capacity: {pallet: 6, carton: 24}
+    occupied: {pallet: 0, carton: 0}
+    reserved: {pallet: 0, carton: 0}
+  - code: SZ-A
+    zone: SZ-A
+    type: storage_zone
+    capacity: {pallet: 60, carton: 160}
+    occupied: {pallet: 12, carton: 30}
+    reserved: {pallet: 0, carton: 0}
+  - code: PK-01
+    zone: PK-01
+    type: picking_zone
+    capacity: {carton: 24, piece: 1200}
+    occupied: {carton: 12, piece: 420}
+    reserved: {carton: 0, piece: 0}
+  - code: CB-01
+    zone: CB-01
+    type: consolidation_location
+    capacity: {container: 12, piece: 3000}
+    occupied: {container: 0, piece: 0}
+    reserved: {container: 0, piece: 0}
+  - code: SHP-01
+    zone: SHP-01
+    type: packing_location
+    capacity: {carton: 12, piece: 1000}
+    occupied: {carton: 0, piece: 0}
+    reserved: {carton: 0, piece: 0}
+  - code: SB-01
+    zone: SB-01
+    type: shipping_staging
+    capacity: {pallet: 8, container: 12, piece: 3000}
+    occupied: {pallet: 0, container: 0, piece: 0}
+    reserved: {pallet: 0, container: 0, piece: 0}

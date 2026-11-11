@@ -1,74 +1,11 @@
 {
   "rows": [
-    {
-      "date": "2026-11-09",
-      "warehouse": "华东中心仓",
-      "inbound": 12600,
-      "outbound": 9800,
-      "stock": 186400,
-      "exception": 3,
-      "efficiency": 42,
-      "usage": "82.4%"
-    },
-    {
-      "date": "2026-11-09",
-      "warehouse": "华南前置仓",
-      "inbound": 5400,
-      "outbound": 6100,
-      "stock": 62800,
-      "exception": 1,
-      "efficiency": 38,
-      "usage": "76.1%"
-    },
-    {
-      "date": "2026-11-09",
-      "warehouse": "华北分拨仓",
-      "inbound": 7300,
-      "outbound": 8200,
-      "stock": 94700,
-      "exception": 2,
-      "efficiency": 35,
-      "usage": "79.8%"
-    },
-    {
-      "date": "2026-11-09",
-      "warehouse": "西南中心仓",
-      "inbound": 6900,
-      "outbound": 5400,
-      "stock": 112500,
-      "exception": 0,
-      "efficiency": 33,
-      "usage": "71.2%"
-    },
-    {
-      "date": "2026-11-08",
-      "warehouse": "华东中心仓",
-      "inbound": 11800,
-      "outbound": 10200,
-      "stock": 183600,
-      "exception": 4,
-      "efficiency": 40,
-      "usage": "81.5%"
-    },
-    {
-      "date": "2026-11-08",
-      "warehouse": "华南前置仓",
-      "inbound": 5100,
-      "outbound": 5800,
-      "stock": 63500,
-      "exception": 2,
-      "efficiency": 36,
-      "usage": "75.4%"
-    },
-    {
-      "date": "2026-11-08",
-      "warehouse": "华北分拨仓",
-      "inbound": 7000,
-      "outbound": 7900,
-      "stock": 95600,
-      "exception": 1,
-      "efficiency": 34,
-      "usage": "78.9%"
-    }
+    { "date": "2026-11-09", "warehouse": "华东中心仓", "inbound": 12600, "outbound": 9800, "stock": 186400, "exception": 3, "efficiency": 42, "usage": "82.4%", "forecast": 10800 },
+    { "date": "2026-11-09", "warehouse": "华南前置仓", "inbound": 5400, "outbound": 6100, "stock": 62800, "exception": 1, "efficiency": 38, "usage": "76.1%", "forecast": 6500 },
+    { "date": "2026-11-09", "warehouse": "华北分拨仓", "inbound": 7300, "outbound": 8200, "stock": 94700, "exception": 2, "efficiency": 35, "usage": "79.8%", "forecast": 8600 },
+    { "date": "2026-11-09", "warehouse": "西南中心仓", "inbound": 6900, "outbound": 5400, "stock": 112500, "exception": 0, "efficiency": 33, "usage": "71.2%", "forecast": 5900 },
+    { "date": "2026-11-08", "warehouse": "华东中心仓", "inbound": 11800, "outbound": 10200, "stock": 183600, "exception": 4, "efficiency": 40, "usage": "81.5%", "forecast": 10400 },
+    { "date": "2026-11-08", "warehouse": "华南前置仓", "inbound": 5100, "outbound": 5800, "stock": 63500, "exception": 2, "efficiency": 36, "usage": "75.4%", "forecast": 6200 },
+    { "date": "2026-11-08", "warehouse": "华北分拨仓", "inbound": 7000, "outbound": 7900, "stock": 95600, "exception": 1, "efficiency": 34, "usage": "78.9%", "forecast": 8300 }
   ]
 }

@@ -1,76 +1,46 @@
 {
   "rows": [
     {
-      "driverCode": "DRV-AGV-01",
-      "deviceType": "AGV",
-      "protocol": "MQTT",
-      "endpoint": "mqtt://10.20.1.11:1883/agv",
-      "heartbeatSeconds": 30,
-      "connectStatus": "connected",
-      "lastTestAt": "2026-11-09 10:00"
+      "driverCode": "DRV-AGV-01", "deviceType": "AGV", "protocol": "MQTT", "protocolVersion": "v3.1",
+      "endpoint": "mqtt://10.20.1.11:1883/agv", "credentialStatus": "已脱敏", "heartbeatSeconds": 30,
+      "connectStatus": "connected", "lastTestAt": "2026-11-09 10:00", "statusMapping": "200=已确认 / 202=处理中",
+      "errorMapping": "E-2201=心跳超时 / E-2202=充电故障", "healthCheck": "连续 24 小时正常", "lastFailure": "—",
+      "events": [{ "time": "2026-11-09 10:00", "event": "心跳检查", "result": "通过" }, { "time": "2026-11-08 18:00", "event": "连接测试", "result": "通过" }]
     },
     {
-      "driverCode": "DRV-AGV-02",
-      "deviceType": "AGV",
-      "protocol": "TCP",
-      "endpoint": "tcp://10.20.1.12:9000",
-      "heartbeatSeconds": 30,
-      "connectStatus": "connected",
-      "lastTestAt": "2026-11-09 09:50"
+      "driverCode": "DRV-AGV-02", "deviceType": "AGV", "protocol": "TCP", "protocolVersion": "v2.4",
+      "endpoint": "tcp://10.20.1.12:9000", "credentialStatus": "已脱敏", "heartbeatSeconds": 30,
+      "connectStatus": "connected", "lastTestAt": "2026-11-09 09:50", "statusMapping": "0=已确认 / 1=处理中",
+      "errorMapping": "E-2210=路径阻塞 / E-2211=载荷超限", "healthCheck": "连续 12 小时正常", "lastFailure": "—",
+      "events": [{ "time": "2026-11-09 09:50", "event": "连接测试", "result": "通过" }]
     },
     {
-      "driverCode": "DRV-CONV-01",
-      "deviceType": "输送线",
-      "protocol": "Modbus",
-      "endpoint": "modbus://10.20.1.21:502",
-      "heartbeatSeconds": 15,
-      "connectStatus": "connected",
-      "lastTestAt": "2026-11-09 09:30"
+      "driverCode": "DRV-CONV-01", "deviceType": "输送线", "protocol": "Modbus", "protocolVersion": "v1.8",
+      "endpoint": "modbus://10.20.1.21:502", "credentialStatus": "无需凭证", "heartbeatSeconds": 15,
+      "connectStatus": "connected", "lastTestAt": "2026-11-09 09:30", "statusMapping": "01=运行 / 02=停止",
+      "errorMapping": "W-1102=队列过高 / E-3101=电机故障", "healthCheck": "连续 24 小时正常", "lastFailure": "—",
+      "events": [{ "time": "2026-11-09 09:30", "event": "寄存器检查", "result": "通过" }]
     },
     {
-      "driverCode": "DRV-FORK-01",
-      "deviceType": "叉车",
-      "protocol": "HTTP",
-      "endpoint": "10.20.1.31:8080/healthz",
-      "heartbeatSeconds": 60,
-      "connectStatus": "disconnected",
-      "lastTestAt": "2026-11-09 08:20"
+      "driverCode": "DRV-FORK-01", "deviceType": "叉车", "protocol": "HTTP", "protocolVersion": "v1.2",
+      "endpoint": "10.20.1.31:8080/healthz", "credentialStatus": "已脱敏", "heartbeatSeconds": 60,
+      "connectStatus": "disconnected", "lastTestAt": "2026-11-09 08:20", "statusMapping": "200=已确认 / 409=冲突",
+      "errorMapping": "E-4101=服务不可用", "healthCheck": "连续 40 分钟无响应", "lastFailure": "2026-11-09 08:18 服务无响应",
+      "events": [{ "time": "2026-11-09 08:20", "event": "健康检查", "result": "超时" }]
     },
     {
-      "driverCode": "DRV-SCAN-01",
-      "deviceType": "扫码枪",
-      "protocol": "TCP",
-      "endpoint": "tcp://10.20.1.41:9100",
-      "heartbeatSeconds": 30,
-      "connectStatus": "connected",
-      "lastTestAt": "2026-11-08 18:00"
+      "driverCode": "DRV-SCAN-01", "deviceType": "扫码枪", "protocol": "TCP", "protocolVersion": "v1.6",
+      "endpoint": "tcp://10.20.1.41:9100", "credentialStatus": "无需凭证", "heartbeatSeconds": 30,
+      "connectStatus": "connected", "lastTestAt": "2026-11-08 18:00", "statusMapping": "ACK=已确认 / WAIT=处理中",
+      "errorMapping": "E-5101=扫描超时", "healthCheck": "连续 18 小时正常", "lastFailure": "—",
+      "events": [{ "time": "2026-11-08 18:00", "event": "连接测试", "result": "通过" }]
     },
     {
-      "driverCode": "DRV-PRINT-01",
-      "deviceType": "打印机",
-      "protocol": "HTTP",
-      "endpoint": "10.20.1.51:8080/readyz",
-      "heartbeatSeconds": 60,
-      "connectStatus": "failed",
-      "lastTestAt": "2026-11-08 17:40"
-    },
-    {
-      "driverCode": "DRV-AGV-03",
-      "deviceType": "AGV",
-      "protocol": "MQTT",
-      "endpoint": "mqtt://10.20.1.13:1883/agv",
-      "heartbeatSeconds": 30,
-      "connectStatus": "connected",
-      "lastTestAt": "2026-11-08 16:30"
-    },
-    {
-      "driverCode": "DRV-CONV-02",
-      "deviceType": "输送线",
-      "protocol": "TCP",
-      "endpoint": "tcp://10.20.1.22:9001",
-      "heartbeatSeconds": 15,
-      "connectStatus": "connected",
-      "lastTestAt": "2026-11-08 15:20"
+      "driverCode": "DRV-PRINT-01", "deviceType": "打印机", "protocol": "HTTP", "protocolVersion": "v1.1",
+      "endpoint": "10.20.1.51:8080/readyz", "credentialStatus": "已脱敏", "heartbeatSeconds": 60,
+      "connectStatus": "failed", "lastTestAt": "2026-11-08 17:40", "statusMapping": "200=就绪 / 503=不可用",
+      "errorMapping": "E-6101=打印服务异常", "healthCheck": "最近 3 次均失败", "lastFailure": "2026-11-08 17:40 返回 503",
+      "events": [{ "time": "2026-11-08 17:40", "event": "健康检查", "result": "失败" }, { "time": "2026-11-08 17:35", "event": "健康检查", "result": "失败" }]
     }
   ]
 }

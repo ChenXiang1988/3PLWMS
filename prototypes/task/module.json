@@ -1,7 +1,7 @@
 {
   "id": "task",
   "name": "任务中心",
-  "version": "0.3.0",
+  "version": "0.6.0",
   "owner": "产品组",
   "tier": "ext",
   "deployed": true,
@@ -14,5 +14,5 @@
     "data/"
   ],
   "status": "delivered",
-  "note": "新增任务池与派工、人效与准确率"
+  "note": "新增任务池与派工、人效与准确率；补充故障影响、替代资源与人工接管链路；P2 补充人效瓶颈与班次产能口径"
 }

@@ -1,84 +1,9 @@
 {
   "rows": [
-    {
-      "alarmNo": "DA20261109001",
-      "deviceCode": "AGV-03",
-      "level": "critical",
-      "alarmCode": "E-2201",
-      "raisedAt": "2026-11-09 09:20",
-      "handleStatus": "doing",
-      "downMinutes": 66,
-      "reviewer": ""
-    },
-    {
-      "alarmNo": "DA20261109002",
-      "deviceCode": "CONV-02",
-      "level": "warning",
-      "alarmCode": "W-1102",
-      "raisedAt": "2026-11-09 08:55",
-      "handleStatus": "pending",
-      "downMinutes": 0,
-      "reviewer": ""
-    },
-    {
-      "alarmNo": "DA20261109003",
-      "deviceCode": "FORK-07",
-      "level": "info",
-      "alarmCode": "I-0101",
-      "raisedAt": "2026-11-09 08:10",
-      "handleStatus": "done",
-      "downMinutes": 12,
-      "reviewer": "李静"
-    },
-    {
-      "alarmNo": "DA20261109004",
-      "deviceCode": "AGV-01",
-      "level": "warning",
-      "alarmCode": "W-1105",
-      "raisedAt": "2026-11-09 07:40",
-      "handleStatus": "done",
-      "downMinutes": 8,
-      "reviewer": "李静"
-    },
-    {
-      "alarmNo": "DA20261108005",
-      "deviceCode": "AGV-06",
-      "level": "critical",
-      "alarmCode": "E-2202",
-      "raisedAt": "2026-11-08 18:20",
-      "handleStatus": "done",
-      "downMinutes": 42,
-      "reviewer": "王涛"
-    },
-    {
-      "alarmNo": "DA20261108006",
-      "deviceCode": "PRINT-05",
-      "level": "info",
-      "alarmCode": "I-0103",
-      "raisedAt": "2026-11-08 16:40",
-      "handleStatus": "done",
-      "downMinutes": 5,
-      "reviewer": "王涛"
-    },
-    {
-      "alarmNo": "DA20261108007",
-      "deviceCode": "SCAN-11",
-      "level": "warning",
-      "alarmCode": "W-1109",
-      "raisedAt": "2026-11-08 15:10",
-      "handleStatus": "done",
-      "downMinutes": 6,
-      "reviewer": "李静"
-    },
-    {
-      "alarmNo": "DA20261108008",
-      "deviceCode": "AGV-03",
-      "level": "warning",
-      "alarmCode": "W-1110",
-      "raisedAt": "2026-11-08 14:30",
-      "handleStatus": "done",
-      "downMinutes": 9,
-      "reviewer": "王涛"
-    }
+    { "alarmNo": "DA20261109001", "deviceCode": "AGV-03", "deviceType": "AGV", "zone": "垂直输送区", "level": "critical", "alarmCode": "E-2201", "unifiedCode": "DEVICE_HEARTBEAT_TIMEOUT", "reasonCategory": "通信中断", "repeatRate": "33.3%", "ruleHit": true, "raisedAt": "2026-11-09 09:20", "handleStatus": "doing", "downMinutes": 66, "impactTaskCount": 6, "impactTasks": "TK20261109006 等 6 个任务", "taskDisposition": "已暂停并转人工", "alternativeResource": "人工叉车 F-07", "takeoverResult": "人工接管中", "handler": "李静", "sla": "剩余 18 分钟", "messageStatus": "重试 2 次后待补发", "recoveryCheck": "未通过", "reviewer": "", "events": [{ "time": "2026-11-09 10:25", "event": "暂停受影响任务并转人工", "operator": "李静" }, { "time": "2026-11-09 09:30", "event": "关联拓扑节点 NODE-PUT-01", "operator": "系统" }] },
+    { "alarmNo": "DA20261109002", "deviceCode": "CONV-02", "deviceType": "输送线", "zone": "交接点-02", "level": "warning", "alarmCode": "W-1102", "unifiedCode": "CONVEYOR_QUEUE_HIGH", "reasonCategory": "队列拥堵", "repeatRate": "50.0%", "ruleHit": true, "raisedAt": "2026-11-09 08:55", "handleStatus": "pending", "downMinutes": 0, "impactTaskCount": 2, "impactTasks": "TK20261109003、PK20261106001", "taskDisposition": "待重排", "alternativeResource": "交接点-03", "takeoverResult": "未接管", "handler": "", "sla": "剩余 42 分钟", "messageStatus": "已接收", "recoveryCheck": "未开始", "reviewer": "", "events": [] },
+    { "alarmNo": "DA20261109003", "deviceCode": "FORK-07", "deviceType": "叉车", "zone": "收货月台", "level": "info", "alarmCode": "I-0101", "unifiedCode": "DEVICE_RECOVERED", "reasonCategory": "设备恢复", "repeatRate": "0%", "ruleHit": false, "raisedAt": "2026-11-09 08:10", "handleStatus": "done", "downMinutes": 12, "impactTaskCount": 0, "impactTasks": "—", "taskDisposition": "无影响任务", "alternativeResource": "—", "takeoverResult": "不适用", "handler": "王涛", "sla": "已完成", "messageStatus": "已闭环", "recoveryCheck": "通过", "reviewer": "李静", "closeReason": "设备恢复且无影响任务", "events": [{ "time": "2026-11-09 08:22", "event": "恢复校验通过并关闭", "operator": "李静" }] },
+    { "alarmNo": "DA20261109004", "deviceCode": "AGV-01", "deviceType": "AGV", "zone": "A区高位库", "level": "warning", "alarmCode": "W-1105", "unifiedCode": "AGV_BATTERY_LOW", "reasonCategory": "能源不足", "repeatRate": "25.0%", "ruleHit": true, "raisedAt": "2026-11-09 07:40", "handleStatus": "done", "downMinutes": 8, "impactTaskCount": 1, "impactTasks": "TK20261109002", "taskDisposition": "已重排至叉车 F-07", "alternativeResource": "叉车 F-07", "takeoverResult": "自动恢复", "handler": "李静", "sla": "已完成", "messageStatus": "已闭环", "recoveryCheck": "通过", "reviewer": "李静", "closeReason": "替代资源完成任务", "events": [{ "time": "2026-11-09 08:00", "event": "任务重排至替代资源", "operator": "规则引擎" }] },
+    { "alarmNo": "DA20261108005", "deviceCode": "AGV-06", "deviceType": "AGV", "zone": "充电区", "level": "critical", "alarmCode": "E-2202", "unifiedCode": "CHARGER_FAULT", "reasonCategory": "能源不足", "repeatRate": "25.0%", "ruleHit": true, "raisedAt": "2026-11-08 18:20", "handleStatus": "done", "downMinutes": 42, "impactTaskCount": 3, "impactTasks": "WAV20261106005 等 3 个任务", "taskDisposition": "已转人工并完成", "alternativeResource": "人工叉车 F-06", "takeoverResult": "人工接管完成", "handler": "王涛", "sla": "已完成", "messageStatus": "已补发", "recoveryCheck": "通过", "reviewer": "王涛", "closeReason": "任务完成，回执已补发", "events": [{ "time": "2026-11-08 19:02", "event": "人工接管完成并补发回执", "operator": "王涛" }] }
   ]
 }

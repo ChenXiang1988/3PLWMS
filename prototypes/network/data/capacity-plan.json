@@ -1,74 +1,14 @@
 {
   "rows": [
-    {
-      "warehouse": "华东中心仓",
-      "total": 50000,
-      "used": 41200,
-      "rate": "82.4%",
-      "inAvg": 11800,
-      "outAvg": 10100,
-      "peak": 13600,
-      "available": 8800
-    },
-    {
-      "warehouse": "华南前置仓",
-      "total": 18000,
-      "used": 13700,
-      "rate": "76.1%",
-      "inAvg": 5200,
-      "outAvg": 5900,
-      "peak": 6800,
-      "available": 4300
-    },
-    {
-      "warehouse": "华北分拨仓",
-      "total": 26000,
-      "used": 20700,
-      "rate": "79.6%",
-      "inAvg": 7100,
-      "outAvg": 7900,
-      "peak": 8600,
-      "available": 5300
-    },
-    {
-      "warehouse": "西南中心仓",
-      "total": 32000,
-      "used": 22800,
-      "rate": "71.3%",
-      "inAvg": 6700,
-      "outAvg": 5500,
-      "peak": 8100,
-      "available": 9200
-    },
-    {
-      "warehouse": "华中转运仓",
-      "total": 12000,
-      "used": 7600,
-      "rate": "63.3%",
-      "inAvg": 3600,
-      "outAvg": 4000,
-      "peak": 4600,
-      "available": 4400
-    },
-    {
-      "warehouse": "浙北冷链仓",
-      "total": 9000,
-      "used": 0,
-      "rate": "0%",
-      "inAvg": 0,
-      "outAvg": 0,
-      "peak": 0,
-      "available": 9000
-    },
-    {
-      "warehouse": "浦东保税仓",
-      "total": 14000,
-      "used": 0,
-      "rate": "0%",
-      "inAvg": 0,
-      "outAvg": 0,
-      "peak": 0,
-      "available": 14000
-    }
+    { "warehouse": "华东中心仓", "total": 50000, "used": 41200, "rate": "82.4%", "theoreticalCapacity": 22000, "occupiedCapacity": 19600, "remainingCapacity": 2400, "risk": "高", "inAvg": 11800, "outAvg": 10100, "peak": 13600, "available": 8800 },
+    { "warehouse": "华南前置仓", "total": 18000, "used": 13700, "rate": "76.1%", "theoreticalCapacity": 9800, "occupiedCapacity": 7600, "remainingCapacity": 2200, "risk": "中", "inAvg": 5200, "outAvg": 5900, "peak": 6800, "available": 4300 },
+    { "warehouse": "华北分拨仓", "total": 26000, "used": 20700, "rate": "79.6%", "theoreticalCapacity": 15600, "occupiedCapacity": 13800, "remainingCapacity": 1800, "risk": "高", "inAvg": 7100, "outAvg": 7900, "peak": 8600, "available": 5300 },
+    { "warehouse": "西南中心仓", "total": 32000, "used": 22800, "rate": "71.3%", "theoreticalCapacity": 12800, "occupiedCapacity": 9100, "remainingCapacity": 3700, "risk": "低", "inAvg": 6700, "outAvg": 5500, "peak": 8100, "available": 9200 },
+    { "warehouse": "华中转运仓", "total": 12000, "used": 7600, "rate": "63.3%", "theoreticalCapacity": 6200, "occupiedCapacity": 4100, "remainingCapacity": 2100, "risk": "中", "inAvg": 3600, "outAvg": 4000, "peak": 4600, "available": 4400 },
+    { "warehouse": "浙北冷链仓", "total": 9000, "used": 0, "rate": "0%", "theoreticalCapacity": 0, "occupiedCapacity": 0, "remainingCapacity": 0, "risk": "—", "inAvg": 0, "outAvg": 0, "peak": 0, "available": 9000 },
+    { "warehouse": "浦东保税仓", "total": 14000, "used": 0, "rate": "0%", "theoreticalCapacity": 0, "occupiedCapacity": 0, "remainingCapacity": 0, "risk": "—", "inAvg": 0, "outAvg": 0, "peak": 0, "available": 14000 },
+    { "shift": "白班", "warehouse": "华东中心仓", "availableStaff": 38, "availableDevices": 16, "theoreticalCapacity": 9600, "occupiedCapacity": 8240, "remainingCapacity": 1360, "forecastFinish": "18:20" },
+    { "shift": "中班", "warehouse": "华东中心仓", "availableStaff": 26, "availableDevices": 12, "theoreticalCapacity": 6800, "occupiedCapacity": 5920, "remainingCapacity": 880, "forecastFinish": "23:40" },
+    { "shift": "夜班", "warehouse": "华北分拨仓", "availableStaff": 18, "availableDevices": 9, "theoreticalCapacity": 5100, "occupiedCapacity": 5480, "remainingCapacity": -380, "forecastFinish": "次日 01:10" }
   ]
 }

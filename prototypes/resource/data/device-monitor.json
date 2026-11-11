@@ -1,76 +1,10 @@
 {
   "rows": [
-    {
-      "deviceCode": "AGV-01",
-      "deviceType": "AGV",
-      "runStatus": "running",
-      "currentTask": "TK20261109002",
-      "batteryLevel": 78,
-      "lastHeartbeat": "2026-11-09 10:26",
-      "alarmCount": 0
-    },
-    {
-      "deviceCode": "AGV-03",
-      "deviceType": "AGV",
-      "runStatus": "fault",
-      "currentTask": "TK20261109006",
-      "batteryLevel": 32,
-      "lastHeartbeat": "2026-11-09 10:25",
-      "alarmCount": 2
-    },
-    {
-      "deviceCode": "FORK-07",
-      "deviceType": "叉车",
-      "runStatus": "running",
-      "currentTask": "TK20261109001",
-      "batteryLevel": 0,
-      "lastHeartbeat": "2026-11-09 10:24",
-      "alarmCount": 0
-    },
-    {
-      "deviceCode": "CONV-02",
-      "deviceType": "输送线",
-      "runStatus": "running",
-      "currentTask": "WV20261109A",
-      "batteryLevel": 0,
-      "lastHeartbeat": "2026-11-09 10:26",
-      "alarmCount": 1
-    },
-    {
-      "deviceCode": "SCAN-11",
-      "deviceType": "扫码枪",
-      "runStatus": "idle",
-      "currentTask": "",
-      "batteryLevel": 64,
-      "lastHeartbeat": "2026-11-09 10:20",
-      "alarmCount": 0
-    },
-    {
-      "deviceCode": "PRINT-05",
-      "deviceType": "打印机",
-      "runStatus": "idle",
-      "currentTask": "",
-      "batteryLevel": 0,
-      "lastHeartbeat": "2026-11-09 10:18",
-      "alarmCount": 0
-    },
-    {
-      "deviceCode": "AGV-06",
-      "deviceType": "AGV",
-      "runStatus": "charging",
-      "currentTask": "",
-      "batteryLevel": 18,
-      "lastHeartbeat": "2026-11-09 10:26",
-      "alarmCount": 0
-    },
-    {
-      "deviceCode": "FORK-02",
-      "deviceType": "叉车",
-      "runStatus": "running",
-      "currentTask": "TK20261109003",
-      "batteryLevel": 0,
-      "lastHeartbeat": "2026-11-09 10:23",
-      "alarmCount": 0
-    }
+    { "deviceCode": "AGV-01", "deviceType": "AGV", "runStatus": "running", "zone": "A区高位库", "connectionStatus": "在线", "currentTask": "TK20261109002", "businessTaskNo": "TK20261109002", "deviceTaskNo": "DT20261109002", "targetPoint": "A-03-08", "batteryLevel": 78, "lastHeartbeat": "2026-11-09 10:26", "elapsed": "18 分钟", "retryCount": 0, "impactTaskCount": 0, "businessImpact": "无", "takeoverStatus": "未接管", "alarmCount": 0 },
+    { "deviceCode": "AGV-03", "deviceType": "AGV", "runStatus": "fault", "zone": "垂直输送区", "connectionStatus": "延迟", "currentTask": "TK20261109006", "businessTaskNo": "TK20261109006", "deviceTaskNo": "DT20261109006", "targetPoint": "提升机-02", "batteryLevel": 32, "lastHeartbeat": "2026-11-09 10:25", "elapsed": "36 分钟", "retryCount": 2, "impactTaskCount": 6, "businessImpact": "影响 6 个任务", "takeoverStatus": "待人工接管", "alarmCount": 2, "events": [{ "time": "2026-11-09 10:25", "event": "心跳超时", "status": "失败" }] },
+    { "deviceCode": "FORK-07", "deviceType": "叉车", "runStatus": "running", "zone": "收货月台", "connectionStatus": "在线", "currentTask": "TK20261109001", "businessTaskNo": "TK20261109001", "deviceTaskNo": "DT20261109001", "targetPoint": "收货月台-02", "batteryLevel": 0, "lastHeartbeat": "2026-11-09 10:24", "elapsed": "42 分钟", "retryCount": 0, "impactTaskCount": 0, "businessImpact": "无", "takeoverStatus": "未接管", "alarmCount": 0 },
+    { "deviceCode": "CONV-02", "deviceType": "输送线", "runStatus": "running", "zone": "交接点-02", "connectionStatus": "在线", "currentTask": "WV20261109A", "businessTaskNo": "WAV20261106001", "deviceTaskNo": "DT20261109C02", "targetPoint": "交接点-02", "batteryLevel": 0, "lastHeartbeat": "2026-11-09 10:26", "elapsed": "2 小时", "retryCount": 1, "impactTaskCount": 2, "businessImpact": "影响 2 个任务", "takeoverStatus": "未接管", "alarmCount": 1 },
+    { "deviceCode": "SCAN-11", "deviceType": "扫码枪", "runStatus": "idle", "zone": "复核区", "connectionStatus": "在线", "currentTask": "", "businessTaskNo": "", "deviceTaskNo": "", "targetPoint": "—", "batteryLevel": 64, "lastHeartbeat": "2026-11-09 10:20", "elapsed": "—", "retryCount": 0, "impactTaskCount": 0, "businessImpact": "无", "takeoverStatus": "未接管", "alarmCount": 0 },
+    { "deviceCode": "AGV-06", "deviceType": "AGV", "runStatus": "charging", "zone": "充电区", "connectionStatus": "在线", "currentTask": "", "businessTaskNo": "", "deviceTaskNo": "", "targetPoint": "充电桩-03", "batteryLevel": 18, "lastHeartbeat": "2026-11-09 10:26", "elapsed": "—", "retryCount": 0, "impactTaskCount": 0, "businessImpact": "无", "takeoverStatus": "未接管", "alarmCount": 0 }
   ]
 }

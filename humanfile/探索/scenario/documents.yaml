@@ -1,0 +1,113 @@
+documents:
+  - docNo: INB-20261111-0001
+    docType: inbound
+    inboundType: purchase
+    warehouse: WH-001
+    owner: OWNER-001
+    sourceNo: PO-20261111-0001
+    status: released
+    planTime: "2026-11-11T08:30:00"
+    priority: 3
+    lines:
+      - lineNo: 1
+        sku: SKU-001
+        planQty: 120
+        unit: piece
+        batchNo: B20261101
+        containerType: carton
+        needQc: true
+        crossDock: false
+      - lineNo: 2
+        sku: SKU-002
+        planQty: 80
+        unit: piece
+        batchNo: B20261102
+        containerType: carton
+        needQc: true
+        crossDock: false
+
+  - docNo: INB-20261111-0002
+    docType: inbound
+    inboundType: supplier_direct
+    warehouse: WH-001
+    owner: OWNER-001
+    sourceNo: ASN-20261111-0002
+    status: released
+    planTime: "2026-11-11T08:30:00"
+    priority: 2
+    lines:
+      - lineNo: 1
+        sku: SKU-001
+        planQty: 60
+        unit: piece
+        batchNo: B20261101
+        containerType: carton
+        needQc: false
+        crossDock: false
+
+  - docNo: OUT-20261111-0001
+    docType: outbound
+    outboundType: sales
+    warehouse: WH-001
+    owner: OWNER-001
+    sourceNo: SO-20261111-0001
+    status: released
+    planTime: "2026-11-11T08:30:00"
+    priority: 4
+    dueTime: "2026-11-11T10:30:00"
+    lines:
+      - lineNo: 1
+        sku: SKU-001
+        planQty: 80
+        unit: piece
+        batchNo: B20261101
+        containerType: carton
+        sourceLocation: PK-01
+        pickingMode: piece
+        needCheck: true
+        needPack: true
+
+  - docNo: OUT-20261111-0002
+    docType: outbound
+    outboundType: pallet
+    warehouse: WH-001
+    owner: OWNER-001
+    sourceNo: SO-20261111-0002
+    status: released
+    planTime: "2026-11-11T08:30:00"
+    priority: 4
+    dueTime: "2026-11-11T10:00:00"
+    lines:
+      - lineNo: 1
+        sku: SKU-003
+        planQty: 1
+        unit: pallet
+        batchNo: B20261103
+        containerType: pallet
+        sourceLocation: SZ-A
+        pickingMode: pallet
+        needCheck: false
+        needPack: false
+
+  - docNo: OUT-20261111-0003
+    docType: outbound
+    outboundType: value_added
+    warehouse: WH-001
+    owner: OWNER-001
+    sourceNo: SO-20261111-0003
+    status: released
+    planTime: "2026-11-11T09:30:00"
+    priority: 3
+    dueTime: "2026-11-11T12:00:00"
+    lines:
+      - lineNo: 1
+        sku: SKU-002
+        planQty: 70
+        unit: piece
+        batchNo: B20261102
+        containerType: carton
+        sourceLocation: PK-01
+        pickingMode: piece
+        needCheck: true
+        needValueAdded: true
+        needPack: true

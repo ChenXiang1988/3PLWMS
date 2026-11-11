@@ -1,52 +1,10 @@
 {
   "rows": [
-    {
-      "type": "叉车",
-      "warehouse": "华东中心仓",
-      "runHours": 186,
-      "taskCount": 1240,
-      "faultHours": 6,
-      "rate": "91.2%"
-    },
-    {
-      "type": "AGV",
-      "warehouse": "华东中心仓",
-      "runHours": 210,
-      "taskCount": 1860,
-      "faultHours": 4,
-      "rate": "95.5%"
-    },
-    {
-      "type": "输送线",
-      "warehouse": "华南前置仓",
-      "runHours": 172,
-      "taskCount": 980,
-      "faultHours": 10,
-      "rate": "84.3%"
-    },
-    {
-      "type": "扫码枪",
-      "warehouse": "华北分拨仓",
-      "runHours": 160,
-      "taskCount": 1420,
-      "faultHours": 2,
-      "rate": "88.9%"
-    },
-    {
-      "type": "打印机",
-      "warehouse": "西南中心仓",
-      "runHours": 152,
-      "taskCount": 760,
-      "faultHours": 8,
-      "rate": "81.7%"
-    },
-    {
-      "type": "AGV",
-      "warehouse": "华北分拨仓",
-      "runHours": 198,
-      "taskCount": 1720,
-      "faultHours": 12,
-      "rate": "90.1%"
-    }
+    { "type": "叉车", "warehouse": "华东中心仓", "runHours": 186, "autoThroughput": 1240, "taskCount": 1240, "faultHours": 6, "idleHours": 12, "rate": "91.2%", "bottleneck": "—" },
+    { "type": "AGV", "warehouse": "华东中心仓", "runHours": 210, "autoThroughput": 1860, "taskCount": 1860, "faultHours": 4, "idleHours": 6, "rate": "95.5%", "bottleneck": "—" },
+    { "type": "输送线", "warehouse": "华南前置仓", "runHours": 172, "autoThroughput": 980, "taskCount": 980, "faultHours": 10, "idleHours": 24, "rate": "84.3%", "bottleneck": "交接点-02" },
+    { "type": "扫码枪", "warehouse": "华北分拨仓", "runHours": 160, "autoThroughput": 1420, "taskCount": 1420, "faultHours": 2, "idleHours": 18, "rate": "88.9%", "bottleneck": "—" },
+    { "type": "打印机", "warehouse": "西南中心仓", "runHours": 152, "autoThroughput": 760, "taskCount": 760, "faultHours": 8, "idleHours": 32, "rate": "81.7%", "bottleneck": "打印工位-01" },
+    { "type": "AGV", "warehouse": "华北分拨仓", "runHours": 198, "autoThroughput": 1720, "taskCount": 1720, "faultHours": 12, "idleHours": 14, "rate": "90.1%", "bottleneck": "AGV-06" }
   ]
 }

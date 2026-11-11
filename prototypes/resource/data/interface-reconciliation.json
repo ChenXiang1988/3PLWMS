@@ -1,0 +1,34 @@
+{
+  "rows": [
+    {
+      "reconcileNo": "REC-20261109-001", "businessTaskNo": "TSK-20261109-1001", "deviceTaskNo": "WCS-AGV-88102", "partner": "WCS", "interfaceName": "AGV任务下发",
+      "commandNo": "CMD-88102", "receiptNo": "ACK-88102", "interfaceStatus": "已接收", "receiptStatus": "已确认", "rawStatus": "200 / ACK",
+      "reconcileStatus": "matched", "unifiedErrorCode": "—", "lastRequestAt": "2026-11-09 09:42", "lastReceiptAt": "2026-11-09 09:42", "retryCount": 0, "diffReason": "—",
+      "events": [{ "time": "2026-11-09 09:42", "event": "WCS 回执确认", "operator": "系统" }, { "time": "2026-11-09 09:41", "event": "WMS 指令下发", "operator": "WMS" }]
+    },
+    {
+      "reconcileNo": "REC-20261109-002", "businessTaskNo": "TSK-20261109-1008", "deviceTaskNo": "WCS-FORK-77119", "partner": "WCS", "interfaceName": "叉车任务下发",
+      "commandNo": "CMD-77119", "receiptNo": "ACK-77119", "interfaceStatus": "已发送", "receiptStatus": "超时未回执", "rawStatus": "504 / TIMEOUT",
+      "reconcileStatus": "mismatch", "unifiedErrorCode": "E-2201 心跳超时", "lastRequestAt": "2026-11-09 08:18", "lastReceiptAt": "—", "retryCount": 2, "diffReason": "设备连接失败，WCS 未返回执行回执",
+      "events": [{ "time": "2026-11-09 08:35", "event": "第 2 次重试超时", "operator": "系统" }, { "time": "2026-11-09 08:18", "event": "指令下发", "operator": "WMS" }]
+    },
+    {
+      "reconcileNo": "REC-20261109-003", "businessTaskNo": "TSK-20261109-1012", "deviceTaskNo": "WES-PUT-44620", "partner": "WES", "interfaceName": "执行结果回传",
+      "commandNo": "CMD-44620", "receiptNo": "ACK-44620", "interfaceStatus": "已接收", "receiptStatus": "部分完成", "rawStatus": "206 / PARTIAL",
+      "reconcileStatus": "pending", "unifiedErrorCode": "—", "lastRequestAt": "2026-11-09 09:10", "lastReceiptAt": "2026-11-09 09:12", "retryCount": 0, "diffReason": "2 个明细尚未回传",
+      "events": [{ "time": "2026-11-09 09:12", "event": "收到部分完成回执", "operator": "WES" }, { "time": "2026-11-09 09:10", "event": "执行结果查询", "operator": "WMS" }]
+    },
+    {
+      "reconcileNo": "REC-20261109-004", "businessTaskNo": "SHP-20261109-088", "deviceTaskNo": "—", "partner": "承运商", "interfaceName": "发运回执接收",
+      "commandNo": "SHIP-088", "receiptNo": "CAR-55681", "interfaceStatus": "已接收", "receiptStatus": "重复回执", "rawStatus": "200 / DUPLICATE",
+      "reconcileStatus": "resolved", "unifiedErrorCode": "W-3102 重复回执", "lastRequestAt": "2026-11-09 08:50", "lastReceiptAt": "2026-11-09 08:51", "retryCount": 0, "diffReason": "幂等键已存在，未重复更新发运状态",
+      "events": [{ "time": "2026-11-09 08:52", "event": "重复回执已拦截", "operator": "系统" }, { "time": "2026-11-09 08:51", "event": "首次回执已入账", "operator": "承运商" }]
+    },
+    {
+      "reconcileNo": "REC-20261109-005", "businessTaskNo": "SHP-20261109-091", "deviceTaskNo": "—", "partner": "承运商", "interfaceName": "发运回执接收",
+      "commandNo": "SHIP-091", "receiptNo": "—", "interfaceStatus": "待发送", "receiptStatus": "待补发", "rawStatus": "—",
+      "reconcileStatus": "retrying", "unifiedErrorCode": "E-3301 回执发送失败", "lastRequestAt": "2026-11-09 07:40", "lastReceiptAt": "—", "retryCount": 1, "diffReason": "承运商接口返回 503，等待补发",
+      "events": [{ "time": "2026-11-09 07:45", "event": "进入回执补发队列", "operator": "系统" }, { "time": "2026-11-09 07:40", "event": "回执发送失败", "operator": "WMS" }]
+    }
+  ]
+}
