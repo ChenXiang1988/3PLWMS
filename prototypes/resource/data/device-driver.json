@@ -1,46 +1,7 @@
 {
   "rows": [
-    {
-      "driverCode": "DRV-AGV-01", "deviceType": "AGV", "protocol": "MQTT", "protocolVersion": "v3.1",
-      "endpoint": "mqtt://10.20.1.11:1883/agv", "credentialStatus": "已脱敏", "heartbeatSeconds": 30,
-      "connectStatus": "connected", "lastTestAt": "2026-11-09 10:00", "statusMapping": "200=已确认 / 202=处理中",
-      "errorMapping": "E-2201=心跳超时 / E-2202=充电故障", "healthCheck": "连续 24 小时正常", "lastFailure": "—",
-      "events": [{ "time": "2026-11-09 10:00", "event": "心跳检查", "result": "通过" }, { "time": "2026-11-08 18:00", "event": "连接测试", "result": "通过" }]
-    },
-    {
-      "driverCode": "DRV-AGV-02", "deviceType": "AGV", "protocol": "TCP", "protocolVersion": "v2.4",
-      "endpoint": "tcp://10.20.1.12:9000", "credentialStatus": "已脱敏", "heartbeatSeconds": 30,
-      "connectStatus": "connected", "lastTestAt": "2026-11-09 09:50", "statusMapping": "0=已确认 / 1=处理中",
-      "errorMapping": "E-2210=路径阻塞 / E-2211=载荷超限", "healthCheck": "连续 12 小时正常", "lastFailure": "—",
-      "events": [{ "time": "2026-11-09 09:50", "event": "连接测试", "result": "通过" }]
-    },
-    {
-      "driverCode": "DRV-CONV-01", "deviceType": "输送线", "protocol": "Modbus", "protocolVersion": "v1.8",
-      "endpoint": "modbus://10.20.1.21:502", "credentialStatus": "无需凭证", "heartbeatSeconds": 15,
-      "connectStatus": "connected", "lastTestAt": "2026-11-09 09:30", "statusMapping": "01=运行 / 02=停止",
-      "errorMapping": "W-1102=队列过高 / E-3101=电机故障", "healthCheck": "连续 24 小时正常", "lastFailure": "—",
-      "events": [{ "time": "2026-11-09 09:30", "event": "寄存器检查", "result": "通过" }]
-    },
-    {
-      "driverCode": "DRV-FORK-01", "deviceType": "叉车", "protocol": "HTTP", "protocolVersion": "v1.2",
-      "endpoint": "10.20.1.31:8080/healthz", "credentialStatus": "已脱敏", "heartbeatSeconds": 60,
-      "connectStatus": "disconnected", "lastTestAt": "2026-11-09 08:20", "statusMapping": "200=已确认 / 409=冲突",
-      "errorMapping": "E-4101=服务不可用", "healthCheck": "连续 40 分钟无响应", "lastFailure": "2026-11-09 08:18 服务无响应",
-      "events": [{ "time": "2026-11-09 08:20", "event": "健康检查", "result": "超时" }]
-    },
-    {
-      "driverCode": "DRV-SCAN-01", "deviceType": "扫码枪", "protocol": "TCP", "protocolVersion": "v1.6",
-      "endpoint": "tcp://10.20.1.41:9100", "credentialStatus": "无需凭证", "heartbeatSeconds": 30,
-      "connectStatus": "connected", "lastTestAt": "2026-11-08 18:00", "statusMapping": "ACK=已确认 / WAIT=处理中",
-      "errorMapping": "E-5101=扫描超时", "healthCheck": "连续 18 小时正常", "lastFailure": "—",
-      "events": [{ "time": "2026-11-08 18:00", "event": "连接测试", "result": "通过" }]
-    },
-    {
-      "driverCode": "DRV-PRINT-01", "deviceType": "打印机", "protocol": "HTTP", "protocolVersion": "v1.1",
-      "endpoint": "10.20.1.51:8080/readyz", "credentialStatus": "已脱敏", "heartbeatSeconds": 60,
-      "connectStatus": "failed", "lastTestAt": "2026-11-08 17:40", "statusMapping": "200=就绪 / 503=不可用",
-      "errorMapping": "E-6101=打印服务异常", "healthCheck": "最近 3 次均失败", "lastFailure": "2026-11-08 17:40 返回 503",
-      "events": [{ "time": "2026-11-08 17:40", "event": "健康检查", "result": "失败" }, { "time": "2026-11-08 17:35", "event": "健康检查", "result": "失败" }]
-    }
+    { "driverCode": "RCS-CONN-01", "rcsPartner": "迅达 RCS", "businessTaskScope": "搬运、上架、移库业务任务", "deviceType": "RCS-AGV", "protocol": "MQTT", "protocolVersion": "v3.1", "endpoint": "mqtt://10.20.1.11:1883/rcs", "credentialStatus": "已脱敏", "heartbeatSeconds": 30, "connectStatus": "connected", "lastTestAt": "2026-11-12 10:00", "statusMapping": "ACCEPTED=已接收 / RUNNING=执行中 / DONE=完成", "errorMapping": "TIMEOUT=回执超时 / BLOCKED=业务阻塞", "receiptHandling": "按业务任务号幂等落库", "retryPolicy": "超时重试 2 次", "compensationEntry": "任务池补偿与人工接管", "healthCheck": "连续 24 小时正常", "lastFailure": "—", "events": [{ "time": "2026-11-12 10:00", "event": "RCS 心跳检查", "result": "通过" }, { "time": "2026-11-12 09:40", "event": "任务回执联调", "result": "通过" }] },
+    { "driverCode": "RCS-CONN-02", "rcsPartner": "北斗 RCS", "businessTaskScope": "输送、分拣业务任务", "deviceType": "RCS-SORT", "protocol": "HTTP", "protocolVersion": "v2.4", "endpoint": "rcs.local/command", "credentialStatus": "已脱敏", "heartbeatSeconds": 30, "connectStatus": "connected", "lastTestAt": "2026-11-12 09:50", "statusMapping": "200=已接收 / 206=部分完成", "errorMapping": "503=服务不可用 / 409=重复任务", "receiptHandling": "重复回执按幂等键拦截", "retryPolicy": "503 重试 1 次", "compensationEntry": "接口对账补偿队列", "healthCheck": "连续 12 小时正常", "lastFailure": "—", "events": [{ "time": "2026-11-12 09:50", "event": "连接测试", "result": "通过" }] },
+    { "driverCode": "RCS-CONN-03", "rcsPartner": "迅达 RCS", "businessTaskScope": "上架任务回执", "deviceType": "RCS-FORK", "protocol": "TCP", "protocolVersion": "v2.0", "endpoint": "tcp://10.20.1.31:9000", "credentialStatus": "已脱敏", "heartbeatSeconds": 30, "connectStatus": "failed", "lastTestAt": "2026-11-12 09:18", "statusMapping": "ACK=已确认 / WAIT=处理中", "errorMapping": "E-2201=心跳超时", "receiptHandling": "超时进入补偿，不重复扣减库存", "retryPolicy": "连接失败不自动重试", "compensationEntry": "人工接管 + 库存流水核验", "healthCheck": "最近 3 次失败", "lastFailure": "2026-11-12 09:18 服务无响应", "events": [{ "time": "2026-11-12 09:18", "event": "健康检查", "result": "失败" }] }
   ]
 }

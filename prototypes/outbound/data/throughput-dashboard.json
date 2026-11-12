@@ -1,0 +1,18 @@
+{
+  "summary": { "warehouseName": "华东一号仓", "businessDate": "2026-11-12", "updatedAt": "10:30", "orderCount": 8240, "orderTarget": 12000, "itemCount": 684200, "itemTarget": 1000000, "currentRate": "86,400", "rateTarget": "100,000", "backlogCount": 2760, "estimatedFinish": "21:40" },
+  "hourly": [
+    { "hour": "06:00", "itemCount": 72000 }, { "hour": "07:00", "itemCount": 86400 }, { "hour": "08:00", "itemCount": 98200 }, { "hour": "09:00", "itemCount": 104600 }, { "hour": "10:00", "itemCount": 103000 }
+  ],
+  "stages": [
+    { "stage": "订单分配", "orderCount": 8240, "itemCount": 684200, "containerCount": 0, "taskCount": 412, "backlog": 2760, "rate": "—", "status": "稳定" },
+    { "stage": "拣选", "orderCount": 5480, "itemCount": 442800, "containerCount": 6280, "taskCount": 1860, "backlog": 1120, "rate": "86,400 件/时", "status": "稳定" },
+    { "stage": "复核", "orderCount": 3960, "itemCount": 318600, "containerCount": 4020, "taskCount": 684, "backlog": 760, "rate": "72,300 件/时", "status": "关注" },
+    { "stage": "打包", "orderCount": 3320, "itemCount": 241800, "containerCount": 3880, "taskCount": 520, "backlog": 520, "rate": "64,800 件/时", "status": "瓶颈" },
+    { "stage": "发运", "orderCount": 2480, "itemCount": 180600, "containerCount": 2860, "taskCount": 240, "backlog": 360, "rate": "56,200 件/时", "status": "关注" }
+  ],
+  "risks": [
+    { "risk": "打包工作站负荷高", "scope": "WS-PK-03 / WS-PK-04", "impact": 12800, "action": "转移工作站" },
+    { "risk": "AGV-03 回执延迟", "scope": "拣货东区", "impact": 6400, "action": "人工接管" },
+    { "risk": "复核积压超过阈值", "scope": "复核区", "impact": 9200, "action": "批量重排" }
+  ]
+}

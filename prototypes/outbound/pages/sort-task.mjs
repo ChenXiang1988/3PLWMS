@@ -38,6 +38,8 @@ export function renderPage(data, ctx) {
       { key: 'secondContainer', label: '分拣容器', width: '130px', render: (r) => dash(r.secondContainer) },
       { key: 'grid', label: '格口', width: '80px', render: (r) => dash(r.grid) },
       { key: 'orderCount', label: '订单数', width: '90px', align: 'right', render: (r) => n(r.orderCount) },
+      { key: 'lineCount', label: '订单行数', width: '90px', align: 'right', render: (r) => n(r.lineCount) },
+      { key: 'containerCount', label: '容器数', width: '85px', align: 'right', render: (r) => n(r.containerCount) },
       { key: 'pickedQty', label: '已拣数', width: '100px', align: 'right', render: (r) => n(r.pickedQty) },
       { key: 'sortStatus', label: '状态', width: '100px', render: (r) => StatusTag(labelOf(r.sortStatus), toneOf(r.sortStatus)) },
     ],

@@ -5,7 +5,10 @@
     "owner": "海纳食品",
     "operator": "孙倩",
     "device": "PDA-05",
-    "location": "A-01-01"
+    "location": "A-01-01",
+    "stockStatus": "差异待核验",
+    "executionNo": "EXE-20261112-CT-001",
+    "receiptStatus": "待核验"
   },
   "line": {
     "lineNo": 3,

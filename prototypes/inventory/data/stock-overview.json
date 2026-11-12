@@ -1,0 +1,16 @@
+{
+  "summary": { "warehouseName": "华东一号仓", "snapshotTime": "2026-11-12 10:30", "skuCount": 2980, "onHandQty": 1842600, "availableQty": 1218800, "commitableQty": 1064300, "committedQty": 308200, "allocatedQty": 154500, "occupiedQty": 530900, "frozenQty": 42100, "diffQty": 1240, "riskQty": 43340 },
+  "ownerRows": [
+    { "owner": "海纳食品", "skuCount": 1260, "onHandQty": 806400, "availableQty": 552800, "occupiedQty": 253600, "diffQty": 480, "risk": "差异待核验" },
+    { "owner": "辰星日化", "skuCount": 980, "onHandQty": 594200, "availableQty": 382000, "occupiedQty": 212200, "diffQty": 360, "risk": "冻结" },
+    { "owner": "云途电商", "skuCount": 740, "onHandQty": 442000, "availableQty": 284000, "occupiedQty": 158000, "diffQty": 400, "risk": "过账拦截" }
+  ],
+  "statusRows": [
+    { "label": "可用", "value": 1218800 }, { "label": "已承诺", "value": 308200 }, { "label": "已分配", "value": 154500 }, { "label": "拣选中", "value": 68200 }, { "label": "冻结", "value": 42100 }, { "label": "质检中", "value": 28600 }, { "label": "差异待核验", "value": 1240 }
+  ],
+  "riskRows": [
+    { "owner": "辰星日化", "skuCode": "SKU100232", "binCode": "B-01-02", "riskType": "账实差异", "qty": 60, "action": "发起核验" },
+    { "owner": "海纳食品", "skuCode": "SKU100231", "binCode": "A-02-03", "riskType": "设备回执缺失", "qty": 2, "action": "补偿流水" },
+    { "owner": "云途电商", "skuCode": "SKU100206", "binCode": "C-03-02", "riskType": "过账拦截", "qty": 8, "action": "查看调整" }
+  ]
+}

@@ -43,7 +43,6 @@ export function renderPage(data, ctx) {
       rows: d.rows || [],
       timeline: (d.timeline || []).map((t) => ({ time: t.time, text: t.text, operator: t.operator })),
       actions: [
-        { label: '生成收货单', toast: '生成收货单（原型示意）' },
         { label: '关闭', ghost: true, attrs: { 'data-drawer-close': '' } },
       ],
     });
@@ -67,8 +66,7 @@ export function renderPage(data, ctx) {
         { label: '计划到货日期', key: 'expectedDate', type: 'daterange', extra: true },
       ],
       toolbar: [
-        { label: '生成收货单', toast: '生成收货单（原型示意）' },
-        { label: '查看工序单', ghost: true, toast: '查看工序单（原型示意）' },
+        { label: '同步客户单据', toast: '已向客户系统拉取最新入库单（原型示意）' },
         { label: '导出', ghost: true, toast: '导出（原型示意）' },
       ],
       showCount: true,

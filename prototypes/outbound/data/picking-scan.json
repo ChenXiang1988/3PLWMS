@@ -5,7 +5,10 @@
     "owner": "海纳食品",
     "operator": "李娜",
     "device": "PDA-05",
-    "location": "A-01-01"
+    "location": "A-01-01",
+    "stockStatus": "拣选中",
+    "executionNo": "EXE-20261112-OUT-001",
+    "receiptStatus": "RCS 执行中回执"
   },
   "line": {
     "lineNo": 1,

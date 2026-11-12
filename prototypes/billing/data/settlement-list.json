@@ -1,100 +1,165 @@
 {
   "rows": [
     {
-      "settlementNo": "ST20261109001",
-      "owner": "海纳食品",
+      "settlementNo": "ST202608001",
+      "owner": "辰星日化",
       "billType": "混合",
-      "period": "2026-10",
-      "billCount": 2,
+      "period": "2026-08",
+      "billCount": 1,
+      "sourceNo": "BILL202608002",
       "currency": "CNY",
-      "amountWithTax": 47000,
+      "taxRate": 6,
+      "amountBeforeTax": 6886.79,
+      "amountWithTax": 7300,
       "invoiceStatus": "invoiced",
       "settlementStatus": "completed",
-      "approver": "李静"
+      "approver": "李静",
+      "createdAt": "2026-09-05 09:00"
     },
     {
-      "settlementNo": "ST20261109002",
-      "owner": "云途电商",
-      "billType": "作业费",
-      "period": "2026-10",
+      "settlementNo": "ST202609001",
+      "owner": "海纳食品",
+      "billType": "混合",
+      "period": "2026-09",
       "billCount": 1,
+      "sourceNo": "BILL202609001",
       "currency": "CNY",
-      "amountWithTax": 18400,
-      "invoiceStatus": "uninvoiced",
-      "settlementStatus": "sent",
-      "approver": "李静"
+      "taxRate": 6,
+      "amountBeforeTax": 12075.47,
+      "amountWithTax": 12800,
+      "invoiceStatus": "invoiced",
+      "settlementStatus": "completed",
+      "approver": "李静",
+      "createdAt": "2026-10-05 09:00"
     },
     {
-      "settlementNo": "ST20261109003",
+      "settlementNo": "ST202609002",
       "owner": "辰星日化",
-      "billType": "仓储",
-      "period": "2026-10",
+      "billType": "混合",
+      "period": "2026-09",
       "billCount": 1,
+      "sourceNo": "BILL202609002",
       "currency": "CNY",
+      "taxRate": 6,
+      "amountBeforeTax": 9056.6,
       "amountWithTax": 9600,
       "invoiceStatus": "invoiced",
-      "settlementStatus": "confirmed",
-      "approver": "王涛"
-    },
-    {
-      "settlementNo": "ST20261108004",
-      "owner": "海纳食品",
-      "billType": "增值服务",
-      "period": "2026-09",
-      "billCount": 1,
-      "currency": "CNY",
-      "amountWithTax": 31200,
-      "invoiceStatus": "invoiced",
       "settlementStatus": "completed",
-      "approver": "李静"
+      "approver": "王涛",
+      "createdAt": "2026-10-05 09:20"
     },
     {
-      "settlementNo": "ST20261108005",
+      "settlementNo": "ST202609003",
       "owner": "云途电商",
       "billType": "混合",
       "period": "2026-09",
-      "billCount": 2,
+      "billCount": 1,
+      "sourceNo": "BILL202609003",
       "currency": "CNY",
-      "amountWithTax": 15900,
+      "taxRate": 7.67,
+      "amountBeforeTax": 14860.65,
+      "amountWithTax": 16000,
       "invoiceStatus": "invoiced",
       "settlementStatus": "completed",
-      "approver": "王涛"
+      "approver": "李静",
+      "createdAt": "2026-10-05 09:40"
     },
     {
-      "settlementNo": "ST20261107006",
-      "owner": "辰星日化",
-      "billType": "作业费",
-      "period": "2026-09",
-      "billCount": 1,
-      "currency": "CNY",
-      "amountWithTax": 7200,
-      "invoiceStatus": "uninvoiced",
-      "settlementStatus": "pending",
-      "approver": ""
-    },
-    {
-      "settlementNo": "ST20261107007",
+      "settlementNo": "ST202610001",
       "owner": "海纳食品",
-      "billType": "作业费",
-      "period": "2026-11",
+      "billType": "混合",
+      "period": "2026-10",
       "billCount": 1,
+      "sourceNo": "BILL202610001",
       "currency": "CNY",
-      "amountWithTax": 12600,
-      "invoiceStatus": "uninvoiced",
-      "settlementStatus": "rejected",
-      "approver": "王涛"
+      "taxRate": 6,
+      "amountBeforeTax": 14716.98,
+      "amountWithTax": 15600,
+      "invoiceStatus": "invoiced",
+      "settlementStatus": "completed",
+      "approver": "李静",
+      "createdAt": "2026-11-04 10:00"
     },
     {
-      "settlementNo": "ST20261106008",
-      "owner": "云途电商",
-      "billType": "仓储",
+      "settlementNo": "ST202610002",
+      "owner": "辰星日化",
+      "billType": "仓租",
+      "period": "2026-10",
+      "billCount": 1,
+      "sourceNo": "BILL202610002",
+      "currency": "CNY",
+      "taxRate": 6,
+      "amountBeforeTax": 9811.32,
+      "amountWithTax": 10400,
+      "invoiceStatus": "invoiced",
+      "settlementStatus": "confirmed",
+      "approver": "王涛",
+      "createdAt": "2026-11-04 10:20"
+    },
+    {
+      "settlementNo": "ST202611001",
+      "owner": "海纳食品",
+      "billType": "混合",
       "period": "2026-11",
       "billCount": 1,
+      "sourceNo": "BILL202611001",
       "currency": "CNY",
-      "amountWithTax": 7800,
+      "taxRate": 6,
+      "amountBeforeTax": 3962.26,
+      "amountWithTax": 4200,
       "invoiceStatus": "uninvoiced",
       "settlementStatus": "pending",
-      "approver": ""
+      "approver": "",
+      "createdAt": "2026-11-07 09:30"
     }
-  ]
+  ],
+  "bills": {
+    "ST202608001": [{ "billNo": "BILL202608002", "period": "2026-08", "totalAmount": 7300, "invoiceStatus": "invoiced", "billStatus": "confirmed" }],
+    "ST202609001": [{ "billNo": "BILL202609001", "period": "2026-09", "totalAmount": 12800, "invoiceStatus": "invoiced", "billStatus": "confirmed" }],
+    "ST202609002": [{ "billNo": "BILL202609002", "period": "2026-09", "totalAmount": 9600, "invoiceStatus": "invoiced", "billStatus": "confirmed" }],
+    "ST202609003": [{ "billNo": "BILL202609003", "period": "2026-09", "totalAmount": 16000, "invoiceStatus": "invoiced", "billStatus": "confirmed" }],
+    "ST202610001": [{ "billNo": "BILL202610001", "period": "2026-10", "totalAmount": 15600, "invoiceStatus": "invoiced", "billStatus": "confirmed" }],
+    "ST202610002": [{ "billNo": "BILL202610002", "period": "2026-10", "totalAmount": 10400, "invoiceStatus": "invoiced", "billStatus": "confirmed" }],
+    "ST202611001": [{ "billNo": "BILL202611001", "period": "2026-11", "totalAmount": 4200, "invoiceStatus": "uninvoiced", "billStatus": "confirmed" }]
+  },
+  "traces": {
+    "ST202608001": [
+      { "time": "2026-09-05 09:00", "text": "生成结算单", "operator": "系统" },
+      { "time": "2026-09-05 10:00", "text": "审核通过", "operator": "李静" },
+      { "time": "2026-09-08 14:00", "text": "货主确认", "operator": "辰星日化" },
+      { "time": "2026-09-10 10:00", "text": "完成", "operator": "李静" }
+    ],
+    "ST202609001": [
+      { "time": "2026-10-05 09:00", "text": "生成结算单", "operator": "系统" },
+      { "time": "2026-10-05 10:00", "text": "审核通过", "operator": "李静" },
+      { "time": "2026-10-07 09:00", "text": "货主确认", "operator": "海纳食品" },
+      { "time": "2026-10-09 10:00", "text": "完成", "operator": "李静" }
+    ],
+    "ST202609002": [
+      { "time": "2026-10-05 09:20", "text": "生成结算单", "operator": "系统" },
+      { "time": "2026-10-05 10:10", "text": "审核通过", "operator": "王涛" },
+      { "time": "2026-10-08 11:00", "text": "货主确认", "operator": "辰星日化" },
+      { "time": "2026-10-10 10:00", "text": "完成", "operator": "王涛" }
+    ],
+    "ST202609003": [
+      { "time": "2026-10-05 09:40", "text": "生成结算单", "operator": "系统" },
+      { "time": "2026-10-05 10:20", "text": "审核通过", "operator": "李静" },
+      { "time": "2026-10-09 15:00", "text": "货主确认", "operator": "云途电商" },
+      { "time": "2026-10-12 10:00", "text": "完成", "operator": "李静" }
+    ],
+    "ST202610001": [
+      { "time": "2026-11-04 10:00", "text": "生成结算单", "operator": "系统" },
+      { "time": "2026-11-04 11:00", "text": "审核通过", "operator": "李静" },
+      { "time": "2026-11-06 09:00", "text": "货主确认", "operator": "海纳食品" },
+      { "time": "2026-11-08 10:00", "text": "完成", "operator": "李静" }
+    ],
+    "ST202610002": [
+      { "time": "2026-11-04 10:20", "text": "生成结算单", "operator": "系统" },
+      { "time": "2026-11-04 11:10", "text": "审核通过", "operator": "王涛" },
+      { "time": "2026-11-06 10:00", "text": "货主确认", "operator": "辰星日化" }
+    ],
+    "ST202611001": [
+      { "time": "2026-11-07 09:30", "text": "生成结算单", "operator": "系统" }
+    ]
+  }
 }

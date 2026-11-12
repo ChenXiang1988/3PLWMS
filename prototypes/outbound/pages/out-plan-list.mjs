@@ -12,7 +12,7 @@ const lockTone = (s) => (LOCK_META[s] || {}).type || 'info';
 const allocationLabel = (s) => ({ unallocated: '未分配', partial: '部分分配', allocated: '已分配', shortage: '缺货' }[s] || '—');
 
 export function renderPage(data, ctx) {
-  const { rows = [], details = [] } = data[ctx.pageKey] || {};
+  const { rows = [], details = [], summary = {} } = data[ctx.pageKey] || {};
   const pageId = `${ctx.moduleId}/${ctx.pageKey}`;
   const count = (s) => rows.filter((r) => r.docStatus === s).length;
   const overlay = rows.map((r) => {
@@ -27,6 +27,7 @@ export function renderPage(data, ctx) {
         { label: '缺货数量', value: n(r.shortageQty) }, { label: '波次号', value: r.waveNo },
         { label: '当前工序', value: r.currentStep }, { label: '锁库状态', value: lockLabel(r.lockStatus) },
         { label: '库存可信度', value: r.stockConfidence }, { label: '释放影响', value: r.releaseImpact },
+        { label: '订单行数', value: n(r.lineCount) }, { label: '容器数', value: n(r.containerCount) }, { label: '任务数', value: n(r.taskCount) },
       ],
       columns: [
         { key: 'skuCode', label: '商品编码', width: '150px', cls: 'wx-col-strong' },
@@ -37,9 +38,6 @@ export function renderPage(data, ctx) {
       ], rows: d.rows || [],
       timeline: (d.timeline || []).map((t) => ({ time: t.time, text: t.text, operator: t.operator })),
       actions: [
-        { label: '重新分配', toast: `已打开 ${r.planNo} 重新分配（原型示意）` },
-        { label: '释放锁定', ghost: true, toast: `已打开 ${r.planNo} 锁定释放确认（原型示意）` },
-        { label: '生成拣货单', ghost: true, toast: '生成拣货单（原型示意）' },
         { label: '关闭', ghost: true, attrs: { 'data-drawer-close': '' } },
       ],
     });
@@ -47,6 +45,7 @@ export function renderPage(data, ctx) {
 
   return { html: ListPage({
     unit: '单', pageSize: 20,
+    scopeNote: `订单行 ${n(summary.lineCount)} · 件数 ${n(summary.itemCount)} · 容器 ${n(summary.containerCount)} · 任务 ${n(summary.taskCount)}`,
     statusTabs: [{ label: '全部', count: rows.length, active: true }, ...Object.entries(STATUS_META).map(([value, meta]) => ({ label: meta.label, count: count(value), field: 'docStatus', value }))],
     filters: [
       { label: '货主', key: 'owner', type: 'select', options: ['全部', ...uniq(rows.map((r) => r.owner))] },
@@ -57,9 +56,7 @@ export function renderPage(data, ctx) {
       { label: '计划单号', key: 'planNo', type: 'text', placeholder: '请输入计划单号', extra: true },
     ],
     toolbar: [
-      { label: '分配库存', toast: '已打开库存分配确认（原型示意）' },
-      { label: '加入波次', ghost: true, toast: '已打开加入波次确认（原型示意）' },
-      { label: '释放锁定', ghost: true, toast: '已打开锁定释放确认（原型示意）' },
+      { label: '同步客户单据', toast: '已向客户系统拉取最新出库单（原型示意）' },
       { label: '导出', ghost: true, toast: '导出（原型示意）' },
     ],
     columns: [
@@ -68,7 +65,10 @@ export function renderPage(data, ctx) {
       { key: 'owner', label: '货主', width: '110px', render: (r) => dash(r.owner) },
       { key: 'commitAt', label: '承诺时间', width: '120px', render: (r) => dash(r.commitAt || r.expectedDate) },
       { key: 'allocationStatus', label: '分配状态', width: '100px', render: (r) => dash(allocationLabel(r.allocationStatus)) },
+      { key: 'lineCount', label: '订单行数', width: '90px', align: 'right', render: (r) => n(r.lineCount) },
       { key: 'planQty', label: '计划件数', width: '95px', align: 'right', render: (r) => n(r.planQty) },
+      { key: 'containerCount', label: '容器数', width: '85px', align: 'right', render: (r) => n(r.containerCount) },
+      { key: 'taskCount', label: '任务数', width: '80px', align: 'right', render: (r) => n(r.taskCount) },
       { key: 'allocatedQty', label: '已分配', width: '90px', align: 'right', render: (r) => n(r.allocatedQty) },
       { key: 'shortageQty', label: '缺货数', width: '80px', align: 'right', render: (r) => n(r.shortageQty) },
       { key: 'waveNo', label: '波次号', width: '145px', render: (r) => dash(r.waveNo) },

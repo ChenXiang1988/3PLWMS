@@ -1,64 +1,7 @@
 {
   "rows": [
-    {
-      "strategyCode": "AGV-STR-01",
-      "warehouse": "华东中心仓",
-      "priorityRule": "最短路径",
-      "chargeThreshold": 20,
-      "chargeIdleMinutes": 10,
-      "avoidZone": "A 区、B 区",
-      "maxTaskPerRobot": 5,
-      "strategyStatus": "enabled"
-    },
-    {
-      "strategyCode": "AGV-STR-02",
-      "warehouse": "华南前置仓",
-      "priorityRule": "先到先做",
-      "chargeThreshold": 25,
-      "chargeIdleMinutes": 15,
-      "avoidZone": "A 区",
-      "maxTaskPerRobot": 4,
-      "strategyStatus": "enabled"
-    },
-    {
-      "strategyCode": "AGV-STR-03",
-      "warehouse": "华北分拨仓",
-      "priorityRule": "任务类型优先",
-      "chargeThreshold": 30,
-      "chargeIdleMinutes": 20,
-      "avoidZone": "C 区",
-      "maxTaskPerRobot": 6,
-      "strategyStatus": "enabled"
-    },
-    {
-      "strategyCode": "AGV-STR-04",
-      "warehouse": "西南中心仓",
-      "priorityRule": "最短路径",
-      "chargeThreshold": 20,
-      "chargeIdleMinutes": 10,
-      "avoidZone": "B 区、D 区",
-      "maxTaskPerRobot": 5,
-      "strategyStatus": "disabled"
-    },
-    {
-      "strategyCode": "AGV-STR-05",
-      "warehouse": "华中转运仓",
-      "priorityRule": "先到先做",
-      "chargeThreshold": 25,
-      "chargeIdleMinutes": 15,
-      "avoidZone": "—",
-      "maxTaskPerRobot": 3,
-      "strategyStatus": "disabled"
-    },
-    {
-      "strategyCode": "AGV-STR-06",
-      "warehouse": "华东中心仓",
-      "priorityRule": "任务类型优先",
-      "chargeThreshold": 15,
-      "chargeIdleMinutes": 5,
-      "avoidZone": "C 区",
-      "maxTaskPerRobot": 7,
-      "strategyStatus": "enabled"
-    }
+    { "strategyCode": "RCS-REL-01", "warehouse": "华东一号仓", "rcsPartner": "迅达 RCS", "releaseRule": "按波次容量与区域负荷释放", "capacityRule": "容器占用 < 85%", "retryPolicy": "超时重试 2 次", "compensationPolicy": "回执缺失进入补偿队列", "strategyStatus": "enabled" },
+    { "strategyCode": "RCS-REL-02", "warehouse": "华东一号仓", "rcsPartner": "迅达 RCS", "releaseRule": "承诺时间优先，冻结异常不下发", "capacityRule": "工作站积压 < 800 容器", "retryPolicy": "失败重试 1 次", "compensationPolicy": "库存流水人工核验", "strategyStatus": "enabled" },
+    { "strategyCode": "RCS-REL-03", "warehouse": "华东一号仓", "rcsPartner": "北斗 RCS", "releaseRule": "设备影响降级后转人工接管", "capacityRule": "任务池积压 < 1,200", "retryPolicy": "连接失败不重试", "compensationPolicy": "WMS/WES 状态补偿", "strategyStatus": "disabled" }
   ]
 }

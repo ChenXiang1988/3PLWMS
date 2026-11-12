@@ -5,7 +5,10 @@
     "owner": "云途电商",
     "operator": "李娜",
     "device": "PDA-05",
-    "station": "打包台 2"
+    "station": "打包台 2",
+    "stockStatus": "待发运",
+    "executionNo": "EXE-20261112-PK-002",
+    "receiptStatus": "RCS 执行中回执"
   },
   "line": {
     "lineNo": 1,

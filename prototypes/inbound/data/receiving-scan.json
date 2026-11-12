@@ -5,7 +5,10 @@
     "owner": "海纳食品",
     "operator": "张伟",
     "device": "PDA-07",
-    "location": "A-01-01"
+    "location": "A-01-01",
+    "stockStatus": "待上架",
+    "executionNo": "EXE-20261112-IN-001",
+    "receiptStatus": "WES 已接收"
   },
   "line": {
     "lineNo": 1,

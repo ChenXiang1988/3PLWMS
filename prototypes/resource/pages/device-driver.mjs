@@ -16,11 +16,13 @@ export function renderPage(data, ctx) {
     pageId, rowKey: r.driverCode, title: '连接器与协议治理', docNo: r.driverCode,
     status: labelOf(r.connectStatus), statusTone: toneOf(r.connectStatus),
     fields: [
+      { label: 'RCS 厂商', value: r.rcsPartner }, { label: '业务任务接入', value: r.businessTaskScope },
       { label: '设备类型', value: r.deviceType }, { label: '协议', value: r.protocol },
       { label: '协议版本', value: r.protocolVersion }, { label: '端点', value: r.endpoint },
       { label: '凭证状态', value: r.credentialStatus }, { label: '心跳秒数', value: r.heartbeatSeconds },
       { label: '连接状态', value: labelOf(r.connectStatus) }, { label: '最近测试', value: r.lastTestAt },
       { label: '状态码映射', value: r.statusMapping }, { label: '错误码映射', value: r.errorMapping },
+      { label: '回执处理', value: r.receiptHandling }, { label: '重试策略', value: r.retryPolicy }, { label: '补偿入口', value: r.compensationEntry },
       { label: '健康检查', value: r.healthCheck }, { label: '最近失败', value: r.lastFailure },
     ],
     columns: [
@@ -58,6 +60,7 @@ export function renderPage(data, ctx) {
       showCount: true,
       columns: [
         { key: 'driverCode', label: '驱动编码', width: '140px', cls: 'wx-col-strong', render: (r) => DrawerButton({ pageId, rowKey: r.driverCode, label: r.driverCode }) },
+        { key: 'rcsPartner', label: 'RCS 厂商', width: '120px', render: (r) => dash(r.rcsPartner) },
         { key: 'deviceType', label: '设备类型', width: '100px', render: (r) => dash(r.deviceType) },
         { key: 'protocol', label: '协议', width: '80px', render: (r) => dash(`${r.protocol} ${r.protocolVersion || ''}`) },
         { key: 'endpoint', label: '端点', width: '220px', render: (r) => dash(r.endpoint) },

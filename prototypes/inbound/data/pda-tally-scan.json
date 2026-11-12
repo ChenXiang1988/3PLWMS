@@ -5,7 +5,10 @@
     "owner": "辰星日化",
     "operator": "张伟",
     "device": "PDA-07",
-    "location": "暂存区 C-02"
+    "location": "暂存区 C-02",
+    "stockStatus": "质检中",
+    "executionNo": "EXE-20261112-QC-001",
+    "receiptStatus": "待核验"
   },
   "line": {
     "lineNo": 1,

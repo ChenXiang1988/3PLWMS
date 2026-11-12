@@ -1,10 +1,10 @@
 {
   "rows": [
-    { "owner": "海纳食品", "skuCode": "SKU100231", "skuName": "海纳全脂牛奶 250ml×24", "batchNo": "B20261028001", "binCode": "A-01-01", "onHandQty": 480, "availableQty": 440, "frozenQty": 40 },
-    { "owner": "海纳食品", "skuCode": "SKU100175", "skuName": "海纳酸奶 100g×12", "batchNo": "B20261104002", "binCode": "A-02-03", "onHandQty": 120, "availableQty": 120, "frozenQty": 0 },
-    { "owner": "海纳食品", "skuCode": "SKU100402", "skuName": "海纳常温酸奶礼盒 200g×12", "batchNo": "B20261030001", "binCode": "A-03-01", "onHandQty": 180, "availableQty": 160, "frozenQty": 20 },
-    { "owner": "辰星日化", "skuCode": "SKU100232", "skuName": "辰星洗衣液 2kg×6", "batchNo": "B20260901003", "binCode": "B-01-02", "onHandQty": 860, "availableQty": 800, "frozenQty": 60 },
-    { "owner": "云途电商", "skuCode": "SKU100198", "skuName": "云途收纳箱 45L", "batchNo": "B20260310004", "binCode": "C-03-01", "onHandQty": 240, "availableQty": 240, "frozenQty": 0 },
-    { "owner": "云途电商", "skuCode": "SKU100206", "skuName": "云途蓝牙耳机 二代", "batchNo": "B20261022002", "binCode": "C-03-02", "onHandQty": 140, "availableQty": 140, "frozenQty": 0 }
+    { "owner": "海纳食品", "zoneCode": "A01", "zoneName": "常温存储", "binCode": "A-01-01", "coordinate": "1-01-01", "binStatus": "占用", "containerCode": "托盘 PLT-00128", "skuCode": "SKU100231", "batchNo": "B20261028001", "onHandQty": 18400, "availableQty": 12000, "reservedQty": 6400, "frozenQty": 0, "operationState": "allocated", "lastTaskNo": "TSK-OUT-261112-081" },
+    { "owner": "海纳食品", "zoneCode": "A02", "zoneName": "拆零拣选", "binCode": "A-02-03", "coordinate": "2-02-03", "binStatus": "占用", "containerCode": "料箱 BIN-02031", "skuCode": "SKU100175", "batchNo": "B20261104002", "onHandQty": 9200, "availableQty": 6400, "reservedQty": 2800, "frozenQty": 0, "operationState": "available", "lastTaskNo": "—" },
+    { "owner": "海纳食品", "zoneCode": "A03", "zoneName": "高位货架", "binCode": "A-03-01", "coordinate": "3-03-01", "binStatus": "占用", "containerCode": "料箱 BIN-03114", "skuCode": "SKU100402", "batchNo": "B20261030001", "onHandQty": 12600, "availableQty": 0, "reservedQty": 12600, "frozenQty": 0, "operationState": "picking", "lastTaskNo": "TSK-OUT-261112-103" },
+    { "owner": "辰星日化", "zoneCode": "B01", "zoneName": "托盘存储", "binCode": "B-01-02", "coordinate": "1-04-02", "binStatus": "占用", "containerCode": "托盘 PLT-00561", "skuCode": "SKU100232", "batchNo": "B20260901003", "onHandQty": 28600, "availableQty": 19400, "reservedQty": 9200, "frozenQty": 0, "operationState": "allocated", "lastTaskNo": "TSK-OUT-261112-118" },
+    { "owner": "辰星日化", "zoneCode": "B02", "zoneName": "质检暂存", "binCode": "B-02-01", "coordinate": "2-04-01", "binStatus": "锁定", "containerCode": "料箱 BIN-04102", "skuCode": "SKU100142", "batchNo": "B20260510006", "onHandQty": 7400, "availableQty": 5100, "reservedQty": 1200, "frozenQty": 1100, "operationState": "frozen", "lastTaskNo": "QC-261112-021" },
+    { "owner": "云途电商", "zoneCode": "C03", "zoneName": "自动化拣选", "binCode": "C-03-02", "coordinate": "3-08-02", "binStatus": "占用", "containerCode": "料箱 BIN-05216", "skuCode": "SKU100206", "batchNo": "B20261022002", "onHandQty": 6800, "availableQty": 0, "reservedQty": 6800, "frozenQty": 0, "operationState": "picking", "lastTaskNo": "WES-EXE-261112-442" }
   ]
 }

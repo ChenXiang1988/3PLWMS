@@ -393,31 +393,46 @@
       "name": "货灵WMS",
       "shell": "admin",
       "rail": [
-        { "id": "rail-task", "name": "任务中心", "mark": "任", "navs": ["nav-workbench"] },
-        { "id": "rail-inbound", "name": "入库", "mark": "入", "navs": ["nav-inbound"] },
-        { "id": "rail-outbound", "name": "出库与发货", "mark": "出", "navs": ["nav-outbound", "nav-shipping"] },
-        { "id": "rail-inner", "name": "库内作业", "mark": "内", "navs": ["nav-inner", "nav-count"] },
-        { "id": "rail-stock", "name": "库存", "mark": "库", "navs": ["nav-inventory"] },
-        { "id": "rail-resource", "name": "设备与容器", "mark": "设", "navs": ["nav-resource", "nav-automation"] },
-        { "id": "rail-staff", "name": "人员与班次", "mark": "人", "navs": ["nav-staff"] },
-        { "id": "rail-config", "name": "作业配置", "mark": "配", "navs": ["nav-config", "nav-base"] }
+        { "id": "rail-dashboard", "name": "看板", "mark": "看", "navs": ["nav-dashboard"] },
+        { "id": "rail-customer", "name": "客户域", "mark": "客", "navs": ["nav-customer-master", "nav-customer-doc"] },
+        { "id": "rail-wms", "name": "WMS", "mark": "W", "navs": ["nav-wms-inbound", "nav-wms-outbound", "nav-wms-inner", "nav-wms-inventory", "nav-wms-base"] },
+        { "id": "rail-wes", "name": "WES", "mark": "E", "navs": ["nav-wes-execution", "nav-wes-config"] },
+        { "id": "rail-wcs", "name": "WCS", "mark": "C", "navs": ["nav-wcs-device", "nav-wcs-integration"] },
+        { "id": "rail-other", "name": "其他", "mark": "其", "navs": ["nav-other-resource"] }
       ],
       "nav": [
         {
-          "id": "nav-workbench",
-          "name": "任务中心",
+          "id": "nav-dashboard",
+          "name": "看板",
           "pages": [
             "task/doc-overview",
             "task/task-report",
-            "task/task-list",
-            "task/task-pool"
+            "outbound/throughput-dashboard",
+            "inventory/stock-overview",
+            "task/staff-performance"
           ]
         },
         {
-          "id": "nav-inbound",
-          "name": "入库管理",
+          "id": "nav-customer-master",
+          "name": "客户主数据",
+          "pages": [
+            "base/warehouse-customer-list",
+            "base/warehouse-customer-requirements",
+            "base/sku-warehouse-list"
+          ]
+        },
+        {
+          "id": "nav-customer-doc",
+          "name": "客户单据",
           "pages": [
             "inbound/in-plan-list",
+            "outbound/out-plan-list"
+          ]
+        },
+        {
+          "id": "nav-wms-inbound",
+          "name": "入库管理",
+          "pages": [
             "inbound/appointment-list",
             "inbound/receiving-order",
             "inbound/qc-order",
@@ -427,19 +442,12 @@
           ]
         },
         {
-          "id": "nav-outbound",
-          "name": "出库管理",
+          "id": "nav-wms-outbound",
+          "name": "出库与发运",
           "pages": [
-            "outbound/out-plan-list",
             "outbound/wave-list",
             "outbound/picking-order",
-            "outbound/check-order"
-          ]
-        },
-        {
-          "id": "nav-shipping",
-          "name": "发货作业",
-          "pages": [
+            "outbound/check-order",
             "outbound/packing-order",
             "outbound/sort-task",
             "outbound/loading-list",
@@ -447,19 +455,13 @@
           ]
         },
         {
-          "id": "nav-inner",
-          "name": "库内作业",
+          "id": "nav-wms-inner",
+          "name": "库内与异常",
           "pages": [
             "warehouse/move-task",
             "warehouse/replenish-task",
             "warehouse/kitting-task",
-            "warehouse/freeze-list"
-          ]
-        },
-        {
-          "id": "nav-count",
-          "name": "盘点与异常",
-          "pages": [
+            "warehouse/freeze-list",
             "warehouse/count-plan",
             "warehouse/count-task",
             "inventory/count-diff-audit",
@@ -468,8 +470,8 @@
           ]
         },
         {
-          "id": "nav-inventory",
-          "name": "库存中心",
+          "id": "nav-wms-inventory",
+          "name": "库存管理",
           "pages": [
             "inventory/batch-list",
             "inventory/stock-by-location",
@@ -480,53 +482,59 @@
           ]
         },
         {
-          "id": "nav-resource",
-          "name": "设备与容器",
+          "id": "nav-wms-base",
+          "name": "仓储基础",
           "pages": [
-            "resource/container-list",
-            "resource/hardware-list",
-            "resource/exec-unit-list",
-            "resource/device-monitor",
-            "resource/device-alarm"
+            "warehouse/location-list",
+            "warehouse/location-capacity"
           ]
         },
         {
-          "id": "nav-automation",
-          "name": "自动化与接口",
+          "id": "nav-wes-execution",
+          "name": "任务执行",
           "pages": [
-            "resource/device-driver",
-            "resource/device-capability",
-            "resource/automation-topology",
-            "resource/interface-reconciliation",
+            "task/task-list",
+            "task/task-pool",
+            "resource/exec-unit-list"
+          ]
+        },
+        {
+          "id": "nav-wes-config",
+          "name": "执行编排",
+          "pages": [
+            "resource/strategy-list",
+            "resource/workflow-list",
+            "resource/task-strategy-list",
             "resource/agv-strategy"
           ]
         },
         {
-          "id": "nav-staff",
-          "name": "人员与班次",
+          "id": "nav-wcs-device",
+          "name": "设备接入",
           "pages": [
+            "resource/hardware-list",
+            "resource/device-monitor",
+            "resource/device-alarm",
+            "resource/device-driver",
+            "resource/device-capability"
+          ]
+        },
+        {
+          "id": "nav-wcs-integration",
+          "name": "自动化与接口",
+          "pages": [
+            "resource/automation-topology",
+            "resource/interface-reconciliation"
+          ]
+        },
+        {
+          "id": "nav-other-resource",
+          "name": "公共资源",
+          "pages": [
+            "resource/container-list",
             "resource/team-list",
             "resource/staff-list",
-            "resource/shift-list",
-            "task/staff-performance"
-          ]
-        },
-        {
-          "id": "nav-config",
-          "name": "作业配置",
-          "pages": [
-            "resource/strategy-list",
-            "resource/workflow-list",
-            "resource/task-strategy-list"
-          ]
-        },
-        {
-          "id": "nav-base",
-          "name": "基础资料",
-          "pages": [
-            "warehouse/location-list",
-            "warehouse/location-capacity",
-            "base/sku-warehouse-list"
+            "resource/shift-list"
           ]
         }
       ]
@@ -766,6 +774,22 @@
           "app": "warehouse-app"
         },
         {
+          "key": "warehouse-customer-list",
+          "name": "本仓客户",
+          "type": "list",
+          "file": "pages/warehouse-customer-list.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
+          "key": "warehouse-customer-requirements",
+          "name": "客户作业要求",
+          "type": "list",
+          "file": "pages/warehouse-customer-requirements.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
+        {
           "key": "owner-group-list",
           "name": "货主组",
           "type": "list",
@@ -891,6 +915,14 @@
       "owner": "",
       "scope": "出库订单、波次、拣货、复核、打包、分播、装车、交接",
       "pages": [
+        {
+          "key": "throughput-dashboard",
+          "name": "吞吐驾驶舱",
+          "type": "report",
+          "file": "pages/throughput-dashboard.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
+        },
         {
           "key": "out-plan-list",
           "name": "出库订单",
@@ -1128,6 +1160,14 @@
           "file": "pages/stock-report.mjs",
           "ownerScoped": false,
           "app": "network-app"
+        },
+        {
+          "key": "stock-overview",
+          "name": "库存驾驶视图",
+          "type": "report",
+          "file": "pages/stock-overview.mjs",
+          "ownerScoped": false,
+          "app": "warehouse-app"
         },
         {
           "key": "batch-list",

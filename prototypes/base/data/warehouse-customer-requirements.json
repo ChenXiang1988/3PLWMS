@@ -1,0 +1,48 @@
+{
+  "rows": [
+    {
+      "requirementNo": "REQ20260101",
+      "owner": "海纳食品",
+      "bizType": "入库",
+      "slaHours": 4,
+      "cutoffTime": "16:00",
+      "accuracyRate": 99.5,
+      "packRule": "按批次分箱，外箱贴入库标签",
+      "requirementStatus": "active",
+      "effectDate": "2026-01-01"
+    },
+    {
+      "requirementNo": "REQ20260102",
+      "owner": "海纳食品",
+      "bizType": "出库",
+      "slaHours": 3,
+      "cutoffTime": "18:00",
+      "accuracyRate": 99.5,
+      "packRule": "食品级耗材，箱单随货",
+      "requirementStatus": "active",
+      "effectDate": "2026-01-01"
+    },
+    {
+      "requirementNo": "REQ20260201",
+      "owner": "云途电商",
+      "bizType": "出库",
+      "slaHours": 4,
+      "cutoffTime": "17:30",
+      "accuracyRate": 99.2,
+      "packRule": "一单一箱，面单覆盖旧标",
+      "requirementStatus": "active",
+      "effectDate": "2026-02-01"
+    },
+    {
+      "requirementNo": "REQ20260301",
+      "owner": "辰星日化",
+      "bizType": "加工",
+      "slaHours": 8,
+      "cutoffTime": "15:00",
+      "accuracyRate": 99,
+      "packRule": "按 SKU 分区，成品贴加工批次",
+      "requirementStatus": "inactive",
+      "effectDate": "2026-03-01"
+    }
+  ]
+}

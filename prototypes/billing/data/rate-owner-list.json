@@ -1,12 +1,14 @@
 {
   "rows": [
-    { "owner": "海纳食品", "rateCode": "RATE001", "feeItem": "仓租", "chargeMode": "按面积", "price": 28.0, "effectDate": "2026-01-01", "rateStatus": "active" },
-    { "owner": "海纳食品", "rateCode": "RATE002", "feeItem": "入库操作费", "chargeMode": "按托", "price": 12.5, "effectDate": "2026-01-01", "rateStatus": "active" },
-    { "owner": "海纳食品", "rateCode": "RATE003", "feeItem": "出库操作费", "chargeMode": "按件", "price": 0.8, "effectDate": "2026-01-01", "rateStatus": "active" },
-    { "owner": "海纳食品", "rateCode": "RATE004", "feeItem": "增值服务费", "chargeMode": "按票", "price": 35.0, "effectDate": "2026-03-01", "rateStatus": "inactive" },
-    { "owner": "辰星日化", "rateCode": "RATE005", "feeItem": "仓租", "chargeMode": "按面积", "price": 26.0, "effectDate": "2026-01-01", "rateStatus": "active" },
-    { "owner": "辰星日化", "rateCode": "RATE006", "feeItem": "入库操作费", "chargeMode": "按托", "price": 11.0, "effectDate": "2026-01-01", "rateStatus": "active" },
-    { "owner": "辰星日化", "rateCode": "RATE007", "feeItem": "出库操作费", "chargeMode": "按件", "price": 0.75, "effectDate": "2026-01-01", "rateStatus": "active" },
-    { "owner": "辰星日化", "rateCode": "RATE008", "feeItem": "增值服务费", "chargeMode": "按票", "price": 30.0, "effectDate": "2026-03-01", "rateStatus": "active" }
+    { "ruleNo": "RL20261101", "itemCode": "SV001", "itemName": "仓租", "contractNo": "CT2026-01", "feeType": "仓租", "owner": "海纳食品", "warehouse": "华东中心仓", "unit": "托", "costPeriod": "自然月", "price": 28, "effectiveFrom": "2026-01-01", "validTo": "2026-12-31", "ruleStatus": "enabled" },
+    { "ruleNo": "RL20261102", "itemCode": "SV002", "itemName": "入库上架费", "contractNo": "CT2026-01", "feeType": "入库作业", "owner": "海纳食品", "warehouse": "华东中心仓", "unit": "件", "costPeriod": "按单", "price": 0.8, "effectiveFrom": "2026-01-01", "validTo": "2026-12-31", "ruleStatus": "enabled" },
+    { "ruleNo": "RL20261103", "itemCode": "SV003", "itemName": "出库分拣费", "contractNo": "CT2026-01", "feeType": "出库作业", "owner": "海纳食品", "warehouse": "华东中心仓", "unit": "件", "costPeriod": "按单", "price": 0.8, "effectiveFrom": "2026-01-01", "validTo": "2026-12-31", "ruleStatus": "enabled" },
+    { "ruleNo": "RL20261104", "itemCode": "SV004", "itemName": "贴标费", "contractNo": "CT2026-01", "feeType": "增值服务", "owner": "海纳食品", "warehouse": "华东中心仓", "unit": "件", "costPeriod": "按单", "price": 1.2, "effectiveFrom": "2026-01-01", "validTo": "2026-12-31", "ruleStatus": "enabled" },
+    { "ruleNo": "RL20261105", "itemCode": "SV005", "itemName": "仓租", "contractNo": "CT2026-03", "feeType": "仓租", "owner": "辰星日化", "warehouse": "华东中心仓", "unit": "托", "costPeriod": "自然月", "price": 26, "effectiveFrom": "2026-01-01", "validTo": "2026-12-31", "ruleStatus": "enabled" },
+    { "ruleNo": "RL20261106", "itemCode": "SV006", "itemName": "入库上架费", "contractNo": "CT2026-03", "feeType": "入库作业", "owner": "辰星日化", "warehouse": "华东中心仓", "unit": "件", "costPeriod": "按单", "price": 0.75, "effectiveFrom": "2026-01-01", "validTo": "2026-12-31", "ruleStatus": "enabled" },
+    { "ruleNo": "RL20261110", "itemCode": "SV010", "itemName": "质检费", "contractNo": "CT2026-03", "feeType": "增值服务", "owner": "辰星日化", "warehouse": "华北分拨仓", "unit": "件", "costPeriod": "按单", "price": 0.6, "effectiveFrom": "2026-01-01", "validTo": "2027-01-31", "ruleStatus": "enabled" },
+    { "ruleNo": "RL20261111", "itemCode": "SV011", "itemName": "卸货费", "contractNo": "CT2026-01", "feeType": "入库作业", "owner": "海纳食品", "warehouse": "华中转运仓", "unit": "托", "costPeriod": "按单", "price": 18, "effectiveFrom": "2026-01-01", "validTo": "2026-12-31", "ruleStatus": "enabled" },
+    { "ruleNo": "RL20261112", "itemCode": "SV012", "itemName": "运输费", "contractNo": "CT2026-01", "feeType": "运输", "owner": "海纳食品", "warehouse": "华南前置仓", "unit": "单", "costPeriod": "按单", "price": 45, "effectiveFrom": "2026-01-01", "validTo": "2026-12-31", "ruleStatus": "disabled" },
+    { "ruleNo": "RL20261113", "itemCode": "SV013", "itemName": "贴标费", "contractNo": "CT2026-03", "feeType": "增值服务", "owner": "辰星日化", "warehouse": "华北分拨仓", "unit": "件", "costPeriod": "按单", "price": 1.2, "effectiveFrom": "2026-01-01", "validTo": "2026-12-31", "ruleStatus": "enabled" }
   ]
 }

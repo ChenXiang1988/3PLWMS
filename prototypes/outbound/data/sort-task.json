@@ -7,8 +7,10 @@
       "firstContainer": "PLT-018",
       "secondContainer": "CTN-1001",
       "grid": "A01",
-      "orderCount": 12,
-      "pickedQty": 240,
+      "orderCount": 120,
+      "lineCount": 260,
+      "containerCount": 96,
+      "pickedQty": 2400,
       "sortStatus": "closed"
     },
     {

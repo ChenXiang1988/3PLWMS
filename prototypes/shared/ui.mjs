@@ -424,6 +424,7 @@ export function ScanPage({
   owner = '', operator = '', device = '', location = '',
   scanLabel = '扫描商品条码', scanHint = '对准条码扫描', scanThen = '',
   line = null, planQty = 0, doneQty = 0, thisTime = 0, qtyUnit = '件',
+  stockStatus = '', executionNo = '', receiptStatus = '',
   logs = [], primary = '确认', next = '下一件',
 } = {}) {
   const p = Number(planQty || 0);
@@ -437,9 +438,10 @@ export function ScanPage({
     : '';
   const nav = `<div class="wx-scan-nav"><button type="button" class="wx-scan-back" data-toast="返回上一屏（原型示意）" aria-label="返回">‹</button>`
     + `<b>${esc(process)}</b>${StatusTag(state, stateTone)}</div>`;
+  const trace = [stockStatus ? `库存 ${stockStatus}` : '', executionNo ? `执行 ${executionNo}` : '', receiptStatus ? `回执 ${receiptStatus}` : ''].filter(Boolean).join(' · ');
   const ctx = `<div class="wx-scan-ctx"><b>${esc(docNo)}</b>`
     + (refNo ? `<em>${esc(refNo)}</em>` : '')
-    + `<span>${esc(ctxLine)}</span></div>`;
+    + `<span>${esc(ctxLine)}</span>${trace ? `<small>${esc(trace)}</small>` : ''}</div>`;
   const input = `<div class="wx-scan-input"><label>${esc(scanLabel)}</label>`
     + `<div class="wx-scan-field"><span aria-hidden="true">▣</span>`
     + `<input inputmode="text" autocomplete="off" placeholder="${esc(scanHint)}">`
@@ -621,6 +623,7 @@ export const BASE_CSS = `
 .wx-scan-ctx{display:flex;flex-direction:column;gap:var(--wx-sp-1);padding:var(--wx-sp-3);background:var(--wx-gray-50);border-radius:var(--wx-r-sm)}
 .wx-scan-ctx em{font-style:normal;font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
 .wx-scan-ctx span{font-size:var(--wx-fs-xs);color:var(--wx-gray-500)}
+.wx-scan-ctx small{font-size:var(--wx-fs-xs);color:var(--wx-primary-600)}
 .wx-scan-input label{display:block;font-size:var(--wx-fs-sm);color:var(--wx-gray-700);margin-bottom:var(--wx-sp-2)}
 .wx-scan-field{display:flex;align-items:center;gap:var(--wx-sp-2)}
 .wx-scan-field input{flex:1;min-width:0;min-height:var(--wx-touch);border:var(--wx-border);border-radius:var(--wx-r-sm);padding:0 var(--wx-sp-3)}

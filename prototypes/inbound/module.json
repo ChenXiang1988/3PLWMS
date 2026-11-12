@@ -1,7 +1,7 @@
 {
   "id": "inbound",
   "name": "入库管理",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "owner": "产品组",
   "tier": "core",
   "deployed": true,

@@ -1,12 +1,200 @@
 {
   "rows": [
-    { "owner": "海纳食品", "billNo": "BILL202611001", "billStatus": "pending", "period": "2026-11", "totalFee": 4200.0, "feeItem": "仓储作业费", "billingMode": "按件", "unitPrice": 1.20, "qty": 3500, "amount": 4200.0, "docNo": "OP20261108001", "createTime": "2026-11-06 09:00", "confirmTime": "", "confirmBy": "" },
-    { "owner": "海纳食品", "billNo": "BILL202610001", "billStatus": "confirmed", "period": "2026-10", "totalFee": 15600.0, "feeItem": "仓租", "billingMode": "按托", "unitPrice": 12.00, "qty": 1300, "amount": 15600.0, "docNo": "WH-HN-01", "createTime": "2026-11-02 10:15", "confirmTime": "2026-11-03 10:00", "confirmBy": "陈晓" },
-    { "owner": "海纳食品", "billNo": "BILL202609001", "billStatus": "paid", "period": "2026-09", "totalFee": 12800.0, "feeItem": "出库操作费", "billingMode": "按件", "unitPrice": 0.80, "qty": 16000, "amount": 12800.0, "docNo": "OP202609001", "createTime": "2026-10-03 09:30", "confirmTime": "2026-10-04 09:20", "confirmBy": "陈晓" },
-    { "owner": "海纳食品", "billNo": "BILL202608001", "billStatus": "invoiced", "period": "2026-08", "totalFee": 11200.0, "feeItem": "入库操作费", "billingMode": "按件", "unitPrice": 1.00, "qty": 11200, "amount": 11200.0, "docNo": "OP202608001", "createTime": "2026-09-03 11:05", "confirmTime": "2026-09-04 14:10", "confirmBy": "陈晓" },
-    { "owner": "辰星日化", "billNo": "BILL202611002", "billStatus": "pending", "period": "2026-11", "totalFee": 3100.0, "feeItem": "仓储作业费", "billingMode": "按件", "unitPrice": 1.10, "qty": 2818, "amount": 3100.0, "docNo": "OP20261108003", "createTime": "2026-11-06 09:10", "confirmTime": "", "confirmBy": "" },
-    { "owner": "辰星日化", "billNo": "BILL202610002", "billStatus": "confirmed", "period": "2026-10", "totalFee": 10400.0, "feeItem": "仓租", "billingMode": "按托", "unitPrice": 10.00, "qty": 1040, "amount": 10400.0, "docNo": "WH-CX-01", "createTime": "2026-11-02 10:25", "confirmTime": "2026-11-03 11:30", "confirmBy": "周敏" },
-    { "owner": "辰星日化", "billNo": "BILL202609002", "billStatus": "paid", "period": "2026-09", "totalFee": 9600.0, "feeItem": "出库操作费", "billingMode": "按件", "unitPrice": 0.80, "qty": 12000, "amount": 9600.0, "docNo": "OP202609002", "createTime": "2026-10-03 09:40", "confirmTime": "2026-10-04 10:10", "confirmBy": "周敏" },
-    { "owner": "辰星日化", "billNo": "BILL202607002", "billStatus": "cancelled", "period": "2026-07", "totalFee": 8800.0, "feeItem": "仓储作业费", "billingMode": "按件", "unitPrice": 1.00, "qty": 8800, "amount": 8800.0, "docNo": "OP202607002", "createTime": "2026-08-03 14:20", "confirmTime": "", "confirmBy": "" }
-  ]
+    {
+      "billNo": "BILL202608001",
+      "billType": "混合",
+      "owner": "海纳食品",
+      "period": "2026-08",
+      "costObject": "华东中心仓",
+      "totalAmount": 11200,
+      "confirmedAmount": 0,
+      "differenceAmount": 11200,
+      "invoiceStatus": "uninvoiced",
+      "billStatus": "closed",
+      "sourceCount": 2,
+      "generateTime": "2026-09-03 09:00",
+      "dueDate": "2026-09-30",
+      "settlementNo": ""
+    },
+    {
+      "billNo": "BILL202609001",
+      "billType": "混合",
+      "owner": "海纳食品",
+      "period": "2026-09",
+      "costObject": "华东中心仓",
+      "totalAmount": 12800,
+      "confirmedAmount": 12800,
+      "differenceAmount": 0,
+      "invoiceStatus": "invoiced",
+      "billStatus": "confirmed",
+      "sourceCount": 2,
+      "generateTime": "2026-10-03 09:30",
+      "dueDate": "2026-10-31",
+      "settlementNo": "ST202609001",
+      "confirmTime": "2026-10-04 09:20",
+      "confirmBy": "陈晓"
+    },
+    {
+      "billNo": "BILL202610001",
+      "billType": "混合",
+      "owner": "海纳食品",
+      "period": "2026-10",
+      "costObject": "华东中心仓",
+      "totalAmount": 15600,
+      "confirmedAmount": 15600,
+      "differenceAmount": 0,
+      "invoiceStatus": "invoiced",
+      "billStatus": "confirmed",
+      "sourceCount": 4,
+      "generateTime": "2026-11-02 10:15",
+      "dueDate": "2026-11-30",
+      "settlementNo": "ST202610001",
+      "confirmTime": "2026-11-03 10:00",
+      "confirmBy": "陈晓"
+    },
+    {
+      "billNo": "BILL202611001",
+      "billType": "作业费",
+      "owner": "海纳食品",
+      "period": "2026-11",
+      "costObject": "华东中心仓",
+      "totalAmount": 4200,
+      "confirmedAmount": 4200,
+      "differenceAmount": 0,
+      "invoiceStatus": "uninvoiced",
+      "billStatus": "confirmed",
+      "sourceCount": 2,
+      "generateTime": "2026-11-06 09:00",
+      "dueDate": "2026-12-10",
+      "settlementNo": "ST202611001",
+      "confirmTime": "2026-11-07 09:30",
+      "confirmBy": "陈晓"
+    },
+    {
+      "billNo": "BILL202608002",
+      "billType": "混合",
+      "owner": "辰星日化",
+      "period": "2026-08",
+      "costObject": "华东中心仓",
+      "totalAmount": 7300,
+      "confirmedAmount": 7300,
+      "differenceAmount": 0,
+      "invoiceStatus": "invoiced",
+      "billStatus": "confirmed",
+      "sourceCount": 3,
+      "generateTime": "2026-09-03 09:40",
+      "dueDate": "2026-09-30",
+      "settlementNo": "ST202608001",
+      "confirmTime": "2026-10-04 10:10",
+      "confirmBy": "周敏"
+    },
+    {
+      "billNo": "BILL202609002",
+      "billType": "混合",
+      "owner": "辰星日化",
+      "period": "2026-09",
+      "costObject": "华东中心仓",
+      "totalAmount": 9600,
+      "confirmedAmount": 9600,
+      "differenceAmount": 0,
+      "invoiceStatus": "invoiced",
+      "billStatus": "confirmed",
+      "sourceCount": 2,
+      "generateTime": "2026-10-03 09:50",
+      "dueDate": "2026-10-31",
+      "settlementNo": "ST202609002",
+      "confirmTime": "2026-10-04 10:40",
+      "confirmBy": "周敏"
+    },
+    {
+      "billNo": "BILL202610002",
+      "billType": "仓租",
+      "owner": "辰星日化",
+      "period": "2026-10",
+      "costObject": "华东中心仓",
+      "totalAmount": 10400,
+      "confirmedAmount": 10400,
+      "differenceAmount": 0,
+      "invoiceStatus": "invoiced",
+      "billStatus": "confirmed",
+      "sourceCount": 1,
+      "generateTime": "2026-11-02 10:25",
+      "dueDate": "2026-11-30",
+      "settlementNo": "ST202610002",
+      "confirmTime": "2026-11-03 11:30",
+      "confirmBy": "周敏"
+    },
+    {
+      "billNo": "BILL202611002",
+      "billType": "作业费",
+      "owner": "辰星日化",
+      "period": "2026-11",
+      "costObject": "华东中心仓",
+      "totalAmount": 3099.8,
+      "confirmedAmount": 0,
+      "differenceAmount": 3099.8,
+      "invoiceStatus": "uninvoiced",
+      "billStatus": "pending",
+      "sourceCount": 2,
+      "generateTime": "2026-11-06 09:10",
+      "dueDate": "2026-12-10",
+      "settlementNo": ""
+    },
+    {
+      "billNo": "BILL202611004",
+      "billType": "增值服务",
+      "owner": "辰星日化",
+      "period": "2026-11",
+      "costObject": "华北分拨仓",
+      "totalAmount": 1200,
+      "confirmedAmount": 800,
+      "differenceAmount": 400,
+      "invoiceStatus": "uninvoiced",
+      "billStatus": "disputed",
+      "sourceCount": 1,
+      "generateTime": "2026-11-07 09:20",
+      "dueDate": "2026-12-10",
+      "settlementNo": "",
+      "disputeReason": "贴标数量与实物不符，差异 400 元"
+    }
+  ],
+  "details": {
+    "BILL202608001": [
+      { "feeType": "仓租", "feeItem": "仓租", "billingMode": "按托", "unit": "托", "unitPrice": 28, "qty": 300, "amountBeforeTax": 7924.53, "taxRate": 6, "amount": 8400, "ruleNo": "RL20261101", "ruleVersion": "v2", "sourceDocType": "库存快照", "sourceDocNo": "SNAP-20260831", "snapshotDate": "2026-08-31" },
+      { "feeType": "入库作业", "feeItem": "入库上架费", "billingMode": "按件", "unit": "件", "unitPrice": 0.8, "qty": 3500, "amountBeforeTax": 2641.51, "taxRate": 6, "amount": 2800, "ruleNo": "RL20261102", "ruleVersion": "v2", "sourceDocType": "上架单", "sourceDocNo": "UP20260815001", "snapshotDate": "2026-08-15" }
+    ],
+    "BILL202609001": [
+      { "feeType": "仓租", "feeItem": "仓租", "billingMode": "按托", "unit": "托", "unitPrice": 28, "qty": 320, "amountBeforeTax": 8452.83, "taxRate": 6, "amount": 8960, "ruleNo": "RL20261101", "ruleVersion": "v2", "sourceDocType": "库存快照", "sourceDocNo": "SNAP-20260930", "snapshotDate": "2026-09-30" },
+      { "feeType": "出库作业", "feeItem": "出库分拣费", "billingMode": "按件", "unit": "件", "unitPrice": 0.8, "qty": 4800, "amountBeforeTax": 3622.64, "taxRate": 6, "amount": 3840, "ruleNo": "RL20261103", "ruleVersion": "v3", "sourceDocType": "复核单", "sourceDocNo": "PK20260928001", "snapshotDate": "2026-09-28" }
+    ],
+    "BILL202610001": [
+      { "feeType": "仓租", "feeItem": "仓租", "billingMode": "按托", "unit": "托", "unitPrice": 28, "qty": 350, "amountBeforeTax": 9245.28, "taxRate": 6, "amount": 9800, "ruleNo": "RL20261101", "ruleVersion": "v2", "sourceDocType": "库存快照", "sourceDocNo": "SNAP-20261031", "snapshotDate": "2026-10-31" },
+      { "feeType": "入库作业", "feeItem": "入库上架费", "billingMode": "按件", "unit": "件", "unitPrice": 0.8, "qty": 4000, "amountBeforeTax": 3018.87, "taxRate": 6, "amount": 3200, "ruleNo": "RL20261102", "ruleVersion": "v2", "sourceDocType": "上架单", "sourceDocNo": "UP20261012001", "snapshotDate": "2026-10-12" },
+      { "feeType": "出库作业", "feeItem": "出库分拣费", "billingMode": "按件", "unit": "件", "unitPrice": 0.8, "qty": 1750, "amountBeforeTax": 1320.75, "taxRate": 6, "amount": 1400, "ruleNo": "RL20261103", "ruleVersion": "v3", "sourceDocType": "复核单", "sourceDocNo": "PK20261025001", "snapshotDate": "2026-10-25" },
+      { "feeType": "增值服务", "feeItem": "贴标费", "billingMode": "按件", "unit": "件", "unitPrice": 1.2, "qty": 1000, "amountBeforeTax": 1132.08, "taxRate": 6, "amount": 1200, "ruleNo": "RL20261104", "ruleVersion": "v1", "sourceDocType": "增值服务单", "sourceDocNo": "VS20261018001", "snapshotDate": "2026-10-18" }
+    ],
+    "BILL202611001": [
+      { "feeType": "仓租", "feeItem": "仓租", "billingMode": "按托", "unit": "托", "unitPrice": 28, "qty": 100, "amountBeforeTax": 2641.51, "taxRate": 6, "amount": 2800, "ruleNo": "RL20261101", "ruleVersion": "v2", "sourceDocType": "库存快照", "sourceDocNo": "SNAP-20261105", "snapshotDate": "2026-11-05" },
+      { "feeType": "入库作业", "feeItem": "入库上架费", "billingMode": "按件", "unit": "件", "unitPrice": 0.8, "qty": 1750, "amountBeforeTax": 1320.75, "taxRate": 6, "amount": 1400, "ruleNo": "RL20261102", "ruleVersion": "v2", "sourceDocType": "上架单", "sourceDocNo": "UP20261103001", "snapshotDate": "2026-11-03" }
+    ],
+    "BILL202608002": [
+      { "feeType": "仓租", "feeItem": "仓租", "billingMode": "按托", "unit": "托", "unitPrice": 26, "qty": 200, "amountBeforeTax": 4905.66, "taxRate": 6, "amount": 5200, "ruleNo": "RL20261105", "ruleVersion": "v1", "sourceDocType": "库存快照", "sourceDocNo": "SNAP-20260831", "snapshotDate": "2026-08-31" },
+      { "feeType": "入库作业", "feeItem": "入库上架费", "billingMode": "按件", "unit": "件", "unitPrice": 0.75, "qty": 2000, "amountBeforeTax": 1415.09, "taxRate": 6, "amount": 1500, "ruleNo": "RL20261106", "ruleVersion": "v1", "sourceDocType": "上架单", "sourceDocNo": "UP20260820001", "snapshotDate": "2026-08-20" },
+      { "feeType": "增值服务", "feeItem": "质检费", "billingMode": "按件", "unit": "件", "unitPrice": 0.6, "qty": 1000, "amountBeforeTax": 566.04, "taxRate": 6, "amount": 600, "ruleNo": "RL20261110", "ruleVersion": "v1", "sourceDocType": "质检单", "sourceDocNo": "QC20260822001", "snapshotDate": "2026-08-22" }
+    ],
+    "BILL202609002": [
+      { "feeType": "仓租", "feeItem": "仓租", "billingMode": "按托", "unit": "托", "unitPrice": 26, "qty": 300, "amountBeforeTax": 7358.49, "taxRate": 6, "amount": 7800, "ruleNo": "RL20261105", "ruleVersion": "v1", "sourceDocType": "库存快照", "sourceDocNo": "SNAP-20260930", "snapshotDate": "2026-09-30" },
+      { "feeType": "增值服务", "feeItem": "质检费", "billingMode": "按件", "unit": "件", "unitPrice": 0.6, "qty": 3000, "amountBeforeTax": 1698.11, "taxRate": 6, "amount": 1800, "ruleNo": "RL20261110", "ruleVersion": "v1", "sourceDocType": "质检单", "sourceDocNo": "QC20260925001", "snapshotDate": "2026-09-25" }
+    ],
+    "BILL202610002": [
+      { "feeType": "仓租", "feeItem": "仓租", "billingMode": "按托", "unit": "托", "unitPrice": 26, "qty": 400, "amountBeforeTax": 9811.32, "taxRate": 6, "amount": 10400, "ruleNo": "RL20261105", "ruleVersion": "v1", "sourceDocType": "库存快照", "sourceDocNo": "SNAP-20261031", "snapshotDate": "2026-10-31" }
+    ],
+    "BILL202611002": [
+      { "feeType": "仓租", "feeItem": "仓租", "billingMode": "按托", "unit": "托", "unitPrice": 26, "qty": 100, "amountBeforeTax": 2452.83, "taxRate": 6, "amount": 2600, "ruleNo": "RL20261105", "ruleVersion": "v1", "sourceDocType": "库存快照", "sourceDocNo": "SNAP-20261105", "snapshotDate": "2026-11-05" },
+      { "feeType": "入库作业", "feeItem": "入库上架费", "billingMode": "按件", "unit": "件", "unitPrice": 0.75, "qty": 666.4, "amountBeforeTax": 471.51, "taxRate": 6, "amount": 499.8, "ruleNo": "RL20261106", "ruleVersion": "v1", "sourceDocType": "上架单", "sourceDocNo": "UP20261104001", "snapshotDate": "2026-11-04" }
+    ],
+    "BILL202611004": [
+      { "feeType": "增值服务", "feeItem": "贴标费", "billingMode": "按件", "unit": "件", "unitPrice": 1.2, "qty": 1000, "amountBeforeTax": 1132.08, "taxRate": 6, "amount": 1200, "ruleNo": "RL20261113", "ruleVersion": "v1", "sourceDocType": "增值服务单", "sourceDocNo": "VS20261106001", "snapshotDate": "2026-11-06" }
+    ]
+  }
 }

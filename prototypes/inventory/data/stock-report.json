@@ -1,7 +1,11 @@
 {
+  "summary": { "onHandQty": 1842600, "availableQty": 1218800, "commitableQty": 1064300, "allocatedQty": 154500, "pickingQty": 68200, "frozenQty": 42100, "qualityQty": 28600, "diffQty": 1240 },
   "rows": [
-    { "owner": "海纳食品", "onHandQty": 960, "frozenQty": 60, "availableQty": 900, "binCount": 8 },
-    { "owner": "辰星日化", "onHandQty": 935, "frozenQty": 60, "availableQty": 875, "binCount": 6 },
-    { "owner": "云途电商", "onHandQty": 750, "frozenQty": 0, "availableQty": 750, "binCount": 5 }
+    { "owner": "海纳食品", "skuCount": 1260, "onHandQty": 806400, "availableQty": 552800, "committedQty": 183600, "allocatedQty": 60800, "diffQty": 480 },
+    { "owner": "辰星日化", "skuCount": 980, "onHandQty": 594200, "availableQty": 382000, "committedQty": 106400, "allocatedQty": 51200, "diffQty": 360 },
+    { "owner": "云途电商", "skuCount": 740, "onHandQty": 442000, "availableQty": 284000, "committedQty": 94200, "allocatedQty": 42500, "diffQty": 400 }
+  ],
+  "statusRows": [
+    { "label": "可用", "value": 1218800 }, { "label": "已分配", "value": 154500 }, { "label": "拣选中", "value": 68200 }, { "label": "冻结", "value": 42100 }, { "label": "质检中", "value": 28600 }, { "label": "差异待核验", "value": 1240 }
   ]
 }

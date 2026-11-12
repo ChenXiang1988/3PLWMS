@@ -41,6 +41,8 @@ export function renderPage(data, ctx) {
       { key: 'taskNo', label: '任务编号', width: '160px', cls: 'wx-col-strong' },
       { key: 'taskType', label: '任务类型', width: '120px', render: (r) => dash(r.taskType) },
       { key: 'sourceDocNo', label: '来源单据号', width: '160px', render: (r) => dash(r.sourceDocNo) },
+      { key: 'wesTaskNo', label: 'WES 任务号', width: '145px', render: (r) => dash(r.wesTaskNo) },
+      { key: 'rcsTaskNo', label: 'RCS 任务号', width: '145px', render: (r) => dash(r.rcsTaskNo) },
       {
         key: 'taskStatus', label: '任务状态', width: '108px',
         render: (r) => StatusTag(labelOf(r.taskStatus), toneOf(r.taskStatus)),
@@ -49,6 +51,8 @@ export function renderPage(data, ctx) {
       { key: 'operator', label: '执行人', width: '120px', render: (r) => dash(r.operator) },
       { key: 'planQty', label: '计划数量', width: '120px', align: 'right', render: (r) => n(r.planQty) },
       { key: 'doneQty', label: '已做数量', width: '120px', align: 'right', render: (r) => n(r.doneQty) },
+      { key: 'receiptStatus', label: '回执状态', width: '105px', render: (r) => dash(r.receiptStatus) },
+      { key: 'compensationStatus', label: '补偿状态', width: '105px', render: (r) => dash(r.compensationStatus) },
       { key: 'progress', label: '作业进度', width: '160px', render: (r) => ProgressCell(r.doneQty, r.planQty) },
       { key: 'createTime', label: '创建时间', width: '157px', render: (r) => dash(r.createTime) },
     ],

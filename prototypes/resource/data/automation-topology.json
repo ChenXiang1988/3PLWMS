@@ -1,21 +1,17 @@
 {
   "warehouse": "华东一号仓",
-  "snapshotAt": "2026-11-09 10:00",
+  "snapshotAt": "2026-11-12 10:30",
   "nodes": [
-    { "nodeCode": "NODE-IN-01", "zone": "收货区", "station": "收货月台 01", "nodeType": "入库节点", "connectionStatus": "已连接", "deviceCode": "DRV-CONV-01", "currentTaskCount": 8, "alternativePath": "人工收货台 R-02", "nodeStatus": "normal", "lastAlarm": "—", "recoveryResult": "—", "events": [{ "time": "2026-11-09 09:30", "event": "节点心跳正常", "operator": "系统" }] },
-    { "nodeCode": "NODE-QC-01", "zone": "质检区", "station": "质检工位 01", "nodeType": "人工节点", "connectionStatus": "已连接", "deviceCode": "DRV-SCAN-01", "currentTaskCount": 5, "alternativePath": "质检工位 02", "nodeStatus": "normal", "lastAlarm": "—", "recoveryResult": "—", "events": [{ "time": "2026-11-09 09:20", "event": "能力校验通过", "operator": "系统" }] },
-    { "nodeCode": "NODE-AGV-01", "zone": "搬运区", "station": "AGV 交接点 A", "nodeType": "设备节点", "connectionStatus": "已连接", "deviceCode": "DRV-AGV-01", "currentTaskCount": 12, "alternativePath": "AGV 交接点 B", "nodeStatus": "normal", "lastAlarm": "—", "recoveryResult": "—", "events": [{ "time": "2026-11-09 10:00", "event": "路径状态正常", "operator": "系统" }] },
-    { "nodeCode": "NODE-PUT-01", "zone": "高位库 A 区", "station": "上架站 01", "nodeType": "设备节点", "connectionStatus": "连接失败", "deviceCode": "DRV-FORK-01", "currentTaskCount": 7, "alternativePath": "NODE-PUT-02 / 人工叉车", "nodeStatus": "fault", "lastAlarm": "ALM-20261109-018 服务无响应", "recoveryResult": "待人工接管", "events": [{ "time": "2026-11-09 08:18", "event": "连接超时，任务暂停", "operator": "系统" }, { "time": "2026-11-09 08:35", "event": "切换替代路径失败", "operator": "陈晓" }] },
-    { "nodeCode": "NODE-OUT-01", "zone": "发运区", "station": "交接月台 03", "nodeType": "出库节点", "connectionStatus": "已连接", "deviceCode": "DRV-PRINT-01", "currentTaskCount": 4, "alternativePath": "交接月台 04", "nodeStatus": "degraded", "lastAlarm": "ALM-20261108-022 打印服务异常", "recoveryResult": "已切换备用打印机", "events": [{ "time": "2026-11-08 17:50", "event": "切换备用设备", "operator": "周敏" }] }
+    { "nodeCode": "NODE-IN-01", "zone": "收货区", "station": "收货月台 01", "nodeType": "业务节点", "connectionStatus": "已连接", "rcsPartner": "—", "deviceCode": "人工收货台", "currentTaskCount": 86, "businessImpact": "收货可继续，吞吐正常", "manualTakeover": "不适用", "alternativePath": "人工收货台 R-02", "nodeStatus": "normal", "lastAlarm": "—", "recoveryResult": "—", "events": [{ "time": "2026-11-12 10:20", "event": "收货业务节点正常", "operator": "系统" }] },
+    { "nodeCode": "NODE-RCS-01", "zone": "搬运区", "station": "AGV 交接点 A", "nodeType": "RCS 接入节点", "connectionStatus": "已连接", "rcsPartner": "迅达 RCS", "deviceCode": "RCS-CONN-01", "currentTaskCount": 420, "businessImpact": "搬运任务正常释放", "manualTakeover": "未接管", "alternativePath": "AGV 交接点 B", "nodeStatus": "normal", "lastAlarm": "—", "recoveryResult": "—", "events": [{ "time": "2026-11-12 10:00", "event": "RCS 回执链路正常", "operator": "系统" }] },
+    { "nodeCode": "NODE-RCS-02", "zone": "上架区", "station": "上架站 01", "nodeType": "RCS 接入节点", "connectionStatus": "连接失败", "rcsPartner": "迅达 RCS", "deviceCode": "RCS-CONN-03", "currentTaskCount": 96, "businessImpact": "上架任务暂停，影响 2,400 件", "manualTakeover": "已接管", "alternativePath": "人工叉车 F-07", "nodeStatus": "fault", "lastAlarm": "ALM-20261112-018 RCS 回执超时", "recoveryResult": "已转人工接管", "events": [{ "time": "2026-11-12 10:18", "event": "回执超时，任务进入补偿队列", "operator": "系统" }, { "time": "2026-11-12 10:25", "event": "人工接管确认", "operator": "李静" }] },
+    { "nodeCode": "NODE-SORT-01", "zone": "分拣区", "station": "分拣工作站 03", "nodeType": "RCS 接入节点", "connectionStatus": "已连接", "rcsPartner": "北斗 RCS", "deviceCode": "RCS-CONN-02", "currentTaskCount": 180, "businessImpact": "分拣可用，工作站负荷 82%", "manualTakeover": "未接管", "alternativePath": "分拣工作站 04", "nodeStatus": "degraded", "lastAlarm": "ALM-20261112-022 工作站积压", "recoveryResult": "已限流释放", "events": [{ "time": "2026-11-12 10:22", "event": "按负荷阈值降级释放", "operator": "WES" }] }
   ],
   "graphNodes": [
-    { "id": "in", "label": "收货月台", "layer": 0, "gen": "自动", "subject": "输送线", "cond": "8 个任务", "props": [{ "label": "节点", "value": "NODE-IN-01" }, { "label": "状态", "value": "正常" }, { "label": "替代", "value": "人工收货台 R-02" }] },
-    { "id": "qc", "label": "质检工位", "layer": 1, "gen": "人工确认", "subject": "扫码枪", "cond": "5 个任务", "props": [{ "label": "节点", "value": "NODE-QC-01" }, { "label": "状态", "value": "正常" }, { "label": "替代", "value": "质检工位 02" }] },
-    { "id": "agv", "label": "AGV 交接点", "layer": 2, "gen": "自动", "subject": "AGV", "cond": "12 个任务", "props": [{ "label": "节点", "value": "NODE-AGV-01" }, { "label": "状态", "value": "正常" }, { "label": "替代", "value": "AGV 交接点 B" }] },
-    { "id": "put", "label": "上架站 01", "layer": 3, "gen": "自动", "subject": "叉车", "cond": "故障 · 7 个任务", "props": [{ "label": "节点", "value": "NODE-PUT-01" }, { "label": "状态", "value": "故障" }, { "label": "替代", "value": "NODE-PUT-02 / 人工叉车" }] },
-    { "id": "out", "label": "交接月台", "layer": 4, "gen": "人工确认", "subject": "打印机", "cond": "降级 · 4 个任务", "props": [{ "label": "节点", "value": "NODE-OUT-01" }, { "label": "状态", "value": "降级" }, { "label": "替代", "value": "交接月台 04" }] }
+    { "id": "in", "label": "收货业务", "layer": 0, "gen": "业务节点", "subject": "WMS", "cond": "86 个任务", "props": [{ "label": "节点", "value": "NODE-IN-01" }, { "label": "状态", "value": "正常" }, { "label": "影响", "value": "吞吐正常" }] },
+    { "id": "rcs", "label": "RCS 搬运", "layer": 1, "gen": "RCS 接入", "subject": "迅达 RCS", "cond": "420 个任务", "props": [{ "label": "节点", "value": "NODE-RCS-01" }, { "label": "状态", "value": "正常" }, { "label": "影响", "value": "正常释放" }] },
+    { "id": "put", "label": "RCS 上架", "layer": 2, "gen": "RCS 接入", "subject": "迅达 RCS", "cond": "故障 · 96 个任务", "props": [{ "label": "节点", "value": "NODE-RCS-02" }, { "label": "状态", "value": "人工接管" }, { "label": "影响", "value": "2,400 件" }] },
+    { "id": "sort", "label": "RCS 分拣", "layer": 3, "gen": "RCS 接入", "subject": "北斗 RCS", "cond": "降级 · 180 个任务", "props": [{ "label": "节点", "value": "NODE-SORT-01" }, { "label": "状态", "value": "限流释放" }, { "label": "影响", "value": "负荷 82%" }] }
   ],
-  "edges": [
-    { "from": "in", "to": "qc" }, { "from": "qc", "to": "agv" }, { "from": "agv", "to": "put" }, { "from": "put", "to": "out" }
-  ]
+  "edges": [{ "from": "in", "to": "rcs" }, { "from": "rcs", "to": "put" }, { "from": "put", "to": "sort" }]
 }
